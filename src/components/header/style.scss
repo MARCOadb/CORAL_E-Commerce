@@ -1,5 +1,5 @@
 @mixin for-desktop-up {
-  @media (min-width: 1200px) {
+  @media (min-width: 1280px) {
     @content;
   }
 }
@@ -24,4 +24,11 @@
   display: flex;
   flex-direction: row;
   gap: 24px;
+  @include for-desktop-up {
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 18px;
+    color: #171520;
+    gap: 20px;
+  }
 }
