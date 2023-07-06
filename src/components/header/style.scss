@@ -1,0 +1,34 @@
+@mixin for-desktop-up {
+  @media (min-width: 1280px) {
+    @content;
+  }
+}
+
+.headerContainer {
+  display: flex;
+  width: 100%;
+  padding: 20px 16px;
+  justify-content: space-between;
+
+  font-size: 20px;
+  font-weight: 600;
+  line-height: 26px;
+  color: #1b4b66;
+
+  @include for-desktop-up {
+    padding: 20px 29px;
+  }
+}
+
+.navContainer {
+  display: flex;
+  flex-direction: row;
+  gap: 24px;
+  @include for-desktop-up {
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 18px;
+    color: #171520;
+    gap: 20px;
+  }
+}
