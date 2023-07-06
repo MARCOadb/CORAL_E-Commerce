@@ -38,7 +38,7 @@ p {
 
 .banner {
   display: flex;
-  width: 100vw;
+  width: 100%;
   height: auto;
   position: relative;
 }
@@ -75,7 +75,8 @@ p {
 .main-textbox {
   display: flex;
   width: 713px;
-  height: 98px;
+  height: 132px;
+  gap: 8px;
   flex-direction: column;
   text-align: center;
   align-self: center;
@@ -84,19 +85,28 @@ p {
 .textbox {
   display: flex;
   flex-direction: column;
+  gap: 8px;
   width: 497px;
-  height: 134px;
+  height: 168px;
 }
 
 .content-container {
   display: flex;
   flex-direction: column;
   height: auto;
-  width: 100vw;
+  width: 100%;
   gap: 40px;
   padding: 20px;
   margin-top: 20px;
   box-sizing: border-box;
+}
+
+.content-max-width {
+  display: flex;
+  max-width: 1640px;
+  height: auto;
+  justify-content: center;
+  margin: 0 auto;
 }
 
 .description-rows {
@@ -105,10 +115,11 @@ p {
   height: auto;
   width: auto;
   align-items: center;
+  justify-content: center;
   gap: 32px;
 }
 
 .description-rows img {
-  width: 72.25%;
+  width: 57.25%;
   height: 100%;
 }
