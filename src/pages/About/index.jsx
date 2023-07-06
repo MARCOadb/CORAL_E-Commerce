@@ -1,5 +1,5 @@
+import Footer from "../../components/footer";
+
 export default function About() {
-    return (
-        <h1>Página About</h1>
-    )
+    return <Footer ></Footer >;
 }
