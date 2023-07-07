@@ -183,6 +183,8 @@ p {
 }
 
 .description-rows img {
-  width: 100%;
   height: auto;
+  @include phone {
+    width: 100%;
+  }
 }
