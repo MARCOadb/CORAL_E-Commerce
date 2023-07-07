@@ -5,8 +5,8 @@ export default function About() {
     
     return (
         < >
-        <Header />;
-        <Footer ></Footer >;
+        <Header />
+        <Footer ></Footer>
         </>
     )
 }
