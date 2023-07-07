@@ -1,7 +1,17 @@
+@mixin phone {
+  @media (max-width: 1279px) {
+    @content;
+  }
+}
+
 body {
   padding: 0;
   margin: 0;
   background-color: #ffffff;
+}
+
+img {
+  pointer-events: none;
 }
 
 h1 {
@@ -14,6 +24,9 @@ h1 {
   letter-spacing: 4.545px;
   text-transform: uppercase;
   margin: 0;
+  @include phone {
+    color: #fff;
+  }
 }
 
 h2 {
@@ -34,6 +47,12 @@ p {
   font-weight: 400;
   line-height: 20px;
   margin: 0;
+  @include phone {
+  }
+}
+
+.title-paragraph {
+  color: #fff;
 }
 
 .banner {
@@ -60,6 +79,18 @@ p {
     rgba(255, 255, 255, 0.8) 0%,
     rgba(217, 217, 217, 0) 100%
   );
+  @include phone {
+    background: linear-gradient(
+      360deg,
+      rgba(255, 255, 255, 0.8) 0%,
+      rgba(217, 217, 217, 0) 50%,
+      rgba(217, 217, 217, 0) 100%
+    );
+    width: 100%;
+    justify-content: center;
+    left: auto;
+    right: auto;
+  }
 }
 
 .title-textbox {
@@ -67,9 +98,19 @@ p {
   width: 453px;
   height: auto;
   position: absolute;
-  right: 64px;
+  right: 5vw;
   flex-direction: column;
   gap: 12px;
+  @include phone {
+    width: 70vw;
+    height: auto;
+    color: #fff;
+    text-align: center;
+    justify-content: center;
+    position: initial;
+    gap: 4vw;
+    //text-shadow: 0px 4px 16px 0px rgba(0, 0, 0, 0.5);
+  }
 }
 
 .main-textbox {
@@ -80,6 +121,11 @@ p {
   flex-direction: column;
   text-align: center;
   align-self: center;
+  @include phone {
+    width: auto;
+    height: auto;
+    gap: 2vw;
+  }
 }
 
 .textbox {
@@ -88,6 +134,11 @@ p {
   gap: 8px;
   width: 497px;
   height: 168px;
+  @include phone {
+    width: auto;
+    height: auto;
+    gap: 3vw;
+  }
 }
 
 .content-container {
@@ -98,7 +149,14 @@ p {
   gap: 40px;
   padding: 20px;
   margin-top: 20px;
+  margin-bottom: 97px;
   box-sizing: border-box;
+  @include phone {
+    gap: 8vw;
+    padding: 4vw;
+    margin-top: 0;
+    margin-bottom: 64px;
+  }
 }
 
 .content-max-width {
@@ -117,9 +175,13 @@ p {
   align-items: center;
   justify-content: center;
   gap: 32px;
+  @include phone {
+    flex-direction: column;
+    gap: 3vw;
+  }
 }
 
 .description-rows img {
-  width: 57.25%;
-  height: 100%;
+  width: 100%;
+  height: auto;
 }
