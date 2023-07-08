@@ -1,0 +1,104 @@
+@mixin for-desktop-up {
+    @media (min-width: 1280px) {
+        @content;
+    }
+}
+
+.content {
+    width: 100%;
+    height: auto;
+}
+
+.warning {
+    height: 50px;
+    width: 1260px;
+    position: absolute;
+    top: 67px;
+    right: 0;
+    left: 0;
+    margin: 0 auto;
+    background-color: #F0F0F0;
+    text-align: center;
+    padding-top: 31px;
+
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 18px;
+
+    color: #171520;
+
+    a {
+        color: #1B4B66;
+        text-decoration: underline;
+    }
+}
+
+.hero-banner {
+    width: 1240px;
+    position: relative;
+    margin: 0 auto;
+    margin-top: 74px;
+    display: block;
+
+    button {
+        width: 180px;
+        height: 44px;
+        background-color: #1B4B66;
+        border-radius: 8px;
+        border: none;
+        padding: 10px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 8px;
+        transition: all 0.3s;
+
+        position: absolute;
+        top: 261px;
+        right: 468px;
+
+        span {
+            padding-top: 3px;
+            color: #FFF;
+            font-size: 16px;
+            line-height: 20px;
+            font-weight: 500;
+        }
+    }
+
+    button:hover {
+        transform: translateY(-5px);
+        box-shadow: 2px 4px 8px 0px rgba(0, 0, 0, 0.5);
+    }
+}
+
+.arrivals {
+    width: 100%;
+    padding-left: 20px;
+    padding-right: 20px;
+    margin-top: 68px;
+}
+
+.arrivals-title {
+    display: flex;
+    justify-content: space-between;
+
+    div {
+        width: 103px;
+        height: 44px;
+        display: flex;
+        padding: 10px 8px;
+        justify-content: space-between;
+
+        span {
+            font-size: 14px;
+            color: #1B4B66;
+            font-weight: 600;
+            line-height: 24px;
+        }
+
+        img {
+            width: 24px;
+        }
+    }
+}
