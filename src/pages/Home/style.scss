@@ -9,6 +9,14 @@
     height: auto;
 }
 
+h1 {
+    letter-spacing: normal;
+}
+
+img {
+    pointer-events: all;
+}
+
 .warning {
     height: 50px;
     width: 1260px;
@@ -121,7 +129,6 @@
 
 .arrivals-carousel {
     width: auto;
-    height: 412px;
     display: flex;
     overflow: hidden;
     scroll-behavior: smooth;
@@ -186,7 +193,6 @@
     background-color: #1B4B66;
     display: flex;
     flex-direction: column;
-    margin-bottom: 50px;
 
     h1 {
         font-size: 34px;
@@ -245,4 +251,64 @@
 
 .category:hover span {
     transform: translateY(-5px);
+}
+
+.brands-container {
+    margin: 67px auto;
+    width: 100%;
+    height: auto;
+    display: flex;
+    flex-direction: column;
+    padding-left: 20px;
+    gap: 24px;
+
+    h1 {
+        font-size: 34px;
+        font-weight: 600;
+        line-height: 44px;
+        color: #13101E;
+        text-transform: none;
+    }
+}
+
+.brands {
+    width: 100%;
+    display: flex;
+    gap: 46px;
+
+    img {
+        width: 168px;
+        height: 168px;
+        transition: all 0.3s;
+        cursor: pointer;
+        border-radius: 16px;
+    }
+
+    img:hover {
+        transform: scale(1.05);
+        box-shadow: 1px 1px 8px -2px rgba(0, 0, 0, 0.5);
+    }
+}
+
+.banners {
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+    padding: 0 20px;
+    margin-bottom: 68px;
+
+    div {
+        display: flex;
+        gap: 32px;
+
+        img {
+            transition: all 0.3s;
+            cursor: pointer;
+        }
+
+        img:hover {
+            transform: scale(1.05);
+        }
+    }
+
 }

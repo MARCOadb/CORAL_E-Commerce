@@ -6,6 +6,9 @@ import Footer from "../../components/footer";
 
 //IMAGES & ICONS
 import hero from '../../assets/pics/hero.png'
+import hero2 from '../../assets/pics/hero-2.png'
+import shortHero from '../../assets/pics/short-hero.png'
+import shortHero2 from '../../assets/pics/short-hero-2.png'
 import arrowIcon from '../../assets/icon/arrow.svg'
 import chevronRight from '../../assets/icon/chevron-right.svg'
 import grande from '../../assets/pics/bolsa-grande.png'
@@ -17,6 +20,12 @@ import perfume from '../../assets/pics/laura-chouette-Atomp7YdMaE-unsplash 1.png
 import watch from '../../assets/pics/wrist-watch.png'
 import pinkBag from '../../assets/pics/pink-bag-2.png'
 import glasses from '../../assets/pics/glasses.png'
+import zara from '../../assets/pics/zara-logo.png'
+import dg from '../../assets/pics/D&G-logo.png'
+import hm from '../../assets/pics/H&M-logo.png'
+import chanel from '../../assets/pics/chanel-logo.png'
+import prada from '../../assets/pics/prada-logo.png'
+import biba from '../../assets/pics/biba-logo.png'
 
 //STYLES
 import './style.scss'
@@ -32,7 +41,7 @@ export default function Home() {
                 </div>
 
                 <div className="hero-banner">
-                    <img src={hero} alt="Imagem Banner" />
+                    <img src={hero} alt="Banner Image" />
                     <button>
                         <img src={arrowIcon} alt="Arrow" />
                         <span>See more</span>
@@ -128,6 +137,27 @@ export default function Home() {
                             <span>Sun Glasses</span>
                         </div>
 
+                    </div>
+                </div>
+
+                <div className="brands-container">
+                    <h1>Shop by Brands</h1>
+
+                    <div className="brands">
+                        <img src={zara} alt="Zara logo" />
+                        <img src={dg} alt="D&G logo" />
+                        <img src={hm} alt="H&M logo" />
+                        <img src={chanel} alt="Chanel logo" />
+                        <img src={prada} alt="Prada logo" />
+                        <img src={biba} alt="Biba logo" />
+                    </div>
+                </div>
+
+                <div className="banners">
+                    <img src={hero2} alt="Banner Image" />
+                    <div>
+                        <img src={shortHero} alt="Small Banner Image" />
+                        <img src={shortHero2} alt="Small Banner Image" />
                     </div>
                 </div>
             </div>
