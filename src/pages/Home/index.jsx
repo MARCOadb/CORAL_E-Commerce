@@ -8,9 +8,15 @@ import Footer from "../../components/footer";
 import hero from '../../assets/pics/hero.png'
 import arrowIcon from '../../assets/icon/arrow.svg'
 import chevronRight from '../../assets/icon/chevron-right.svg'
-import pinkBag from '../../assets/pics/pink-bag-small-2.png'
+import grande from '../../assets/pics/bolsa-grande.png'
+import remus from '../../assets/pics/bolsa-remus.png'
+import coach from '../../assets/pics/bolsa-coach.png'
+import boujee from '../../assets/pics/bolsa-boujee.png'
 import heart from '../../assets/icon/wishlist-black.svg'
 import perfume from '../../assets/pics/laura-chouette-Atomp7YdMaE-unsplash 1.png'
+import watch from '../../assets/pics/wrist-watch.png'
+import pinkBag from '../../assets/pics/pink-bag-2.png'
+import glasses from '../../assets/pics/glasses.png'
 
 //STYLES
 import './style.scss'
@@ -36,82 +42,92 @@ export default function Home() {
                 <div className="arrivals">
                     <div className="arrivals-title">
                         <h1>New Arrivals</h1>
-                        <div>
+                        <button>
                             <span>View All</span>
                             <img src={chevronRight} alt="Chevron" />
-                        </div>
+                        </button>
                     </div>
 
                     <div className="arrivals-carousel">
                         <div className="item">
-                            <img src={pinkBag} alt="Item Name" />
+                            <img src={grande} alt="Item Name" className="item-cover" />
                             <div className="item-details">
                                 <div className="name-fav">
                                     <span>Grande</span>
                                     <img src={heart} alt="Heart" />
                                 </div>
-                                <span>Blossom Pouch</span>
-                                <span>$39.49</span>
+                                <span className="item-description">Blossom Pouch</span>
+                                <span className="item-price">$39.49</span>
                             </div>
                         </div>
 
                         <div className="item">
-                            <img src={pinkBag} alt="Item Name" />
+                            <img src={coach} alt="Item Name" className="item-cover" />
                             <div className="item-details">
                                 <div className="name-fav">
-                                    <span>Grande</span>
+                                    <span>Coach</span>
                                     <img src={heart} alt="Heart" />
                                 </div>
-                                <span>Blossom Pouch</span>
-                                <span>$39.49</span>
+                                <span className="item-description">Leather Coach Bag</span>
+                                <span className="item-price">$54.69</span>
                             </div>
                         </div>
 
                         <div className="item">
-                            <img src={pinkBag} alt="Item Name" />
+                            <img src={remus} alt="Item Name" className="item-cover" />
                             <div className="item-details">
                                 <div className="name-fav">
-                                    <span>Grande</span>
+                                    <span>Remus</span>
                                     <img src={heart} alt="Heart" />
                                 </div>
-                                <span>Blossom Pouch</span>
-                                <span>$39.49</span>
+                                <span className="item-description">Brown Strap Bag</span>
+                                <span className="item-price">$57.00</span>
                             </div>
                         </div>
 
                         <div className="item">
-                            <img src={pinkBag} alt="Item Name" />
+                            <img src={boujee} alt="Item Name" className="item-cover" />
                             <div className="item-details">
                                 <div className="name-fav">
-                                    <span>Grande</span>
+                                    <span>Boujee</span>
                                     <img src={heart} alt="Heart" />
                                 </div>
-                                <span>Blossom Pouch</span>
-                                <span>$39.49</span>
+                                <span className="item-description">Black Bag</span>
+                                <span className="item-price">$56.49</span>
                             </div>
                         </div>
+
                     </div>
                 </div>
 
-                <div className="collections">
-                    <div className="category">
-                        <img src={perfume} alt="Category Cover" />
-                        <span>Personal Care</span>
-                    </div>
+                <div className="collections-container">
+                    <h1>Handpicked Collections</h1>
+                    <div className="collection">
 
-                    <div className="category">
-                        <img src={perfume} alt="Category Cover" />
-                        <span>Personal Care</span>
-                    </div>
+                        <div className="category">
+                            <img src={perfume} alt="Category Cover" />
+                            <div className="shadow"></div>
+                            <span>Personal Care</span>
+                        </div>
 
-                    <div className="category">
-                        <img src={perfume} alt="Category Cover" />
-                        <span>Personal Care</span>
-                    </div>
+                        <div className="category">
+                            <img src={pinkBag} alt="Category Cover" />
+                            <div className="shadow"></div>
+                            <span>Handbags</span>
+                        </div>
 
-                    <div className="category">
-                        <img src={perfume} alt="Category Cover" />
-                        <span>Personal Care</span>
+                        <div className="category">
+                            <img src={watch} alt="Category Cover" />
+                            <div className="shadow"></div>
+                            <span>Wrist Watches</span>
+                        </div>
+
+                        <div className="category">
+                            <img src={glasses} alt="Category Cover" />
+                            <div className="shadow"></div>
+                            <span>Sun Glasses</span>
+                        </div>
+
                     </div>
                 </div>
             </div>
