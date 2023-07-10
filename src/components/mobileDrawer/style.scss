@@ -1,0 +1,16 @@
+.testBox {
+  display: flex;
+  background-color: blue;
+  width: 100%;
+  height: 340px;
+}
+.containerBox {
+  display: flex;
+  flex-direction: row;
+  width: 50%;
+  justify-content: space-around;
+}
+.textBox {
+  display: flex;
+  flex-direction: column;
+}
