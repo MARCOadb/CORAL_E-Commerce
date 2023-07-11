@@ -7,7 +7,7 @@ import arrowIcon from '../../assets/icon/arrow.svg'
 
 import useBreakpoint from '../../hooks/useBreakPoint'
 
-export default function HeroBanner() {
+export default function HeroBanner({ order }) {
     const { phone, desktop } = useBreakpoint();
 
     return (
@@ -22,10 +22,18 @@ export default function HeroBanner() {
                 </>
 
             ) : (
-                <div className='auto-slider'>
-                    <img src={heroMobile} alt="Banner Image" className="banner-img" />
-                    <img src={hero2Mobile} alt="Banner Image" className="banner-img" />
-                </div>
+                { order == 1 ? (
+                    <div className='auto-slider'>
+                        <img src={heroMobile} alt="Banner Image" className="banner-img" />
+                        <img src={hero2Mobile} alt="Banner Image" className="banner-img" />
+                    </div>
+                ) : (
+                    <div className='auto-slider'>
+                        <img src={hero2Mobile} alt="Banner Image" className="banner-img" />
+                        <img src={heroMobile} alt="Banner Image" className="banner-img" />
+                    </div>
+                )}
+
             )}
         </div>
     )

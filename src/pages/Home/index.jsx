@@ -53,7 +53,7 @@ export default function Home() {
                     </div>
                 )}
 
-                <HeroBanner />
+                <HeroBanner order={1} />
 
                 {phone && (
                     <div className="categories-container">
@@ -256,12 +256,13 @@ export default function Home() {
                     <div className="container-title">
                         <h1>Shop by Brands</h1>
                         <button>
-                            <span>View All</span>
-                            {phone ? (
-                                <img src={chevronRightSmall} alt="Chevron" />
-                            ) : (
-                                <img src={chevronRight} alt="Chevron" />
+                            {phone && (
+                                <>
+                                    <span>View All</span>
+                                    <img src={chevronRightSmall} alt="Chevron" />
+                                </>
                             )}
+
                         </button>
                     </div>
 
@@ -297,7 +298,7 @@ export default function Home() {
                 {phone && (
                     <div className="trendings-container">
                         <h1>Trending Deals</h1>
-                        <HeroBanner />
+                        <HeroBanner order={2} />
                     </div>
                 )}
 
