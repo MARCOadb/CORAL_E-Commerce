@@ -13,17 +13,20 @@ export default function HeroBanner() {
     return (
         <div className="hero-banner">
             {desktop ? (
-                <img src={hero} alt="Banner Image" className="banner-img" />
+                <>
+                    <img src={hero} alt="Banner Image" className="banner-img" />
+                    <button>
+                        <img src={arrowIcon} alt="Arrow" />
+                        <span>See more</span>
+                    </button>
+                </>
+
             ) : (
                 <div className='auto-slider'>
                     <img src={heroMobile} alt="Banner Image" className="banner-img" />
                     <img src={hero2Mobile} alt="Banner Image" className="banner-img" />
                 </div>
             )}
-            <button>
-                <img src={arrowIcon} alt="Arrow" />
-                <span>See more</span>
-            </button>
         </div>
     )
 }

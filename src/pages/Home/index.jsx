@@ -294,10 +294,13 @@ export default function Home() {
                     </div>
                 </div>
 
-                <div className="trendings-container">
-                    <h1>Trending Deals</h1>
-                    <HeroBanner />
-                </div>
+                {phone && (
+                    <div className="trendings-container">
+                        <h1>Trending Deals</h1>
+                        <HeroBanner />
+                    </div>
+                )}
+
             </div>
 
             <Footer />
