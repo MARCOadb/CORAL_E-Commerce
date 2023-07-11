@@ -27,7 +27,7 @@ const MobileDrawer = ({ setOpen, open }) => {
             <div className="listContainer">
               <TextAndArrow x={-90} text="Skincare" />
               <TextAndArrow x={-90} text="Apparels" />
-              <TextAndArrow x={-90} text="Jwellery" />
+              <TextAndArrow x={-90} text="Jewellery" />
               <TextAndArrow x={-90} text="Handbags" />
               <TextAndArrow x={-90} text="Eyeware" />
               <TextAndArrow x={-90} text="Fragrance" />

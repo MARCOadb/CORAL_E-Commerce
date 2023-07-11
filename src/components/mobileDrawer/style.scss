@@ -1,6 +1,6 @@
 .drawer {
   display: flex;
-  width: 300px;
+  width: 0px;
   height: 100%;
   background-color: transparent;
   position: fixed;
@@ -9,9 +9,12 @@
   z-index: -1;
   flex-direction: column;
   transition: all 500ms ease-in-out;
+  overflow: auto;
 }
 
 .drawerOpen {
+  width: 300px;
+
   z-index: 2;
   background-color: #fff;
 }
@@ -51,11 +54,12 @@
 .listContainer {
   width: 265px;
   flex-grow: 3;
+  flex-shrink: 0;
   margin: 12px 8px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-
+  gap: 10px;
   font-size: 14px;
   font-weight: 600;
   line-height: 16px;
@@ -67,6 +71,7 @@
   margin: 12px 13px 29px 8px;
   color: #13101e;
   flex-grow: 1;
+  gap: 10px;
 }
 .subTitle {
   display: flex;
