@@ -1,5 +1,5 @@
-@mixin for-desktop-up {
-    @media (min-width: 1280px) {
+@mixin phone {
+    @media (max-width: 1279px) {
         @content;
     }
 }
@@ -18,8 +18,9 @@ img {
 }
 
 .warning {
+    width: 100%;
+    max-width: 1260px;
     height: 50px;
-    width: 1260px;
     position: absolute;
     top: 67px;
     right: 0;
@@ -41,55 +42,72 @@ img {
     }
 }
 
-.hero-banner {
-    width: 1240px;
-    position: relative;
-    margin: 0 auto;
-    margin-top: 74px;
-    display: block;
+.categories-container {
+    width: 100%;
+    margin-top: 25px;
 
-    button {
-        width: 180px;
-        height: 44px;
-        background-color: #1B4B66;
-        border-radius: 8px;
-        border: none;
-        padding: 10px;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        gap: 8px;
-        transition: all 0.3s;
-
-        position: absolute;
-        top: 261px;
-        right: 468px;
-
-        span {
-            padding-top: 3px;
-            color: #FFF;
-            font-size: 16px;
-            line-height: 20px;
-            font-weight: 500;
-        }
+    h1 {
+        font-size: 14px;
+        text-transform: none;
+        font-weight: 600;
+        line-height: 16px;
+        color: #171520;
+        padding-left: 16px;
     }
 
-    button:hover {
-        transform: translateY(-5px);
-        box-shadow: 2px 4px 8px 0px rgba(0, 0, 0, 0.5);
+    .categories {
+        display: flex;
+        margin: 9px 0 0 16px;
+        overflow: auto;
+
+
+        .category {
+            width: 58px;
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+            text-align: center;
+            margin-right: 20px;
+
+            div {
+                width: 58px;
+                height: 58px;
+                background-color: #F4F4F4;
+                border-radius: 8px;
+            }
+
+            span {
+                font-size: 12px;
+                font-weight: 500;
+                line-height: 18px;
+                color: #171520;
+            }
+        }
     }
 }
 
 .arrivals {
     width: 100%;
-    margin-top: 68px;
+    max-width: 1400px;
+    margin: 68px auto 0 auto;
     display: block;
+
+    @include phone {
+        margin-top: 30px;
+    }
 }
 
-.arrivals-title {
+.arrivals-title,
+.container-title {
     display: flex;
     justify-content: space-between;
     padding-left: 20px;
+
+    @include phone {
+        padding-left: 16px;
+        height: 24px;
+        align-items: center;
+    }
 
     h1 {
         font-size: 34px;
@@ -97,6 +115,14 @@ img {
         font-weight: 600;
         line-height: 44px;
         color: #13101E;
+
+        @include phone {
+            font-size: 14px;
+            text-transform: none;
+            font-weight: 600;
+            line-height: 16px;
+            color: #171520;
+        }
     }
 
     button {
@@ -109,11 +135,24 @@ img {
         justify-content: space-between;
         transition: all 0.3s;
 
+        @include phone {
+            height: 24px;
+            padding: 0;
+            align-items: center;
+            justify-content: end;
+        }
+
         span {
             font-size: 14px;
             color: #1B4B66;
             font-weight: 600;
             line-height: 24px;
+
+            @include phone {
+                font-size: 12px;
+                font-weight: 500;
+                line-height: 18px;
+            }
         }
 
         img {
@@ -127,26 +166,45 @@ img {
     }
 }
 
+.container-title {
+    @include phone {
+        padding-left: 0;
+    }
+}
+
 .arrivals-carousel {
     width: auto;
     display: flex;
-    overflow: hidden;
+    gap: 40px;
+    overflow-x: auto;
+    overflow-y: hidden;
     scroll-behavior: smooth;
-    padding-top: 24px;
+    padding: 24px 20px 0 20px;
+
+    @include phone {
+        gap: 16px;
+        padding: 12px 16px 0 16px;
+    }
 }
 
 .item {
     width: 284px;
     height: 100%;
-    margin: 0 20px;
     padding-bottom: 41px;
     transition: all 0.3s;
     cursor: pointer;
 
+    @include phone {
+        padding-bottom: 24px;
+    }
+
     .item-cover {
         width: 286px;
-        height: 286px;
         border-radius: 8px;
+
+        @include phone {
+            width: 136px;
+        }
     }
 
     .item-details {
@@ -194,6 +252,10 @@ img {
     display: flex;
     flex-direction: column;
 
+    @include phone {
+        height: 379px;
+    }
+
     h1 {
         font-size: 34px;
         font-weight: 600;
@@ -202,21 +264,47 @@ img {
         margin-left: 20px;
         margin: 32px auto 23px 20px;
         color: #fff;
+
+        @include phone {
+            font-size: 14px;
+            line-height: 16px;
+            margin: 18px auto 13px 16px;
+        }
     }
 }
 
-.collection {
-    width: 100%;
+.collections {
+    width: auto;
     height: 100%;
-    display: flex;
+    max-width: 1280px;
+    margin: 0 auto;
 }
 
-.category {
+.collection {
+    width: auto;
+    height: 100%;
+    display: flex;
+
+    @include phone {
+        height: auto;
+        padding: 0px 16px 16px 16px;
+        flex-wrap: wrap;
+        gap: 16px;
+    }
+}
+
+.collection-item {
     width: 280px;
     height: 280px;
     margin: 0 20px;
     position: relative;
     cursor: pointer;
+
+    @include phone {
+        width: 156px;
+        height: 150px;
+        margin: 0;
+    }
 
     .shadow {
         width: 100%;
@@ -226,10 +314,22 @@ img {
         background: linear-gradient(180deg, rgba(196, 196, 196, 0.00) 0%, rgba(3, 24, 26, 0.46) 100%);
         border-bottom-left-radius: 16px;
         border-bottom-right-radius: 16px;
+
+        @include phone {
+            width: 156px;
+            height: 150px;
+            background: linear-gradient(180deg, rgba(196, 196, 196, 0.00) 0%, rgba(3, 24, 26, 0.23) 100%);
+            top: 0;
+        }
     }
 
     img {
         border-radius: 16px;
+
+        @include phone {
+            width: 156px;
+            height: 150px;
+        }
     }
 
     span {
@@ -242,25 +342,42 @@ img {
         font-weight: 600;
         line-height: 32px;
         color: #171520;
+
+        @include phone {
+            font-size: 14px;
+            font-weight: 500;
+            line-height: 18px;
+        }
     }
 }
 
-.category:hover .shadow {
+.collection-item:hover .shadow {
     background: linear-gradient(180deg, rgba(196, 196, 196, 0.00) 0%, rgba(3, 24, 26, 0.46) 50%);
+
+    @include phone {
+        background: linear-gradient(180deg, rgba(196, 196, 196, 0.00) 0%, rgba(3, 24, 26, 0.46) 100%);
+    }
 }
 
-.category:hover span {
+.collection-item:hover span {
     transform: translateY(-5px);
 }
 
 .brands-container {
     margin: 67px auto;
     width: 100%;
+    max-width: 1400px;
     height: auto;
     display: flex;
     flex-direction: column;
-    padding-left: 20px;
+    padding: 0 20px;
     gap: 24px;
+
+    @include phone {
+        gap: 9px;
+        padding: 0 16px;
+        margin: 24px auto;
+    }
 
     h1 {
         font-size: 34px;
@@ -268,20 +385,34 @@ img {
         line-height: 44px;
         color: #13101E;
         text-transform: none;
+
+        @include phone {
+            font-size: 14px;
+            line-height: 16px;
+            padding-left: 0;
+        }
     }
 }
 
 .brands {
     width: 100%;
     display: flex;
-    gap: 46px;
+    justify-content: space-between;
+
+    @include phone {
+        flex-wrap: wrap;
+        row-gap: 24px;
+    }
 
     img {
-        width: 168px;
-        height: 168px;
+        width: auto;
         transition: all 0.3s;
         cursor: pointer;
         border-radius: 16px;
+
+        @include phone {
+            width: 100px;
+        }
     }
 
     img:hover {
@@ -290,16 +421,44 @@ img {
     }
 }
 
-.banners {
+.shortcut {
+    height: 120px;
+    padding: 0 16px;
+    margin-bottom: 25px;
+}
+
+.banners-container {
+    width: 100%;
+    max-width: 1280px;
     display: flex;
     flex-direction: column;
     gap: 40px;
     padding: 0 20px;
-    margin-bottom: 68px;
+    margin: 0 auto 68px auto;
 
-    div {
-        display: flex;
-        gap: 32px;
+    @include phone {
+        padding: 0 16px;
+        gap: 13px;
+        height: 277px;
+        margin-bottom: 25px;
+    }
+
+    h1 {
+        font-size: 14px;
+        font-weight: 600;
+        text-transform: none;
+        line-height: 16px;
+        color: #171520;
+    }
+}
+
+.banners {
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+
+    @include phone {
+        gap: 16px;
 
         img {
             transition: all 0.3s;
@@ -311,4 +470,36 @@ img {
         }
     }
 
+    div {
+        width: 100%;
+        display: flex;
+        gap: 32px;
+
+        @include phone {
+            gap: 16px;
+        }
+
+        img {
+            transition: all 0.3s;
+            cursor: pointer;
+        }
+
+        img:hover {
+            transform: scale(1.05);
+        }
+    }
+}
+
+.trendings-container {
+    width: 100%;
+
+    h1 {
+        margin-left: 16px;
+        text-transform: none;
+        font-size: 14px;
+        font-weight: 600;
+        line-height: 16px;
+        color: #171520;
+        margin-bottom: 13px;
+    }
 }
