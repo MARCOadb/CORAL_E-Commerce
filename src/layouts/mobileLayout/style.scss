@@ -1,0 +1,37 @@
+.headerLayout {
+  display: flex;
+  width: 100%;
+  height: auto;
+  justify-content: space-between;
+  padding: 16px;
+  font-size: 20px;
+  font-weight: 600;
+  line-height: 26px;
+  color: #1b4b66;
+}
+.footerLayout {
+  display: flex;
+  position: fixed;
+  bottom: 0;
+
+  width: 100%;
+  height: auto;
+  padding: 11px 16px;
+  gap: 8px;
+}
+.topBtn {
+  gap: 12px;
+  flex-direction: column;
+}
+
+.containerLayout {
+  display: flex;
+  gap: 20px;
+}
+
+.childrenContainer {
+  display: flex;
+  flex-direction: column;
+  max-height: calc(100vh - 176px);
+  overflow: auto;
+}
