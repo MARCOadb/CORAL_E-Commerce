@@ -42,6 +42,9 @@ img {
 .categories-container {
   width: 100%;
   margin-top: 25px;
+  display: flex;
+  flex-direction: column;
+  //overflow: auto;
 
   h1 {
     font-size: 14px;
@@ -53,8 +56,10 @@ img {
   }
 
   .categories {
+    width: 100%;
     display: flex;
-    margin: 9px 0 0 16px;
+    margin: 9px auto 0 auto;
+    padding-left: 16px;
     overflow: auto;
 
     .category {
@@ -101,8 +106,12 @@ img {
 
   @include phone {
     padding-left: 16px;
+    margin: 0 auto;
+    width: 100%;
+    max-width: 660px;
     height: 24px;
     align-items: center;
+    justify-content: space-between;
   }
 
   h1 {
@@ -249,7 +258,7 @@ img {
   flex-direction: column;
 
   @include phone {
-    height: 379px;
+    height: auto;
   }
 
   h1 {
@@ -286,6 +295,7 @@ img {
     padding: 0px 16px 16px 16px;
     flex-wrap: wrap;
     gap: 16px;
+    justify-content: center;
   }
 }
 
@@ -359,6 +369,11 @@ img {
   transform: translateY(-5px);
 }
 
+.collection-line {
+  display: flex;
+  gap: 16px;
+}
+
 .brands-container {
   margin: 67px auto;
   width: 100%;
@@ -398,6 +413,8 @@ img {
   @include phone {
     flex-wrap: wrap;
     row-gap: 24px;
+    column-gap: 16px;
+    justify-content: center;
   }
 
   img {
@@ -417,10 +434,24 @@ img {
   }
 }
 
+.brand-line {
+  width: auto;
+  max-width: 500px;
+  display: flex;
+  gap: 16px;
+}
+
 .shortcut {
-  height: 120px;
+  height: auto;
   padding: 0 16px;
-  margin-bottom: 25px;
+  margin: 0 auto;
+  text-align: center;
+  margin-bottom: 21px;
+
+  img {
+    width: 100%;
+    max-width: 550px;
+  }
 }
 
 .banners-container {
@@ -435,8 +466,9 @@ img {
   @include phone {
     padding: 0 16px;
     gap: 13px;
-    height: 277px;
+    height: auto;
     margin-bottom: 25px;
+    max-width: 582px;
   }
 
   h1 {
@@ -452,7 +484,14 @@ img {
   display: flex;
   flex-direction: column;
   gap: 40px;
+  .banner-big {
+    width: 100%;
+    margin: 0 auto;
 
+    @include phone {
+      max-width: 600px;
+    }
+  }
   @include phone {
     gap: 16px;
 
@@ -472,6 +511,7 @@ img {
     gap: 32px;
 
     @include phone {
+      max-width: 600px;
       gap: 16px;
     }
 
