@@ -19,7 +19,6 @@ import grande from "../../assets/pics/bolsa-grande.png";
 import remus from "../../assets/pics/bolsa-remus.png";
 import coach from "../../assets/pics/bolsa-coach.png";
 import boujee from "../../assets/pics/bolsa-boujee.png";
-import heart from "../../assets/icon/wishlist-black.svg";
 import perfume from "../../assets/pics/laura-chouette-Atomp7YdMaE-unsplash 1.png";
 import watch from "../../assets/pics/wrist-watch.png";
 import pinkBag from "../../assets/pics/pink-bag-2.png";
@@ -35,6 +34,7 @@ import jewllery from "../../assets/icon/jewellery.svg";
 import handbags from "../../assets/icon/handbags.svg";
 import watchIcon from "../../assets/icon/watch.svg";
 import shortcuts from "../../assets/pics/shortcut-mobile.png";
+import WishlistSvg from "../../assets/icon/WishlistSvg";
 
 //STYLES
 import "./style.scss";
@@ -121,7 +121,7 @@ export default function Home() {
               <div className="item-details">
                 <div className="name-fav">
                   <span>Grande</span>
-                  <img src={heart} alt="Heart" />
+                  <WishlistSvg stroke="#13101E" />
                 </div>
                 <span className="item-description">Blossom Pouch</span>
                 <span className="item-price">$39.49</span>
@@ -133,7 +133,7 @@ export default function Home() {
               <div className="item-details">
                 <div className="name-fav">
                   <span>Coach</span>
-                  <img src={heart} alt="Heart" />
+                  <WishlistSvg stroke="#13101E" />
                 </div>
                 <span className="item-description">Leather Coach Bag</span>
                 <span className="item-price">$54.69</span>
@@ -145,7 +145,7 @@ export default function Home() {
               <div className="item-details">
                 <div className="name-fav">
                   <span>Remus</span>
-                  <img src={heart} alt="Heart" />
+                  <WishlistSvg stroke="#13101E" />
                 </div>
                 <span className="item-description">Brown Strap Bag</span>
                 <span className="item-price">$57.00</span>
@@ -157,7 +157,7 @@ export default function Home() {
               <div className="item-details">
                 <div className="name-fav">
                   <span>Boujee</span>
-                  <img src={heart} alt="Heart" />
+                  <WishlistSvg stroke="#13101E" />
                 </div>
                 <span className="item-description">Black Bag</span>
                 <span className="item-price">$56.49</span>
@@ -169,7 +169,7 @@ export default function Home() {
               <div className="item-details">
                 <div className="name-fav">
                   <span>Grande</span>
-                  <img src={heart} alt="Heart" />
+                  <WishlistSvg stroke="#13101E" />
                 </div>
                 <span className="item-description">Blossom Pouch</span>
                 <span className="item-price">$39.49</span>
@@ -181,7 +181,7 @@ export default function Home() {
               <div className="item-details">
                 <div className="name-fav">
                   <span>Coach</span>
-                  <img src={heart} alt="Heart" />
+                  <WishlistSvg stroke="#13101E" />
                 </div>
                 <span className="item-description">Leather Coach Bag</span>
                 <span className="item-price">$54.69</span>
@@ -193,7 +193,7 @@ export default function Home() {
               <div className="item-details">
                 <div className="name-fav">
                   <span>Remus</span>
-                  <img src={heart} alt="Heart" />
+                  <WishlistSvg stroke="#13101E" />
                 </div>
                 <span className="item-description">Brown Strap Bag</span>
                 <span className="item-price">$57.00</span>
@@ -205,7 +205,7 @@ export default function Home() {
               <div className="item-details">
                 <div className="name-fav">
                   <span>Boujee</span>
-                  <img src={heart} alt="Heart" />
+                  <WishlistSvg stroke="#13101E" />
                 </div>
                 <span className="item-description">Black Bag</span>
                 <span className="item-price">$56.49</span>
