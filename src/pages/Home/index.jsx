@@ -219,37 +219,75 @@ export default function Home() {
                 </div>
 
                 <div className="collections-container">
-                    <div className="collections">
+                    {desktop ? (
+                        <div className="collections">
 
-                        <h1>Handpicked Collections</h1>
-                        <div className="collection">
+                            <h1>Handpicked Collections</h1>
+                            <div className="collection">
 
-                            <div className="collection-item">
-                                <img src={perfume} alt="Category Cover" />
-                                <div className="shadow"></div>
-                                <span>Personal Care</span>
-                            </div>
+                                <div className="collection-item">
+                                    <img src={perfume} alt="Category Cover" />
+                                    <div className="shadow"></div>
+                                    <span>Personal Care</span>
+                                </div>
 
-                            <div className="collection-item">
-                                <img src={pinkBag} alt="Category Cover" />
-                                <div className="shadow"></div>
-                                <span>Handbags</span>
-                            </div>
+                                <div className="collection-item">
+                                    <img src={pinkBag} alt="Category Cover" />
+                                    <div className="shadow"></div>
+                                    <span>Handbags</span>
+                                </div>
 
-                            <div className="collection-item">
-                                <img src={watch} alt="Category Cover" />
-                                <div className="shadow"></div>
-                                <span>Wrist Watches</span>
-                            </div>
+                                <div className="collection-item">
+                                    <img src={watch} alt="Category Cover" />
+                                    <div className="shadow"></div>
+                                    <span>Wrist Watches</span>
+                                </div>
 
-                            <div className="collection-item">
-                                <img src={glasses} alt="Category Cover" />
-                                <div className="shadow"></div>
-                                <span>Sun Glasses</span>
+                                <div className="collection-item">
+                                    <img src={glasses} alt="Category Cover" />
+                                    <div className="shadow"></div>
+                                    <span>Sun Glasses</span>
+                                </div>
                             </div>
                         </div>
+                    ) : (
+                        <div className="collections">
 
-                    </div>
+                            <h1>Handpicked Collections</h1>
+                            <div className="collection">
+
+                                <div className="collection-line">
+                                    <div className="collection-item">
+                                        <img src={perfume} alt="Category Cover" />
+                                        <div className="shadow"></div>
+                                        <span>Personal Care</span>
+                                    </div>
+
+                                    <div className="collection-item">
+                                        <img src={pinkBag} alt="Category Cover" />
+                                        <div className="shadow"></div>
+                                        <span>Handbags</span>
+                                    </div>
+                                </div>
+
+                                <div className="collection-line">
+                                    <div className="collection-item">
+                                        <img src={watch} alt="Category Cover" />
+                                        <div className="shadow"></div>
+                                        <span>Wrist Watches</span>
+                                    </div>
+
+                                    <div className="collection-item">
+                                        <img src={glasses} alt="Category Cover" />
+                                        <div className="shadow"></div>
+                                        <span>Sun Glasses</span>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    )}
+
                 </div>
 
                 <div className="brands-container">
@@ -266,14 +304,32 @@ export default function Home() {
                         </button>
                     </div>
 
-                    <div className="brands">
-                        <img src={zara} alt="Zara logo" />
-                        <img src={dg} alt="D&G logo" />
-                        <img src={hm} alt="H&M logo" />
-                        <img src={chanel} alt="Chanel logo" />
-                        <img src={prada} alt="Prada logo" />
-                        <img src={biba} alt="Biba logo" />
-                    </div>
+                    {desktop ? (
+                        <div className="brands">
+                            <img src={zara} alt="Zara logo" />
+                            <img src={dg} alt="D&G logo" />
+                            <img src={hm} alt="H&M logo" />
+                            <img src={chanel} alt="Chanel logo" />
+                            <img src={prada} alt="Prada logo" />
+                            <img src={biba} alt="Biba logo" />
+                        </div>
+                    ) : (
+                        <div className="brands">
+                            <div className="brand-line">
+                                <img src={zara} alt="Zara logo" />
+                                <img src={dg} alt="D&G logo" />
+                                <img src={hm} alt="H&M logo" />
+                            </div>
+
+                            <div className="brand-line">
+                                <img src={chanel} alt="Chanel logo" />
+                                <img src={prada} alt="Prada logo" />
+                                <img src={biba} alt="Biba logo" />
+                            </div>
+                        </div>
+                    )}
+
+
                 </div>
 
                 {phone && (
@@ -287,7 +343,7 @@ export default function Home() {
                         <h1>Makeup & Skincare</h1>
                     )}
                     <div className="banners">
-                        <img src={phone ? hero3Mobile : hero3} alt="Banner Image" />
+                        <img src={phone ? hero3Mobile : hero3} alt="Banner Image" className="banner-big" />
                         <div>
                             <img src={phone ? shortHeroMobile : shortHero} alt="Small Banner Image" />
                             <img src={phone ? shortHero2Mobile : shortHero2} alt="Small Banner Image" />
