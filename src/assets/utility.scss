@@ -1,0 +1,180 @@
+//Para usar as classes e variaveis deste arquivo, use @import 'caminho/para/esta/pasta/utility.scss' no seu .scss
+$primary: #1b4b66;
+$tint: #639599;
+$error: #b00020;
+$highlight: #ff8c4b;
+$accent: #f4f4f4;
+$dark: #13101e;
+$bright: #ffffff;
+$grey: #f1f1f1;
+$text-light: #b6b6b6;
+$text-high-emphasis: #171520;
+$text-low-emphasis: #626262;
+
+//CORES DE TEXTO FREQUENTES
+.text-high-emphasis {
+  color: $text-high-emphasis;
+}
+
+.text-low-emphasis {
+  color: $text-low-emphasis;
+}
+
+.text-light {
+  color: $text-light;
+}
+
+.text-bright {
+  color: $bright;
+}
+
+.text-primary {
+  color: $primary;
+}
+
+//DISPLAYS E TITLES
+.display-large {
+  font-family: Inter;
+  font-size: 40px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 52px;
+}
+
+.display-medium {
+  font-family: Inter;
+  font-size: 34px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 44px;
+}
+
+.display-small {
+  font-family: Inter;
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 26px;
+}
+
+.title-medium {
+  font-family: Inter;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 18px;
+}
+
+.title-regular {
+  font-family: Inter;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 16px;
+}
+
+//CORPO DE TEXTO
+
+.body-medium {
+  font-family: Inter;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 20px;
+}
+
+.body-regular {
+  font-family: Inter;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 20px;
+}
+
+.label-large {
+  font-family: Inter;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 20px;
+}
+
+.label-medium {
+  font-family: Inter;
+  font-size: 12px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 16px;
+}
+
+.label-small {
+  font-family: Inter;
+  font-size: 12px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 16px;
+}
+
+.link {
+  font-family: Inter;
+  font-size: 12px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 18px;
+}
+
+//CLASSES EXTENDIDAS COM A COR DE ENFASE ALTA APLICADA
+.display-large-he {
+  @extend .display-large;
+  color: $text-high-emphasis;
+}
+
+.display-medium-he {
+  @extend .display-medium;
+  color: $text-high-emphasis;
+}
+
+.display-small-he {
+  @extend .display-small;
+  color: $text-high-emphasis;
+}
+
+.title-medium-he {
+  @extend .title-medium;
+  color: $text-high-emphasis;
+}
+
+.title-regular-he {
+  @extend .title-regular;
+  color: $text-high-emphasis;
+}
+
+.body-medium-he {
+  @extend .body-medium;
+  color: $text-high-emphasis;
+}
+
+.body-regular-he {
+  @extend .body-regular;
+  color: $text-high-emphasis;
+}
+
+.label-large-he {
+  @extend .label-large;
+  color: $text-high-emphasis;
+}
+
+.label-medium-he {
+  @extend .label-medium;
+  color: $text-high-emphasis;
+}
+
+.label-small-he {
+  @extend .label-small;
+  color: $text-high-emphasis;
+}
+
+.link-he {
+  @extend .link;
+  color: $text-high-emphasis;
+}
