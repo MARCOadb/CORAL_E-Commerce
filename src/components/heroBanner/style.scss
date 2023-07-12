@@ -6,11 +6,15 @@
 
 @keyframes slide {
     0% {
-        transform: translateX(0);
+        transform: translateX(-333px);
+    }
+
+    50% {
+        transform: translateX(-670px);
     }
 
     100% {
-        transform: translateX(-340px);
+        transform: translateX(-1005px);
     }
 }
 
@@ -66,16 +70,11 @@
 }
 
 .auto-slider {
-    padding: 0 20px;
+    margin: 0 auto;
     display: flex;
-    width: 100%;
+    width: calc(100% - 32px);
     height: 120px;
-    overflow: auto;
     gap: 8px;
-
-    //animation: slide 3s ease-in-out forwards;
-
-    @include phone {
-        padding: 0 16px;
-    }
+    //transition: all 2s ease-in-out;
+    animation: slide 7s infinite;
 }

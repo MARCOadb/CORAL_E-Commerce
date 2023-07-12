@@ -1,5 +1,7 @@
 import './style.scss'
 
+import { useState, useEffect } from 'react'
+
 import hero from '../../assets/pics/hero.png'
 import heroMobile from '../../assets/pics/banner1-mobile.png'
 import hero2Mobile from '../../assets/pics/banner2-mobile.png'
@@ -9,6 +11,9 @@ import useBreakpoint from '../../hooks/useBreakPoint'
 
 export default function HeroBanner({ order }) {
     const { phone, desktop } = useBreakpoint();
+    const [currentSlide, setCurrentSlide] = useState(0)
+
+    const bannerImages = [heroMobile, hero2Mobile]
 
     return (
         <div className="hero-banner">
@@ -22,19 +27,27 @@ export default function HeroBanner({ order }) {
                 </>
 
             ) : (
-                { order == 1 ? (
-                    <div className='auto-slider'>
-                        <img src={heroMobile} alt="Banner Image" className="banner-img" />
-                        <img src={hero2Mobile} alt="Banner Image" className="banner-img" />
-                    </div>
-                ) : (
-                    <div className='auto-slider'>
-                        <img src={hero2Mobile} alt="Banner Image" className="banner-img" />
-                        <img src={heroMobile} alt="Banner Image" className="banner-img" />
-                    </div>
-                )}
-
-            )}
-        </div>
+                <>
+                    {order == 1 ? (
+                        <div className='auto-slider'>
+                            <img src={bannerImages[1]} alt="Banner Image" className="banner-img" />
+                            <img src={bannerImages[0]} alt="Banner Image" className="banner-img" />
+                            <img src={bannerImages[1]} alt="Banner Image" className="banner-img" />
+                            <img src={bannerImages[0]} alt="Banner Image" className="banner-img" />
+                            <img src={bannerImages[1]} alt="Banner Image" className="banner-img" />
+                        </div>
+                    ) : (
+                        <div className='auto-slider'>
+                            <img src={bannerImages[0]} alt="Banner Image" className="banner-img" />
+                            <img src={bannerImages[1]} alt="Banner Image" className="banner-img" />
+                            <img src={bannerImages[0]} alt="Banner Image" className="banner-img" />
+                            <img src={bannerImages[1]} alt="Banner Image" className="banner-img" />
+                            <img src={bannerImages[0]} alt="Banner Image" className="banner-img" />
+                        </div>
+                    )}
+                </>
+            )
+            }
+        </div >
     )
 }
