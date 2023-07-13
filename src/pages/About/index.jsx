@@ -2,7 +2,7 @@ import Header from "../../components/header";
 import Footer from "../../components/footer";
 
 import useBreakpoint from "../../hooks/useBreakPoint";
-import styles from "./styles.scss";
+import "./style.scss";
 
 import bannerImg from "../../assets/pics/banner-about.png";
 import bannerFullImg from "../../assets/pics/banner-about-full.png";
@@ -25,10 +25,7 @@ export default function About() {
               <div className="gradient">
                 <div className="title-textbox">
                   <h1>ABOUT</h1>
-                  <p>
-                    Lorem Ipsum is simply dummy text of the printing. Lorem Ipsum
-                    is simply dummy text of the printing.
-                  </p>
+                  <p>Lorem Ipsum is simply dummy text of the printing. Lorem Ipsum is simply dummy text of the printing.</p>
                 </div>
               </div>
             </div>
@@ -37,23 +34,16 @@ export default function About() {
                 <div className="main-textbox">
                   <h2>About</h2>
                   <p>
-                    Lorem Ipsum is simply dummy text of the printing. Lorem Ipsum
-                    is simply dummy text of the printing. Lorem Ipsum is simply
-                    dummy text of the printing. Lorem Ipsum is simply dummy text
-                    of the printing. Lorem Ipsum is simply dummy text of the
-                    printing. Lorem Ipsum is simply dummy text of the printing.
+                    Lorem Ipsum is simply dummy text of the printing. Lorem Ipsum is simply dummy text of the printing. Lorem Ipsum is simply dummy text of the printing. Lorem Ipsum is simply dummy
+                    text of the printing. Lorem Ipsum is simply dummy text of the printing. Lorem Ipsum is simply dummy text of the printing.
                   </p>
                 </div>
                 <div className="description-rows">
                   <div className="textbox">
                     <h2>About</h2>
                     <p>
-                      Lorem Ipsum is simply dummy text of the printing. Lorem
-                      Ipsum is simply dummy text of the printing. Lorem Ipsum is
-                      simply dummy text of the printing. Lorem Ipsum is simply
-                      dummy text of the printing. Lorem Ipsum is simply dummy text
-                      of the printing. Lorem Ipsum is simply dummy text of the
-                      printing.
+                      Lorem Ipsum is simply dummy text of the printing. Lorem Ipsum is simply dummy text of the printing. Lorem Ipsum is simply dummy text of the printing. Lorem Ipsum is simply dummy
+                      text of the printing. Lorem Ipsum is simply dummy text of the printing. Lorem Ipsum is simply dummy text of the printing.
                     </p>
                   </div>
                   <img src={bagsImg} alt="Bags" />
@@ -63,12 +53,8 @@ export default function About() {
                   <div className="textbox">
                     <h2>About</h2>
                     <p>
-                      Lorem Ipsum is simply dummy text of the printing. Lorem
-                      Ipsum is simply dummy text of the printing. Lorem Ipsum is
-                      simply dummy text of the printing. Lorem Ipsum is simply
-                      dummy text of the printing. Lorem Ipsum is simply dummy text
-                      of the printing. Lorem Ipsum is simply dummy text of the
-                      printing.
+                      Lorem Ipsum is simply dummy text of the printing. Lorem Ipsum is simply dummy text of the printing. Lorem Ipsum is simply dummy text of the printing. Lorem Ipsum is simply dummy
+                      text of the printing. Lorem Ipsum is simply dummy text of the printing. Lorem Ipsum is simply dummy text of the printing.
                     </p>
                   </div>
                 </div>
@@ -76,12 +62,8 @@ export default function About() {
                   <div className="textbox">
                     <h2>About</h2>
                     <p>
-                      Lorem Ipsum is simply dummy text of the printing. Lorem
-                      Ipsum is simply dummy text of the printing. Lorem Ipsum is
-                      simply dummy text of the printing. Lorem Ipsum is simply
-                      dummy text of the printing. Lorem Ipsum is simply dummy text
-                      of the printing. Lorem Ipsum is simply dummy text of the
-                      printing.
+                      Lorem Ipsum is simply dummy text of the printing. Lorem Ipsum is simply dummy text of the printing. Lorem Ipsum is simply dummy text of the printing. Lorem Ipsum is simply dummy
+                      text of the printing. Lorem Ipsum is simply dummy text of the printing. Lorem Ipsum is simply dummy text of the printing.
                     </p>
                   </div>
                   <img src={sunglassesImg} alt="Sunglasses" />
@@ -96,10 +78,7 @@ export default function About() {
               <div className="gradient">
                 <div className="title-textbox">
                   <h1>ABOUT</h1>
-                  <p className="title-paragraph">
-                    Lorem Ipsum is simply dummy text of the printing. Lorem Ipsum
-                    is simply dummy text of the printing.
-                  </p>
+                  <p className="title-paragraph">Lorem Ipsum is simply dummy text of the printing. Lorem Ipsum is simply dummy text of the printing.</p>
                 </div>
               </div>
             </div>
@@ -107,22 +86,16 @@ export default function About() {
               <div className="main-textbox">
                 <h2>About</h2>
                 <p>
-                  Lorem Ipsum is simply dummy text of the printing. Lorem Ipsum is
-                  simply dummy text of the printing. Lorem Ipsum is simply dummy
-                  text of the printing. Lorem Ipsum is simply dummy text of the
-                  printing. Lorem Ipsum is simply dummy text of the printing.
-                  Lorem Ipsum is simply dummy text of the printing.
+                  Lorem Ipsum is simply dummy text of the printing. Lorem Ipsum is simply dummy text of the printing. Lorem Ipsum is simply dummy text of the printing. Lorem Ipsum is simply dummy text
+                  of the printing. Lorem Ipsum is simply dummy text of the printing. Lorem Ipsum is simply dummy text of the printing.
                 </p>
               </div>
               <div className="description-rows">
                 <div className="textbox">
                   <h2>About</h2>
                   <p>
-                    Lorem Ipsum is simply dummy text of the printing. Lorem Ipsum
-                    is simply dummy text of the printing. Lorem Ipsum is simply
-                    dummy text of the printing. Lorem Ipsum is simply dummy text
-                    of the printing. Lorem Ipsum is simply dummy text of the
-                    printing. Lorem Ipsum is simply dummy text of the printing.
+                    Lorem Ipsum is simply dummy text of the printing. Lorem Ipsum is simply dummy text of the printing. Lorem Ipsum is simply dummy text of the printing. Lorem Ipsum is simply dummy
+                    text of the printing. Lorem Ipsum is simply dummy text of the printing. Lorem Ipsum is simply dummy text of the printing.
                   </p>
                 </div>
                 <img src={bagsImg} alt="Bags" />
@@ -131,11 +104,8 @@ export default function About() {
                 <div className="textbox">
                   <h2>About</h2>
                   <p>
-                    Lorem Ipsum is simply dummy text of the printing. Lorem Ipsum
-                    is simply dummy text of the printing. Lorem Ipsum is simply
-                    dummy text of the printing. Lorem Ipsum is simply dummy text
-                    of the printing. Lorem Ipsum is simply dummy text of the
-                    printing. Lorem Ipsum is simply dummy text of the printing.
+                    Lorem Ipsum is simply dummy text of the printing. Lorem Ipsum is simply dummy text of the printing. Lorem Ipsum is simply dummy text of the printing. Lorem Ipsum is simply dummy
+                    text of the printing. Lorem Ipsum is simply dummy text of the printing. Lorem Ipsum is simply dummy text of the printing.
                   </p>
                   <img src={watchImg} alt="Watch" />
                 </div>
@@ -144,11 +114,8 @@ export default function About() {
                 <div className="textbox">
                   <h2>About</h2>
                   <p>
-                    Lorem Ipsum is simply dummy text of the printing. Lorem Ipsum
-                    is simply dummy text of the printing. Lorem Ipsum is simply
-                    dummy text of the printing. Lorem Ipsum is simply dummy text
-                    of the printing. Lorem Ipsum is simply dummy text of the
-                    printing. Lorem Ipsum is simply dummy text of the printing.
+                    Lorem Ipsum is simply dummy text of the printing. Lorem Ipsum is simply dummy text of the printing. Lorem Ipsum is simply dummy text of the printing. Lorem Ipsum is simply dummy
+                    text of the printing. Lorem Ipsum is simply dummy text of the printing. Lorem Ipsum is simply dummy text of the printing.
                   </p>
                 </div>
                 <img src={sunglassesImg} alt="Sunglasses" />
@@ -160,5 +127,5 @@ export default function About() {
 
       <Footer />
     </>
-  )
+  );
 }
