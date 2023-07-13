@@ -1,0 +1,20 @@
+.defaultBtn {
+  display: flex;
+  width: 100%;
+  justify-content: center;
+  align-items: center;
+  padding: 10px 0px;
+  gap: 8px;
+  border-radius: 8px;
+  background-color: #1b4b66;
+  color: white;
+
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 20px;
+}
+.outlined {
+  border: 2px solid #1b4b66;
+  background-color: transparent;
+  color: #1b4b66;
+}
