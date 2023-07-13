@@ -1,0 +1,14 @@
+.opacity {
+  width: 100vw;
+  height: 100vh;
+  background-color: transparent;
+  position: fixed;
+  left: 0;
+  top: 0;
+  z-index: -1;
+  transition: background-color 300ms ease-in-out;
+}
+.opacityOpen {
+  background-color: #00000033;
+  z-index: 1;
+}
