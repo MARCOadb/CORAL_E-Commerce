@@ -1,8 +1,8 @@
 import "./style.scss";
-const DefaultBtn = ({ text, whiteBtn }) => {
+const DefaultBtn = ({ children, outlined, onClick }) => {
   return (
-    <div className={whiteBtn ? "defaultBtn whiteBtn" : "defaultBtn"}>
-      <span>{text}</span>
+    <div className={outlined ? "defaultBtn outlined" : "defaultBtn"} onClick={onClick}>
+      <span>{children}</span>
     </div>
   );
 };

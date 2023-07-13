@@ -1,9 +1,12 @@
+.layout {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  width: 100vw;
+}
+
 .headerLayout {
   display: flex;
-  width: 100%;
-  height: auto;
-  position: fixed;
-  top: 0;
   justify-content: space-between;
   padding: 16px;
   font-size: 20px;
@@ -14,16 +17,10 @@
 }
 .footerLayout {
   display: flex;
-  position: fixed;
-  bottom: 0;
-
-  width: 100%;
-  height: auto;
   padding: 11px 16px;
   gap: 8px;
 }
-.topBtn {
-  gap: 12px;
+.columnFooter {
   flex-direction: column;
 }
 
@@ -34,12 +31,7 @@
 
 .childrenContainer {
   display: flex;
+  flex-grow: 1;
   flex-direction: column;
   overflow: auto;
-}
-.maxHeightTopBtn {
-  max-height: calc(100vh - 131px);
-}
-.maxHeightBtnSide {
-  max-height: calc(100vh - 66px);
 }

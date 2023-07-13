@@ -1,29 +1,52 @@
 import ArrowSvg from "../../assets/icon/ArrowSvg";
 import CrossSvg from "../../assets/icon/CrossSvg";
-import Ellipses from "../../assets/icon/Ellipses";
 import DefaultBtn from "../../components/defaultBtn";
 import "./style.scss";
-const MobileLayout = ({ children, stroke, x, text, icon, dots, footer }) => {
+/*
+Props
+  {
+    buttons: Config[];
+    direction?: "column" | "row";
+    footerPrefix?: ReactNode;
+    icon?: "arrow" | "cross";
+    iconStroke?: string;
+    iconAngle?: number;
+    iconOnclick?: () => void;
+    headerSuffix?: ReactNode;
+    title?: string;
+  }
+Config
+  {
+    text: string;
+    outline: boolean;
+    onClick: () => void;
+  }
+*/
+
+const MobileLayout = ({ children, headerSuffix, title, buttons, direction = "row", footerPrefix, icon, iconStroke, iconAngle, iconOnclick }) => {
   return (
-    <>
+    <div className="layout">
       <div className="headerLayout">
         <div className="containerLayout">
-          {icon === 1 && <ArrowSvg stroke={stroke} x={x} />}
-          {icon === 2 && <CrossSvg stroke={stroke} />}
-          <span>{text}</span>
+          {icon === "arrow" && <ArrowSvg stroke={iconStroke} x={iconAngle} onClick={iconOnclick} />}
+          {icon === "cross" && <CrossSvg stroke={iconStroke} onClick={iconOnclick} />}
+          <span>{title}</span>
         </div>
-        {dots && <Ellipses />}
+        {headerSuffix}
       </div>
-      {!footer && <div className={"childrenContainer "}>{children}</div>}
-      {footer === 1 && <div className={"childrenContainer maxHeightBtnSide"}>{children}</div>}
-      {footer === 2 && <div className={"childrenContainer maxHeightTopBtn"}>{children}</div>}
-      {footer && (
-        <div className={footer === 2 ? "footerLayout topBtn" : "footerLayout"}>
-          <DefaultBtn text="Teste" />
-          <DefaultBtn whiteBtn={true} text="View Order" />
+
+      <div className={"childrenContainer"}>{children}</div>
+      {(!!buttons?.length || footerPrefix) && (
+        <div className={direction === "row" ? "footerLayout" : "footerLayout columnFooter"}>
+          {footerPrefix}
+          {buttons?.map((item, index) => (
+            <DefaultBtn outlined={item.outlined} key={index} onClick={item.onClick}>
+              {item.text}
+            </DefaultBtn>
+          ))}
         </div>
       )}
-    </>
+    </div>
   );
 };
 export default MobileLayout;
