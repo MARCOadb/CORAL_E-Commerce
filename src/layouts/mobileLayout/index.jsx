@@ -2,6 +2,7 @@ import ArrowSvg from "../../assets/icon/ArrowSvg";
 import CrossSvg from "../../assets/icon/CrossSvg";
 import DefaultBtn from "../../components/defaultBtn";
 import "./style.scss";
+
 /*
 Props
   {
