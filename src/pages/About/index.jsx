@@ -2,7 +2,7 @@ import Header from "../../components/header";
 import Footer from "../../components/footer";
 
 import useBreakpoint from "../../hooks/useBreakPoint";
-import styles from "./styles.scss";
+import "./style.scss";
 
 import bannerImg from "../../assets/pics/banner-about.png";
 import bannerFullImg from "../../assets/pics/banner-about-full.png";
