@@ -1,8 +1,8 @@
 import NavBarMobile from "../../components/navBarMobile";
-export default function Home() {
+export default function Category() {
     return (
         <>
-        <h1>Página home, navegue para /about</h1>
+        <h1>Página category</h1>
         <NavBarMobile />
         </>
     )
