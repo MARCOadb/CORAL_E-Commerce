@@ -74,18 +74,9 @@ p {
   position: absolute;
   right: 0px;
   align-items: center;
-  background: linear-gradient(
-    270deg,
-    rgba(255, 255, 255, 0.8) 0%,
-    rgba(217, 217, 217, 0) 100%
-  );
+  background: linear-gradient(270deg, rgba(255, 255, 255, 0.8) 0%, rgba(217, 217, 217, 0) 100%);
   @include phone {
-    background: linear-gradient(
-      360deg,
-      rgba(255, 255, 255, 0.8) 0%,
-      rgba(217, 217, 217, 0) 50%,
-      rgba(217, 217, 217, 0) 100%
-    );
+    background: linear-gradient(360deg, rgba(255, 255, 255, 0.8) 0%, rgba(217, 217, 217, 0) 50%, rgba(217, 217, 217, 0) 100%);
     width: 100%;
     justify-content: center;
     left: auto;
