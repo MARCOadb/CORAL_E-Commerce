@@ -3,7 +3,7 @@ import CrossSvg from "../../assets/icon/CrossSvg";
 import Ellipses from "../../assets/icon/Ellipses";
 import DefaultBtn from "../../components/defaultBtn";
 import "./style.scss";
-const MobileLayout = ({ children, stroke, x, text, topBtn, icon, dots }) => {
+const MobileLayout = ({ children, stroke, x, text, icon, dots, footer }) => {
   return (
     <>
       <div className="headerLayout">
@@ -14,11 +14,15 @@ const MobileLayout = ({ children, stroke, x, text, topBtn, icon, dots }) => {
         </div>
         {dots && <Ellipses />}
       </div>
-      <div className="childrenContainer">{children}</div>
-      <div className={topBtn ? "footerLayout topBtn" : "footerLayout"}>
-        <DefaultBtn text="Teste" />
-        <DefaultBtn whiteBtn={true} text="View Order" />
-      </div>
+      {!footer && <div className={"childrenContainer "}>{children}</div>}
+      {footer === 1 && <div className={"childrenContainer maxHeightBtnSide"}>{children}</div>}
+      {footer === 2 && <div className={"childrenContainer maxHeightTopBtn"}>{children}</div>}
+      {footer && (
+        <div className={footer === 2 ? "footerLayout topBtn" : "footerLayout"}>
+          <DefaultBtn text="Teste" />
+          <DefaultBtn whiteBtn={true} text="View Order" />
+        </div>
+      )}
     </>
   );
 };

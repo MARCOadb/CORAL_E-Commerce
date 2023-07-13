@@ -2,12 +2,15 @@
   display: flex;
   width: 100%;
   height: auto;
+  position: fixed;
+  top: 0;
   justify-content: space-between;
   padding: 16px;
   font-size: 20px;
   font-weight: 600;
   line-height: 26px;
   color: #1b4b66;
+  background-color: white;
 }
 .footerLayout {
   display: flex;
@@ -32,6 +35,11 @@
 .childrenContainer {
   display: flex;
   flex-direction: column;
-  max-height: calc(100vh - 176px);
   overflow: auto;
+}
+.maxHeightTopBtn {
+  max-height: calc(100vh - 131px);
+}
+.maxHeightBtnSide {
+  max-height: calc(100vh - 66px);
 }
