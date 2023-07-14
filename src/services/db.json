@@ -1,0 +1,38 @@
+{
+  "products": [
+    {
+      "id": 1,
+      "name": "Grande",
+      "description": "Blossom Pouch",
+      "price": 39.49,
+      "categoryId": 1
+    },
+    {
+      "id": 2,
+      "name": "Coach",
+      "description": "Leather Coach Bag",
+      "price": 54.69,
+      "categoryId": 1
+    },
+    {
+      "id": 3,
+      "name": "Remus",
+      "description": "Brown Strap Bag",
+      "price": 57.0,
+      "categoryId": 1
+    },
+    {
+      "id": 4,
+      "name": "Boujee",
+      "description": "Black Bag",
+      "price": 56.49,
+      "categoryId": 1
+    }
+  ],
+  "categories": [
+    {
+      "id": 1,
+      "name": "Bolsas"
+    }
+  ]
+}
