@@ -4,11 +4,11 @@ import Footer from "../../components/footer";
 import useBreakpoint from "../../hooks/useBreakPoint";
 import "./style.scss";
 
-import bannerImg from "../../assets/pics/banner-about.png";
-import bannerFullImg from "../../assets/pics/banner-about-full.png";
-import bagsImg from "../../assets/pics/bags.png";
-import watchImg from "../../assets/pics/watch.png";
-import sunglassesImg from "../../assets/pics/sunglasses.png";
+import bannerImg from "../../assets/pics/About/banner-about.png";
+import bannerFullImg from "../../assets/pics/About/banner-about-full.png";
+import bagsImg from "../../assets/pics/About/bags.png";
+import watchImg from "../../assets/pics/About/watch.png";
+import sunglassesImg from "../../assets/pics/About/sunglasses.png";
 
 export default function About() {
   const { phone, desktop } = useBreakpoint();
