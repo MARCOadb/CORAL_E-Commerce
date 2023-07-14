@@ -3,8 +3,8 @@ import './style.scss'
 import { useState, useEffect } from 'react'
 
 import hero from '../../assets/pics/Home/hero.png'
-import heroMobile from '../../assets/pics/Home/banner1-mobile.png'
-import hero2Mobile from '../../assets/pics/Home/banner2-mobile.png'
+import heroMobile from '../../assets/pics/Home/mob-only/banner1-mobile.png'
+import hero2Mobile from '../../assets/pics/Home/mob-only/banner2-mobile.png'
 import arrowIcon from '../../assets/icon/arrow.svg'
 
 import useBreakpoint from '../../hooks/useBreakPoint'

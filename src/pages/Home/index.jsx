@@ -8,11 +8,11 @@ import useBreakpoint from "../../hooks/useBreakPoint";
 
 //IMAGES & ICONS
 import hero3 from "../../assets/pics/Home/hero-3.png";
-import hero3Mobile from "../../assets/pics/Home/hero3-mobile.png";
+import hero3Mobile from "../../assets/pics/Home/mob-only/hero3-mobile.png";
 import shortHero from "../../assets/pics/Home/short-hero.png";
-import shortHeroMobile from "../../assets/pics/Home/short-hero-mobile.png";
+import shortHeroMobile from "../../assets/pics/Home/mob-only/short-hero-mobile.png";
 import shortHero2 from "../../assets/pics/Home/short-hero-2.png";
-import shortHero2Mobile from "../../assets/pics/Home/short-hero-2-mobile.png";
+import shortHero2Mobile from "../../assets/pics/Home/mob-only/short-hero-2-mobile.png";
 import chevronRight from "../../assets/icon/chevron-right.svg";
 import chevronRightSmall from "../../assets/icon/chevron-right-small.svg";
 import grande from "../../assets/pics/Home/bolsa-grande.png";
@@ -33,7 +33,7 @@ import skincare from "../../assets/icon/skincare.svg";
 import jewllery from "../../assets/icon/jewellery.svg";
 import handbags from "../../assets/icon/handbags.svg";
 import watchIcon from "../../assets/icon/watch.svg";
-import shortcuts from "../../assets/pics/Home/shortcut-mobile.png";
+import shortcuts from "../../assets/pics/Home/mob-only/shortcut-mobile.png";
 import WishlistSvg from "../../assets/icon/WishlistSvg";
 
 //STYLES
