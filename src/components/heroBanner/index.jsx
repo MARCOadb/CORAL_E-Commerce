@@ -22,7 +22,7 @@ export default function HeroBanner() {
         dots: false,
         infinite: true,
         autoplay: true,
-        autoplaySpeed: 3000,
+        autoplaySpeed: 10000,
         speed: 500,
         slidesToShow: 1,
         slidesToScroll: 1,
