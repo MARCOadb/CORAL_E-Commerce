@@ -1,14 +1,22 @@
 .navbar{
     background-color: #fff;
-    display: flex;
     flex-direction: row;
     padding: 16px 30px;
-    justify-content: center;
-}
-.all{
-    height: 30px;
+    height: 56px;
+    width: 100vw;
     display: flex;
-    flex-direction: row;
-    gap:66px;
+    justify-content: space-between;
     align-items: center;
+}
+
+.containerNav{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    span{
+        color:#1B4B66;
+        font-size: 12px;
+        font-weight: 500;
+        line-height: 12px;
+    }
 }

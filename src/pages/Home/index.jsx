@@ -38,6 +38,7 @@ import WishlistSvg from "../../assets/icon/WishlistSvg";
 
 //STYLES
 import "./style.scss";
+import NavBarMobile from "../../components/navBarMobile";
 
 export default function Home() {
   const { phone, desktop } = useBreakpoint();
@@ -343,7 +344,7 @@ export default function Home() {
           </div>
         )}
       </div>
-
+            <NavBarMobile />
       <Footer />
     </>
   );

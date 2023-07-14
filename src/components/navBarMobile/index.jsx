@@ -4,7 +4,11 @@ import categoryon from "../../assets/icon/category.svg"
 import homeon from "../../assets/icon/home.svg"
 import useBreakpoint from "../../hooks/useBreakPoint"
 import ProfileSvg from "../../assets/icon/Profilesvg"
-import { useNavigate } from "react-router-dom"
+import { useLocation, useNavigate } from "react-router-dom"
+import { useEffect, useState } from "react"
+import BagSvg from "../../assets/icon/Bagsvg"
+import CategorySvg from "../../assets/icon/Categorysvg"
+import HomeSvg from "../../assets/icon/Homesvg"
 
 
 // componentizar as img
@@ -13,17 +17,32 @@ import { useNavigate } from "react-router-dom"
 const  NavBarMobile = () => {
   const { phone, desktop } = useBreakpoint();
   const navigate = useNavigate();
-  const handleClick = () =>{ 
-    navigate("/about")
+  const handleClick = (i) =>{ 
+    navigate(i)
   }
+  const location = useLocation();
+  const [path, setPath] = useState(location.pathname); 
+  useEffect(() => {
+    setPath(location.pathname)
+  },[location]);
   return (
     <div className="navbar">
-      <div className="all">
-        <img onClick={handleClick} src={homeon} alt="home"/>
-        <img onClick={handleClick} src={categoryon} alt="category"/>
-        <ProfileSvg onClick={handleClick}/>
-        <img onClick={handleClick} src={bagon} alt="bag"/>
-      </div>
+      <div className="containerNav">
+        <HomeSvg stroke={path==="/"&&"#1B4B66"} onClick={() => handleClick("/")} />
+        {path==="/"&&<span>Home</span>}
+        </div>
+        <div className="containerNav">
+        <CategorySvg stroke={path==="/categories"&&"#1B4B66"} onClick={() => handleClick("/categories")} />
+        {path==="/categories"&&<span>Categories</span>}
+        </div>
+        <div className="containerNav">
+        <ProfileSvg stroke={path==="/profile"&&"#1B4B66"} onClick={() => handleClick("/profile")} />
+        {path==="/profile"&&<span>Profile</span>}
+        </div>
+        <div className="containerNav">
+        <BagSvg stroke={path==="/bag"&&"#1B4B66"}onClick={() => handleClick("/bag")} />
+        {path==="/bag"&&<span>Bag</span>}
+        </div>
     </div>
     
 
