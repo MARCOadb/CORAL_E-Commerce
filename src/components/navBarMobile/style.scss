@@ -1,0 +1,24 @@
+.navbar {
+  position: sticky;
+  bottom: 0;
+  background-color: #fff;
+  flex-direction: row;
+  padding: 16px 30px;
+  height: 56px;
+  width: 100vw;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.containerNav {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  span {
+    color: #1b4b66;
+    font-size: 12px;
+    font-weight: 500;
+    line-height: 12px;
+  }
+}
