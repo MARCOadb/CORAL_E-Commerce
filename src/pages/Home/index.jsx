@@ -5,6 +5,7 @@ import HeroBanner from "../../components/heroBanner";
 
 //HOOKS
 import useBreakpoint from "../../hooks/useBreakPoint";
+import { useState, useEffect } from "react";
 
 //IMAGES & ICONS
 import hero3 from "../../assets/pics/Home/hero-3.png";
@@ -43,6 +44,20 @@ import NavBarMobile from "../../components/navBarMobile";
 export default function Home() {
   const { phone, desktop } = useBreakpoint();
 
+  const [windowSize, setWindowSize] = useState(window.innerWidth)
+
+  useEffect(() => {
+    const handleResize = () => {
+      setWindowSize(window.innerWidth);
+    };
+
+    window.addEventListener('resize', handleResize);
+
+    return () => {
+      window.removeEventListener('resize', handleResize);
+    };
+  }, []);
+
   return (
     <>
       <Header />
@@ -56,7 +71,7 @@ export default function Home() {
           </div>
         )}
 
-        <HeroBanner order={1} />
+        <HeroBanner />
 
         {phone && (
           <div className="categories-container">
@@ -320,7 +335,7 @@ export default function Home() {
           )}
         </div>
 
-        {phone && (
+        {windowSize <= 600 && (
           <div className="shortcut">
             <img src={shortcuts} />
           </div>
@@ -340,7 +355,7 @@ export default function Home() {
         {phone && (
           <div className="trendings-container">
             <h1>Trending Deals</h1>
-            <HeroBanner order={2} />
+            <HeroBanner />
           </div>
         )}
       </div>

@@ -26,7 +26,6 @@
     margin-top: 24px;
     display: block;
     padding: 0 20px;
-    overflow: hidden;
 
     @include phone {
         padding: 0;
@@ -71,10 +70,24 @@
 
 .auto-slider {
     margin: 0 auto;
-    display: flex;
-    width: calc(100% - 32px);
-    height: 120px;
-    gap: 8px;
-    //transition: all 2s ease-in-out;
-    animation: slide 7s infinite;
+    width: 100%;
+    max-width: 704px;
+    height: auto;
+
+    img {
+        width: 100%;
+        padding-right: 8px;
+    }
+}
+
+.auto-slider-big {
+    margin: 0 auto;
+    width: 100%;
+    max-width: 704px;
+    height: auto;
+
+    img {
+        width: 100%;
+        padding: 0 16px;
+    }
 }
