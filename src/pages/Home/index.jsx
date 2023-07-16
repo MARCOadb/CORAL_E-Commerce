@@ -344,8 +344,8 @@ export default function Home() {
           </div>
         )}
       </div>
-            <NavBarMobile />
       <Footer />
+      {phone && <NavBarMobile />}
     </>
   );
 }
