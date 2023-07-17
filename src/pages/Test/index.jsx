@@ -5,8 +5,9 @@ import Header from "../../components/header";
 import MobileLayout from "../../layouts/mobileLayout";
 import getProductById from "../../services/getProductById";
 import getProducts from "../../services/getProducts";
+import { wishlistProduct } from "../../services/wishlistProduct";
 
-const sla = () => console.log("aaaaa");
+const sla = () => wishlistProduct(1);
 const botoes = [
   { text: "aaaa", outlined: true, onClick: sla },
   { text: "bbbb", onClick: sla },
