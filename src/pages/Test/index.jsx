@@ -1,31 +1,27 @@
+import { useState } from "react";
 import ArrowSvg from "../../assets/icon/ArrowSvg";
 import CrossSvg from "../../assets/icon/CrossSvg";
+import BottomModal from "../../components/bottomModal";
 import Header from "../../components/header";
 import MobileLayout from "../../layouts/mobileLayout";
+import IconBtn from "../../components/iconBtn";
+import WishlistSvg from "../../assets/icon/WishlistSvg";
 
 const sla = () => console.log("aaaaa");
-const botoes = [
-  { text: "aaaa", outlined: true, onClick: sla },
-  { text: "bbbb", onClick: sla },
-];
+const botoes = [{ text: "bbbb", onClick: sla }];
 
 const Test = () => {
-  const prefix = <ArrowSvg></ArrowSvg>;
-  const sufix = <CrossSvg />;
+  const [open, setOpen] = useState(true);
+  const sufix = <ArrowSvg></ArrowSvg>;
+  const prefix = (
+    <IconBtn>
+      <WishlistSvg />
+    </IconBtn>
+  );
   return (
-    <MobileLayout icon="arrow" iconStroke="black" iconAngle={90} title="My bag" headerSuffix={sufix} buttons={botoes} direction="column">
-      <Header></Header>
-      <Header></Header>
-      <Header></Header>
-      <Header></Header>
-      <Header></Header>
-      <Header></Header>
-      <Header></Header>
-      <Header></Header>
-      <Header></Header>
-      <Header></Header>
-      <Header></Header>
-    </MobileLayout>
+    <BottomModal title="My bag" open={open} setOpen={setOpen} headerSuffix={prefix} buttons={botoes} footerPrefix={prefix}>
+      <div style={{ margin: "16px" }}>daksodaskod</div>
+    </BottomModal>
   );
 };
 export default Test;
