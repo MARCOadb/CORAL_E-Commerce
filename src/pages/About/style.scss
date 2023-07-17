@@ -1,3 +1,5 @@
+@import "../../assets/utility.scss";
+
 @mixin phone {
   @media (max-width: 1279px) {
     @content;
@@ -7,15 +9,14 @@
 body {
   padding: 0;
   margin: 0;
-  background-color: #ffffff;
+  background-color: $bright;
 }
 
 img {
   pointer-events: none;
 }
 
-h1 {
-  color: var(--dark, #13101e);
+.title {
   font-size: 50px;
   font-family: Inter;
   font-style: normal;
@@ -24,35 +25,6 @@ h1 {
   letter-spacing: 4.545px;
   text-transform: uppercase;
   margin: 0;
-  @include phone {
-    color: #fff;
-  }
-}
-
-h2 {
-  color: var(--type-high-emphasis, #171520);
-  font-size: 20px;
-  font-family: Inter;
-  font-style: normal;
-  font-weight: 600;
-  line-height: 26px;
-  margin: 0;
-}
-
-p {
-  color: var(--type-low-emphasis, #626262);
-  font-size: 16px;
-  font-family: Inter;
-  font-style: normal;
-  font-weight: 400;
-  line-height: 20px;
-  margin: 0;
-  @include phone {
-  }
-}
-
-.title-paragraph {
-  color: #fff;
 }
 
 .banner {
@@ -95,12 +67,11 @@ p {
   @include phone {
     width: 70vw;
     height: auto;
-    color: #fff;
     text-align: center;
     justify-content: center;
     position: initial;
     gap: 4vw;
-    //text-shadow: 0px 4px 16px 0px rgba(0, 0, 0, 0.5);
+    text-shadow: 0px 4px 16px 0px rgba(0, 0, 0, 0.5);
   }
 }
 
