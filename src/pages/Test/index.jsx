@@ -1,10 +1,7 @@
-import { useEffect } from "react";
 import ArrowSvg from "../../assets/icon/ArrowSvg";
 import CrossSvg from "../../assets/icon/CrossSvg";
 import Header from "../../components/header";
 import MobileLayout from "../../layouts/mobileLayout";
-import getProductById from "../../services/getProductById";
-import getProducts from "../../services/getProducts";
 
 const sla = () => console.log("aaaaa");
 const botoes = [
