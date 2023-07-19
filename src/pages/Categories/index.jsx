@@ -53,14 +53,7 @@ export default function Category() {
         setHeightPrice(`${priceRefHeight.current.scrollHeight}px`)
         setHeightDiscount(`${discountRefHeight.current.scrollHeight}px`)
         setHeightAvaliability(`${avaliabilityRefHeight.current.scrollHeight}px`)
-    }, [
-        sizeRefHeight.current.scrollHeight,
-        colorRefHeight.current.scrollHeight,
-        brandRefHeight.current.scrollHeight,
-        priceRefHeight.current.scrollHeight,
-        discountRefHeight.current.scrollHeight,
-        avaliabilityRefHeight.current.scrollHeight
-    ])
+    }, [])
 
     //HANDLES
     function handleOpenSize() {
