@@ -5,7 +5,8 @@
       "name": "Grande",
       "description": "Blossom Pouch",
       "price": 39.49,
-      "categoryId": 1
+      "categoryId": 1,
+      "image": "../assets/pics/Home/bolsa-grande.png"
     },
     {
       "id": 2,
