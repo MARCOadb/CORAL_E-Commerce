@@ -1,0 +1,120 @@
+@import "../../assets/utility.scss";
+
+.grid-container {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  width: auto;
+  height: auto;
+  max-width: 912px;
+  gap: 24px;
+}
+
+.grid-settings {
+  display: flex;
+  width: 100%;
+  height: 56px;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-row-gap: 68px;
+  grid-column-gap: 3.5%;
+  align-items: flex-start;
+  max-width: 912px;
+}
+
+.product-placeholder {
+  display: flex;
+  width: 284px;
+  height: 422px;
+  align-items: center;
+  justify-content: center;
+  border-radius: 8px;
+  background-color: #eee;
+}
+
+.grid-format {
+  display: flex;
+  flex-direction: row;
+  gap: 13px;
+  height: auto;
+  width: auto;
+  button {
+    width: 52px;
+    height: 24px;
+    border-color: #00000000;
+    background-color: #00000000;
+    border-radius: 0px;
+    img {
+      width: 100%;
+      height: 100%;
+    }
+  }
+}
+
+.sorting-options {
+  display: flex;
+  flex-direction: row;
+  width: 476px;
+  height: 100%;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.to-show {
+  display: flex;
+  height: auto;
+  width: auto;
+  gap: 4px;
+  align-items: center;
+  flex-direction: row;
+  input {
+    width: 56px;
+    height: 52px;
+    background-color: $grey;
+    border: none;
+    box-sizing: border-box;
+    padding: 16px 12px 16px 16px;
+    border-radius: 4px;
+    &:focus {
+      outline: none;
+    }
+  }
+}
+
+.sort-by {
+  display: flex;
+  flex-direction: row;
+  height: auto;
+  width: auto;
+  gap: 8px;
+  align-items: center;
+  select {
+    display: flex;
+    flex-direction: row;
+    width: 206px;
+    background-color: $grey;
+    border: none;
+    box-sizing: border-box;
+    padding: 16px 12px 16px 16px;
+    border-radius: 4px;
+
+    &:focus {
+      outline: none;
+      box-shadow: none;
+    }
+
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+
+    background-image: url("../../assets/icon/chevron-bottom.svg");
+    background-repeat: no-repeat;
+    background-position: right 16px center;
+    background-size: 24px;
+  }
+}
