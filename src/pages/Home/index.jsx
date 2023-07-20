@@ -134,6 +134,7 @@ export default function Home() {
           <div className="arrivals-carousel">
             <div className="item">
               <img src={grande} alt="Item Name" className="item-cover" />
+              <a href="../Product/index.js">
               <div className="item-details">
                 <div className="name-fav">
                   <span>Grande</span>
@@ -142,6 +143,7 @@ export default function Home() {
                 <span className="item-description">Blossom Pouch</span>
                 <span className="item-price">$39.49</span>
               </div>
+              </a>
             </div>
 
             <div className="item">
