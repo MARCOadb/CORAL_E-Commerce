@@ -36,7 +36,7 @@ import handbags from "../../assets/icon/handbags.svg";
 import watchIcon from "../../assets/icon/watch.svg";
 import shortcuts from "../../assets/pics/Home/mob-only/shortcut-mobile.png";
 import WishlistSvg from "../../assets/icon/WishlistSvg";
-
+import ProductPage from "../Product";
 //STYLES
 import "./style.scss";
 import NavBarMobile from "../../components/navBarMobile";
@@ -134,7 +134,7 @@ export default function Home() {
           <div className="arrivals-carousel">
             <div className="item">
               <img src={grande} alt="Item Name" className="item-cover" />
-              <a href="../Product/index.js">
+              <a href="">
               <div className="item-details">
                 <div className="name-fav">
                   <span>Grande</span>

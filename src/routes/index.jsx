@@ -6,6 +6,7 @@ import Categories from "../pages/Categories";
 import Bag from "../pages/Bag";
 import Profile from "../pages/Profile";
 import Test from "../pages/Test";
+import ProductPage from "../pages/Product";
 
 export default function RoutesApp() {
   return (
@@ -17,6 +18,7 @@ export default function RoutesApp() {
         <Route path="/profile" element={<Profile />} />
         <Route path="/bag" element={<Bag />} />
         <Route path="/test" element={<Test />} />
+        <Route path="/product" element={<ProductPage/>} />
       </Routes>
     </BrowserRouter>
   );
