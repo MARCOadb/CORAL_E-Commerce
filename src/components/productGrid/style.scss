@@ -27,6 +27,15 @@
   max-width: 912px;
 }
 
+.list {
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-row-gap: 68px;
+  grid-column-gap: 0;
+  align-items: flex-start;
+  max-width: 912px;
+}
+
 .product-placeholder {
   display: flex;
   width: 284px;

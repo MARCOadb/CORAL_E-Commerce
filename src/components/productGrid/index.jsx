@@ -3,8 +3,8 @@ import useBreakpoint from "../../hooks/useBreakPoint";
 
 import "./style.scss";
 
-import GridFormat from "../../assets/icon/format-grid.svg";
-import ListFormat from "../../assets/icon/format-list.svg";
+import GridIcon from "../../assets/icon/format-grid.svg";
+import ListIcon from "../../assets/icon/format-list.svg";
 
 const ProductGrid = () => {
   const [toShow, setToShow] = useState("9");
@@ -12,9 +12,11 @@ const ProductGrid = () => {
     setToShow(e.target.value);
   };
 
-  const [currentFormat, setCurrentFormat] = useState(GridFormat);
+  const [currentFormat, setCurrentFormat] = useState(GridIcon);
+  const [gridClass, setGridClass] = useState("grid");
   const handleFormatToggle = () => {
-    setCurrentFormat(currentFormat === GridFormat ? ListFormat : GridFormat);
+    setCurrentFormat(currentFormat === GridIcon ? ListIcon : GridIcon);
+    setGridClass(gridClass === "grid" ? "list" : "grid");
   };
 
   return (
@@ -48,7 +50,7 @@ const ProductGrid = () => {
           </div>
         </div>
       </div>
-      <div className="grid">
+      <div className={gridClass}>
         <div className="product-placeholder">
           <span>product placeholder</span>
         </div>
