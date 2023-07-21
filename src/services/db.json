@@ -6,28 +6,31 @@
       "description": "Blossom Pouch",
       "price": 39.49,
       "categoryId": 1,
-      "image": "../assets/pics/Home/bolsa-grande.png"
+      "image": "/static/media/bolsa-grande.628b1d978fbd94865e63.png"
     },
     {
       "id": 2,
       "name": "Coach",
       "description": "Leather Coach Bag",
       "price": 54.69,
-      "categoryId": 1
+      "categoryId": 1,
+      "image": "/static/media/bolsa-coach.d57740d2297239a23938.png"
     },
     {
       "id": 3,
       "name": "Remus",
       "description": "Brown Strap Bag",
       "price": 57.0,
-      "categoryId": 1
+      "categoryId": 1,
+      "image": "/static/media/bolsa-remus.fa64eb45d741fdd3fa67.png"
     },
     {
       "id": 4,
       "name": "Boujee",
       "description": "Black Bag",
       "price": 56.49,
-      "categoryId": 1
+      "categoryId": 1,
+      "image": "/static/media/bolsa-boujee.128688aa136f592aaddf.png"
     }
   ],
   "categories": [

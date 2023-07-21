@@ -2,6 +2,11 @@
   display: flex;
   flex-direction: column;
   gap: 8px;
+  transition: all 0.3s;
+  cursor: pointer;
+}
+.product:hover {
+  transform: scale(1.05);
 }
 .detailContainer {
   display: flex;

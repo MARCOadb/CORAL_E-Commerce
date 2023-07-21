@@ -1,566 +1,508 @@
 @mixin phone {
-    @media (max-width: 1279px) {
-        @content;
-    }
+  @media (max-width: 1279px) {
+    @content;
+  }
 }
 
 .content {
-    width: 100%;
-    height: auto;
-    -webkit-tap-highlight-color: transparent;
+  width: 100%;
+  height: auto;
+  -webkit-tap-highlight-color: transparent;
 }
 
 h1 {
-    letter-spacing: normal;
+  letter-spacing: normal;
 }
 
 img {
-    pointer-events: all;
+  pointer-events: all;
 }
 
 .warning {
-    width: 100%;
-    height: 50px;
-    background-color: #f0f0f0;
+  width: 100%;
+  height: 50px;
+  background-color: #f0f0f0;
 
-    font-size: 14px;
-    font-weight: 400;
-    line-height: 18px;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 18px;
 
-    display: flex;
-    justify-content: center;
-    align-items: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 
-    color: #171520;
+  color: #171520;
 
-    a {
-        color: #1b4b66;
-        text-decoration: underline;
-    }
+  a {
+    color: #1b4b66;
+    text-decoration: underline;
+  }
 }
 
 .categories-container {
+  width: 100%;
+  margin-top: 25px;
+  display: flex;
+  flex-direction: column;
+
+  h1 {
+    font-size: 14px;
+    text-transform: none;
+    font-weight: 600;
+    line-height: 16px;
+    color: #171520;
+    padding-left: 16px;
+
+    @include phone {
+      width: 100%;
+      margin: 0 auto;
+      max-width: 704px;
+    }
+  }
+
+  .categories {
     width: 100%;
-    margin-top: 25px;
     display: flex;
-    flex-direction: column;
+    margin: 9px auto 0 auto;
+    padding-left: 16px;
+    overflow: auto;
 
-    h1 {
-        font-size: 14px;
-        text-transform: none;
-        font-weight: 600;
-        line-height: 16px;
+    @media (max-width: 1280px) and (min-width: 480px) {
+      justify-content: center;
+    }
+
+    .category {
+      width: 58px;
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+      text-align: center;
+      margin-right: 18px;
+
+      div {
+        width: 58px;
+        height: 58px;
+        background-color: #f4f4f4;
+        border-radius: 8px;
+      }
+
+      span {
+        font-size: 12px;
+        font-weight: 500;
+        line-height: 18px;
         color: #171520;
-        padding-left: 16px;
-
-        @include phone {
-            width: 100%;
-            margin: 0 auto;
-            max-width: 704px;
-        }
+      }
     }
-
-    .categories {
-        width: 100%;
-        display: flex;
-        margin: 9px auto 0 auto;
-        padding-left: 16px;
-        overflow: auto;
-
-        @media (max-width: 1280px) and (min-width: 480px) {
-            justify-content: center;
-        }
-
-        .category {
-            width: 58px;
-            display: flex;
-            flex-direction: column;
-            gap: 5px;
-            text-align: center;
-            margin-right: 18px;
-
-            div {
-                width: 58px;
-                height: 58px;
-                background-color: #f4f4f4;
-                border-radius: 8px;
-            }
-
-            span {
-                font-size: 12px;
-                font-weight: 500;
-                line-height: 18px;
-                color: #171520;
-            }
-        }
-    }
+  }
 }
 
 .arrivals {
-    width: 100%;
-    max-width: 1400px;
-    margin: 68px auto 0 auto;
-    display: block;
+  width: 100%;
+  max-width: 1400px;
+  margin: 68px auto 0 auto;
+  display: block;
 
-    @include phone {
-        max-width: 704px;
-        margin-top: 30px;
-    }
+  @include phone {
+    max-width: 704px;
+    margin-top: 30px;
+  }
 }
 
 .arrivals-title,
 .container-title {
-    display: flex;
-    justify-content: space-between;
-    padding-left: 20px;
+  display: flex;
+  justify-content: space-between;
+  padding-left: 20px;
 
-    @include phone {
-        padding-left: 16px;
-        margin: 0 auto;
-        width: 100%;
-        max-width: 704px;
-        height: 24px;
-        align-items: center;
-        justify-content: space-between;
-    }
-
-    h1 {
-        font-size: 34px;
-        text-transform: none;
-        font-weight: 600;
-        line-height: 44px;
-        color: #13101e;
-
-        @include phone {
-            font-size: 14px;
-            text-transform: none;
-            font-weight: 600;
-            line-height: 16px;
-            color: #171520;
-        }
-    }
-
-    button {
-        width: 103px;
-        height: 44px;
-        display: flex;
-        padding: 10px 8px;
-        border: none;
-        background-color: transparent;
-        justify-content: space-between;
-        transition: all 0.3s;
-
-        @include phone {
-            height: 24px;
-            padding: 0;
-            align-items: center;
-            justify-content: end;
-        }
-
-        span {
-            font-size: 14px;
-            color: #1b4b66;
-            font-weight: 600;
-            line-height: 24px;
-
-            @include phone {
-                font-size: 12px;
-                font-weight: 500;
-                line-height: 18px;
-            }
-        }
-
-        img {
-            width: 24px;
-        }
-    }
-
-    button:hover {
-        background-color: #f0f0f0;
-        border-radius: 8px;
-    }
-}
-
-.container-title {
-    @include phone {
-        padding-left: 16px;
-    }
-}
-
-.arrivals-carousel {
-    width: auto;
-    display: flex;
-    gap: 40px;
-    overflow-x: auto;
-    overflow-y: hidden;
-    scroll-behavior: smooth;
-    padding: 24px 20px 0 20px;
-
-    @include phone {
-        width: calc(100%);
-        gap: 16px;
-        padding: 12px 16px 0 16px;
-    }
-}
-
-.item {
-    width: 284px;
-    height: 100%;
-    padding-bottom: 41px;
-    transition: all 0.3s;
-    cursor: pointer;
-
-    @include phone {
-        padding-bottom: 24px;
-    }
-
-    .item-cover {
-        width: 286px;
-        border-radius: 8px;
-
-        @include phone {
-            width: 136px;
-        }
-    }
-
-    .item-details {
-        width: 100%;
-        display: flex;
-        flex-direction: column;
-        gap: 8px;
-
-        .name-fav {
-            display: flex;
-            justify-content: space-between;
-
-            span {
-                font-size: 16px;
-                font-weight: 500;
-                line-height: 20px;
-                color: #171520;
-            }
-        }
-
-        .item-description {
-            font-size: 14px;
-            font-weight: 400;
-            line-height: 20px;
-            color: #626262;
-        }
-
-        .item-price {
-            font-size: 16px;
-            font-weight: 500;
-            line-height: 20px;
-            color: #171520;
-        }
-    }
-}
-
-.item:hover {
-    transform: scale(1.05);
-}
-
-.collections-container {
-    width: 100%;
-    height: 422px;
-    background-color: #1b4b66;
-    display: flex;
-    flex-direction: column;
-
-    @include phone {
-        height: auto;
-    }
-
-    h1 {
-        font-size: 34px;
-        font-weight: 600;
-        text-transform: none;
-        line-height: 44px;
-        margin-left: 20px;
-        margin: 32px auto 23px 20px;
-        color: #fff;
-
-        @include phone {
-            font-size: 14px;
-            line-height: 16px;
-            margin: 18px auto 13px 16px;
-        }
-    }
-}
-
-.collections {
-    width: auto;
-    height: 100%;
-    max-width: 1280px;
+  @include phone {
+    padding-left: 16px;
     margin: 0 auto;
-}
+    width: 100%;
+    max-width: 704px;
+    height: 24px;
+    align-items: center;
+    justify-content: space-between;
+  }
 
-.collection {
-    width: auto;
-    height: 100%;
+  h1 {
+    font-size: 34px;
+    text-transform: none;
+    font-weight: 600;
+    line-height: 44px;
+    color: #13101e;
+
+    @include phone {
+      font-size: 14px;
+      text-transform: none;
+      font-weight: 600;
+      line-height: 16px;
+      color: #171520;
+    }
+  }
+
+  button {
+    width: 103px;
+    height: 44px;
     display: flex;
+    padding: 10px 8px;
+    border: none;
+    background-color: transparent;
+    justify-content: space-between;
+    transition: all 0.3s;
 
     @include phone {
-        height: auto;
-        padding: 0px 16px 16px 16px;
-        flex-wrap: wrap;
-        gap: 16px;
-        justify-content: center;
-    }
-}
-
-.collection-item {
-    width: 280px;
-    height: 280px;
-    margin: 0 20px;
-    position: relative;
-    cursor: pointer;
-
-    @include phone {
-        width: 156px;
-        height: 150px;
-        margin: 0;
-    }
-
-    .shadow {
-        width: 100%;
-        height: 114px;
-        position: absolute;
-        bottom: 0;
-        background: linear-gradient(180deg, rgba(196, 196, 196, 0) 0%, rgba(3, 24, 26, 0.46) 100%);
-        border-bottom-left-radius: 16px;
-        border-bottom-right-radius: 16px;
-
-        @include phone {
-            width: 156px;
-            height: 150px;
-            background: linear-gradient(180deg, rgba(196, 196, 196, 0) 0%, rgba(3, 24, 26, 0.23) 100%);
-            top: 0;
-        }
-    }
-
-    img {
-        border-radius: 16px;
-
-        @include phone {
-            width: 156px;
-            height: 150px;
-        }
+      height: 24px;
+      padding: 0;
+      align-items: center;
+      justify-content: end;
     }
 
     span {
-        position: absolute;
-        bottom: 9px;
-        left: 10px;
-        transition: all 0.3s;
+      font-size: 14px;
+      color: #1b4b66;
+      font-weight: 600;
+      line-height: 24px;
 
-        font-size: 24px;
-        font-weight: 600;
-        line-height: 32px;
-        color: #171520;
-
-        @include phone {
-            font-size: 14px;
-            font-weight: 500;
-            line-height: 18px;
-        }
+      @include phone {
+        font-size: 12px;
+        font-weight: 500;
+        line-height: 18px;
+      }
     }
+
+    img {
+      width: 24px;
+    }
+  }
+
+  button:hover {
+    background-color: #f0f0f0;
+    border-radius: 8px;
+  }
+}
+
+.container-title {
+  @include phone {
+    padding-left: 16px;
+  }
+}
+
+.arrivals-carousel {
+  width: auto;
+  display: flex;
+  gap: 40px;
+  overflow-x: auto;
+  overflow-y: hidden;
+  scroll-behavior: smooth;
+  padding: 24px 20px 36px 20px;
+
+  @include phone {
+    width: calc(100%);
+    gap: 16px;
+    padding: 12px 16px 0 16px;
+  }
+}
+
+.collections-container {
+  width: 100%;
+  height: 422px;
+  background-color: #1b4b66;
+  display: flex;
+  flex-direction: column;
+
+  @include phone {
+    height: auto;
+  }
+
+  h1 {
+    font-size: 34px;
+    font-weight: 600;
+    text-transform: none;
+    line-height: 44px;
+    margin-left: 20px;
+    margin: 32px auto 23px 20px;
+    color: #fff;
+
+    @include phone {
+      font-size: 14px;
+      line-height: 16px;
+      margin: 18px auto 13px 16px;
+    }
+  }
+}
+
+.collections {
+  width: auto;
+  height: 100%;
+  max-width: 1280px;
+  margin: 0 auto;
+}
+
+.collection {
+  width: auto;
+  height: 100%;
+  display: flex;
+
+  @include phone {
+    height: auto;
+    padding: 0px 16px 16px 16px;
+    flex-wrap: wrap;
+    gap: 16px;
+    justify-content: center;
+  }
+}
+
+.collection-item {
+  width: 280px;
+  height: 280px;
+  margin: 0 20px;
+  position: relative;
+  cursor: pointer;
+
+  @include phone {
+    width: 156px;
+    height: 150px;
+    margin: 0;
+  }
+
+  .shadow {
+    width: 100%;
+    height: 114px;
+    position: absolute;
+    bottom: 0;
+    background: linear-gradient(180deg, rgba(196, 196, 196, 0) 0%, rgba(3, 24, 26, 0.46) 100%);
+    border-bottom-left-radius: 16px;
+    border-bottom-right-radius: 16px;
+
+    @include phone {
+      width: 156px;
+      height: 150px;
+      background: linear-gradient(180deg, rgba(196, 196, 196, 0) 0%, rgba(3, 24, 26, 0.23) 100%);
+      top: 0;
+    }
+  }
+
+  img {
+    border-radius: 16px;
+
+    @include phone {
+      width: 156px;
+      height: 150px;
+    }
+  }
+
+  span {
+    position: absolute;
+    bottom: 9px;
+    left: 10px;
+    transition: all 0.3s;
+
+    font-size: 24px;
+    font-weight: 600;
+    line-height: 32px;
+    color: #171520;
+
+    @include phone {
+      font-size: 14px;
+      font-weight: 500;
+      line-height: 18px;
+    }
+  }
 }
 
 .collection-item:hover .shadow {
-    background: linear-gradient(180deg, rgba(196, 196, 196, 0) 0%, rgba(3, 24, 26, 0.46) 50%);
+  background: linear-gradient(180deg, rgba(196, 196, 196, 0) 0%, rgba(3, 24, 26, 0.46) 50%);
 
-    @include phone {
-        background: linear-gradient(180deg, rgba(196, 196, 196, 0) 0%, rgba(3, 24, 26, 0.46) 100%);
-    }
+  @include phone {
+    background: linear-gradient(180deg, rgba(196, 196, 196, 0) 0%, rgba(3, 24, 26, 0.46) 100%);
+  }
 }
 
 .collection-item:hover span {
-    transform: translateY(-5px);
+  transform: translateY(-5px);
 }
 
 .collection-line {
-    display: flex;
-    gap: 16px;
+  display: flex;
+  gap: 16px;
 }
 
 .brands-container {
-    margin: 67px auto;
-    width: 100%;
-    max-width: 1400px;
-    height: auto;
-    display: flex;
-    flex-direction: column;
-    padding: 0 20px;
-    gap: 24px;
+  margin: 67px auto;
+  width: 100%;
+  max-width: 1400px;
+  height: auto;
+  display: flex;
+  flex-direction: column;
+  padding: 0 20px;
+  gap: 24px;
+
+  @include phone {
+    gap: 9px;
+    padding: 0 16px;
+    margin: 24px auto;
+  }
+
+  h1 {
+    font-size: 34px;
+    font-weight: 600;
+    line-height: 44px;
+    color: #13101e;
+    text-transform: none;
 
     @include phone {
-        gap: 9px;
-        padding: 0 16px;
-        margin: 24px auto;
+      font-size: 14px;
+      line-height: 16px;
+      padding-left: 0;
     }
-
-    h1 {
-        font-size: 34px;
-        font-weight: 600;
-        line-height: 44px;
-        color: #13101e;
-        text-transform: none;
-
-        @include phone {
-            font-size: 14px;
-            line-height: 16px;
-            padding-left: 0;
-        }
-    }
+  }
 }
 
 .brands {
-    width: 100%;
-    display: flex;
-    justify-content: space-between;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+
+  @include phone {
+    flex-wrap: wrap;
+    row-gap: 24px;
+    column-gap: 16px;
+    justify-content: center;
+  }
+
+  img {
+    width: auto;
+    transition: all 0.3s;
+    cursor: pointer;
+    border-radius: 16px;
 
     @include phone {
-        flex-wrap: wrap;
-        row-gap: 24px;
-        column-gap: 16px;
-        justify-content: center;
+      width: 100px;
     }
+  }
 
-    img {
-        width: auto;
-        transition: all 0.3s;
-        cursor: pointer;
-        border-radius: 16px;
-
-        @include phone {
-            width: 100px;
-        }
-    }
-
-    img:hover {
-        transform: scale(1.05);
-        box-shadow: 1px 1px 8px -2px rgba(0, 0, 0, 0.5);
-    }
+  img:hover {
+    transform: scale(1.05);
+    box-shadow: 1px 1px 8px -2px rgba(0, 0, 0, 0.5);
+  }
 }
 
 .brand-line {
-    width: auto;
-    max-width: 500px;
-    display: flex;
-    gap: 16px;
+  width: auto;
+  max-width: 500px;
+  display: flex;
+  gap: 16px;
 }
 
 .shortcut {
-    height: auto;
-    padding: 0 16px;
-    margin: 0 auto;
-    text-align: center;
-    margin-bottom: 21px;
+  height: auto;
+  padding: 0 16px;
+  margin: 0 auto;
+  text-align: center;
+  margin-bottom: 21px;
 
-    img {
-        width: 100%;
-        max-width: 550px;
-    }
+  img {
+    width: 100%;
+    max-width: 550px;
+  }
 }
 
 .banners-container {
-    width: 100%;
-    max-width: 1280px;
-    display: flex;
-    flex-direction: column;
-    gap: 40px;
-    padding: 0 20px;
-    margin: 0 auto 68px auto;
+  width: 100%;
+  max-width: 1280px;
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+  padding: 0 20px;
+  margin: 0 auto 68px auto;
 
-    @include phone {
-        padding: 0 16px;
-        gap: 13px;
-        height: auto;
-        margin-bottom: 25px;
-        max-width: 704px;
-    }
+  @include phone {
+    padding: 0 16px;
+    gap: 13px;
+    height: auto;
+    margin-bottom: 25px;
+    max-width: 704px;
+  }
 
-    h1 {
-        font-size: 14px;
-        font-weight: 600;
-        text-transform: none;
-        line-height: 16px;
-        color: #171520;
-    }
+  h1 {
+    font-size: 14px;
+    font-weight: 600;
+    text-transform: none;
+    line-height: 16px;
+    color: #171520;
+  }
 }
 
 .banners {
-    display: flex;
-    flex-direction: column;
-    gap: 40px;
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
 
-    .banner-big {
-        width: 100%;
-        margin: 0 auto;
-
-        @include phone {
-            max-width: 704px;
-        }
-    }
+  .banner-big {
+    width: 100%;
+    margin: 0 auto;
 
     @include phone {
-        gap: 16px;
+      max-width: 704px;
+    }
+  }
 
-        img {
-            transition: all 0.3s;
-            cursor: pointer;
-        }
+  @include phone {
+    gap: 16px;
 
-        img:hover {
-            transform: scale(1.05);
-        }
+    img {
+      transition: all 0.3s;
+      cursor: pointer;
     }
 
-    div {
-        width: 100%;
-        display: flex;
-        gap: 32px;
-        margin: 0 auto;
-
-        @include phone {
-            max-width: 704px;
-            gap: 16px;
-        }
-
-        img {
-            transition: all 0.3s;
-            cursor: pointer;
-            width: 50%;
-        }
-
-        img:hover {
-            transform: scale(1.05);
-        }
+    img:hover {
+      transform: scale(1.05);
     }
+  }
+
+  div {
+    width: 100%;
+    display: flex;
+    gap: 32px;
+    margin: 0 auto;
+
+    @include phone {
+      max-width: 704px;
+      gap: 16px;
+    }
+
+    img {
+      transition: all 0.3s;
+      cursor: pointer;
+      width: 50%;
+    }
+
+    img:hover {
+      transform: scale(1.05);
+    }
+  }
 }
 
 .trendings-container {
-    width: 100%;
-    max-width: 704px;
-    margin: 0 auto;
-    margin-bottom: 24px;
+  width: 100%;
+  max-width: 704px;
+  margin: 0 auto;
+  margin-bottom: 24px;
 
-    h1 {
-        margin-left: 16px;
-        text-transform: none;
-        font-size: 14px;
-        font-weight: 600;
-        line-height: 16px;
-        color: #171520;
-        margin-bottom: 13px;
-    }
+  h1 {
+    margin-left: 16px;
+    text-transform: none;
+    font-size: 14px;
+    font-weight: 600;
+    line-height: 16px;
+    color: #171520;
+    margin-bottom: 13px;
+  }
 }
 
 @include phone {
-    ::-webkit-scrollbar {
-        display: none;
-        -webkit-appearance: none;
-    }
+  ::-webkit-scrollbar {
+    display: none;
+    -webkit-appearance: none;
+  }
 }

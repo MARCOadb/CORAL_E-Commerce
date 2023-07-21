@@ -3,9 +3,10 @@ import getProductById from "../../services/getProductById";
 import styles from "./style.module.scss";
 import { useEffect } from "react";
 import WishlistSvg from "../../assets/icon/WishlistSvg";
-import grande from "../../assets/pics/Home/bolsa-grande.png";
+import coach from "../../assets/pics/Home/bolsa-coach.png";
+import remus from "../../assets/pics/Home/bolsa-remus.png";
 
-const Product = () => {
+const Product = ({ id }) => {
   const [loading, setLoading] = useState(false);
   const [product, setProduct] = useState(null);
   const getProduct = async (id) => {
@@ -15,7 +16,7 @@ const Product = () => {
   };
 
   useEffect(() => {
-    getProduct(1)
+    getProduct(id)
       .then((data) => setProduct(data))
       .finally(() => setLoading(false));
   }, []);
@@ -24,7 +25,7 @@ const Product = () => {
     <>
       {!loading && (
         <div className={styles.product}>
-          <img src={grande} alt="Product Name" />
+          <img src={product?.image} alt="Product Name" />
           <div className={styles.detailContainer}>
             <div className={styles.textContainer}>
               <span className="text-high-emphasis body-medium">{product?.name}</span>

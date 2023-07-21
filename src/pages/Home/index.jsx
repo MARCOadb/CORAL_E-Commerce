@@ -16,10 +16,6 @@ import shortHero2 from "../../assets/pics/Home/short-hero-2.png";
 import shortHero2Mobile from "../../assets/pics/Home/mob-only/short-hero-2-mobile.png";
 import chevronRight from "../../assets/icon/chevron-right.svg";
 import chevronRightSmall from "../../assets/icon/chevron-right-small.svg";
-import grande from "../../assets/pics/Home/bolsa-grande.png";
-import remus from "../../assets/pics/Home/bolsa-remus.png";
-import coach from "../../assets/pics/Home/bolsa-coach.png";
-import boujee from "../../assets/pics/Home/bolsa-boujee.png";
 import perfume from "../../assets/pics/Home/laura-chouette-Atomp7YdMaE-unsplash 1.png";
 import watch from "../../assets/pics/Home/wrist-watch.png";
 import pinkBag from "../../assets/pics/Home/pink-bag-2.png";
@@ -133,91 +129,7 @@ export default function Home() {
           </div>
 
           <div className="arrivals-carousel">
-            <Product id={1}></Product>
-            {/* 
-            <div className="item">
-              <img src={coach} alt="Item Name" className="item-cover" />
-              <div className="item-details">
-                <div className="name-fav">
-                  <span>Coach</span>
-                  <WishlistSvg stroke="#13101E" />
-                </div>
-                <span className="item-description">Leather Coach Bag</span>
-                <span className="item-price">$54.69</span>
-              </div>
-            </div>
-
-            <div className="item">
-              <img src={remus} alt="Item Name" className="item-cover" />
-              <div className="item-details">
-                <div className="name-fav">
-                  <span>Remus</span>
-                  <WishlistSvg stroke="#13101E" />
-                </div>
-                <span className="item-description">Brown Strap Bag</span>
-                <span className="item-price">$57.00</span>
-              </div>
-            </div>
-
-            <div className="item">
-              <img src={boujee} alt="Item Name" className="item-cover" />
-              <div className="item-details">
-                <div className="name-fav">
-                  <span>Boujee</span>
-                  <WishlistSvg stroke="#13101E" />
-                </div>
-                <span className="item-description">Black Bag</span>
-                <span className="item-price">$56.49</span>
-              </div>
-            </div>
-
-            <div className="item">
-              <img src={grande} alt="Item Name" className="item-cover" />
-              <div className="item-details">
-                <div className="name-fav">
-                  <span>Grande</span>
-                  <WishlistSvg stroke="#13101E" />
-                </div>
-                <span className="item-description">Blossom Pouch</span>
-                <span className="item-price">$39.49</span>
-              </div>
-            </div>
-
-            <div className="item">
-              <img src={coach} alt="Item Name" className="item-cover" />
-              <div className="item-details">
-                <div className="name-fav">
-                  <span>Coach</span>
-                  <WishlistSvg stroke="#13101E" />
-                </div>
-                <span className="item-description">Leather Coach Bag</span>
-                <span className="item-price">$54.69</span>
-              </div>
-            </div>
-
-            <div className="item">
-              <img src={remus} alt="Item Name" className="item-cover" />
-              <div className="item-details">
-                <div className="name-fav">
-                  <span>Remus</span>
-                  <WishlistSvg stroke="#13101E" />
-                </div>
-                <span className="item-description">Brown Strap Bag</span>
-                <span className="item-price">$57.00</span>
-              </div>
-            </div>
-
-            <div className="item">
-              <img src={boujee} alt="Item Name" className="item-cover" />
-              <div className="item-details">
-                <div className="name-fav">
-                  <span>Boujee</span>
-                  <WishlistSvg stroke="#13101E" />
-                </div>
-                <span className="item-description">Black Bag</span>
-                <span className="item-price">$56.49</span>
-              </div>
-            </div> */}
+            <Product id={1} />
           </div>
         </div>
 
