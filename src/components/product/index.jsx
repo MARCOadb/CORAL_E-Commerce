@@ -27,9 +27,9 @@ const Product = () => {
           <img src={grande} alt="Product Name" />
           <div className={styles.detailContainer}>
             <div className={styles.textContainer}>
-              <span className="text-high-emphasis">{product?.name}</span>
-              <span className="text-low-emphasis">{product?.description}</span>
-              <span className="text-high-emphasis">${product?.price}</span>
+              <span className="text-high-emphasis body-medium">{product?.name}</span>
+              <span className="text-low-emphasis label-large">{product?.description}</span>
+              <span className="text-high-emphasis body-medium ">${product?.price}</span>
             </div>
             <div className={styles.svgContainer}>
               <WishlistSvg stroke="#13101E" />
