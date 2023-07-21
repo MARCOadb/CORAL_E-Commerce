@@ -31,12 +31,15 @@ import jewllery from "../../assets/icon/jewellery.svg";
 import handbags from "../../assets/icon/handbags.svg";
 import watchIcon from "../../assets/icon/watch.svg";
 import shortcuts from "../../assets/pics/Home/mob-only/shortcut-mobile.png";
-import WishlistSvg from "../../assets/icon/WishlistSvg";
-
+import boujee from "../../assets/pics/Home/bolsa-boujee.png";
+import coach from "../../assets/pics/Home/bolsa-coach.png";
+import grande from "../../assets/pics/Home/bolsa-grande.png";
+import remus from "../../assets/pics/Home/bolsa-remus.png";
 //STYLES
 import "./style.scss";
 import NavBarMobile from "../../components/navBarMobile";
 import Product from "../../components/product";
+import getAllProducts from "../../services/getProducts";
 
 export default function Home() {
   const { phone, desktop } = useBreakpoint();
@@ -53,6 +56,21 @@ export default function Home() {
     return () => {
       window.removeEventListener("resize", handleResize);
     };
+  }, []);
+
+  const [loading, setLoading] = useState(false);
+  const [products, setProducts] = useState(null);
+
+  const getProducts = async () => {
+    setLoading(true);
+    const produtos = await getAllProducts();
+    return produtos;
+  };
+
+  useEffect(() => {
+    getProducts()
+      .then((data) => setProducts(data))
+      .finally(() => setLoading(false));
   }, []);
 
   return (
@@ -129,7 +147,22 @@ export default function Home() {
           </div>
 
           <div className="arrivals-carousel">
-            <Product id={1} />
+            {!loading &&
+              products?.map((item) => (
+                <Product
+                  largura={desktop ? 286 : 136}
+                  altura={desktop ? 286 : 136}
+                  key={item.id}
+                  id={item.id}
+                  image={item.image}
+                  name={item.name}
+                  desc={item.description}
+                  price={item.price}
+                  label={true}
+                  oldprice="$50"
+                  discount="50%"
+                />
+              ))}
           </div>
         </div>
 

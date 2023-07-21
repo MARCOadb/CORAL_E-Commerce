@@ -11,6 +11,10 @@ $text-light: #b6b6b6;
 $text-high-emphasis: #171520;
 $text-low-emphasis: #626262;
 
+//ESTILOS DE TEXTO
+.strike {
+  text-decoration: line-through;
+}
 //CORES DE TEXTO FREQUENTES
 .text-high-emphasis {
   color: $text-high-emphasis;

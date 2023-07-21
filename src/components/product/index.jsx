@@ -1,44 +1,43 @@
-import { useState } from "react";
-import getProductById from "../../services/getProductById";
 import styles from "./style.module.scss";
-import { useEffect } from "react";
 import WishlistSvg from "../../assets/icon/WishlistSvg";
-import coach from "../../assets/pics/Home/bolsa-coach.png";
-import remus from "../../assets/pics/Home/bolsa-remus.png";
+import StarSvg from "../../assets/icon/StarSvg";
+import DefaultBtn from "../defaultBtn";
 
-const Product = ({ id }) => {
-  const [loading, setLoading] = useState(false);
-  const [product, setProduct] = useState(null);
-  const getProduct = async (id) => {
-    setLoading(true);
-    const product = await getProductById(id);
-    return product;
-  };
-
-  useEffect(() => {
-    getProduct(id)
-      .then((data) => setProduct(data))
-      .finally(() => setLoading(false));
-  }, []);
-
+const Product = ({ id, image, name, desc, price, largura, altura, button, label, ratings, discount, oldprice }) => {
   return (
-    <>
-      {!loading && (
-        <div className={styles.product}>
-          <img src={product?.image} alt="Product Name" />
-          <div className={styles.detailContainer}>
-            <div className={styles.textContainer}>
-              <span className="text-high-emphasis body-medium">{product?.name}</span>
-              <span className="text-low-emphasis label-large">{product?.description}</span>
-              <span className="text-high-emphasis body-medium ">${product?.price}</span>
+    <div className={styles.product}>
+      <img src={image} width={largura} height={altura} alt={name} />
+      <div className={styles.detailContainer}>
+        <div className={altura >= 286 ? `${styles.textContainer}` : `${styles.textContainer} ${styles.mobileText} `}>
+          <span className={`text-high-emphasis ${altura >= 286 ? "body-medium" : "label-small "}`}>{name}</span>
+          {ratings && (
+            <div>
+              <StarSvg fill="#FF8C4B" />
+              <StarSvg fill="#FF8C4B" />
+              <StarSvg fill="#FF8C4B" />
+              <StarSvg fill="#FF8C4B" />
+              <StarSvg />
             </div>
-            <div className={styles.svgContainer}>
-              <WishlistSvg stroke="#13101E" />
-            </div>
+          )}
+          <span className={`text-low-emphasis ${altura >= 286 ? "label-large" : "label-medium"}`}>{desc}</span>
+          <div className={styles.detailsText}>
+            <span className={`text-high-emphasis ${altura >= 286 ? "body-medium" : "label-small "}`}>${price}</span>
+            {oldprice && <span className={`text-low-emphasis strike ${altura >= 286 ? "label-large" : "label-medium"}`}>{oldprice}</span>}
+            {discount && (
+              <span className={`${altura >= 286 ? "body-medium" : "label-small "}`} style={{ color: "#E21D1D" }}>
+                {discount}
+              </span>
+            )}
           </div>
         </div>
-      )}
-    </>
+        {label && (
+          <div className={altura >= 286 ? `${styles.svgContainer}` : `${styles.mobileSvg} `}>
+            <WishlistSvg width={largura <= 136 && "20"} height={altura <= 138 && "20"} viewBox={altura <= 138 && "0 0 28 28"} stroke="#13101E" />
+          </div>
+        )}
+      </div>
+      {button && <DefaultBtn />}
+    </div>
   );
 };
 export default Product;
