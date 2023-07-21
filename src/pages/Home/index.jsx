@@ -40,21 +40,22 @@ import WishlistSvg from "../../assets/icon/WishlistSvg";
 //STYLES
 import "./style.scss";
 import NavBarMobile from "../../components/navBarMobile";
+import Product from "../../components/product";
 
 export default function Home() {
   const { phone, desktop } = useBreakpoint();
 
-  const [windowSize, setWindowSize] = useState(window.innerWidth)
+  const [windowSize, setWindowSize] = useState(window.innerWidth);
 
   useEffect(() => {
     const handleResize = () => {
       setWindowSize(window.innerWidth);
     };
 
-    window.addEventListener('resize', handleResize);
+    window.addEventListener("resize", handleResize);
 
     return () => {
-      window.removeEventListener('resize', handleResize);
+      window.removeEventListener("resize", handleResize);
     };
   }, []);
 
@@ -132,18 +133,8 @@ export default function Home() {
           </div>
 
           <div className="arrivals-carousel">
-            <div className="item">
-              <img src={grande} alt="Item Name" className="item-cover" />
-              <div className="item-details">
-                <div className="name-fav">
-                  <span>Grande</span>
-                  <WishlistSvg stroke="#13101E" />
-                </div>
-                <span className="item-description">Blossom Pouch</span>
-                <span className="item-price">$39.49</span>
-              </div>
-            </div>
-
+            <Product id={1}></Product>
+            {/* 
             <div className="item">
               <img src={coach} alt="Item Name" className="item-cover" />
               <div className="item-details">
@@ -226,7 +217,7 @@ export default function Home() {
                 <span className="item-description">Black Bag</span>
                 <span className="item-price">$56.49</span>
               </div>
-            </div>
+            </div> */}
           </div>
         </div>
 

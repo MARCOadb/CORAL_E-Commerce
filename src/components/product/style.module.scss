@@ -1,0 +1,17 @@
+.product {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.detailContainer {
+  display: flex;
+}
+.textContainer {
+  display: flex;
+  flex-direction: column;
+  width: 92%;
+  gap: 8px;
+}
+.svgContainer {
+  width: 8%;
+}
