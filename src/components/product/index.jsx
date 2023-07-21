@@ -12,11 +12,12 @@ const Product = ({ id, image, name, desc, price, largura, altura, button, label,
           <span className={`text-high-emphasis ${altura >= 286 ? "body-medium" : "label-small "}`}>{name}</span>
           {ratings && (
             <div>
-              <StarSvg fill="#FF8C4B" />
-              <StarSvg fill="#FF8C4B" />
-              <StarSvg fill="#FF8C4B" />
-              <StarSvg fill="#FF8C4B" />
+              <StarSvg fill="#FF8C4B" stroke="#FF8C4B" />
+              <StarSvg fill="#FF8C4B" stroke="#FF8C4B" />
+              <StarSvg fill="#FF8C4B" stroke="#FF8C4B" />
+              <StarSvg fill="#FF8C4B" stroke="#FF8C4B" />
               <StarSvg />
+              <span>42 ratings</span>
             </div>
           )}
           <span className={`text-low-emphasis ${altura >= 286 ? "label-large" : "label-medium"}`}>{desc}</span>
