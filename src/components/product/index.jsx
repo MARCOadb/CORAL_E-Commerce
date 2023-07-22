@@ -2,8 +2,15 @@ import styles from "./style.module.scss";
 import WishlistSvg from "../../assets/icon/WishlistSvg";
 import StarSvg from "../../assets/icon/StarSvg";
 import DefaultBtn from "../defaultBtn";
+import { useState } from "react";
+import { checkWishlist } from "../../services/checkWishlist";
+import { useEffect } from "react";
 
 const Product = ({ id, image, name, desc, price, largura, altura, button, label, ratings, discount, oldprice }) => {
+  const [isWishlisted, setIsWishlisted] = useState(null);
+  useEffect(() => {
+    setIsWishlisted(checkWishlist(id));
+  }, []);
   return (
     <div className={styles.product}>
       <img src={image} width={largura} height={altura} alt={name} />
@@ -35,7 +42,7 @@ const Product = ({ id, image, name, desc, price, largura, altura, button, label,
         </div>
         {label && (
           <div className={altura >= 286 ? `${styles.svgContainer}` : `${styles.mobileSvg} `}>
-            <WishlistSvg width={largura <= 136 && "20"} height={altura <= 138 && "20"} viewBox={altura <= 138 && "0 0 28 28"} stroke="#13101E" />
+            <WishlistSvg width={largura <= 136 && "20"} height={altura <= 138 && "20"} viewBox={altura <= 138 && "0 0 28 28"} fill={isWishlisted && "red"} stroke={isWishlisted ? "red" : "#13101E"} />
           </div>
         )}
       </div>
