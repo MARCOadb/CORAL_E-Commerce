@@ -159,9 +159,8 @@ export default function Home() {
                   desc={item.description}
                   price={item.price}
                   label={true}
-                  oldprice="$50"
-                  discount="50%"
-                  ratings={true}
+                  oldprice="50"
+                  discount="50"
                 />
               ))}
           </div>

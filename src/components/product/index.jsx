@@ -11,22 +11,24 @@ const Product = ({ id, image, name, desc, price, largura, altura, button, label,
         <div className={altura >= 286 ? `${styles.textContainer}` : `${styles.textContainer} ${styles.mobileText} `}>
           <span className={`text-high-emphasis ${altura >= 286 ? "body-medium" : "label-small "}`}>{name}</span>
           {ratings && (
-            <div>
-              <StarSvg fill="#FF8C4B" stroke="#FF8C4B" />
-              <StarSvg fill="#FF8C4B" stroke="#FF8C4B" />
-              <StarSvg fill="#FF8C4B" stroke="#FF8C4B" />
-              <StarSvg fill="#FF8C4B" stroke="#FF8C4B" />
-              <StarSvg />
-              <span>42 ratings</span>
+            <div className={styles.ratingsContainer}>
+              <div>
+                <StarSvg fill="#FF8C4B" stroke="#FF8C4B" />
+                <StarSvg fill="#FF8C4B" stroke="#FF8C4B" />
+                <StarSvg fill="#FF8C4B" stroke="#FF8C4B" />
+                <StarSvg fill="#FF8C4B" stroke="#FF8C4B" />
+                <StarSvg />
+              </div>
+              <span className="text-primary title-medium ">42 Ratings</span>
             </div>
           )}
           <span className={`text-low-emphasis ${altura >= 286 ? "label-large" : "label-medium"}`}>{desc}</span>
           <div className={styles.detailsText}>
             <span className={`text-high-emphasis ${altura >= 286 ? "body-medium" : "label-small "}`}>${price}</span>
-            {oldprice && <span className={`text-low-emphasis strike ${altura >= 286 ? "label-large" : "label-medium"}`}>{oldprice}</span>}
+            {oldprice && <span className={`text-low-emphasis strike ${altura >= 286 ? "label-large" : "extra-small-label"}`}>${oldprice}</span>}
             {discount && (
-              <span className={`${altura >= 286 ? "body-medium" : "label-small "}`} style={{ color: "#E21D1D" }}>
-                {discount}
+              <span className={`${altura >= 286 ? "body-medium" : "extra-small-label"}`} style={{ color: "#E21D1D" }}>
+                {discount}% OFF
               </span>
             )}
           </div>

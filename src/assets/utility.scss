@@ -118,7 +118,13 @@ $text-low-emphasis: #626262;
   font-weight: 600;
   line-height: 16px;
 }
-
+.extra-small-label {
+  font-family: Inter;
+  font-size: 10px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 16px;
+}
 .link {
   font-family: Inter;
   font-size: 12px;
