@@ -161,6 +161,7 @@ export default function Home() {
                   label={true}
                   oldprice="50"
                   discount="50"
+                  button={true}
                 />
               ))}
           </div>

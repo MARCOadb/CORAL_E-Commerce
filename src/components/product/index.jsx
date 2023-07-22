@@ -7,6 +7,10 @@ import { checkWishlist } from "../../services/checkWishlist";
 import { useEffect } from "react";
 import useBreakpoint from "../../hooks/useBreakPoint";
 import { wishlistProduct } from "../../services/wishlistProduct";
+import BagSvg from "../../assets/icon/Bagsvg";
+import { addBagProduct } from "../../services/addBagProduct";
+
+const btnIcon = <BagSvg stroke="#1B4B66" />;
 
 const Product = ({ id, image, name, desc, price, largura, altura, button, label, ratings, discount, oldprice }) => {
   const { desktop, phone } = useBreakpoint();
@@ -19,6 +23,9 @@ const Product = ({ id, image, name, desc, price, largura, altura, button, label,
   const handleSvgOnClick = () => {
     wishlistProduct(id);
     setIsWishlisted(true);
+  };
+  const handleBtnOnClick = () => {
+    addBagProduct(id);
   };
 
   return (
@@ -63,7 +70,11 @@ const Product = ({ id, image, name, desc, price, largura, altura, button, label,
           </div>
         )}
       </div>
-      {button && <DefaultBtn />}
+      {button && (
+        <DefaultBtn onClick={handleBtnOnClick} outlined={true} icon={btnIcon} id={styles.productBtn}>
+          Add to bag
+        </DefaultBtn>
+      )}
     </div>
   );
 };
