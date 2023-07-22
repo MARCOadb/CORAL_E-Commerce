@@ -1,6 +1,7 @@
-const WishlistSvg = ({ stroke, width, height, x, fill, viewBox }) => {
+const WishlistSvg = ({ stroke, width, height, x, fill, viewBox, onClick }) => {
   return (
     <svg
+      onClick={onClick && onClick}
       width={width ? width : "24"}
       height={height ? height : "24"}
       viewBox={viewBox ? viewBox : "0 0 24 24"}
