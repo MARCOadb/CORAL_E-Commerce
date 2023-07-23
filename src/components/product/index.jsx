@@ -12,7 +12,7 @@ import { addBagProduct } from "../../services/addBagProduct";
 
 const btnIcon = <BagSvg stroke="#1B4B66" />;
 
-const Product = ({ id, image, name, desc, price, largura, altura, button, label, ratings, discount, oldprice }) => {
+const Product = ({ id, image, name, desc, price, largura, altura, button, label, ratings, discount, oldprice, sort }) => {
   const { desktop, phone } = useBreakpoint();
   const [isWishlisted, setIsWishlisted] = useState(null);
 
@@ -29,10 +29,10 @@ const Product = ({ id, image, name, desc, price, largura, altura, button, label,
   };
 
   return (
-    <div className={styles.product}>
+    <div className={sort ? `${styles.product} ${styles.productSort}` : styles.product}>
       <img src={image} width={largura} height={altura} alt={name} />
-      <div className={styles.detailContainer}>
-        <div className={desktop ? `${styles.textContainer}` : `${styles.textContainer} ${styles.mobileText} `}>
+      <div className={styles.detailContainer} style={sort && { flexDirection: "column", justifyContent: "space-between" }}>
+        <div className={desktop ? `${styles.textContainer}` : `${styles.textContainer} ${styles.mobileText} ${sort && label && styles.sortText}`}>
           <span className={`text-high-emphasis ${desktop ? "body-medium" : "label-small "}`}>{name}</span>
           {ratings && (
             <div className={styles.ratingsContainer}>
@@ -57,7 +57,12 @@ const Product = ({ id, image, name, desc, price, largura, altura, button, label,
             )}
           </div>
         </div>
-        {label && (
+        {button && sort && (
+          <DefaultBtn onClick={handleBtnOnClick} outlined={true} id={styles.productBtn}>
+            Add to bag
+          </DefaultBtn>
+        )}
+        {label && !sort && (
           <div className={desktop ? `${styles.svgContainer}` : `${styles.mobileSvg} `}>
             <WishlistSvg
               onClick={handleSvgOnClick}
@@ -70,7 +75,7 @@ const Product = ({ id, image, name, desc, price, largura, altura, button, label,
           </div>
         )}
       </div>
-      {button && (
+      {button && !sort && (
         <DefaultBtn onClick={handleBtnOnClick} outlined={true} icon={btnIcon} id={styles.productBtn}>
           Add to bag
         </DefaultBtn>

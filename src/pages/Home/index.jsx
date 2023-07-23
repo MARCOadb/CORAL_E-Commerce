@@ -162,6 +162,7 @@ export default function Home() {
                   oldprice="50"
                   discount="50"
                   button={true}
+                  sort={true}
                 />
               ))}
           </div>
