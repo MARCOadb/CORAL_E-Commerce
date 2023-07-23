@@ -13,6 +13,7 @@ import PlusSvg from "../../assets/icon/PlusSvg";
 
 //STYLES
 import styles from "./style.module.scss";
+import Breadcrump from "../../components/breadcrumpDesktop";
 
 export default function Category() {
   const { phone, desktop } = useBreakpoint();
@@ -110,7 +111,7 @@ export default function Category() {
         <div className={styles.content}>
           <img src={hero} alt="Hero Banner" className={styles.heroBanner} />
 
-          <div className={styles.breadcrump}>componente breadcrump aqui</div>
+          <Breadcrump category={"placeholder"} page={"home"}/>
 
           <h1 className={`text-primary display-medium ${styles.categoryName}`}>Handbags</h1>
 

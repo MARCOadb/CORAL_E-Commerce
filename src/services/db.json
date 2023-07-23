@@ -27,12 +27,35 @@
       "description": "Black Bag",
       "price": 56.49,
       "categoryId": 1
+    },
+    {
+      "id": 5,
+      "name": "Relogio",
+      "description": "Black Bag",
+      "price": 56.49,
+      "categoryId": 2
     }
   ],
   "categories": [
     {
       "id": 1,
-      "name": "Bolsas"
+      "name": "Handbags"
+    },
+    {
+      "id": 2,
+      "name": "Watches"
+    },
+    {
+      "id": 3,
+      "name": "Skincares"
+    },
+    {
+      "id": 4,
+      "name": "Jewellery"
+    },
+    {
+      "id":5,
+      "name":"Apparels"
     }
   ]
 }

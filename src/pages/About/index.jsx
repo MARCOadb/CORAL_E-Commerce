@@ -161,7 +161,7 @@ export default function About() {
           </>
         )}
       </div>
-
+      
       <Footer />
     </>
   );
