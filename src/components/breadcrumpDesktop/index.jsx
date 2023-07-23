@@ -1,48 +1,65 @@
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import "./style.scss";
 import getCategoryById from "../../services/getCategoryById";
 import { useEffect, useState } from "react";
+import getProductById from "../../services/getProductById";
+import ChevronRightSmallsvg from "../../assets/icon/ChevronRightSmallsvg"
 
-const Breadcrump = () => {
+
+const Breadcrump = ({idCategory, idProduct}) => {
   const location = useLocation();
   const [category, setCategory] = useState(null);
+  const [label, setLabel] = useState(null);
   const [loading, setLoading] = useState(false);
-
-  const callCategory = async (id) => {
+  const breadCrump = async (idCategory, idProduct) => {
     setLoading(true);
-    const cat = await getCategoryById(id);
-    return cat.name;
+    if(idProduct){
+      const category = await getCategoryById(idCategory);
+      const product = await getProductById(idProduct);
+      return ({
+        category : category.name,
+        product : product.name, 
+      })
+    }
+    else if(idCategory){
+      const category = await getCategoryById(idCategory);
+      return ({
+        category : category.name,
+      })
+    }
+    
   };
   useEffect(() => {
-    callCategory()
+    breadCrump(idCategory,idProduct)
+
       .then((data) => {
-        setCategory(data);
+        setCategory(data?.category);
+        setLabel(data?.product);
       })
+      
       .finally(() => {
         setLoading(false);
       });
   }, []);
 
-  let currentLink = "";
-
-  const crumbs = location.pathname
-    .split("/")
-    .filter((crumb) => crumb !== "")
-    .map((crumb) => {
-      currentLink = +"/${crumb}";
-      return (
-        <div className="crumb" key={crumb}>
-          <Link to {...currentLink}>
-            {crumb}
-          </Link>
-        </div>
-      );
-    });
+  const navigate = useNavigate();
+  const handlePage = () => {
+    navigate(page);
+  };
+  const handleCategory = () => {
+    navigate(category);
+  }
   return (
     <div className="breadcrumbs">
-      {crumbs}
-      <span></span>
-    </div>
+    <>
+      <div onClick={handlePage}>{page}</div>
+      <ChevronRightSmallsvg />
+      <div onClick={label?(handleCategory):("")} style={label?({}):({ color: "#626262" })}>{category}</div>
+      {label && <ChevronRightSmallsvg />}
+      <div style={{ color: '#626262' }}>{label}</div>
+    </>
+</div>
+
   );
 };
 

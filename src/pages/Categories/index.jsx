@@ -4,7 +4,7 @@ export default function Category() {
     return (
         <>
         <h1>Página category</h1>
-        <Breadcrump />
+        <Breadcrump idCategory={2} idProduct={2}/>
         <NavBarMobile />
         </>
     )

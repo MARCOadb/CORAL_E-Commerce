@@ -27,6 +27,13 @@
       "description": "Black Bag",
       "price": 56.49,
       "categoryId": 1
+    },
+    {
+      "id": 5,
+      "name": "Relogio",
+      "description": "Black Bag",
+      "price": 56.49,
+      "categoryId": 2
     }
   ],
   "categories": [
