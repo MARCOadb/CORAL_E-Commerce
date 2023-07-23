@@ -12,28 +12,41 @@ import { addBagProduct } from "../../services/addBagProduct";
 
 const btnIcon = <BagSvg stroke="#1B4B66" />;
 
-const Product = ({ id, image, name, desc, price, largura, altura, button, label, ratings, discount, oldprice, sort }) => {
+/*PROPS
+  {
+    largura: number;
+    altura: number;
+    button?: Boolean;
+    label?: Boolean;
+    ratings?:Boolean;
+    discount?:Boolean;
+    oldprice?:Boolean;
+    sort?:Boolean;
+  }
+*/
+
+const Product = ({ data, largura, altura, button, label, ratings, discount, oldprice, sort }) => {
   const { desktop, phone } = useBreakpoint();
   const [isWishlisted, setIsWishlisted] = useState(null);
 
   useEffect(() => {
-    setIsWishlisted(checkWishlist(id));
+    setIsWishlisted(checkWishlist(data.id));
   }, [isWishlisted]);
 
   const handleSvgOnClick = () => {
-    wishlistProduct(id);
+    wishlistProduct(data.id);
     setIsWishlisted(true);
   };
   const handleBtnOnClick = () => {
-    addBagProduct(id);
+    addBagProduct(data.id);
   };
 
   return (
     <div className={sort ? `${styles.product} ${styles.productSort}` : styles.product}>
-      <img src={image} width={largura} height={altura} alt={name} />
+      <img src={data.image} width={largura} height={altura} alt={data.name} />
       <div className={styles.detailContainer} style={sort && { flexDirection: "column", justifyContent: "space-between" }}>
         <div className={desktop ? `${styles.textContainer}` : `${styles.textContainer} ${styles.mobileText} ${sort && label && styles.sortText}`}>
-          <span className={`text-high-emphasis ${desktop ? "body-medium" : "label-small "}`}>{name}</span>
+          <span className={`text-high-emphasis ${desktop ? "body-medium" : "label-small "}`}>{data.name}</span>
           {ratings && (
             <div className={styles.ratingsContainer}>
               <div>
@@ -46,9 +59,9 @@ const Product = ({ id, image, name, desc, price, largura, altura, button, label,
               <span className="text-primary title-medium ">42 Ratings</span>
             </div>
           )}
-          <span className={`text-low-emphasis ${desktop ? "label-large" : "label-medium"}`}>{desc}</span>
+          <span className={`text-low-emphasis ${desktop ? "label-large" : "label-medium"}`}>{data.desc}</span>
           <div className={styles.detailsText}>
-            <span className={`text-high-emphasis ${desktop ? "body-medium" : "label-small "}`}>${price}</span>
+            <span className={`text-high-emphasis ${desktop ? "body-medium" : "label-small "}`}>${data.price}</span>
             {oldprice && <span className={`text-low-emphasis strike ${desktop ? "label-large" : "extra-small-label"}`}>${oldprice}</span>}
             {discount && (
               <span className={`${desktop ? "body-medium" : "extra-small-label"}`} style={{ color: "#E21D1D" }}>

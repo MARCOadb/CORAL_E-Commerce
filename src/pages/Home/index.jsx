@@ -81,7 +81,8 @@ export default function Home() {
         {desktop && (
           <div className="warning">
             <span>
-              We are currently experiencing local customs clearance delays. For the latest updates, please check your order status <a href="#">here</a>
+              We are currently experiencing local customs clearance delays. For the latest updates, please check your order status{" "}
+              <a href="#">here</a>
             </span>
           </div>
         )}
@@ -148,23 +149,7 @@ export default function Home() {
 
           <div className="arrivals-carousel">
             {!loading &&
-              products?.map((item) => (
-                <Product
-                  largura={desktop ? 286 : 136}
-                  altura={desktop ? 286 : 136}
-                  key={item.id}
-                  id={item.id}
-                  image={item.image}
-                  name={item.name}
-                  desc={item.description}
-                  price={item.price}
-                  label={true}
-                  oldprice="50"
-                  discount="50"
-                  button={true}
-                  sort={true}
-                />
-              ))}
+              products?.map((item) => <Product largura={desktop ? 286 : 136} altura={desktop ? 286 : 136} data={item} label={true} />)}
           </div>
         </div>
 
