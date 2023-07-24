@@ -6,6 +6,7 @@ const getProductById = async (id) => {
     name: response.data.name,
     description: response.data.description,
     price: response.data.price,
+    image: response.data.image,
   };
 };
 export default getProductById;

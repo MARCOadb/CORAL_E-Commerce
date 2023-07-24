@@ -17,10 +17,6 @@ import shortHero2 from "../../assets/pics/Home/short-hero-2.png";
 import shortHero2Mobile from "../../assets/pics/Home/mob-only/short-hero-2-mobile.png";
 import chevronRight from "../../assets/icon/chevron-right.svg";
 import chevronRightSmall from "../../assets/icon/chevron-right-small.svg";
-import grande from "../../assets/pics/Home/bolsa-grande.png";
-import remus from "../../assets/pics/Home/bolsa-remus.png";
-import coach from "../../assets/pics/Home/bolsa-coach.png";
-import boujee from "../../assets/pics/Home/bolsa-boujee.png";
 import perfume from "../../assets/pics/Home/laura-chouette-Atomp7YdMaE-unsplash 1.png";
 import watch from "../../assets/pics/Home/wrist-watch.png";
 import pinkBag from "../../assets/pics/Home/pink-bag-2.png";
@@ -36,26 +32,46 @@ import jewllery from "../../assets/icon/jewellery.svg";
 import handbags from "../../assets/icon/handbags.svg";
 import watchIcon from "../../assets/icon/watch.svg";
 import shortcuts from "../../assets/pics/Home/mob-only/shortcut-mobile.png";
-import WishlistSvg from "../../assets/icon/WishlistSvg";
-
+import boujee from "../../assets/pics/Home/bolsa-boujee.png";
+import coach from "../../assets/pics/Home/bolsa-coach.png";
+import grande from "../../assets/pics/Home/bolsa-grande.png";
+import remus from "../../assets/pics/Home/bolsa-remus.png";
 //STYLES
 import "./style.scss";
+import NavBarMobile from "../../components/navBarMobile";
+import Product from "../../components/product";
+import getAllProducts from "../../services/getProducts";
 
 export default function Home() {
   const { phone, desktop } = useBreakpoint();
 
-  const [windowSize, setWindowSize] = useState(window.innerWidth)
+  const [windowSize, setWindowSize] = useState(window.innerWidth);
 
   useEffect(() => {
     const handleResize = () => {
       setWindowSize(window.innerWidth);
     };
 
-    window.addEventListener('resize', handleResize);
+    window.addEventListener("resize", handleResize);
 
     return () => {
-      window.removeEventListener('resize', handleResize);
+      window.removeEventListener("resize", handleResize);
     };
+  }, []);
+
+  const [loading, setLoading] = useState(false);
+  const [products, setProducts] = useState(null);
+
+  const getProducts = async () => {
+    setLoading(true);
+    const produtos = await getAllProducts();
+    return produtos;
+  };
+
+  useEffect(() => {
+    getProducts()
+      .then((data) => setProducts(data))
+      .finally(() => setLoading(false));
   }, []);
 
   return (
@@ -66,7 +82,8 @@ export default function Home() {
         {desktop && (
           <div className="warning">
             <span>
-              We are currently experiencing local customs clearance delays. For the latest updates, please check your order status <a href="#">here</a>
+              We are currently experiencing local customs clearance delays. For the latest updates, please check your order status{" "}
+              <a href="#">here</a>
             </span>
           </div>
         )}
@@ -132,101 +149,8 @@ export default function Home() {
           </div>
 
           <div className="arrivals-carousel">
-            <div className="item">
-              <img src={grande} alt="Item Name" className="item-cover" />
-              <div className="item-details">
-                <div className="name-fav">
-                  <span>Grande</span>
-                  <WishlistSvg stroke="#13101E" />
-                </div>
-                <span className="item-description">Blossom Pouch</span>
-                <span className="item-price">$39.49</span>
-              </div>
-            </div>
-
-            <div className="item">
-              <img src={coach} alt="Item Name" className="item-cover" />
-              <div className="item-details">
-                <div className="name-fav">
-                  <span>Coach</span>
-                  <WishlistSvg stroke="#13101E" />
-                </div>
-                <span className="item-description">Leather Coach Bag</span>
-                <span className="item-price">$54.69</span>
-              </div>
-            </div>
-
-            <div className="item">
-              <img src={remus} alt="Item Name" className="item-cover" />
-              <div className="item-details">
-                <div className="name-fav">
-                  <span>Remus</span>
-                  <WishlistSvg stroke="#13101E" />
-                </div>
-                <span className="item-description">Brown Strap Bag</span>
-                <span className="item-price">$57.00</span>
-              </div>
-            </div>
-
-            <div className="item">
-              <img src={boujee} alt="Item Name" className="item-cover" />
-              <div className="item-details">
-                <div className="name-fav">
-                  <span>Boujee</span>
-                  <WishlistSvg stroke="#13101E" />
-                </div>
-                <span className="item-description">Black Bag</span>
-                <span className="item-price">$56.49</span>
-              </div>
-            </div>
-
-            <div className="item">
-              <img src={grande} alt="Item Name" className="item-cover" />
-              <div className="item-details">
-                <div className="name-fav">
-                  <span>Grande</span>
-                  <WishlistSvg stroke="#13101E" />
-                </div>
-                <span className="item-description">Blossom Pouch</span>
-                <span className="item-price">$39.49</span>
-              </div>
-            </div>
-
-            <div className="item">
-              <img src={coach} alt="Item Name" className="item-cover" />
-              <div className="item-details">
-                <div className="name-fav">
-                  <span>Coach</span>
-                  <WishlistSvg stroke="#13101E" />
-                </div>
-                <span className="item-description">Leather Coach Bag</span>
-                <span className="item-price">$54.69</span>
-              </div>
-            </div>
-
-            <div className="item">
-              <img src={remus} alt="Item Name" className="item-cover" />
-              <div className="item-details">
-                <div className="name-fav">
-                  <span>Remus</span>
-                  <WishlistSvg stroke="#13101E" />
-                </div>
-                <span className="item-description">Brown Strap Bag</span>
-                <span className="item-price">$57.00</span>
-              </div>
-            </div>
-
-            <div className="item">
-              <img src={boujee} alt="Item Name" className="item-cover" />
-              <div className="item-details">
-                <div className="name-fav">
-                  <span>Boujee</span>
-                  <WishlistSvg stroke="#13101E" />
-                </div>
-                <span className="item-description">Black Bag</span>
-                <span className="item-price">$56.49</span>
-              </div>
-            </div>
+            {!loading &&
+              products?.map((item) => <Product largura={desktop ? 286 : 136} altura={desktop ? 286 : 136} data={item} label={true} />)}
           </div>
         </div>
 
