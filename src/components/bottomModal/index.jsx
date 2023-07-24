@@ -2,6 +2,17 @@ import DefaultBtn from "../defaultBtn";
 import Modal from "../modal";
 import "./style.scss";
 
+/*PROPS
+  {
+    title?: String;
+    headerSuffix?: ReactNode;
+    footerPrefix?: ReactNode;
+    buttons?:ReactNode;
+    setOpen:()=>void;
+    open:Boolean;
+  }
+*/
+
 const BottomModal = ({ title, children, headerSuffix, footerPrefix, buttons, setOpen, open }) => {
   return (
     <>

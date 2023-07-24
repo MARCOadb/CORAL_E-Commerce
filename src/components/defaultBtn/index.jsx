@@ -1,7 +1,19 @@
 import "./style.scss";
-const DefaultBtn = ({ children, outlined, onClick }) => {
+
+/*
+Props
+  {
+    icon?: ReactNode *Svg*;
+    onClick?: () => void;
+    outlined?: true | false;
+    id?: String;
+  }
+*/
+
+const DefaultBtn = ({ children, outlined, onClick, icon, id }) => {
   return (
-    <div className={outlined ? "defaultBtn outlined" : "defaultBtn"} onClick={onClick}>
+    <div id={id && id} className={outlined ? `defaultBtn outlined` : `defaultBtn`} onClick={onClick}>
+      {icon}
       <span>{children}</span>
     </div>
   );
