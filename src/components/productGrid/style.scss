@@ -18,7 +18,7 @@
 
 .grid-settings {
   display: flex;
-  width: 100%;
+  min-width: 912px;
   height: 56px;
   justify-content: space-between;
   align-items: center;
@@ -28,9 +28,10 @@
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   grid-row-gap: 68px;
-  grid-column-gap: 3.5%;
+  grid-column-gap: 3.069%;
   align-items: flex-start;
-  max-width: 912px;
+  min-width: 912px;
+  box-sizing: border-box;
 }
 
 .list {
@@ -128,7 +129,7 @@
 .container-grid-mobile {
   display: flex;
   flex-direction: column;
-  width: 100%;
+  width: 100vw;
   height: auto;
   padding: 8px 16px 32px 16px;
   gap: 8px;

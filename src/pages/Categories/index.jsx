@@ -2,6 +2,7 @@
 import NavBarMobile from "../../components/navBarMobile";
 import Header from "../../components/header";
 import Footer from "../../components/footer";
+import ProductGrid from "../../components/productGrid";
 
 //HOOKS
 import useBreakpoint from "../../hooks/useBreakPoint";
@@ -107,11 +108,11 @@ export default function Category() {
   return (
     <>
       <Header />
-      {!phone && (
+      {!phone ? (
         <div className={styles.content}>
           <img src={hero} alt="Hero Banner" className={styles.heroBanner} />
 
-          <Breadcrump category={"placeholder"} page={"home"}/>
+          <Breadcrump category={"placeholder"} page={"home"} />
 
           <h1 className={`text-primary display-medium ${styles.categoryName}`}>Handbags</h1>
 
@@ -318,9 +319,11 @@ export default function Category() {
               </div>
             </div>
 
-            <div className={styles.itemsGrid}>componente grid de items</div>
+            <ProductGrid />
           </div>
         </div>
+      ) : (
+        <ProductGrid />
       )}
 
       <Footer />

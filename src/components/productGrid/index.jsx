@@ -1,10 +1,13 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import useBreakpoint from "../../hooks/useBreakPoint";
 
 import "./style.scss";
 
 import GridIcon from "../../assets/icon/format-grid.svg";
 import ListIcon from "../../assets/icon/format-list.svg";
+
+import getAllProducts from "../../services/getAllProducts";
+import Product from "../product";
 
 const ProductGrid = () => {
   const { phone, desktop } = useBreakpoint();
@@ -21,6 +24,21 @@ const ProductGrid = () => {
     setGridClass(gridClass === "grid" ? "list" : "grid");
   };
 
+  const [loading, setLoading] = useState(false);
+  const [products, setProducts] = useState(null);
+
+  const getProducts = async () => {
+    setLoading(true);
+    const produtos = await getAllProducts();
+    return produtos;
+  };
+
+  useEffect(() => {
+    getProducts()
+      .then((data) => setProducts(data))
+      .finally(() => setLoading(false));
+  }, []);
+
   return (
     <>
       <div>
@@ -32,17 +50,13 @@ const ProductGrid = () => {
                   <button onClick={handleFormatToggle}>
                     <img src={currentFormat} />
                   </button>
-                  <p className="body-medium-he">Showing * - * of * items</p>
+                  <p className="body-medium-he">Showing * - * of {products.length} items</p>
+                  {/* PRODUCTS.LENGTH IRA MOSTRAR TODOS OS PRODUTOS, NAO SOMENTE OS DA CATEGORIA */}
                 </div>
                 <div className="sorting-options">
                   <div className="to-show">
                     <p className="body-medium-he">To show:</p>
-                    <input
-                      type="number"
-                      value={toShow}
-                      onChange={handleToShow}
-                      className="body-medium text-low-emphasis"
-                    />
+                    <input type="number" value={toShow} onChange={handleToShow} className="body-medium text-low-emphasis" />
                   </div>
                   <div className="sort-by">
                     <p className="body-medium-he">Sort by</p>
@@ -57,33 +71,12 @@ const ProductGrid = () => {
                 </div>
               </div>
               <div className={gridClass}>
-                <div className="product-placeholder">
-                  <span>product placeholder</span>
-                </div>
-                <div className="product-placeholder">
-                  <span>product placeholder</span>
-                </div>
-                <div className="product-placeholder">
-                  <span>product placeholder</span>
-                </div>
-                <div className="product-placeholder">
-                  <span>product placeholder</span>
-                </div>
-                <div className="product-placeholder">
-                  <span>product placeholder</span>
-                </div>
-                <div className="product-placeholder">
-                  <span>product placeholder</span>
-                </div>
-                <div className="product-placeholder">
-                  <span>product placeholder</span>
-                </div>
-                <div className="product-placeholder">
-                  <span>product placeholder</span>
-                </div>
-                <div className="product-placeholder">
-                  <span>product placeholder</span>
-                </div>
+                <>
+                  <>
+                    {!loading &&
+                      products?.map((item) => <Product largura={desktop ? 286 : 136} altura={desktop ? 286 : 136} data={item} label={true} key={item.id} sort={gridClass == "list" && true} />)}
+                  </>
+                </>
               </div>
             </div>
           </>
@@ -92,30 +85,10 @@ const ProductGrid = () => {
             <div className="container-grid-mobile">
               <p className="title-regular text-low-emphasis">*** Products</p>
               <div className="grid-mobile">
-                <div className="product-placeholder">
-                  <p>product placeholder</p>
-                </div>
-                <div className="product-placeholder">
-                  <p>product placeholder</p>
-                </div>
-                <div className="product-placeholder">
-                  <p>product placeholder</p>
-                </div>
-                <div className="product-placeholder">
-                  <p>product placeholder</p>
-                </div>
-                <div className="product-placeholder">
-                  <p>product placeholder</p>
-                </div>
-                <div className="product-placeholder">
-                  <p>product placeholder</p>
-                </div>
-                <div className="product-placeholder">
-                  <p>product placeholder</p>
-                </div>
-                <div className="product-placeholder">
-                  <p>product placeholder</p>
-                </div>
+                <>
+                  {!loading &&
+                    products?.map((item) => <Product largura={desktop ? 286 : 151} altura={desktop ? 286 : 156} data={item} label={false} key={item.id} sort={gridClass == "list" && true} />)}
+                </>
               </div>
             </div>
           </>
