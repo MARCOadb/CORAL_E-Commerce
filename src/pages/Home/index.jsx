@@ -38,9 +38,8 @@ import grande from "../../assets/pics/Home/bolsa-grande.png";
 import remus from "../../assets/pics/Home/bolsa-remus.png";
 //STYLES
 import "./style.scss";
-import NavBarMobile from "../../components/navBarMobile";
 import Product from "../../components/product";
-import getAllProducts from "../../services/getProducts";
+import getAllProducts from "../../services/getAllProducts";
 
 export default function Home() {
   const { phone, desktop } = useBreakpoint();
@@ -82,8 +81,7 @@ export default function Home() {
         {desktop && (
           <div className="warning">
             <span>
-              We are currently experiencing local customs clearance delays. For the latest updates, please check your order status{" "}
-              <a href="#">here</a>
+              We are currently experiencing local customs clearance delays. For the latest updates, please check your order status <a href="#">here</a>
             </span>
           </div>
         )}
@@ -148,10 +146,7 @@ export default function Home() {
             </button>
           </div>
 
-          <div className="arrivals-carousel">
-            {!loading &&
-              products?.map((item) => <Product largura={desktop ? 286 : 136} altura={desktop ? 286 : 136} data={item} label={true} />)}
-          </div>
+          <div className="arrivals-carousel">{!loading && products?.map((item) => <Product largura={desktop ? 286 : 136} altura={desktop ? 286 : 136} data={item} label={true} />)}</div>
         </div>
 
         <div className="collections-container">

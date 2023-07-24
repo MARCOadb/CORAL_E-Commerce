@@ -59,7 +59,7 @@ const Product = ({ data, largura, altura, button, label, ratings, discount, oldp
               <span className="text-primary title-medium ">42 Ratings</span>
             </div>
           )}
-          <span className={`text-low-emphasis ${desktop ? "label-large" : "label-medium"}`}>{data.desc}</span>
+          <span className={`text-low-emphasis ${desktop ? "label-large" : "label-medium"}`}>{data.description}</span>
           <div className={styles.detailsText}>
             <span className={`text-high-emphasis ${desktop ? "body-medium" : "label-small "}`}>${data.price}</span>
             {oldprice && <span className={`text-low-emphasis strike ${desktop ? "label-large" : "extra-small-label"}`}>${oldprice}</span>}
