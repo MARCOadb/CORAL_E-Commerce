@@ -36,8 +36,7 @@
       "name": "Relogio",
       "description": "Black Bag",
       "price": 56.49,
-      "categoryId": 2
-      "categoryId": 1,
+      "categoryId": 2,
       "image": "/static/media/bolsa-boujee.128688aa136f592aaddf.png"
     }
   ],
@@ -59,8 +58,8 @@
       "name": "Jewellery"
     },
     {
-      "id":5,
-      "name":"Apparels"
+      "id": 5,
+      "name": "Apparels"
     }
   ]
 }
