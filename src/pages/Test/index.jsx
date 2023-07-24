@@ -30,9 +30,15 @@ const Test = () => {
     </IconBtn>
   );
   return (
-    <BottomModal title="My bag" open={open} setOpen={setOpen} headerSuffix={prefix} buttons={botoes} footerPrefix={prefix}>
-      <div style={{ margin: "16px" }}>daksodaskod</div>
-    </BottomModal>
+    <MobileLayout icon="cross">
+      <Header />
+      <Header />
+      <Header />
+      <Header />
+      <Header />
+      <Header />
+      <Header />
+    </MobileLayout>
   );
 };
 export default Test;

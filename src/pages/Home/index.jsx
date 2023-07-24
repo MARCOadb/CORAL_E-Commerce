@@ -2,6 +2,7 @@
 import Header from "../../components/header";
 import Footer from "../../components/footer";
 import HeroBanner from "../../components/heroBanner";
+import NavBarMobile from "../../components/navBarMobile";
 
 //HOOKS
 import useBreakpoint from "../../hooks/useBreakPoint";
