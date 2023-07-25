@@ -29,7 +29,8 @@
       "name": "Boujee",
       "description": "Black Bag",
       "price": 56.49,
-      "categoryId": 1
+      "categoryId": 1,
+      "image": "/static/media/bolsa-boujee.128688aa136f592aaddf.png"
     },
     {
       "id": 5,
@@ -51,7 +52,7 @@
     },
     {
       "id": 3,
-      "name": "Skincares"
+      "name": "Skincare"
     },
     {
       "id": 4,
