@@ -11,25 +11,74 @@ import useBreakpoint from "../../hooks/useBreakPoint";
 import SearchBar from "../searchBar";
 import { useState } from "react";
 import MobileDrawer from "../mobileDrawer";
-import Modal from "../modal";
+import { useLocation, useNavigate } from "react-router-dom";
 
-const Header = () => {
+const Header = ({ path }) => {
   const { phone, desktop } = useBreakpoint();
   const [open, setOpen] = useState(false);
+  const navigate = useNavigate();
+  const location = useLocation();
+  const handleCategoryClick = (category) => {
+    navigate(`/${path ? path : location.state.path}/${category}`, {
+      state: {
+        path: path ? path : location.state.path,
+        category: category,
+      },
+    });
+  };
   return (
     <>
-      
       <MobileDrawer setOpen={setOpen} open={open} />
       <div className="headerContainer">
         {desktop ? (
           <>
-            <img src={coralLogo} />
+            <img
+              src={coralLogo}
+              onClick={() => {
+                navigate("/home", { state: { path: "home" } });
+              }}
+            />
             <div className="navContainer">
-              <button className="redirectBtn">Handbags</button>
-              <button className="redirectBtn">Watches</button>
-              <button className="redirectBtn">Skincare</button>
-              <button className="redirectBtn">Jewellery</button>
-              <button className="redirectBtn">Apparels</button>
+              <button
+                className="redirectBtn"
+                onClick={() => {
+                  handleCategoryClick("Handbags");
+                }}
+              >
+                Handbags
+              </button>
+              <button
+                className="redirectBtn"
+                onClick={() => {
+                  handleCategoryClick("Watches");
+                }}
+              >
+                Watches
+              </button>
+              <button
+                className="redirectBtn"
+                onClick={() => {
+                  handleCategoryClick("Skincare");
+                }}
+              >
+                Skincare
+              </button>
+              <button
+                className="redirectBtn"
+                onClick={() => {
+                  handleCategoryClick("Jewellery");
+                }}
+              >
+                Jewellery
+              </button>
+              <button
+                className="redirectBtn"
+                onClick={() => {
+                  handleCategoryClick("Apparels");
+                }}
+              >
+                Apparels
+              </button>
             </div>
             <SearchBar text={"Search for products or brands....."} icon={true} />
             <div className="navContainer">

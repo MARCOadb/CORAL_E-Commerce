@@ -11,12 +11,16 @@ export default function RoutesApp() {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/" element={<Home />} />
+        <Route path="/home" element={<Home />} />
         <Route path="/about" element={<About />} />
         <Route path="/categories" element={<Categories />} />
         <Route path="/profile" element={<Profile />} />
         <Route path="/bag" element={<Bag />} />
         <Route path="/test" element={<Test />} />
+        {/* Categoria desktop */}
+        <Route path={`/home/:category`} element={<Categories />} />
+        {/* Produto  desktop*/}
+        {/* <Route path={`/${path}/${categoria}/${id}/`} element={<Test />} /> */}
       </Routes>
     </BrowserRouter>
   );
