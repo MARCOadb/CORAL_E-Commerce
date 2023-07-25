@@ -43,22 +43,23 @@ const Product = ({ data, largura, altura, button, label, ratings, discount, oldp
 
   return (
     <div className={sort ? `${styles.product} ${styles.productSort}` : styles.product}>
-      <img src={data.image} width={largura} height={altura} alt={data.name} />
+      <img src={data.image} style={altura && largura ? { width: `${largura}`, height: `${altura}` } : { width: "100%", height: "100%" }} alt={data.name} />
       <div className={styles.detailContainer} style={sort ? { flexDirection: "column", justifyContent: "space-between" } : {}}>
         <div className={desktop ? `${styles.textContainer}` : `${styles.textContainer} ${styles.mobileText} ${sort && label && styles.sortText}`}>
           <span className={`text-high-emphasis ${desktop ? "body-medium" : "label-small "}`}>{data.name}</span>
-          {ratings && (
-            <div className={styles.ratingsContainer}>
-              <div>
-                <StarSvg fill="#FF8C4B" stroke="#FF8C4B" />
-                <StarSvg fill="#FF8C4B" stroke="#FF8C4B" />
-                <StarSvg fill="#FF8C4B" stroke="#FF8C4B" />
-                <StarSvg fill="#FF8C4B" stroke="#FF8C4B" />
-                <StarSvg />
+          {ratings ||
+            (label && desktop && (
+              <div className={styles.ratingsContainer}>
+                <div style={{ display: "flex" }}>
+                  <StarSvg fill="#FF8C4B" stroke="#FF8C4B" />
+                  <StarSvg fill="#FF8C4B" stroke="#FF8C4B" />
+                  <StarSvg fill="#FF8C4B" stroke="#FF8C4B" />
+                  <StarSvg fill="#FF8C4B" stroke="#FF8C4B" />
+                  <StarSvg />
+                </div>
+                <span className="text-primary title-medium ">42 Ratings</span>
               </div>
-              <span className="text-primary title-medium ">42 Ratings</span>
-            </div>
-          )}
+            ))}
           <span className={`text-low-emphasis ${desktop ? "label-large" : "label-medium"}`}>{data.description}</span>
           <div className={styles.detailsText}>
             <span className={`text-high-emphasis ${desktop ? "body-medium" : "label-small "}`}>${data.price}</span>

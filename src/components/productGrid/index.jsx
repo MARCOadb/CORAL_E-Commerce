@@ -50,7 +50,7 @@ const ProductGrid = () => {
                   <button onClick={handleFormatToggle}>
                     <img src={currentFormat} />
                   </button>
-                  <p className="body-medium-he">Showing * - * of {products.length} items</p>
+                  <p className="body-medium-he">Showing * - * of {products?.length} items</p>
                   {/* PRODUCTS.LENGTH IRA MOSTRAR TODOS OS PRODUTOS, NAO SOMENTE OS DA CATEGORIA */}
                 </div>
                 <div className="sorting-options">
@@ -74,7 +74,7 @@ const ProductGrid = () => {
                 <>
                   <>
                     {!loading &&
-                      products?.map((item) => <Product largura={desktop ? 286 : 136} altura={desktop ? 286 : 136} data={item} label={true} key={item.id} sort={gridClass == "list" && true} />)}
+                      products?.map((item) => <Product largura={286} altura={286} data={item} label={true} key={item.id} sort={gridClass == "list" && true} button={gridClass == "list" && true} />)}
                   </>
                 </>
               </div>
@@ -85,10 +85,7 @@ const ProductGrid = () => {
             <div className="container-grid-mobile">
               <p className="title-regular text-low-emphasis">*** Products</p>
               <div className="grid-mobile">
-                <>
-                  {!loading &&
-                    products?.map((item) => <Product largura={desktop ? 286 : 151} altura={desktop ? 286 : 156} data={item} label={false} key={item.id} sort={gridClass == "list" && true} />)}
-                </>
+                <>{!loading && products?.map((item) => <Product altura={false} largura={false} data={item} label={false} key={item.id} sort={gridClass === "list" && true} />)}</>
               </div>
             </div>
           </>
