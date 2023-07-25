@@ -34,10 +34,130 @@
     },
     {
       "id": 5,
-      "name": "Relogio",
+      "name": "Relogio 1",
       "description": "Black Bag",
       "price": 56.49,
       "categoryId": 2,
+      "image": "/static/media/bolsa-grande.628b1d978fbd94865e63.png"
+    },
+    {
+      "id": 6,
+      "name": "Relogio 2",
+      "description": "Black Bag",
+      "price": 56.49,
+      "categoryId": 2,
+      "image": "/static/media/bolsa-coach.d57740d2297239a23938.png"
+    },
+    {
+      "id": 7,
+      "name": "Relogio 3",
+      "description": "Black Bag",
+      "price": 56.49,
+      "categoryId": 2,
+      "image": "/static/media/bolsa-boujee.128688aa136f592aaddf.png"
+    },
+    {
+      "id": 8,
+      "name": "Relogio 4",
+      "description": "Black Bag",
+      "price": 56.49,
+      "categoryId": 2,
+      "image": "/static/media/bolsa-boujee.128688aa136f592aaddf.png"
+    },
+    {
+      "id": 9,
+      "name": "Skincare 1",
+      "description": "Black Bag",
+      "price": 56.49,
+      "categoryId": 3,
+      "image": "/static/media/bolsa-grande.628b1d978fbd94865e63.png"
+    },
+    {
+      "id": 10,
+      "name": "Skincare 2",
+      "description": "Black Bag",
+      "price": 56.49,
+      "categoryId": 3,
+      "image": "/static/media/bolsa-coach.d57740d2297239a23938.png"
+    },
+    {
+      "id": 11,
+      "name": "Skincare 3",
+      "description": "Black Bag",
+      "price": 56.49,
+      "categoryId": 3,
+      "image": "/static/media/bolsa-boujee.128688aa136f592aaddf.png"
+    },
+    {
+      "id": 12,
+      "name": "Skincare 4",
+      "description": "Black Bag",
+      "price": 56.49,
+      "categoryId": 3,
+      "image": "/static/media/bolsa-boujee.128688aa136f592aaddf.png"
+    },
+    {
+      "id": 13,
+      "name": "Jewellery 1",
+      "description": "Black Bag",
+      "price": 56.49,
+      "categoryId": 4,
+      "image": "/static/media/bolsa-grande.628b1d978fbd94865e63.png"
+    },
+    {
+      "id": 14,
+      "name": "Jewellery 2",
+      "description": "Black Bag",
+      "price": 56.49,
+      "categoryId": 4,
+      "image": "/static/media/bolsa-coach.d57740d2297239a23938.png"
+    },
+    {
+      "id": 15,
+      "name": "Jewellery 3",
+      "description": "Black Bag",
+      "price": 56.49,
+      "categoryId": 4,
+      "image": "/static/media/bolsa-boujee.128688aa136f592aaddf.png"
+    },
+    {
+      "id": 16,
+      "name": "Jewellery 4",
+      "description": "Black Bag",
+      "price": 56.49,
+      "categoryId": 4,
+      "image": "/static/media/bolsa-boujee.128688aa136f592aaddf.png"
+    },
+    {
+      "id": 17,
+      "name": "Apparels 1",
+      "description": "Black Bag",
+      "price": 56.49,
+      "categoryId": 5,
+      "image": "/static/media/bolsa-grande.628b1d978fbd94865e63.png"
+    },
+    {
+      "id": 18,
+      "name": "Apparels 2",
+      "description": "Black Bag",
+      "price": 56.49,
+      "categoryId": 5,
+      "image": "/static/media/bolsa-coach.d57740d2297239a23938.png"
+    },
+    {
+      "id": 19,
+      "name": "Apparels 3",
+      "description": "Black Bag",
+      "price": 56.49,
+      "categoryId": 5,
+      "image": "/static/media/bolsa-boujee.128688aa136f592aaddf.png"
+    },
+    {
+      "id": 20,
+      "name": "Apparels 4",
+      "description": "Black Bag",
+      "price": 56.49,
+      "categoryId": 5,
       "image": "/static/media/bolsa-boujee.128688aa136f592aaddf.png"
     }
   ],
