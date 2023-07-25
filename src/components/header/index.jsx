@@ -9,16 +9,30 @@ import profileIcon from "../../assets/icon/profile.svg";
 import bagIcon from "../../assets/icon/bag.svg";
 import useBreakpoint from "../../hooks/useBreakPoint";
 import SearchBar from "../searchBar";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import MobileDrawer from "../mobileDrawer";
+import ProfileSvg from "../../assets/icon/Profilesvg";
+import BagSvg from "../../assets/icon/Bagsvg";
+import WishlistSvg from "../../assets/icon/WishlistSvg"
 import Modal from "../modal";
+import { useLocation, useNavigate } from "react-router-dom";
 
 const Header = () => {
   const { phone, desktop } = useBreakpoint();
   const [open, setOpen] = useState(false);
+
+  const navigate = useNavigate();
+  const handleClick = (i) => {
+    navigate(i);
+  };
+  const location = useLocation();
+  const [path, setPath] = useState(location.pathname);
+  useEffect(() => {
+    setPath(location.pathname);
+  }, [location]);
   return (
     <>
-      
+
       <MobileDrawer setOpen={setOpen} open={open} />
       <div className="headerContainer">
         {desktop ? (
@@ -33,9 +47,9 @@ const Header = () => {
             </div>
             <SearchBar text={"Search for products or brands....."} icon={true} />
             <div className="navContainer">
-              <img src={wishlistIcon} alt="wishlistIcon" />
-              <img src={profileIcon} alt="profileIcon" />
-              <img src={bagIcon} alt="bagIcon" />
+              <WishlistSvg stroke={"#1B4B66"} height={44} onClick={() => handleClick("/profile")} /*aqui ele precisa mandar pra página profile + wishlist*/ />
+              <ProfileSvg stroke={"#1B4B66"} height={44} onClick={() => handleClick("/profile")} />
+              <BagSvg stroke={"#1B4B66"} height={44} onClick={() => handleClick("/bag")} />
             </div>
           </>
         ) : (
