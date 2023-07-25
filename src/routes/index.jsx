@@ -17,10 +17,13 @@ export default function RoutesApp() {
         <Route path="/profile" element={<Profile />} />
         <Route path="/bag" element={<Bag />} />
         <Route path="/test" element={<Test />} />
-        {/* Categoria desktop */}
         <Route path={`/home/:category`} element={<Categories />} />
-        {/* Produto  desktop*/}
-        {/* <Route path={`/${path}/${categoria}/${id}/`} element={<Test />} /> */}
+        <Route path={`/about/:category`} element={<Categories />} />
+        {/* 
+        Pagina de produtos
+        <Route path={`/home/:category/:id`} element={<ProductPage />} />
+        <Route path={`/about/:category/:id`} element={<ProductPage />} /> 
+        */}
       </Routes>
     </BrowserRouter>
   );
