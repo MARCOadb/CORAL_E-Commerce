@@ -111,7 +111,7 @@ export default function Category() {
         <div className={styles.content}>
           <img src={hero} alt="Hero Banner" className={styles.heroBanner} />
 
-          <Breadcrump category={"placeholder"} page={"home"}/>
+          <Breadcrump category={"placeholder"} page={"home"} />
 
           <h1 className={`text-primary display-medium ${styles.categoryName}`}>Handbags</h1>
 

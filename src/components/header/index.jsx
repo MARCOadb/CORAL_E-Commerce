@@ -48,7 +48,7 @@ const Header = () => {
             <SearchBar text={"Search for products or brands....."} icon={true} />
             <div className="navContainer">
               <WishlistSvg stroke={"#1B4B66"} height={44} onClick={() => handleClick("/profile")} /*aqui ele precisa mandar pra página profile + wishlist*/ />
-              <ProfileSvg stroke={"#1B4B66"} height={44} onClick={() => handleClick("/profile")} />
+              <ProfileSvg stroke={"#1B4B66"} height={44} onClick={() => handleClick("/profile")} navMovile={false} />
               <BagSvg stroke={"#1B4B66"} height={44} onClick={() => handleClick("/bag")} />
             </div>
           </>
