@@ -7,6 +7,8 @@ import Breadcrump from "../../components/breadcrumpDesktop";
 
 //HOOKS
 import useBreakpoint from "../../hooks/useBreakPoint";
+import { useState } from "react";
+
 
 //IMAGES & ICONS
 import profile from '../../assets/pics/profile-picture.jpg'
@@ -18,6 +20,38 @@ import styles from "./style.module.scss";
 
 export default function Profile() {
     const { phone, desktop } = useBreakpoint();
+    const [activeTab, setActiveTab] = useState(1)
+    const [tabTitle, setTabTitle] = useState('Personal Information')
+
+    function handleTab(tab) {
+        setActiveTab(tab)
+
+        switch (tab) {
+            case 1:
+                setTabTitle('Personal Information')
+                break
+            case 2:
+                setTabTitle('Refer and Eard')
+                break
+            case 3:
+                setTabTitle('My Orders')
+                break
+            case 4:
+                setTabTitle('My Wishlist')
+                break
+            case 5:
+                setTabTitle('My Reviews')
+                break
+            case 6:
+                setTabTitle('My Address Book')
+                break
+            case 7:
+                setTabTitle('My Saved Cards')
+                break
+        }
+    }
+
+
     return (
         <>
             {desktop && (
@@ -32,11 +66,11 @@ export default function Profile() {
                 )}
                 <div className={styles.title}>
                     <div>
-                        <h1 className={`text-primary ${desktop ? 'display-medium' : 'display-small'}`}>{desktop ? 'Personal Information' : 'Profile'}</h1>
+                        <h1 className={`text-primary ${desktop ? 'display-medium' : 'display-small'}`}>{phone ? 'Profile' : tabTitle}</h1>
                         {desktop && (
                             <button>
                                 <LogoutSvg />
-                                <span>Logout</span>
+                                <span className="text-primary">Logout</span>
                             </button>
                         )}
                     </div>
@@ -57,40 +91,45 @@ export default function Profile() {
 
                     <div className={`${styles.menu} body-medium text-dark`}>
                         {desktop && (
-                            <div className={styles.movingBar}></div>
+                            <div className={styles.movingBar} style={{ top: `${(activeTab - 1) * 72}px` }} />
                         )}
-                        <div className={styles.item}>
+                        <div onClick={() => handleTab(1)} className={`${styles.item} ${activeTab === 1 && styles.active}`} id="1">
                             <span>Personal Information</span>
-                            <ChevronRightSvg stroke='#13101E' />
+                            <ChevronRightSvg stroke={activeTab === 1 ? '#1B4B66' : '#13101E'} />
                         </div>
-                        <div className={styles.item}>
+                        <div onClick={() => handleTab(2)} className={`${styles.item} ${activeTab === 2 && styles.active}`} id="2">
                             <span>Refer and Earn</span>
-                            <ChevronRightSvg stroke='#13101E' />
+                            <ChevronRightSvg stroke={activeTab === 2 ? '#1B4B66' : '#13101E'} />
                         </div>
-                        <div className={styles.item}>
+                        <div onClick={() => handleTab(3)} className={`${styles.item} ${activeTab === 3 && styles.active}`} id="3">
                             <span>My Orders</span>
-                            <ChevronRightSvg stroke='#13101E' />
+                            <ChevronRightSvg stroke={activeTab === 3 ? '#1B4B66' : '#13101E'} />
                         </div>
-                        <div className={styles.item}>
+                        <div onClick={() => handleTab(4)} className={`${styles.item} ${activeTab === 4 && styles.active}`} id="4">
                             <span>My Wishlist</span>
-                            <ChevronRightSvg stroke='#13101E' />
+                            <ChevronRightSvg stroke={activeTab === 4 ? '#1B4B66' : '#13101E'} />
                         </div>
-                        <div className={styles.item}>
+                        <div onClick={() => handleTab(5)} className={`${styles.item} ${activeTab === 5 && styles.active}`} id="5">
                             <span>My Reviews</span>
-                            <ChevronRightSvg stroke='#13101E' />
+                            <ChevronRightSvg stroke={activeTab === 5 ? '#1B4B66' : '#13101E'} />
                         </div>
-                        <div className={styles.item}>
-                            <span>My Adress Book</span>
-                            <ChevronRightSvg stroke='#13101E' />
+                        <div onClick={() => handleTab(6)} className={`${styles.item} ${activeTab === 6 && styles.active}`} id="6">
+                            <span>My Address Book</span>
+                            <ChevronRightSvg stroke={activeTab === 6 ? '#1B4B66' : '#13101E'} />
                         </div>
-                        <div className={styles.item}>
+                        <div onClick={() => handleTab(7)} className={`${styles.item} ${activeTab === 7 && styles.active}`} id="7">
                             <span>My Saved Cards</span>
-                            <ChevronRightSvg stroke='#13101E' />
+                            <ChevronRightSvg stroke={activeTab === 7 ? '#1B4B66' : '#13101E'} />
                         </div>
                     </div>
 
                     {desktop && (
-                        <div className={styles.component}>COMPONENTE A SER RENDERIZADO</div>
+                        <div className={styles.component}>
+                            <span>
+                                título do componente: <strong>{tabTitle}</strong> | número do componente: <strong>{activeTab}</strong>. <br /> <br />
+                                pra renderizar o componente certo, pode utilizar o título (tabTitle), ou o número (activeTab).
+                            </span>
+                        </div>
                     )}
 
                     {phone && (

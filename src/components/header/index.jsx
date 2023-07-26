@@ -37,7 +37,7 @@ const Header = () => {
       <div className="headerContainer">
         {desktop ? (
           <>
-            <img src={coralLogo} />
+            <img src={coralLogo} style={{ cursor: 'pointer' }} onClick={() => handleClick("/")} />
             <div className="navContainer">
               <button className="redirectBtn">Handbags</button>
               <button className="redirectBtn">Watches</button>
