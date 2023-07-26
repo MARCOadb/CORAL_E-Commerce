@@ -7,7 +7,7 @@ import Breadcrump from "../../components/breadcrumpDesktop";
 
 //HOOKS
 import useBreakpoint from "../../hooks/useBreakPoint";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 
 //IMAGES & ICONS
@@ -18,15 +18,13 @@ import LogoutSvg from "../../assets/icon/LogoutSvg";
 //STYLES
 import styles from "./style.module.scss";
 
-export default function Profile() {
+export default function Profile({ initialTab }) {
     const { phone, desktop } = useBreakpoint();
-    const [activeTab, setActiveTab] = useState(1)
-    const [tabTitle, setTabTitle] = useState('Personal Information')
+    const [activeTab, setActiveTab] = useState(1/*initialTab*/)
+    const [tabTitle, setTabTitle] = useState('')
 
-    function handleTab(tab) {
-        setActiveTab(tab)
-
-        switch (tab) {
+    useEffect(() => {
+        switch (activeTab) {
             case 1:
                 setTabTitle('Personal Information')
                 break
@@ -49,8 +47,11 @@ export default function Profile() {
                 setTabTitle('My Saved Cards')
                 break
         }
-    }
+    }, [activeTab])
 
+    function handleTab(tab) {
+        setActiveTab(tab)
+    }
 
     return (
         <>
