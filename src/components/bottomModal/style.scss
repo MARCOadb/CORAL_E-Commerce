@@ -5,20 +5,17 @@
 
   border-top-left-radius: 24px;
   border-top-right-radius: 24px;
-  background-color: transparent;
-
+  background-color: #fff;
   flex-direction: column;
   position: fixed;
-  bottom: 0;
+  bottom: -400px;
   z-index: -1;
-  transition: all 500ms ease-in-out;
+  transition: all 700ms ease-in-out;
   overflow: auto;
 }
 .bottomModalOpen {
-  height: auto;
-
-  z-index: 2;
-  background-color: #fff;
+  z-index: 21;
+  bottom: 0px;
 }
 
 .bottomHeader {

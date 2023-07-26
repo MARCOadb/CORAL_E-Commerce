@@ -12,17 +12,20 @@ import SearchBar from "../searchBar";
 import { useState } from "react";
 import MobileDrawer from "../mobileDrawer";
 import Modal from "../modal";
+import WishlistSvg from "../../assets/icon/WishlistSvg";
+import ProfileSvg from "../../assets/icon/Profilesvg";
+import BagSvg from "../../assets/icon/Bagsvg";
+import HeaderModal from "../headerModal";
 
 const Header = () => {
   const { phone, desktop } = useBreakpoint();
   const [open, setOpen] = useState(false);
   return (
     <>
-      
-      <MobileDrawer setOpen={setOpen} open={open} />
       <div className="headerContainer">
         {desktop ? (
           <>
+            <HeaderModal setOpen={setOpen} open={open} />
             <img src={coralLogo} />
             <div className="navContainer">
               <button className="redirectBtn">Handbags</button>
@@ -33,13 +36,14 @@ const Header = () => {
             </div>
             <SearchBar text={"Search for products or brands....."} icon={true} />
             <div className="navContainer">
-              <img src={wishlistIcon} alt="wishlistIcon" />
-              <img src={profileIcon} alt="profileIcon" />
-              <img src={bagIcon} alt="bagIcon" />
+              <WishlistSvg onClick={() => setOpen(true)} />
+              <ProfileSvg stroke={"#1B4B66"} />
+              <BagSvg stroke={"#1B4B66"} />
             </div>
           </>
         ) : (
           <>
+            <MobileDrawer setOpen={setOpen} open={open} />
             <div className="navContainer">
               <div onClick={() => setOpen(true)}>
                 <img src={menuIcon} alt="menuIcon" />

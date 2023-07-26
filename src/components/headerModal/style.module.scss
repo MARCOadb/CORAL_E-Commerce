@@ -1,0 +1,39 @@
+.headerModal {
+  display: flex;
+  padding: 12px 5px 3px 12px;
+  gap: 24px;
+  flex-direction: column;
+  position: fixed;
+  transition: all 800ms ease-in-out;
+  z-index: 21;
+}
+.modalClosedContainer {
+  background-color: transparent;
+  top: -300px;
+  right: 10px;
+}
+.modalOpenContainer {
+  display: flex;
+  z-index: 21;
+  background-color: #fff;
+  right: 10px;
+  top: 84px;
+}
+.topContainer {
+  display: flex;
+  width: 100%;
+}
+.couponContainer {
+  display: flex;
+  background-color: #f1f1f1;
+  padding: 18px;
+  input[type="text"] {
+    background-color: #f1f1f1;
+    border: none;
+    outline: none;
+  }
+  input[type="submit"] {
+    background-color: #f1f1f1;
+    border: none;
+  }
+}
