@@ -19,7 +19,10 @@ const HeaderModal = ({ setOpen, open }) => {
         </div>
         <div className={style.itemContainer}>
           {userProducts?.map((data) => (
-            <CartProduct qtn price remove data={data} key={data.id} stepper />
+            <>
+              <CartProduct qtn price remove data={data} key={data.id} stepper />
+              <div className={style.separator}></div>
+            </>
           ))}
         </div>
         <div className={style.priceContainer} style={{ flexDirection: "column", gap: "12px", padding: "0px 8.5px" }}>
@@ -37,11 +40,13 @@ const HeaderModal = ({ setOpen, open }) => {
           </div>
         </div>
         <div style={{ width: "100%", padding: "0px 9px" }}>
-          <DefaultBtn>Place Order</DefaultBtn>
+          <div className={style.couponContainer}>
+            <input className="body-medium" type="text" placeholder="Aplly Coupon Code"></input>
+            <input className="body-medium text-primary" type="submit" value="CHECK"></input>
+          </div>
         </div>
-        <div className={style.couponContainer}>
-          <input className="body-medium" type="text" placeholder="Aplly Coupon Code"></input>
-          <input className="body-medium text-primary" type="submit" value="CHECK"></input>
+        <div style={{ width: "100%", padding: "0px 9px" }}>
+          <DefaultBtn>Place Order</DefaultBtn>
         </div>
         <span onClick={() => setOpen(false)} className="title-regular text-primary" style={{ lineHeight: "24px", textDecoration: "underline" }}>
           Continue Shopping
