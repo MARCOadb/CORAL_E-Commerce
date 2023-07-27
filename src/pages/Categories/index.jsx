@@ -15,6 +15,8 @@ import PlusSvg from "../../assets/icon/PlusSvg";
 //STYLES
 import styles from "./style.module.scss";
 import Breadcrump from "../../components/breadcrumpDesktop";
+import { useLocation } from "react-router-dom";
+import getCategoryByName from "../../services/getCategoryByName";
 
 export default function Category() {
   const { phone, desktop } = useBreakpoint();
@@ -105,16 +107,31 @@ export default function Category() {
     setSelectedAvailability(option);
   }
 
+  //NAVEGAÇÃO E GET NO ID DA CATEGORIA
+  const location = useLocation();
+  const [categoryId, setCategoryId] = useState(null);
+  const [loading, setLoading] = useState(false);
+  const getCategoryId = async () => {
+    setLoading(true);
+    const categoryId = await getCategoryByName(location.state.category);
+    return categoryId;
+  };
+  useEffect(() => {
+    getCategoryId()
+      .then((data) => setCategoryId(data))
+      .finally(() => setLoading(false));
+  }, [location.state.category]);
+
   return (
     <>
-      <Header />
+      <Header path={location.state.path} />
       {!phone ? (
         <div className={styles.content}>
           <img src={hero} alt="Hero Banner" className={styles.heroBanner} />
 
           <Breadcrump category={"placeholder"} page={"home"} />
 
-          <h1 className={`text-primary display-medium ${styles.categoryName}`}>Handbags</h1>
+          <h1 className={`text-primary display-medium ${styles.categoryName}`}>{location.state.category}</h1>
 
           <div className={styles.categoriesContainer}>
             <div className={`text-dark ${styles.sideMenu}`}>
@@ -318,8 +335,7 @@ export default function Category() {
                 </div>
               </div>
             </div>
-
-            <ProductGrid />
+            <ProductGrid categoryId={categoryId} />
           </div>
         </div>
       ) : (
