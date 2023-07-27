@@ -2,13 +2,14 @@ import styles from "./style.module.scss";
 import WishlistSvg from "../../assets/icon/WishlistSvg";
 import StarSvg from "../../assets/icon/StarSvg";
 import DefaultBtn from "../defaultBtn";
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { checkWishlist } from "../../services/checkWishlist";
 import { useEffect } from "react";
 import useBreakpoint from "../../hooks/useBreakPoint";
 import { wishlistProduct } from "../../services/wishlistProduct";
 import BagSvg from "../../assets/icon/Bagsvg";
 import { addBagProduct } from "../../services/addBagProduct";
+import { BagContext } from "../../contexts/BagContext";
 
 const btnIcon = <BagSvg stroke="#1B4B66" />;
 
@@ -26,6 +27,7 @@ const btnIcon = <BagSvg stroke="#1B4B66" />;
 */
 
 const Product = ({ data, largura, altura, button, label, ratings, discount, oldprice, sort }) => {
+  const { update } = useContext(BagContext);
   const { desktop, phone } = useBreakpoint();
   const [isWishlisted, setIsWishlisted] = useState(null);
 
@@ -34,11 +36,14 @@ const Product = ({ data, largura, altura, button, label, ratings, discount, oldp
   }, [isWishlisted]);
 
   const handleSvgOnClick = () => {
+    // TODO Sujeito a mudança conforme uso da firebase
     wishlistProduct(data.id);
     setIsWishlisted(true);
   };
   const handleBtnOnClick = () => {
+    // TODO Sujeito a mudança conforme uso da firebase
     addBagProduct(data.id);
+    update();
   };
 
   return (

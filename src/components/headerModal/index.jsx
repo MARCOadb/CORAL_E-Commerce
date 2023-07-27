@@ -1,35 +1,13 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import ArrowLineSvg from "../../assets/icon/ArrowLineSvg";
 import DefaultBtn from "../defaultBtn";
 import Modal from "../modal";
 import style from "./style.module.scss";
 import Product from "../product";
-import { getWishlist } from "../../services/getWishlist";
-import { getBag } from "../../services/getBag";
+import { BagContext } from "../../contexts/BagContext";
 
-const HeaderModal = ({ setOpen, open, wishlist }) => {
-  const [cart, setCart] = useState(null);
-  const [cartItens, setCartItens] = useState(null);
-
-  const [loading, setLoading] = useState(false);
-
-  const getProductById = async (id) => {
-    setLoading(true);
-    const produto = await getProductById(id);
-    return produto;
-  };
-
-  useEffect(() => {
-    if (wishlist != null) {
-      setCart("wishlist");
-      setCartItens(getWishlist());
-    } else {
-      setCart("bag");
-      setCartItens(getBag());
-    }
-    const itens = cartItens?.map((item) => getProductById(item));
-    console.log(itens);
-  }, []);
+const HeaderModal = ({ setOpen, open }) => {
+  const { userProducts, subTotal, taxPrice, totalPrice, loading } = useContext(BagContext);
   return (
     <>
       <Modal setOpen={setOpen} open={open}></Modal>
@@ -37,11 +15,30 @@ const HeaderModal = ({ setOpen, open, wishlist }) => {
       <div className={open ? `${style.headerModal} ${style.modalOpenContainer}` : `${style.headerModal} ${style.modalClosedContainer} `}>
         <div className={style.topContainer}>
           <ArrowLineSvg stroke={"#1B4B66"} onClick={() => setOpen(false)} rotate={180} viewBox={"0 1 24 24"} />
-          <span>Back</span>
+          <span className="display-small text-primary">Back</span>
         </div>
-        <div className={style.itemContainer}>{console.log(cartItens)}</div>
-        <div className={style.priceContainer}></div>
-        <DefaultBtn>Place Order</DefaultBtn>
+        <div className={style.itemContainer}>
+          {userProducts?.map((data) => (
+            <Product altura={80} largura={80} data={data} key={data.id} sort button />
+          ))}
+        </div>
+        <div className={style.priceContainer} style={{ flexDirection: "column", gap: "12px", padding: "0px 8.5px" }}>
+          <div className={`${style.priceContainer} label-large`}>
+            <span>Subtotal:</span>
+            <span>${subTotal?.toFixed(2)}</span>
+          </div>
+          <div className={`${style.priceContainer} label-large`}>
+            <span>Tax:</span>
+            <span>${taxPrice?.toFixed(2)}</span>
+          </div>
+          <div className={`${style.priceContainer} body-medium`}>
+            <span>Total</span>
+            <span>${totalPrice?.toFixed(2)}</span>
+          </div>
+        </div>
+        <div style={{ width: "100%", padding: "0px 9px" }}>
+          <DefaultBtn>Place Order</DefaultBtn>
+        </div>
         <div className={style.couponContainer}>
           <input className="body-medium" type="text" placeholder="Aplly Coupon Code"></input>
           <input className="body-medium text-primary" type="submit" value="CHECK"></input>

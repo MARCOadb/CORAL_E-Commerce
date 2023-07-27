@@ -1,6 +1,6 @@
 .headerModal {
   display: flex;
-  padding: 12px 5px 3px 12px;
+  padding: 27px 5px 3px 12px;
   gap: 24px;
   align-items: center;
   flex-direction: column;
@@ -10,8 +10,8 @@
 }
 .modalClosedContainer {
   background-color: transparent;
-  top: -300px;
-  right: 10px;
+  top: 84px;
+  right: -400px;
 }
 .modalOpenContainer {
   display: flex;
@@ -31,6 +31,7 @@
   background-color: #f1f1f1;
   padding: 18px;
   border-radius: 4px;
+  margin: 0px 9px;
   input[type="text"] {
     background-color: #f1f1f1;
     border: none;
@@ -43,6 +44,14 @@
 }
 .itemContainer {
   display: flex;
+  width: 100%;
+  flex-direction: column;
   max-height: calc(100vh - 20vh);
   overflow: auto;
+}
+.priceContainer {
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+  align-content: space-between;
 }
