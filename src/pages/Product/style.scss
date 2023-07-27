@@ -13,29 +13,7 @@
     left: 649px;
     top: 144px;
 }
-.container{
-    width: 100%;
-    position: absolute;
-    height: 258px;
-    top: 903px;
-    padding-left: 20px;
-    padding-right: 20px;
-}
-.content-product{
-    background-color: $grey ;
-    border-radius: 12px;
-    width: 100%;
-    height: 48px;
-    color: $text-low-emphasis;
-    display: flex;
-    align-items: center;
-    padding: 6px 18px;
-   
-}
-.content-product > div{
-    margin-right: 36px;
-    cursor: pointer;
-}
+
 .pin-code-check{
     position: absolute;
     width: 611px;
