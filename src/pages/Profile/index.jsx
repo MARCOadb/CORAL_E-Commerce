@@ -8,7 +8,7 @@ import Breadcrump from "../../components/breadcrumpDesktop";
 //HOOKS
 import useBreakpoint from "../../hooks/useBreakPoint";
 import { useEffect, useState } from "react";
-
+import { useLocation } from "react-router-dom";
 
 //IMAGES & ICONS
 import profile from '../../assets/pics/profile-picture.jpg'
@@ -18,9 +18,11 @@ import LogoutSvg from "../../assets/icon/LogoutSvg";
 //STYLES
 import styles from "./style.module.scss";
 
-export default function Profile({ initialTab }) {
+export default function Profile() {
+    const location = useLocation()
+
     const { phone, desktop } = useBreakpoint();
-    const [activeTab, setActiveTab] = useState(1/*initialTab*/)
+    const [activeTab, setActiveTab] = useState(location.state?.initialTab ? location.state?.initialTab : 1)
     const [tabTitle, setTabTitle] = useState('')
 
     useEffect(() => {
@@ -96,31 +98,31 @@ export default function Profile({ initialTab }) {
                         )}
                         <div onClick={() => handleTab(1)} className={`${styles.item} ${activeTab === 1 && styles.active}`} id="1">
                             <span>Personal Information</span>
-                            <ChevronRightSvg stroke={activeTab === 1 ? '#1B4B66' : '#13101E'} />
+                            <ChevronRightSvg stroke={activeTab === 1 && desktop ? '#1B4B66' : '#13101E'} />
                         </div>
                         <div onClick={() => handleTab(2)} className={`${styles.item} ${activeTab === 2 && styles.active}`} id="2">
                             <span>Refer and Earn</span>
-                            <ChevronRightSvg stroke={activeTab === 2 ? '#1B4B66' : '#13101E'} />
+                            <ChevronRightSvg stroke={activeTab === 2 && desktop ? '#1B4B66' : '#13101E'} />
                         </div>
                         <div onClick={() => handleTab(3)} className={`${styles.item} ${activeTab === 3 && styles.active}`} id="3">
                             <span>My Orders</span>
-                            <ChevronRightSvg stroke={activeTab === 3 ? '#1B4B66' : '#13101E'} />
+                            <ChevronRightSvg stroke={activeTab === 3 && desktop ? '#1B4B66' : '#13101E'} />
                         </div>
                         <div onClick={() => handleTab(4)} className={`${styles.item} ${activeTab === 4 && styles.active}`} id="4">
                             <span>My Wishlist</span>
-                            <ChevronRightSvg stroke={activeTab === 4 ? '#1B4B66' : '#13101E'} />
+                            <ChevronRightSvg stroke={activeTab === 4 && desktop ? '#1B4B66' : '#13101E'} />
                         </div>
                         <div onClick={() => handleTab(5)} className={`${styles.item} ${activeTab === 5 && styles.active}`} id="5">
                             <span>My Reviews</span>
-                            <ChevronRightSvg stroke={activeTab === 5 ? '#1B4B66' : '#13101E'} />
+                            <ChevronRightSvg stroke={activeTab === 5 && desktop ? '#1B4B66' : '#13101E'} />
                         </div>
                         <div onClick={() => handleTab(6)} className={`${styles.item} ${activeTab === 6 && styles.active}`} id="6">
                             <span>My Address Book</span>
-                            <ChevronRightSvg stroke={activeTab === 6 ? '#1B4B66' : '#13101E'} />
+                            <ChevronRightSvg stroke={activeTab === 6 && desktop ? '#1B4B66' : '#13101E'} />
                         </div>
                         <div onClick={() => handleTab(7)} className={`${styles.item} ${activeTab === 7 && styles.active}`} id="7">
                             <span>My Saved Cards</span>
-                            <ChevronRightSvg stroke={activeTab === 7 ? '#1B4B66' : '#13101E'} />
+                            <ChevronRightSvg stroke={activeTab === 7 && desktop ? '#1B4B66' : '#13101E'} />
                         </div>
                     </div>
 

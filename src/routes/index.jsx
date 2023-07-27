@@ -7,20 +7,30 @@ import Bag from "../pages/Bag";
 import Profile from "../pages/Profile";
 import Test from "../pages/Test";
 import Login from "../pages/Login";
+import useBreakpoint from "../hooks/useBreakPoint";
 
 export default function RoutesApp() {
+  const { phone, desktop } = useBreakpoint()
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/home" element={<Home />} />
+        {desktop ? (
+          <>
+            <Route path={`/home/profile`} element={<Profile />} />
+            <Route path={`/home/:category`} element={<Categories />} />
+            <Route path={`/about/:category`} element={<Categories />} />
+          </>
+        ) : (
+          <>
+            <Route path="/categories" element={<Categories />} />
+            <Route path='/profile' element={<Profile />} />
+            <Route path="/bag" element={<Bag />} />
+          </>
+        )}
+        <Route path="/" element={<Home />} />
         <Route path="/about" element={<About />} />
-        <Route path="/categories" element={<Categories />} />
-        <Route path="/profile" element={<Profile />} />
-        <Route path="/bag" element={<Bag />} />
         <Route path="/test" element={<Test />} />
         <Route path="/login" element={<Login />} />
-        <Route path={`/home/:category`} element={<Categories />} />
-        <Route path={`/about/:category`} element={<Categories />} />
         {/* 
         Pagina de produtos
         <Route path={`/home/:category/:id`} element={<ProductPage />} />

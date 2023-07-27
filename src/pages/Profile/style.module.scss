@@ -164,7 +164,7 @@
     &::after {
         display: block;
         content: '';
-        border-radius: 8px;
+        border-radius: 8px 0 0 8px;
         background-color: #1B4B66;
         width: 100%;
         height: 54px;
@@ -172,7 +172,9 @@
 }
 
 .active {
-    span {
-        color: #1B4B66;
+    @include desktop {
+        span {
+            color: #1B4B66;
+        }
     }
 }

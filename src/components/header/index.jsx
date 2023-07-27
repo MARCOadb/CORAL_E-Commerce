@@ -15,18 +15,28 @@ import ProfileSvg from "../../assets/icon/Profilesvg";
 import BagSvg from "../../assets/icon/Bagsvg";
 import WishlistSvg from "../../assets/icon/WishlistSvg"
 import { useLocation, useNavigate } from "react-router-dom";
-import { useLocation, useNavigate } from "react-router-dom";
 
 const Header = ({ path }) => {
   const { phone, desktop } = useBreakpoint();
   const [open, setOpen] = useState(false);
   const navigate = useNavigate();
   const location = useLocation();
-  const handleCategoryClick = (category) => {
-    navigate(`/${path ? path : location.state.path}/${category}`, {
+  const [pathCheck, setPathCheck] = useState('/home')
+
+  useEffect(() => {
+    if (path) {
+      setPathCheck(path)
+    } else if (location.state?.path) {
+      setPathCheck(location.state?.path)
+    }
+  }, [])
+
+  const handleCategoryClick = (category, tabIndex) => {
+    navigate(`/${pathCheck}/${category}`, {
       state: {
-        path: path ? path : location.state.path,
+        path: pathCheck,
         category: category,
+        initialTab: tabIndex ? tabIndex : location.state.initialTab
       },
     });
   };
@@ -40,8 +50,9 @@ const Header = ({ path }) => {
             <img
               src={coralLogo}
               onClick={() => {
-                navigate("/home", { state: { path: "home" } });
+                navigate("/", { state: { path: "home" } });
               }}
+              style={{ cursor: 'pointer' }}
             />
             <div className="navContainer">
               <button
@@ -87,9 +98,9 @@ const Header = ({ path }) => {
             </div>
             <SearchBar text={"Search for products or brands....."} icon={true} />
             <div className="navContainer">
-              <WishlistSvg stroke={"#1B4B66"} height={44} onClick={() => handleClick("/profile")} /*aqui ele precisa mandar pra página profile + wishlist*/ />
-              <ProfileSvg stroke={"#1B4B66"} height={44} onClick={() => handleClick("/profile")} navMovile={false} />
-              <BagSvg stroke={"#1B4B66"} height={44} onClick={() => handleClick("/bag")} />
+              <WishlistSvg stroke={"#1B4B66"} height={44} onClick={() => { handleCategoryClick("profile", 4) }} />
+              <ProfileSvg stroke={"#1B4B66"} height={44} onClick={() => { handleCategoryClick("profile", 1) }} navMovile={false} />
+              <BagSvg stroke={"#1B4B66"} height={44} />
             </div>
           </>
         ) : (
