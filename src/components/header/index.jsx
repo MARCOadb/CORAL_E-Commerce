@@ -20,16 +20,21 @@ import { useLocation, useNavigate } from "react-router-dom";
 const Header = () => {
   const { phone, desktop } = useBreakpoint();
   const [open, setOpen] = useState(false);
+  const [teste, setTeste] = useState(5);
 
   const navigate = useNavigate();
+
   const handleClick = (i) => {
-    navigate(i);
+    navigate(`/${path}/${i}`);
   };
+
   const location = useLocation();
   const [path, setPath] = useState(location.pathname);
+
   useEffect(() => {
     setPath(location.pathname);
   }, [location]);
+
   return (
     <>
 
