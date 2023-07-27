@@ -3,8 +3,8 @@ import ArrowLineSvg from "../../assets/icon/ArrowLineSvg";
 import DefaultBtn from "../defaultBtn";
 import Modal from "../modal";
 import style from "./style.module.scss";
-import Product from "../product";
 import { BagContext } from "../../contexts/BagContext";
+import CartProduct from "../cartProduct";
 
 const HeaderModal = ({ setOpen, open }) => {
   const { userProducts, subTotal, taxPrice, totalPrice, loading } = useContext(BagContext);
@@ -19,7 +19,7 @@ const HeaderModal = ({ setOpen, open }) => {
         </div>
         <div className={style.itemContainer}>
           {userProducts?.map((data) => (
-            <Product altura={80} largura={80} data={data} key={data.id} sort button />
+            <CartProduct qtn price remove data={data} key={data.id} stepper />
           ))}
         </div>
         <div className={style.priceContainer} style={{ flexDirection: "column", gap: "12px", padding: "0px 8.5px" }}>
