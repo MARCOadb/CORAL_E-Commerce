@@ -90,7 +90,10 @@ const ProductGrid = ({ categoryId }) => {
             <div className="container-grid-mobile">
               <p className="title-regular text-low-emphasis">*** Products</p>
               <div className="grid-mobile">
-                <>{!loading && products?.map((item) => <Product altura={false} largura={false} data={item} label={false} key={item.id} sort={gridClass === "list" && true} />)}</>
+                <>
+                  {!loading &&
+                    products?.map((item) => item.categoryId === categoryId && <Product altura={false} largura={false} data={item} label={false} key={item.id} sort={gridClass === "list" && true} />)}
+                </>
               </div>
             </div>
           </>

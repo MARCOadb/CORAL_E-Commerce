@@ -114,6 +114,7 @@ export default function Category() {
   //NAVEGAÇÃO E GET NO ID DA CATEGORIA
   const location = useLocation();
   const [categoryId, setCategoryId] = useState(null);
+  const [categoryName, setCategoryName] = useState(null);
   const [modalOpen, setModalOpen] = useState(false);
   const [loading, setLoading] = useState(false);
   const getCategoryId = async () => {
@@ -121,21 +122,30 @@ export default function Category() {
     if (location.state?.category) {
       const categoryId = await getCategoryByName(location.state?.category);
       return categoryId;
-    } else return "No category";
+    } else if (categoryName) {
+      const categoryId = await getCategoryByName(categoryName);
+      return categoryId;
+    }
+    return "Não há categoria";
   };
   useEffect(() => {
     getCategoryId()
       .then((data) => setCategoryId(data))
       .finally(() => setLoading(false));
-  }, [location.state?.category]);
+  }, [location.state?.category, categoryName]);
 
-  const handleCategoryClick = (id) => {
-    setCategoryId(id);
+  const handleCategoryClick = (category) => {
+    setCategoryName(category);
     setModalOpen(true);
   };
 
   return (
     <>
+      {phone && !loading && (
+        <MobileLayout icon={"arrow"} iconStroke={"#1B4B66"} iconAngle={90} title={categoryName} open={modalOpen} setOpen={setModalOpen}>
+          <ProductGrid categoryId={categoryId}></ProductGrid>
+        </MobileLayout>
+      )}
       {desktop && <Header path={location.state?.path} />}
       {!phone ? (
         <div className={styles.content}>
@@ -358,7 +368,7 @@ export default function Category() {
             </div>
 
             <div className={styles.imgContainer}>
-              <div className={`${styles.pickGradient} ${styles.bageGrad}`} onClick={() => handleCategoryClick()}>
+              <div className={`${styles.pickGradient} ${styles.bageGrad}`} onClick={() => handleCategoryClick("Skincare")}>
                 <span className={`display-small text-bright`}>Skincare</span>
                 <img src={skincare}></img>
               </div>
@@ -368,7 +378,7 @@ export default function Category() {
                 </span>
                 <img src={fragrance}></img>
               </div>
-              <div className={`${styles.pickGradient} ${styles.blueGrad}`} onClick={() => handleCategoryClick()}>
+              <div className={`${styles.pickGradient} ${styles.blueGrad}`} onClick={() => handleCategoryClick("Handbags")}>
                 <span className={`display-small text-bright`}>Handbags</span>
                 <img src={handbags}></img>
               </div>
@@ -376,7 +386,7 @@ export default function Category() {
                 <span className={`display-small text-bright`}>Eyewear</span>
                 <img src={eyewear}></img>
               </div>
-              <div className={`${styles.pickGradient} ${styles.lightBageGrad}`} onClick={() => handleCategoryClick()}>
+              <div className={`${styles.pickGradient} ${styles.lightBageGrad}`} onClick={() => handleCategoryClick("Apparels")}>
                 <span className={`display-small`}>Apparels</span>
                 <img src={apparels}></img>
               </div>
