@@ -7,6 +7,7 @@ import { BsEye, BsEyeSlash } from 'react-icons/bs'
 import { useNavigate } from "react-router-dom";
 import HomeSvg from '../../assets/icon/Homesvg'
 import { AuthContext } from "../../contexts/AuthContext";
+import { toast } from "react-toastify";
 
 export default function Login() {
     const { phone, desktop } = useBreakpoint()
@@ -14,11 +15,11 @@ export default function Login() {
     const [formType, setFormType] = useState() //define se o tipo de formulário é de login ou register
     const [initial, setInitial] = useState(true)
 
-    const { signIn } = useContext(AuthContext)
+    const { signIn, signUp, loadingAuth } = useContext(AuthContext)
 
     const [firstName, setFirstName] = useState('')
     const [lastName, setLastName] = useState('')
-    const [profilePhoto, setProfilePhoto] = useState()
+    const [profilePhoto, setProfilePhoto] = useState(profileImg)
     const [phoneNumber, setPhoneNumber] = useState('')
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
@@ -35,7 +36,7 @@ export default function Login() {
         setEmail('')
         setPassword('')
         setConfirmPass('')
-        setProfilePhoto()
+        setProfilePhoto(profileImg)
     }
 
     function handleProfilePhotoChange(event) {
@@ -52,11 +53,11 @@ export default function Login() {
     }
 
     const handlePhoneInput = (event) => {
-        const phoneNum = event.target.value.replace(/\D/g, '');
-        setPhoneNumber(phoneNum);
-    };
+        const phoneNum = event.target.value.replace(/\D/g, '')
+        setPhoneNumber(phoneNum)
+    }
 
-    function handleSubmit(e) {
+    async function handleSubmit(e) {
         e.preventDefault()
 
         if (formType === 'register') {
@@ -68,10 +69,25 @@ export default function Login() {
                 password !== '' &&
                 confirmPass !== ''
             ) {
-                alert('fazer cadastro')
-                signIn(email, password)
+                if (validPhone(phoneNumber)) {
+                    if (validPassword(password)) {
+                        if (password === confirmPass) {
+                            await signUp(capitalize(firstName), capitalize(lastName), phoneNumber, profilePhoto, email, password)
+                        } else {
+                            toast.error("Passwords don't match!")
+                            setConfirmPass('')
+                        }
+                    } else {
+                        toast.error("The password must containt 6 characters, a special character, a number and a uppercase")
+                        setPassword('')
+                        setConfirmPass('')
+                    }
+                } else {
+                    toast.error("Invalid phone number")
+                    setPhoneNumber('')
+                }
             } else {
-                alert('preencha todos os campos')
+                toast.error('All fields must be filled')
             }
         } else if (formType === 'login') {
             if (
@@ -79,11 +95,25 @@ export default function Login() {
                 password !== ''
             ) {
                 alert('fazer login')
-                signIn(email, password)
+                await signIn(email, password)
             } else {
-                alert('preencha todos os campos')
+                toast.error('All fields must be filled')
             }
         }
+    }
+
+    function validPassword(senha) {
+        const passwordRegex = /^(?=.*[!@#$%^&*])(?=.*\d)(?=.*[A-Z]).{6,}$/
+        return passwordRegex.test(senha)
+    }
+
+    function validPhone(phoneNum) {
+        const phoneRegex = /^\d{11}$/
+        return phoneRegex.test(phoneNum)
+    }
+
+    function capitalize(word) {
+        return word.charAt(0).toUpperCase() + word.slice(1)
     }
 
     return (
@@ -234,7 +264,13 @@ export default function Login() {
                                     </div>
                                 )}
                             </div>
-                            <button type="submit" className="display-small">{formType === 'register' ? 'Register' : 'Login'}</button>
+                            <button type="submit" className="display-small">
+                                {loadingAuth ? (
+                                    'Loading...'
+                                ) : (
+                                    `${formType === 'register' ? 'Register' : 'Login'}`
+                                )}
+                            </button>
                         </form>
                     </div>
                     <span className={styles.changeType}>{formType === 'register' ? (
