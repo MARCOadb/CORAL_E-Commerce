@@ -2,13 +2,14 @@ import styles from "./style.module.scss";
 import WishlistSvg from "../../assets/icon/WishlistSvg";
 import StarSvg from "../../assets/icon/StarSvg";
 import DefaultBtn from "../defaultBtn";
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { checkWishlist } from "../../services/checkWishlist";
 import { useEffect } from "react";
 import useBreakpoint from "../../hooks/useBreakPoint";
 import { wishlistProduct } from "../../services/wishlistProduct";
 import BagSvg from "../../assets/icon/Bagsvg";
 import { addBagProduct } from "../../services/addBagProduct";
+import { BagContext } from "../../contexts/BagContext";
 
 const btnIcon = <BagSvg stroke="#1B4B66" />;
 
@@ -26,6 +27,7 @@ const btnIcon = <BagSvg stroke="#1B4B66" />;
 */
 
 const Product = ({ data, largura, altura, button, label, ratings, discount, oldprice, sort, productConfig }) => {
+  const { update } = useContext(BagContext);
   const { desktop, phone } = useBreakpoint();
   const [isWishlisted, setIsWishlisted] = useState(null);
 
@@ -34,11 +36,14 @@ const Product = ({ data, largura, altura, button, label, ratings, discount, oldp
   }, [isWishlisted]);
 
   const handleSvgOnClick = () => {
+    // TODO Sujeito a mudança conforme uso da firebase
     wishlistProduct(data.id);
     setIsWishlisted(true);
   };
   const handleBtnOnClick = () => {
+    // TODO Sujeito a mudança conforme uso da firebase
     addBagProduct(data.id);
+    update();
   };
 
   return (
@@ -63,12 +68,14 @@ const Product = ({ data, largura, altura, button, label, ratings, discount, oldp
           <span className={`text-low-emphasis ${desktop ? "label-large" : "label-medium"}`}>{data.description}</span>
           <div className={styles.detailsText}>
             <span className={`text-high-emphasis ${desktop ? "body-medium" : "label-small "}`}>${data.price}</span>
-            {oldprice || productConfig?.oldprice && <span className={`text-low-emphasis strike ${desktop ? "label-large" : "extra-small-label"}`}>${oldprice?(oldprice):(productConfig.oldprice)}</span>}
-            {discount || productConfig?.discount &&(
-              <span className={`${desktop ? "body-medium" : "extra-small-label"}`} style={{ color: "#E21D1D" }}>
-                {discount?(discount):(productConfig.discount)}% OFF
-              </span>
-            )}
+            {oldprice ||
+              (productConfig.oldprice && <span className={`text-low-emphasis strike ${desktop ? "label-large" : "extra-small-label"}`}>${oldprice ? oldprice : productConfig.oldprice}</span>)}
+            {discount ||
+              (productConfig.discount && (
+                <span className={`${desktop ? "body-medium" : "extra-small-label"}`} style={{ color: "#E21D1D" }}>
+                  {discount ? discount : productConfig.discount}% OFF
+                </span>
+              ))}
           </div>
         </div>
         {button && sort && (
@@ -76,24 +83,26 @@ const Product = ({ data, largura, altura, button, label, ratings, discount, oldp
             Add to bag
           </DefaultBtn>
         )}
-        {label || productConfig?.label && !sort && (
-          <div className={desktop ? `${styles.svgContainer}` : `${styles.mobileSvg} `}>
-            <WishlistSvg
-              onClick={handleSvgOnClick}
-              width={phone && "20"}
-              height={phone && "20"}
-              viewBox={phone && "0 0 28 28"}
-              fill={isWishlisted && "red"}
-              stroke={isWishlisted ? "red" : "#13101E"}
-            />
-          </div>
-        )}
+        {label ||
+          (productConfig.label && !sort && (
+            <div className={desktop ? `${styles.svgContainer}` : `${styles.mobileSvg} `}>
+              <WishlistSvg
+                onClick={handleSvgOnClick}
+                width={phone && "20"}
+                height={phone && "20"}
+                viewBox={phone && "0 0 28 28"}
+                fill={isWishlisted && "red"}
+                stroke={isWishlisted ? "red" : "#13101E"}
+              />
+            </div>
+          ))}
       </div>
-      {button || productConfig?.button && !sort && (
-        <DefaultBtn onClick={handleBtnOnClick} outlined={true} icon={btnIcon} id={styles.productBtn}>
-          Add to bag
-        </DefaultBtn>
-      )}
+      {button ||
+        (productConfig.button && !sort && (
+          <DefaultBtn onClick={handleBtnOnClick} outlined={true} icon={btnIcon} id={styles.productBtn}>
+            Add to bag
+          </DefaultBtn>
+        ))}
     </div>
   );
 };

@@ -13,6 +13,7 @@ import IconBtn from "../../components/iconBtn";
 import WishlistSvg from "../../assets/icon/WishlistSvg";
 import Product from "../../components/product";
 import getAllProducts from "../../services/getAllProducts";
+import DefaultBtn from "../../components/defaultBtn";
 
 const wishlist = () => wishlistProduct(2);
 const bag = () => addBagProduct(1);
