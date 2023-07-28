@@ -88,7 +88,14 @@ const ProductGrid = ({ categoryId }) => {
         ) : (
           <>
             <div className="container-grid-mobile">
-              <p className="title-regular text-low-emphasis">*** Products</p>
+              <p className="title-regular text-low-emphasis">
+                {products?.reduce((acc, cur) => {
+                  if (cur.categoryId === categoryId) acc++;
+
+                  return acc;
+                }, 0)}
+                {` Product(s)`}
+              </p>
               <div className="grid-mobile">
                 <>
                   {!loading &&
