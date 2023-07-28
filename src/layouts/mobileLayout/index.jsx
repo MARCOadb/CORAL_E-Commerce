@@ -25,18 +25,15 @@ Config
   }
 */
 
-const MobileLayout = ({ children, headerSuffix, title, buttons, direction = "row", footerPrefix, icon, iconStroke, iconAngle }) => {
-  const [layout, setLayout] = useState(true);
-
-  const handleLayout = () => setLayout(false);
+const MobileLayout = ({ children, headerSuffix, title, buttons, direction = "row", footerPrefix, icon, iconStroke, iconAngle, open, setOpen }) => {
   return (
     <>
-      {layout && (
+      {open && (
         <div className="layout">
           <div className="headerLayout">
             <div className="containerLayout">
-              {icon === "arrow" && <ArrowSvg stroke={iconStroke} x={iconAngle} onClick={handleLayout} />}
-              {icon === "cross" && <CrossSvg stroke={iconStroke} onClick={handleLayout} />}
+              {icon === "arrow" && <ArrowSvg stroke={iconStroke} x={iconAngle} onClick={() => setOpen(false)} />}
+              {icon === "cross" && <CrossSvg stroke={iconStroke} onClick={() => setOpen(false)} />}
               <span>{title}</span>
             </div>
             {headerSuffix}
