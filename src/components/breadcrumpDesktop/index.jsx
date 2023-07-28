@@ -1,12 +1,11 @@
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import "./style.scss";
 import ChevronRightSmallsvg from "../../assets/icon/ChevronRightSmallsvg";
 
-const Breadcrump = ({ category, product, page }) => {
+const Breadcrump = () => {
   const navigate = useNavigate();
-  const handlePage = () => {
-    navigate(`/${page}`);
-  };
+  const location = useLocation();
+
   const handleCategory = () => {
     // navigate(`/${page}/${category}`);
   };
@@ -14,12 +13,11 @@ const Breadcrump = ({ category, product, page }) => {
   return (
     <div className="breadcrumbs">
       <>
-        <span onClick={handlePage}>{page}</span>
+        <span>{location.state?.path}</span>
         <ChevronRightSmallsvg />
-        {/* <span onClick={product?(handleCategory):("")} style={product?({}):({ color: "#626262" })}>{category}</span> */}
-        <span style={product ? {} : { color: "#626262" }}>{category}</span>
-        {product && <ChevronRightSmallsvg />}
-        <span style={{ color: "#626262" }}>{product}</span>
+        <span style={location.state?.product ? {} : { color: "#626262" }}>{location.state?.category}</span>
+        {location.state?.product && <ChevronRightSmallsvg />}
+        <span style={{ color: "#626262" }}>{location.state?.product}</span>
       </>
     </div>
   );
