@@ -9,7 +9,7 @@ import ListIcon from "../../assets/icon/format-list.svg";
 import getAllProducts from "../../services/getAllProducts";
 import Product from "../product";
 
-const ProductGrid = ({ categoryId }) => {
+const ProductGrid = ({ categoryId, productConfig }) => {
   const { phone, desktop } = useBreakpoint();
 
   const [toShow, setToShow] = useState("9");
@@ -50,7 +50,15 @@ const ProductGrid = ({ categoryId }) => {
                   <button onClick={handleFormatToggle}>
                     <img src={currentFormat} />
                   </button>
-                  <p className="body-medium-he">Showing * - * of {products?.length} items</p>
+                  <p className="body-medium-he">
+                    Showing * - * of{" "}
+                    {products?.reduce((acc, cur) => {
+                      if (cur.categoryId === categoryId) acc++;
+
+                      return acc;
+                    }, 0)}{" "}
+                    items
+                  </p>
                   {/* PRODUCTS.LENGTH IRA MOSTRAR TODOS OS PRODUTOS, NAO SOMENTE OS DA CATEGORIA */}
                 </div>
                 <div className="sorting-options">
@@ -88,9 +96,19 @@ const ProductGrid = ({ categoryId }) => {
         ) : (
           <>
             <div className="container-grid-mobile">
-              <p className="title-regular text-low-emphasis">*** Products</p>
+              <p className="title-regular text-low-emphasis">
+                {products?.reduce((acc, cur) => {
+                  if (cur.categoryId === categoryId) acc++;
+
+                  return acc;
+                }, 0)}
+                {` Product(s)`}
+              </p>
               <div className="grid-mobile">
-                <>{!loading && products?.map((item) => <Product altura={false} largura={false} data={item} label={false} key={item.id} sort={gridClass === "list" && true} />)}</>
+                <>
+                  {!loading &&
+                    products?.map((item) => item.categoryId === categoryId && <Product altura={false} largura={false} data={item} key={item.id} productConfig ={productConfig} sort={gridClass === "list" && true} />)}
+                </>
               </div>
             </div>
           </>

@@ -11,13 +11,23 @@ import { useState, useEffect, useRef } from "react";
 //IMAGES & ICONS
 import hero from "../../assets/pics/Category/hero.png";
 import PlusSvg from "../../assets/icon/PlusSvg";
-
+import skincare from "../../assets/pics/Category/michela-ampolo-7tDGb3HrITg-unsplash 1.png";
+import fragrance from "../../assets/pics/Category/laura-chouette-jmACQEf7T2A-unsplash 1 (1).png";
+import handbags from "../../assets/pics/Category/trinh-minh-th-e76DU9wQaCI-unsplash 1.png";
+import eyewear from "../../assets/pics/Category/lensabl-0GfPlommtxM-unsplash 1.png";
+import apparels from "../../assets/pics/Category/heather-ford-5gkYsrH_ebY-unsplash 1.png";
 //STYLES
 import styles from "./style.module.scss";
 import Breadcrump from "../../components/breadcrumpDesktop";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import getCategoryByName from "../../services/getCategoryByName";
-
+import MobileLayout from "../../layouts/mobileLayout";
+const config = {
+  label:true,
+  button:true,
+  discount:30,
+  oldprice:30
+}
 export default function Category() {
   const { phone, desktop } = useBreakpoint();
 
@@ -110,28 +120,46 @@ export default function Category() {
   //NAVEGAÇÃO E GET NO ID DA CATEGORIA
   const location = useLocation();
   const [categoryId, setCategoryId] = useState(null);
+  const [categoryName, setCategoryName] = useState(null);
+  const [modalOpen, setModalOpen] = useState(false);
   const [loading, setLoading] = useState(false);
   const getCategoryId = async () => {
     setLoading(true);
-    const categoryId = await getCategoryByName(location.state.category);
-    return categoryId;
+    if (location.state?.category) {
+      const categoryId = await getCategoryByName(location.state?.category);
+      return categoryId;
+    } else if (categoryName) {
+      const categoryId = await getCategoryByName(categoryName);
+      return categoryId;
+    }
+    return "Não há categoria";
   };
   useEffect(() => {
     getCategoryId()
       .then((data) => setCategoryId(data))
       .finally(() => setLoading(false));
-  }, [location.state.category]);
+  }, [location.state?.category, categoryName]);
+
+  const handleCategoryClick = (category) => {
+    setCategoryName(category);
+    setModalOpen(true);
+  };
 
   return (
     <>
-      <Header path={location.state.path} />
+      {phone && !loading && (
+        <MobileLayout icon={"arrow"} iconStroke={"#1B4B66"} iconAngle={90} title={categoryName} open={modalOpen} setOpen={setModalOpen}>
+          <ProductGrid productConfig= {config} categoryId={categoryId}></ProductGrid>
+        </MobileLayout>
+      )}
+      {desktop && <Header path={location.state?.path} />}
       {!phone ? (
         <div className={styles.content}>
           <img src={hero} alt="Hero Banner" className={styles.heroBanner} />
 
           <Breadcrump category={"placeholder"} page={"home"} />
 
-          <h1 className={`text-primary display-medium ${styles.categoryName}`}>{location.state.category}</h1>
+          <h1 className={`text-primary display-medium ${styles.categoryName}`}>{location.state?.category}</h1>
 
           <div className={styles.categoriesContainer}>
             <div className={`text-dark ${styles.sideMenu}`}>
@@ -339,10 +367,41 @@ export default function Category() {
           </div>
         </div>
       ) : (
-        <ProductGrid />
+        <>
+          <div className={styles.mobileContainer}>
+            <div className={`${styles.txtContainer} display-small text-primary`}>
+              <span>Categories</span>
+            </div>
+
+            <div className={styles.imgContainer}>
+              <div className={`${styles.pickGradient} ${styles.bageGrad}`} onClick={() => handleCategoryClick("Skincare")}>
+                <span className={`display-small text-bright`}>Skincare</span>
+                <img src={skincare}></img>
+              </div>
+              <div className={`${styles.pickGradient} ${styles.lightPinkGrad}`} onClick={() => handleCategoryClick()}>
+                <span className={`display-small text-bright`} style={{ color: "#CF118A" }}>
+                  Fragrance
+                </span>
+                <img src={fragrance}></img>
+              </div>
+              <div className={`${styles.pickGradient} ${styles.blueGrad}`} onClick={() => handleCategoryClick("Handbags")}>
+                <span className={`display-small text-bright`}>Handbags</span>
+                <img src={handbags}></img>
+              </div>
+              <div className={`${styles.pickGradient} ${styles.pinkGrad}`} onClick={() => handleCategoryClick()}>
+                <span className={`display-small text-bright`}>Eyewear</span>
+                <img src={eyewear}></img>
+              </div>
+              <div className={`${styles.pickGradient} ${styles.lightBageGrad}`} onClick={() => handleCategoryClick("Apparels")}>
+                <span className={`display-small text-bright`}>Apparels</span>
+                <img src={apparels}></img>
+              </div>
+            </div>
+          </div>
+        </>
       )}
 
-      <Footer />
+      {desktop && <Footer />}
       {phone && <NavBarMobile />}
     </>
   );
