@@ -9,7 +9,7 @@ import ListIcon from "../../assets/icon/format-list.svg";
 import getAllProducts from "../../services/getAllProducts";
 import Product from "../product";
 
-const ProductGrid = ({ categoryId }) => {
+const ProductGrid = ({ categoryId, productConfig }) => {
   const { phone, desktop } = useBreakpoint();
 
   const [toShow, setToShow] = useState("9");
@@ -107,7 +107,7 @@ const ProductGrid = ({ categoryId }) => {
               <div className="grid-mobile">
                 <>
                   {!loading &&
-                    products?.map((item) => item.categoryId === categoryId && <Product altura={false} largura={false} data={item} label={false} key={item.id} sort={gridClass === "list" && true} />)}
+                    products?.map((item) => item.categoryId === categoryId && <Product altura={false} largura={false} data={item} key={item.id} productConfig ={productConfig} sort={gridClass === "list" && true} />)}
                 </>
               </div>
             </div>

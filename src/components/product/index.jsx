@@ -25,7 +25,7 @@ const btnIcon = <BagSvg stroke="#1B4B66" />;
   }
 */
 
-const Product = ({ data, largura, altura, button, label, ratings, discount, oldprice, sort }) => {
+const Product = ({ data, largura, altura, button, label, ratings, discount, oldprice, sort, productConfig }) => {
   const { desktop, phone } = useBreakpoint();
   const [isWishlisted, setIsWishlisted] = useState(null);
 
@@ -63,10 +63,10 @@ const Product = ({ data, largura, altura, button, label, ratings, discount, oldp
           <span className={`text-low-emphasis ${desktop ? "label-large" : "label-medium"}`}>{data.description}</span>
           <div className={styles.detailsText}>
             <span className={`text-high-emphasis ${desktop ? "body-medium" : "label-small "}`}>${data.price}</span>
-            {oldprice && <span className={`text-low-emphasis strike ${desktop ? "label-large" : "extra-small-label"}`}>${oldprice}</span>}
-            {discount && (
+            {oldprice || productConfig.oldprice && <span className={`text-low-emphasis strike ${desktop ? "label-large" : "extra-small-label"}`}>${oldprice?(oldprice):(productConfig.oldprice)}</span>}
+            {discount || productConfig.discount &&(
               <span className={`${desktop ? "body-medium" : "extra-small-label"}`} style={{ color: "#E21D1D" }}>
-                {discount}% OFF
+                {discount?(discount):(productConfig.discount)}% OFF
               </span>
             )}
           </div>
@@ -76,7 +76,7 @@ const Product = ({ data, largura, altura, button, label, ratings, discount, oldp
             Add to bag
           </DefaultBtn>
         )}
-        {label && !sort && (
+        {label || productConfig.label && !sort && (
           <div className={desktop ? `${styles.svgContainer}` : `${styles.mobileSvg} `}>
             <WishlistSvg
               onClick={handleSvgOnClick}
@@ -89,7 +89,7 @@ const Product = ({ data, largura, altura, button, label, ratings, discount, oldp
           </div>
         )}
       </div>
-      {button && !sort && (
+      {button || productConfig.button && !sort && (
         <DefaultBtn onClick={handleBtnOnClick} outlined={true} icon={btnIcon} id={styles.productBtn}>
           Add to bag
         </DefaultBtn>

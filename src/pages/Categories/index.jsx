@@ -22,6 +22,12 @@ import Breadcrump from "../../components/breadcrumpDesktop";
 import { useLocation, useNavigate } from "react-router-dom";
 import getCategoryByName from "../../services/getCategoryByName";
 import MobileLayout from "../../layouts/mobileLayout";
+const config = {
+  label:true,
+  button:true,
+  discount:30,
+  oldprice:30
+}
 export default function Category() {
   const { phone, desktop } = useBreakpoint();
 
@@ -143,7 +149,7 @@ export default function Category() {
     <>
       {phone && !loading && (
         <MobileLayout icon={"arrow"} iconStroke={"#1B4B66"} iconAngle={90} title={categoryName} open={modalOpen} setOpen={setModalOpen}>
-          <ProductGrid categoryId={categoryId}></ProductGrid>
+          <ProductGrid productConfig= {config} categoryId={categoryId}></ProductGrid>
         </MobileLayout>
       )}
       {desktop && <Header path={location.state?.path} />}
@@ -387,7 +393,7 @@ export default function Category() {
                 <img src={eyewear}></img>
               </div>
               <div className={`${styles.pickGradient} ${styles.lightBageGrad}`} onClick={() => handleCategoryClick("Apparels")}>
-                <span className={`display-small`}>Apparels</span>
+                <span className={`display-small text-bright`}>Apparels</span>
                 <img src={apparels}></img>
               </div>
             </div>
