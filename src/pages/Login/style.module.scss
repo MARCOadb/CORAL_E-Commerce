@@ -4,6 +4,103 @@
     }
 }
 
+.initialScreen {
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    align-items: end;
+    flex-direction: column;
+    justify-content: end;
+
+    background-image: url('../../assets/pics/Login/bg.png');
+    background-repeat: repeat;
+
+    img {
+        width: 100%;
+        position: absolute;
+        top: 0;
+        z-index: -1;
+        object-fit: fill;
+
+        @include desktop {
+            top: 50px;
+            max-width: 250px;
+        }
+    }
+
+    @include desktop {
+        background-image: none;
+        justify-content: center;
+        align-items: center;
+    }
+}
+
+.fade {
+    width: 100%;
+    height: 207px;
+    background: linear-gradient(0deg, rgba(255, 255, 255, 0.00) 0%, rgba(255, 244, 229, 0.96) 100%);
+    position: absolute;
+    top: -24px;
+}
+
+.initialContent {
+    width: 100%;
+    height: 400px;
+    background: linear-gradient(180deg, rgba(255, 244, 229, 0.00) 0%, rgba(255, 250, 244, 0.96) 51.90%);
+    padding: 0 16px;
+    display: flex;
+    flex-direction: column;
+    justify-content: end;
+    align-items: center;
+
+    @include desktop {
+        justify-content: center;
+    }
+
+    h1 {
+        font-size: 30px;
+        font-weight: 700;
+        line-height: 140%;
+        color: #171520;
+
+        @include desktop {
+            font-size: 40px;
+            font-weight: 700;
+            line-height: 52px;
+            margin-bottom: 30px;
+        }
+    }
+
+    button {
+        width: 100%;
+        height: 44px;
+        background-color: #1B4B66;
+        border: none;
+        border-radius: 8px;
+        color: #fff;
+        margin: 18px 0 8px 0;
+        max-width: 400px;
+        transition: all 0.2s;
+
+        &:hover {
+            background-color: #183e55;
+        }
+
+        @include desktop {
+            margin-bottom: 20px;
+        }
+    }
+
+    span {
+        cursor: pointer;
+        margin-bottom: 32px;
+    }
+}
+
+.coralLogo {
+    color: #17494D;
+}
+
 .content {
     width: 100%;
     height: 100vh;
@@ -11,6 +108,33 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
+}
+
+.backBtn {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    color: #1B4B66;
+    border: none;
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    background-color: transparent;
+    outline: none;
+    transition: all 0.2s;
+
+    @include desktop {
+        width: 50px;
+        height: 50px;
+        top: 50px;
+        left: 50px;
+        background-color: #1B4B66;
+        color: #fff;
+    }
+
+    &:hover {
+        background-color: #183e55;
+    }
 }
 
 .title {
@@ -45,6 +169,17 @@
     }
 }
 
+.profilePhoto {
+    width: 100px;
+    height: 100px;
+    object-fit: cover;
+
+    @include desktop {
+        width: 200px;
+        height: 200px;
+    }
+}
+
 .form {
     display: flex;
     row-gap: 8px;
@@ -70,6 +205,7 @@
         &:hover {
             transform: translateY(-5px);
             box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.5);
+            background-color: #183e55;
         }
     }
 }
@@ -115,9 +251,10 @@
         right: 10px;
         position: absolute;
         color: #1B4B66;
+        cursor: pointer;
 
         @include desktop {
-            top: 22px;
+            top: 25px;
         }
     }
 }
@@ -131,5 +268,6 @@
     span {
         color: #1B4B66;
         text-decoration: underline;
+        cursor: pointer;
     }
 }
