@@ -50,7 +50,15 @@ const ProductGrid = ({ categoryId }) => {
                   <button onClick={handleFormatToggle}>
                     <img src={currentFormat} />
                   </button>
-                  <p className="body-medium-he">Showing * - * of {products?.length} items</p>
+                  <p className="body-medium-he">
+                    Showing * - * of{" "}
+                    {products?.reduce((acc, cur) => {
+                      if (cur.categoryId === categoryId) acc++;
+
+                      return acc;
+                    }, 0)}{" "}
+                    items
+                  </p>
                   {/* PRODUCTS.LENGTH IRA MOSTRAR TODOS OS PRODUTOS, NAO SOMENTE OS DA CATEGORIA */}
                 </div>
                 <div className="sorting-options">
