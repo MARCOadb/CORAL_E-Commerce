@@ -2,21 +2,20 @@
   display: flex;
   width: 0px;
   height: 100%;
+  z-index: 21;
   background-color: transparent;
   position: fixed;
-  left: 0;
+  left: -300px;
   top: 0;
-  z-index: -1;
   flex-direction: column;
-  transition: all 500ms ease-in-out;
+  transition: all 700ms ease-in-out;
   overflow: auto;
 }
 
 .drawerOpen {
   width: 300px;
-
-  z-index: 2;
   background-color: #fff;
+  left: 0;
 }
 
 .profileDiv {

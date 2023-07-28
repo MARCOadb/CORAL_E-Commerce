@@ -1,9 +1,12 @@
+import { BagProvider } from "./contexts/BagContext";
 import RoutesApp from "./routes";
 
 function App() {
   return (
     <div className="App">
-      <RoutesApp />
+      <BagProvider>
+        <RoutesApp />
+      </BagProvider>
     </div>
   );
 }

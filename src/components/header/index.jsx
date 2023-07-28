@@ -11,6 +11,11 @@ import useBreakpoint from "../../hooks/useBreakPoint";
 import SearchBar from "../searchBar";
 import { useState } from "react";
 import MobileDrawer from "../mobileDrawer";
+import Modal from "../modal";
+import WishlistSvg from "../../assets/icon/WishlistSvg";
+import ProfileSvg from "../../assets/icon/Profilesvg";
+import BagSvg from "../../assets/icon/Bagsvg";
+import HeaderModal from "../headerModal";
 import { useLocation, useNavigate } from "react-router-dom";
 
 const Header = ({ path }) => {
@@ -28,7 +33,8 @@ const Header = ({ path }) => {
   };
   return (
     <>
-      <MobileDrawer setOpen={setOpen} open={open} />
+      <HeaderModal setOpen={setOpen} open={open} />
+
       <div className="headerContainer">
         {desktop ? (
           <>
@@ -82,13 +88,14 @@ const Header = ({ path }) => {
             </div>
             <SearchBar text={"Search for products or brands....."} icon={true} />
             <div className="navContainer">
-              <img src={wishlistIcon} alt="wishlistIcon" />
-              <img src={profileIcon} alt="profileIcon" />
-              <img src={bagIcon} alt="bagIcon" />
+              <WishlistSvg />
+              <ProfileSvg stroke={"#1B4B66"} />
+              <BagSvg onClick={() => setOpen(true)} stroke={"#1B4B66"} />
             </div>
           </>
         ) : (
           <>
+            <MobileDrawer setOpen={setOpen} open={open} />
             <div className="navContainer">
               <div onClick={() => setOpen(true)}>
                 <img src={menuIcon} alt="menuIcon" />
