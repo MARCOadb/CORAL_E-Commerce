@@ -46,8 +46,8 @@ const NavBarMobile = () => {
         </>
       )}
       <div className="containerNav">
-        <HomeSvg stroke={path === "/" && "#1B4B66"} onClick={() => handleClick("/")} />
-        {path === "/" && <span>Home</span>}
+        <HomeSvg stroke={path === "/home" && "#1B4B66"} onClick={() => handleClick("/home")} />
+        {path === "/home" && <span>Home</span>}
       </div>
       <div className="containerNav">
         <CategorySvg stroke={path === "/categories" && "#1B4B66"} onClick={() => handleClick("/categories")} />

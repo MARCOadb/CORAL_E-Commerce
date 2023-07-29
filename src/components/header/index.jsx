@@ -8,58 +8,59 @@ import useBreakpoint from "../../hooks/useBreakPoint";
 import SearchBar from "../searchBar";
 import { useState, useEffect, useContext } from "react";
 import MobileDrawer from "../mobileDrawer";
+import Modal from "../modal";
+import WishlistSvg from "../../assets/icon/WishlistSvg";
 import ProfileSvg from "../../assets/icon/Profilesvg";
 import BagSvg from "../../assets/icon/Bagsvg";
-import WishlistSvg from "../../assets/icon/WishlistSvg"
+import HeaderModal from "../headerModal";
 import { useLocation, useNavigate } from "react-router-dom";
-import Modal from "../modal";
 import { AuthContext } from "../../contexts/AuthContext";
 
 const Header = ({ path }) => {
   const { phone, desktop } = useBreakpoint();
   const [open, setOpen] = useState(false);
-  const [loginModalOpen, setLoginModalOpen] = useState(false)
+  const [loginModalOpen, setLoginModalOpen] = useState(false);
   const navigate = useNavigate();
   const location = useLocation();
-  const [pathCheck, setPathCheck] = useState('/home')
+  const [pathCheck, setPathCheck] = useState("/home");
 
-  const { signed } = useContext(AuthContext)
+  const { signed } = useContext(AuthContext);
 
   useEffect(() => {
     if (path) {
-      setPathCheck(path)
+      setPathCheck(path);
     } else if (location.state?.path) {
-      setPathCheck(location.state?.path)
+      setPathCheck(location.state?.path);
     }
-  }, [])
+  }, []);
 
   const handleCategoryClick = (category, tabIndex) => {
-    if (category === 'profile') {
+    if (category === "profile") {
       if (signed) {
         navigate(`/${pathCheck}/${category}`, {
           state: {
             path: pathCheck,
             category: category,
-            initialTab: tabIndex ? tabIndex : location.state.initialTab
+            initialTab: tabIndex ? tabIndex : location.state.initialTab,
           },
         });
       } else {
-        setLoginModalOpen(true)
+        setLoginModalOpen(true);
       }
     } else {
       navigate(`/${pathCheck}/${category}`, {
         state: {
           path: pathCheck,
           category: category,
-          initialTab: tabIndex ? tabIndex : location.state.initialTab
+          initialTab: tabIndex ? tabIndex : location.state.initialTab,
         },
       });
     }
   };
   return (
     <>
+      <HeaderModal setOpen={setOpen} open={open} />
 
-      <MobileDrawer setOpen={setOpen} open={open} />
       <div className="headerContainer">
         {desktop ? (
           <>
@@ -68,7 +69,7 @@ const Header = ({ path }) => {
               onClick={() => {
                 navigate("/", { state: { path: "home" } });
               }}
-              style={{ cursor: 'pointer' }}
+              style={{ cursor: "pointer" }}
             />
             <div className="navContainer">
               <button
@@ -118,21 +119,35 @@ const Header = ({ path }) => {
             {loginModalOpen && (
               <>
                 <div className="loginModal">
-                  <span className='text-high-emphasis'>You are not authenticated!</span>
-                  <span className='text-high-emphasis'>Please log in to continue</span>
+                  <span className="text-high-emphasis">You are not authenticated!</span>
+                  <span className="text-high-emphasis">Please log in to continue</span>
                   <a href="/login">Log In</a>
                 </div>
               </>
             )}
 
             <div className="navContainer">
-              <WishlistSvg stroke={"#1B4B66"} height={44} onClick={() => { handleCategoryClick("profile", 4) }} />
-              <ProfileSvg stroke={"#1B4B66"} height={44} onClick={() => { handleCategoryClick("profile", 1) }} navMovile={false} />
-              <BagSvg stroke={"#1B4B66"} height={44} />
+              <WishlistSvg
+                stroke={"#1B4B66"}
+                height={44}
+                onClick={() => {
+                  handleCategoryClick("profile", 4);
+                }}
+              />
+              <ProfileSvg
+                stroke={"#1B4B66"}
+                height={44}
+                onClick={() => {
+                  handleCategoryClick("profile", 1);
+                }}
+                navMovile={false}
+              />
+              <BagSvg onClick={() => setOpen(true)} stroke={"#1B4B66"} height={44} />
             </div>
           </>
         ) : (
           <>
+            <MobileDrawer setOpen={setOpen} open={open} />
             <div className="navContainer">
               <div onClick={() => setOpen(true)}>
                 <img src={menuIcon} alt="menuIcon" />
