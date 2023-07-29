@@ -41,7 +41,7 @@ const Header = ({ path }) => {
           state: {
             path: pathCheck,
             category: category,
-            initialTab: tabIndex ? tabIndex : location.state.initialTab,
+            initialTab: tabIndex ? tabIndex : location.state?.initialTab,
           },
         });
       } else {
@@ -52,7 +52,7 @@ const Header = ({ path }) => {
         state: {
           path: pathCheck,
           category: category,
-          initialTab: tabIndex ? tabIndex : location.state.initialTab,
+          initialTab: tabIndex ? tabIndex : location.state?.initialTab,
         },
       });
     }

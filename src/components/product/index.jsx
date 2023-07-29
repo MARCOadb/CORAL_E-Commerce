@@ -68,14 +68,14 @@ const Product = ({ data, largura, altura, button, label, ratings, discount, oldp
           <span className={`text-low-emphasis ${desktop ? "label-large" : "label-medium"}`}>{data.description}</span>
           <div className={styles.detailsText}>
             <span className={`text-high-emphasis ${desktop ? "body-medium" : "label-small "}`}>${data.price}</span>
-            {oldprice ||
-              (productConfig?.oldprice && <span className={`text-low-emphasis strike ${desktop ? "label-large" : "extra-small-label"}`}>${oldprice ? oldprice : productConfig?.oldprice}</span>)}
-            {discount ||
-              (productConfig?.discount && (
-                <span className={`${desktop ? "body-medium" : "extra-small-label"}`} style={{ color: "#E21D1D" }}>
-                  {discount ? discount : productConfig?.discount}% OFF
-                </span>
-              ))}
+            {(oldprice || productConfig?.oldprice) && (
+              <span className={`text-low-emphasis strike ${desktop ? "label-large" : "extra-small-label"}`}>${oldprice ? oldprice : productConfig?.oldprice}</span>
+            )}
+            {(discount || productConfig?.discount) && (
+              <span className={`${desktop ? "body-medium" : "extra-small-label"}`} style={{ color: "#E21D1D" }}>
+                {discount ? discount : productConfig?.discount}% OFF
+              </span>
+            )}
           </div>
         </div>
         {button && sort && (
@@ -96,12 +96,11 @@ const Product = ({ data, largura, altura, button, label, ratings, discount, oldp
           </div>
         )}
       </div>
-      {button ||
-        (productConfig?.button && !sort && (
-          <DefaultBtn onClick={handleBtnOnClick} outlined={true} icon={btnIcon} id={styles.productBtn}>
-            Add to bag
-          </DefaultBtn>
-        ))}
+      {(button || productConfig?.butto) && !sort && (
+        <DefaultBtn onClick={handleBtnOnClick} outlined={true} icon={btnIcon} id={styles.productBtn}>
+          Add to bag
+        </DefaultBtn>
+      )}
     </div>
   );
 };
