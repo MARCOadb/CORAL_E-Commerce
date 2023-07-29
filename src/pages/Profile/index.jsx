@@ -5,9 +5,11 @@ import NavBarMobile from "../../components/navBarMobile";
 import DefaultBtn from "../../components/defaultBtn";
 import Breadcrump from "../../components/breadcrumpDesktop";
 
+import { AuthContext } from "../../contexts/AuthContext";
+
 //HOOKS
 import useBreakpoint from "../../hooks/useBreakPoint";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
 
 //IMAGES & ICONS
@@ -24,6 +26,8 @@ export default function Profile() {
     const { phone, desktop } = useBreakpoint();
     const [activeTab, setActiveTab] = useState(location.state?.initialTab ? location.state?.initialTab : 1)
     const [tabTitle, setTabTitle] = useState('')
+
+    const { logout } = useContext(AuthContext)
 
     useEffect(() => {
         switch (activeTab) {
@@ -55,6 +59,10 @@ export default function Profile() {
         setActiveTab(tab)
     }
 
+    async function handleLogout() {
+        await logout()
+    }
+
     return (
         <>
             {desktop && (
@@ -71,7 +79,7 @@ export default function Profile() {
                     <div>
                         <h1 className={`text-primary ${desktop ? 'display-medium' : 'display-small'}`}>{phone ? 'Profile' : tabTitle}</h1>
                         {desktop && (
-                            <button>
+                            <button onClick={handleLogout}>
                                 <LogoutSvg />
                                 <span className="text-primary">Logout</span>
                             </button>
@@ -137,7 +145,7 @@ export default function Profile() {
 
                     {phone && (
                         <div className={styles.logoutButton}>
-                            <DefaultBtn outlined={true} children={'Logout'} icon={<LogoutSvg />} />
+                            <DefaultBtn outlined={true} children={'Logout'} icon={<LogoutSvg />} onClick={handleLogout} />
                         </div>
                     )}
                 </div>

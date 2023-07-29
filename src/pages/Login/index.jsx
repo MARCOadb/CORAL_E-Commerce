@@ -15,11 +15,11 @@ export default function Login() {
     const [formType, setFormType] = useState() //define se o tipo de formulário é de login ou register
     const [initial, setInitial] = useState(true)
 
-    const { signIn, signUp, loadingAuth } = useContext(AuthContext)
+    const { signIn, signUp, loadingAuth, logout } = useContext(AuthContext)
 
     const [firstName, setFirstName] = useState('')
     const [lastName, setLastName] = useState('')
-    const [profilePhoto, setProfilePhoto] = useState(profileImg)
+    const [profilePhoto, setProfilePhoto] = useState()
     const [phoneNumber, setPhoneNumber] = useState('')
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
@@ -36,7 +36,8 @@ export default function Login() {
         setEmail('')
         setPassword('')
         setConfirmPass('')
-        setProfilePhoto(profileImg)
+        setProfilePhoto()
+        setShowPassword(false)
     }
 
     function handleProfilePhotoChange(event) {
@@ -94,7 +95,6 @@ export default function Login() {
                 email !== '' &&
                 password !== ''
             ) {
-                alert('fazer login')
                 await signIn(email, password)
             } else {
                 toast.error('All fields must be filled')

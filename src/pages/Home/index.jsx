@@ -41,7 +41,6 @@ import remus from "../../assets/pics/Home/bolsa-remus.png";
 import "./style.scss";
 import Product from "../../components/product";
 import getAllProducts from "../../services/getAllProducts";
-import { useNavigate } from "react-router-dom";
 
 export default function Home() {
   const { phone, desktop } = useBreakpoint();

@@ -6,19 +6,24 @@ import searchIcon from "../../assets/icon/search.svg";
 import notificationIcon from "../../assets/icon/notification.svg";
 import useBreakpoint from "../../hooks/useBreakPoint";
 import SearchBar from "../searchBar";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import MobileDrawer from "../mobileDrawer";
 import ProfileSvg from "../../assets/icon/Profilesvg";
 import BagSvg from "../../assets/icon/Bagsvg";
 import WishlistSvg from "../../assets/icon/WishlistSvg"
 import { useLocation, useNavigate } from "react-router-dom";
+import Modal from "../modal";
+import { AuthContext } from "../../contexts/AuthContext";
 
 const Header = ({ path }) => {
   const { phone, desktop } = useBreakpoint();
   const [open, setOpen] = useState(false);
+  const [loginModalOpen, setLoginModalOpen] = useState(false)
   const navigate = useNavigate();
   const location = useLocation();
   const [pathCheck, setPathCheck] = useState('/home')
+
+  const { signed } = useContext(AuthContext)
 
   useEffect(() => {
     if (path) {
@@ -29,13 +34,27 @@ const Header = ({ path }) => {
   }, [])
 
   const handleCategoryClick = (category, tabIndex) => {
-    navigate(`/${pathCheck}/${category}`, {
-      state: {
-        path: pathCheck,
-        category: category,
-        initialTab: tabIndex ? tabIndex : location.state.initialTab
-      },
-    });
+    if (category === 'profile') {
+      if (signed) {
+        navigate(`/${pathCheck}/${category}`, {
+          state: {
+            path: pathCheck,
+            category: category,
+            initialTab: tabIndex ? tabIndex : location.state.initialTab
+          },
+        });
+      } else {
+        setLoginModalOpen(true)
+      }
+    } else {
+      navigate(`/${pathCheck}/${category}`, {
+        state: {
+          path: pathCheck,
+          category: category,
+          initialTab: tabIndex ? tabIndex : location.state.initialTab
+        },
+      });
+    }
   };
   return (
     <>
@@ -94,6 +113,18 @@ const Header = ({ path }) => {
               </button>
             </div>
             <SearchBar text={"Search for products or brands....."} icon={true} />
+
+            <Modal open={loginModalOpen} setOpen={setLoginModalOpen}></Modal>
+            {loginModalOpen && (
+              <>
+                <div className="loginModal">
+                  <span className='text-high-emphasis'>You are not authenticated!</span>
+                  <span className='text-high-emphasis'>Please log in to continue</span>
+                  <a href="/login">Log In</a>
+                </div>
+              </>
+            )}
+
             <div className="navContainer">
               <WishlistSvg stroke={"#1B4B66"} height={44} onClick={() => { handleCategoryClick("profile", 4) }} />
               <ProfileSvg stroke={"#1B4B66"} height={44} onClick={() => { handleCategoryClick("profile", 1) }} navMovile={false} />
