@@ -83,19 +83,18 @@ const Product = ({ data, largura, altura, button, label, ratings, discount, oldp
             Add to bag
           </DefaultBtn>
         )}
-        {label ||
-          (productConfig?.label && !sort && (
-            <div className={desktop ? `${styles.svgContainer}` : `${styles.mobileSvg} `}>
-              <WishlistSvg
-                onClick={handleSvgOnClick}
-                width={phone && "20"}
-                height={phone && "20"}
-                viewBox={phone && "0 0 28 28"}
-                fill={isWishlisted && "red"}
-                stroke={isWishlisted ? "red" : "#13101E"}
-              />
-            </div>
-          ))}
+        {(label || productConfig?.label) && !sort && (
+          <div className={desktop ? `${styles.svgContainer}` : `${styles.mobileSvg} `}>
+            <WishlistSvg
+              onClick={handleSvgOnClick}
+              width={phone && "20"}
+              height={phone && "20"}
+              viewBox={phone && "0 0 28 28"}
+              fill={isWishlisted && "red"}
+              stroke={isWishlisted ? "red" : "#13101E"}
+            />
+          </div>
+        )}
       </div>
       {button ||
         (productConfig?.button && !sort && (

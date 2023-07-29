@@ -146,7 +146,7 @@ export default function Home() {
             </button>
           </div>
 
-          <div className="arrivals-carousel">{!loading && products?.map((item) => <Product largura={desktop ? 286 : 136} altura={desktop ? 286 : 136} data={item} label={true} key={item.id} />)}</div>
+          <div className="arrivals-carousel">{!loading && products?.map((item) => <Product largura={desktop ? 286 : 136} altura={desktop ? 286 : 136} data={item} label key={item.id} />)}</div>
         </div>
 
         <div className="collections-container">
