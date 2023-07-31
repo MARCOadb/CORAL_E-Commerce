@@ -1,4 +1,5 @@
-export const getBag = () => {
-  const bag = JSON.parse(localStorage.getItem("bag"));
+export const getBag = (user) => {
+  let bag;
+  user?.bag ? (bag = user?.bag) : (bag = []);
   return bag;
 };

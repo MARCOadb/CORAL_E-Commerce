@@ -5,13 +5,15 @@ import Modal from "../modal";
 import style from "./style.module.scss";
 import { BagContext } from "../../contexts/BagContext";
 import CartProduct from "../cartProduct";
+import { AuthContext } from "../../contexts/AuthContext";
 
 const HeaderModal = ({ setOpen, open }) => {
-  const { userProducts, subTotal, taxPrice, totalPrice, loading } = useContext(BagContext);
+  const { user, userProducts, subTotal, taxPrice, totalPrice, loading } = useContext(BagContext);
+
   return (
     <>
+      {console.log(user?.wishlist)}
       <Modal setOpen={setOpen} open={open}></Modal>
-
       <div className={open ? `${style.headerModal} ${style.modalOpenContainer}` : `${style.headerModal} ${style.modalClosedContainer} `}>
         <div className={style.topContainer}>
           <ArrowLineSvg stroke={"#1B4B66"} onClick={() => setOpen(false)} rotate={180} viewBox={"0 1 24 24"} />

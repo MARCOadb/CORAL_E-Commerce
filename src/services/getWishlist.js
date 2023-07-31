@@ -1,4 +1,5 @@
-export const getWishlist = () => {
-  const wishlist = localStorage.getItem("wishlist");
+export const getWishlist = (user) => {
+  if (user.wishlist === null) user.wishlist = [];
+  const wishlist = user.wishlist;
   return wishlist;
 };

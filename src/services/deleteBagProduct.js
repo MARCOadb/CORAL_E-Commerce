@@ -1,16 +1,15 @@
-export const deleteBagProduct = (productId, remove) => {
-  if (localStorage.getItem("bag") === null) localStorage.setItem("bag", "[]");
-  const bagArr = JSON.parse(localStorage.getItem("bag"));
+export const deleteBagProduct = (user, productId, remove) => {
+  if (user.bag === null) user.bag = [];
+  const bagArr = user.bag;
   const productFound = bagArr.find((item) => item.id === productId);
   if (productFound?.qnt > 1 && !remove) {
     productFound.qnt--;
-    localStorage.setItem("bag", JSON.stringify(bagArr));
+    return bagArr; // checar se esta correto ver se n deve retornar productfound
   } else if (!remove) {
     const removedItem = bagArr.filter((item) => item.qnt !== 1);
-    localStorage.setItem("bag", JSON.stringify(removedItem));
+    return removedItem;
   } else {
-    console.log("dsadas");
     const removedItem = bagArr.filter((item) => item.id !== productFound.id);
-    localStorage.setItem("bag", JSON.stringify(removedItem));
+    return removedItem;
   }
 };
