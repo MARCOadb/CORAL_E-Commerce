@@ -1,0 +1,60 @@
+@import "../../assets/utility.scss";
+@mixin phone {
+    @media (max-width: 1279px) {
+        @content;
+    }
+}
+
+@keyframes slide {
+    0% {
+        transform: translateX(-333px);
+    }
+
+    50% {
+        transform: translateX(-670px);
+    }
+
+    100% {
+        transform: translateX(-1005px);
+    }
+}
+
+.arrow-right{
+    position: absolute;
+    top: 873px;
+    left: 590px;
+    cursor: pointer;
+}
+.arrow-right > img{
+    background-color: white;
+}
+.arrow-left{
+    position: absolute;
+    top: 873px;
+    left: 100px;
+}
+.arrow-left > img{
+    background-color: white;
+}
+.product-photos{
+    position: absolute;
+    top: 850px;
+    left: 150px;
+}
+.product-photos > div{
+    width: 393px;
+    height: 75px;
+    border-radius: 8px;
+}
+.ex1{
+    background-color: red;
+}
+.ex2{
+    background-color: purple;
+}
+.ex3{
+    background-color: blue;
+}
+.ex4{
+    background-color: green;
+}
