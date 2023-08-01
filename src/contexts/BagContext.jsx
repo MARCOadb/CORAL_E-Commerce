@@ -12,13 +12,11 @@ export const BagProvider = ({ children }) => {
   const [taxPrice, setTaxPrice] = useState(null);
   const [totalPrice, setTotalPrice] = useState(null);
   const [loading, setLoading] = useState(false);
-  // GetUserBag sujeito a mudança conforme o uso do firebase
   const update = async () => {
     setLoading(true);
     getAllProducts()
       .then((data) => {
         const arrayDeIds = getBag(user);
-        console.log(arrayDeIds);
         const produtosFiltrados = data.filter((item) => !!arrayDeIds?.find((bagItem) => item.id === bagItem.id));
         const produtosComplexo = produtosFiltrados.map((item) => {
           const qnt = arrayDeIds.find((bagItem) => bagItem.id === item.id).qnt;

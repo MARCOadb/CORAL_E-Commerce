@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import ArrowSvg from "../../assets/icon/ArrowSvg";
 import CrossSvg from "../../assets/icon/CrossSvg";
 import BottomModal from "../../components/bottomModal";
@@ -14,12 +14,13 @@ import Product from "../../components/product";
 import getAllProducts from "../../services/getAllProducts";
 import DefaultBtn from "../../components/defaultBtn";
 import { setWishlistProduct } from "../../services/setWishlistProduct";
-
-const wishlist = () => setWishlistProduct(2);
-const bag = () => addBagProduct(1);
-const removeItem = () => deleteBagProduct(1);
+import { AuthContext } from "../../contexts/AuthContext";
 
 const Test = () => {
+  const { user } = useContext(AuthContext);
+  const wishlist = () => setWishlistProduct(2);
+  const bag = () => addBagProduct(user?.uid, 1);
+  const removeItem = () => deleteBagProduct(user?.uid, 1, true);
   const [open, setOpen] = useState(false);
   const [loading, setLoading] = useState(false);
   const [products, setProducts] = useState(null);
@@ -58,7 +59,7 @@ const Test = () => {
             if (index === 1) return <Product largura={136} altura={136} data={item} />;
           })}
       </BottomModal>
-      <MobileLayout title="Title" icon="cross" buttons={botoes} direction="collumn" headerSuffix={sufix}>
+      <MobileLayout title="Title" icon="cross" buttons={botoes} direction="collumn" headerSuffix={sufix} open>
         <Header />
         <Header />
         <Header />

@@ -12,7 +12,6 @@ const HeaderModal = ({ setOpen, open }) => {
 
   return (
     <>
-      {console.log(user?.wishlist)}
       <Modal setOpen={setOpen} open={open}></Modal>
       <div className={open ? `${style.headerModal} ${style.modalOpenContainer}` : `${style.headerModal} ${style.modalClosedContainer} `}>
         <div className={style.topContainer}>
