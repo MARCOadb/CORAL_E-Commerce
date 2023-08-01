@@ -1,3 +1,4 @@
+import { useEffect, useState } from "react";
 import ArrowSvg from "../../assets/icon/ArrowSvg";
 import CrossSvg from "../../assets/icon/CrossSvg";
 import DefaultBtn from "../../components/defaultBtn";
@@ -24,30 +25,34 @@ Config
   }
 */
 
-const MobileLayout = ({ children, headerSuffix, title, buttons, direction = "row", footerPrefix, icon, iconStroke, iconAngle, iconOnclick }) => {
+const MobileLayout = ({ children, headerSuffix, title, buttons, direction = "row", footerPrefix, icon, iconStroke, iconAngle, open, setOpen }) => {
   return (
-    <div className="layout">
-      <div className="headerLayout">
-        <div className="containerLayout">
-          {icon === "arrow" && <ArrowSvg stroke={iconStroke} x={iconAngle} onClick={iconOnclick} />}
-          {icon === "cross" && <CrossSvg stroke={iconStroke} onClick={iconOnclick} />}
-          <span>{title}</span>
-        </div>
-        {headerSuffix}
-      </div>
+    <>
+      {open && (
+        <div className="layout">
+          <div className="headerLayout">
+            <div className="containerLayout">
+              {icon === "arrow" && <ArrowSvg stroke={iconStroke} x={iconAngle} onClick={() => setOpen(false)} />}
+              {icon === "cross" && <CrossSvg stroke={iconStroke} onClick={() => setOpen(false)} />}
+              <span>{title}</span>
+            </div>
+            {headerSuffix}
+          </div>
 
-      <div className={"childrenContainer"}>{children}</div>
-      {(!!buttons?.length || footerPrefix) && (
-        <div className={direction === "row" ? "footerLayout" : "footerLayout columnFooter"}>
-          {footerPrefix}
-          {buttons?.map((item, index) => (
-            <DefaultBtn outlined={item.outlined} key={index} onClick={item.onClick}>
-              {item.text}
-            </DefaultBtn>
-          ))}
+          <div className={"childrenContainer"}>{children}</div>
+          {(!!buttons?.length || footerPrefix) && (
+            <div className={direction === "row" ? "footerLayout" : "footerLayout columnFooter"}>
+              {footerPrefix}
+              {buttons?.map((item, index) => (
+                <DefaultBtn outlined={item.outlined} key={index} onClick={item.onClick}>
+                  {item.text}
+                </DefaultBtn>
+              ))}
+            </div>
+          )}
         </div>
       )}
-    </div>
+    </>
   );
 };
 export default MobileLayout;

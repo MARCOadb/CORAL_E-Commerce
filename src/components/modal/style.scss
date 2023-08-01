@@ -6,9 +6,10 @@
   left: 0;
   top: 0;
   z-index: -1;
-  transition: background-color 300ms ease-in-out;
+  transition: all 700ms ease-in-out;
 }
+
 .opacityOpen {
-  background-color: #00000033;
-  z-index: 1;
+  background-color: #00000044;
+  z-index: 20;
 }

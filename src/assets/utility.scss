@@ -10,6 +10,12 @@ $grey: #f1f1f1;
 $text-light: #b6b6b6;
 $text-high-emphasis: #171520;
 $text-low-emphasis: #626262;
+$text-faded: #7E7E7E;
+
+//ESTILOS DE TEXTO
+.strike {
+  text-decoration: line-through;
+}
 
 //CORES DE TEXTO FREQUENTES
 .text-high-emphasis {
@@ -18,6 +24,10 @@ $text-low-emphasis: #626262;
 
 .text-low-emphasis {
   color: $text-low-emphasis;
+}
+
+.text-faded {
+  color: $text-faded;
 }
 
 .text-light {
@@ -30,6 +40,10 @@ $text-low-emphasis: #626262;
 
 .text-primary {
   color: $primary;
+}
+
+.text-dark {
+  color: $dark;
 }
 
 //DISPLAYS E TITLES
@@ -119,6 +133,14 @@ $text-low-emphasis: #626262;
   font-size: 12px;
   font-style: normal;
   font-weight: 600;
+  line-height: 16px;
+}
+
+.extra-small-label {
+  font-family: Inter;
+  font-size: 10px;
+  font-style: normal;
+  font-weight: 500;
   line-height: 16px;
 }
 
