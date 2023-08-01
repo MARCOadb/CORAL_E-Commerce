@@ -1,0 +1,346 @@
+// @import "../../assets/utility.scss";
+
+// .productImage {
+//     position: absolute;
+//     width: 605px;
+//     height: 704px;
+//     top: 144px;
+//     left: 20px;
+// }
+
+// .product-photos {
+//     width: 473px;
+//     height: 75px;
+// }
+
+// .productInfo {
+//     width: 814px;
+//     position: absolute;
+//     height: 624px;
+//     left: 649px;
+//     top: 144px;
+// }
+
+// .pin-code-check {
+//     position: absolute;
+//     width: 611px;
+//     height: 74px;
+//     top: 250px;
+// }
+
+// .pin-code-check>h1 {
+//     color: $text-high-emphasis;
+//     width: 152px;
+//     margin: 0;
+// }
+
+// .pin-code-check>h2 {
+//     color: $text-low-emphasis;
+//     width: 205px;
+//     position: absolute;
+//     top: 35px;
+// }
+
+// .pin-code {
+//     position: absolute;
+//     top: 15px;
+//     left: 220px;
+//     width: 390px;
+//     height: 56px;
+//     border-radius: 4px;
+//     background-color: $grey;
+//     padding: 18px, 12px, 18px, 16px;
+// }
+
+// .pin-code>input {
+//     width: 300px;
+//     height: 20px;
+//     color: $text-low-emphasis;
+//     margin-top: 5%;
+//     margin-left: 5%;
+//     border: none;
+//     background-color: $grey;
+// }
+
+// .pin-code>input ::-webkit-input-placeholder {
+//     color: $text-low-emphasis;
+// }
+
+// .pin-code>button {
+//     margin-left: 2.5%;
+//     border: none;
+//     cursor: pointer;
+//     color: $primary;
+// }
+
+// .ProductNameAndDescription {
+//     width: 410px;
+//     height: 70px;
+// }
+
+// .ratings {
+//     width: 268px;
+//     height: 24px;
+//     top: 102px;
+// }
+
+// .ProductNameAndDescription>h2 {
+//     color: $text-low-emphasis;
+// }
+
+// .product-pricing {
+//     color: $text-high-emphasis;
+//     display: flex;
+//     align-items: baseline;
+//     top: 150px;
+//     position: absolute;
+// }
+
+// .seperator {
+//     width: 611px;
+//     top: 226px;
+//     border: 1px;
+//     color: black;
+// }
+
+// .subscribed-pricing {
+//     color: $text-light;
+//     font-family: Inter;
+//     font-size: 34px;
+//     font-weight: 600;
+//     line-height: 26px;
+//     letter-spacing: 0em;
+//     text-decoration: line-through;
+//     margin-left: 2.5%;
+// }
+
+// .discount {
+//     color: #FF404B;
+//     margin-left: 2.5%;
+// }
+
+// .offers {
+//     overflow-x: scroll;
+//     height: 96px;
+//     top: 444px;
+//     position: absolute;
+//     display: flex;
+//     justify-content: right;
+//     min-width: 621px;
+// }
+
+// .offers-container {
+//     margin-right: 70px;
+//     width: 391px;
+//     height: 96px;
+//     border-radius: 8px;
+//     border: 1px;
+//     border-color: $primary;
+// }
+
+// .offers-container>h1 {
+//     position: absolute;
+//     top: 15px;
+//     width: 229px;
+//     color: $text-high-emphasis;
+//     margin-right: 0px;
+// }
+
+// .offers-container>h2 {
+//     width: 184px;
+//     color: $primary;
+//     position: absolute;
+//     top: 58px;
+// }
+
+// .offers-code {
+//     background-color: $grey;
+//     width: 109px;
+//     border-radius: 4px;
+//     height: 66px;
+//     top: 15px;
+//     position: absolute;
+//     left: 280px;
+// }
+
+// .offers-code>h1 {
+//     width: 66px;
+//     color: $text-low-emphasis;
+//     left: 20%;
+//     top: 14px;
+//     position: absolute;
+// }
+
+// .offers-code>button {
+//     background-color: $grey;
+//     width: 83px;
+//     text-align: center;
+//     top: 34px;
+//     left: 13px;
+//     position: absolute;
+//     line-height: 18px;
+// }
+
+// .quantity {
+//     top: 364px;
+//     position: absolute;
+
+// }
+
+// .min {
+//     position: absolute;
+//     border: none;
+//     background-color: white;
+//     font-size: 24px;
+//     left: 110px;
+// }
+
+// .max {
+//     position: absolute;
+//     font-size: 24px;
+//     border: none;
+//     background-color: white;
+//     left: 150px;
+// }
+
+// #quant {
+//     border: none;
+//     left: 135px;
+//     position: absolute;
+//     font-weight: 16px;
+//     top: 20%;
+// }
+
+// .containerQuantity {
+//     position: absolute;
+//     width: 73px;
+//     height: 30px;
+//     border-radius: 4px;
+//     border: 1px;
+//     border-color: $primary;
+//     top: 0px;
+// }
+
+.content {
+    width: 100%;
+    height: auto;
+}
+
+.breadcrump {
+    height: 24px;
+    margin: 24px auto 16px 20px;
+    display: block;
+}
+
+.product {
+    padding-left: 20px;
+    display: flex;
+    gap: 24px;
+
+    img {
+        width: 605px;
+        height: 605px;
+        border-radius: 16px;
+    }
+}
+
+.productContent {
+    width: 611px;
+    display: flex;
+    flex-direction: column;
+}
+
+.ratingsContainer {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin: 32px 0 24px 0;
+}
+
+.productPrice {
+    display: flex;
+    gap: 16px;
+    align-items: center;
+}
+
+.seperator {
+    width: 100%;
+    height: 1px;
+    margin: 24px 0;
+    background: rgba(0, 0, 0, 0.12);
+}
+
+.delivery {
+    width: 100%;
+    height: 74px;
+    display: flex;
+    margin-bottom: 40px;
+    justify-content: space-between;
+    align-items: center;
+    position: relative;
+}
+
+.deliveryTitle {
+    width: 205px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.deliveryPincode {
+    width: 390px;
+    height: 52px;
+    background: #f1f1f1;
+    border: none;
+    outline: none;
+    border-radius: 4px;
+    padding-left: 16px;
+}
+
+.checkBtn {
+    position: absolute;
+    right: 12px;
+    cursor: pointer;
+}
+
+.quantityContainer {
+    margin-bottom: 52px;
+    display: flex;
+    gap: 16px;
+}
+
+.stepperContainer {
+    display: flex;
+    align-items: center;
+    width: 73px;
+    height: 30px;
+    border-radius: 4px;
+    border: 1px solid var(--primary, #1b4b66);
+
+    input[type="number"] {
+        width: 25px;
+        height: auto;
+        border: none;
+        outline: none;
+        text-align: center;
+    }
+}
+
+.cupomContainer {
+    width: calc(100% + 20px);
+    margin-bottom: 40px;
+}
+
+.cupons {
+    width: auto;
+    overflow: scroll;
+    display: flex;
+    gap: 32px;
+}
+
+.cupom {
+    width: 391px;
+    min-width: 391px;
+    height: 96px;
+    background-color: red;
+}
