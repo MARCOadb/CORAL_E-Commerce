@@ -13,30 +13,32 @@ export const BagProvider = ({ children }) => {
   const [totalPrice, setTotalPrice] = useState(null);
   const [loading, setLoading] = useState(false);
   const update = async () => {
-    setLoading(true);
-    getAllProducts()
-      .then((data) => {
-        const arrayDeIds = getBag(user);
-        const produtosFiltrados = data.filter((item) => !!arrayDeIds?.find((bagItem) => item.id === bagItem.id));
-        const produtosComplexo = produtosFiltrados.map((item) => {
-          const qnt = arrayDeIds.find((bagItem) => bagItem.id === item.id).qnt;
-          return {
-            ...item,
-            qnt,
-          };
-        });
-        let tax = 0;
-        const valor = produtosComplexo.reduce((acc, cur) => {
-          acc += cur.price * cur.qnt;
-          tax += cur.qnt;
-          return acc;
-        }, 0);
-        setTaxPrice(tax);
-        setSubTotal(valor);
-        setTotalPrice(tax + valor);
-        setUserProducts(produtosComplexo);
-      })
-      .finally(() => setLoading(false));
+    if (user) {
+      setLoading(true);
+      getAllProducts()
+        .then(async (data) => {
+          const arrayDeIds = await getBag(user.uid);
+          const produtosFiltrados = data.filter((item) => !!arrayDeIds?.find((bagItem) => item.id === bagItem.id));
+          const produtosComplexo = produtosFiltrados.map((item) => {
+            const qnt = arrayDeIds.find((bagItem) => bagItem.id === item.id).qnt;
+            return {
+              ...item,
+              qnt,
+            };
+          });
+          let tax = 0;
+          const valor = produtosComplexo.reduce((acc, cur) => {
+            acc += cur.price * cur.qnt;
+            tax += cur.qnt;
+            return acc;
+          }, 0);
+          setTaxPrice(tax);
+          setSubTotal(valor);
+          setTotalPrice(tax + valor);
+          setUserProducts(produtosComplexo);
+        })
+        .finally(() => setLoading(false));
+    } else return console.log("Usuario invalido");
   };
   useEffect(() => {
     update();
