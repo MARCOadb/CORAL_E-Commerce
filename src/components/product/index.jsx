@@ -6,7 +6,7 @@ import { useContext, useState } from "react";
 import { checkWishlist } from "../../services/checkWishlist";
 import { useEffect } from "react";
 import useBreakpoint from "../../hooks/useBreakPoint";
-import { wishlistProduct } from "../../services/wishlistProduct";
+import { setWishlistProduct } from "../../services/setWishlistProduct";
 import BagSvg from "../../assets/icon/Bagsvg";
 import { addBagProduct } from "../../services/addBagProduct";
 import { BagContext } from "../../contexts/BagContext";
@@ -32,17 +32,18 @@ const Product = ({ data, largura, altura, button, label, ratings, discount, oldp
   const [isWishlisted, setIsWishlisted] = useState(null);
 
   useEffect(() => {
-    setIsWishlisted(checkWishlist(user, data.id));
-  }, [isWishlisted]);
+    if (user) {
+      checkWishlist(user?.uid, data.id).then((data) => setIsWishlisted(data));
+    }
+  }, [setIsWishlisted]);
 
   const handleSvgOnClick = () => {
-    // TODO Sujeito a mudança conforme uso da firebase
-    wishlistProduct(user, data.id);
-    setIsWishlisted(true);
+    setWishlistProduct(user?.uid, data.id).then((data) => setIsWishlisted(data));
+    update();
   };
   const handleBtnOnClick = () => {
     // TODO Sujeito a mudança conforme uso da firebase
-    addBagProduct(user, data.id);
+    addBagProduct(user?.uid, data.id);
     update();
   };
 

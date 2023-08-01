@@ -41,8 +41,6 @@ function AuthProvider({ children }) {
           lastName: docSnap.data().lastName,
           email: value.user.email,
           profilePhoto: docSnap.data().profilePhoto,
-          bag: docSnap.data().bag,
-          wishlist: docSnap.data().wishlist,
         };
 
         setUser(data);
@@ -89,8 +87,6 @@ function AuthProvider({ children }) {
             lastName: lastName,
             email: value.user.email,
             profilePhoto: null,
-            bag: null,
-            wishlist: null,
           };
           setUser(data);
           storageUser(data);

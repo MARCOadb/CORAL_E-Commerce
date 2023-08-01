@@ -6,7 +6,6 @@ import Header from "../../components/header";
 import MobileLayout from "../../layouts/mobileLayout";
 import getProductById from "../../services/getProductById";
 import getProducts from "../../services/getAllProducts";
-import { wishlistProduct } from "../../services/wishlistProduct";
 import { addBagProduct } from "../../services/addBagProduct";
 import { deleteBagProduct } from "../../services/deleteBagProduct";
 import IconBtn from "../../components/iconBtn";
@@ -14,8 +13,9 @@ import WishlistSvg from "../../assets/icon/WishlistSvg";
 import Product from "../../components/product";
 import getAllProducts from "../../services/getAllProducts";
 import DefaultBtn from "../../components/defaultBtn";
+import { setWishlistProduct } from "../../services/setWishlistProduct";
 
-const wishlist = () => wishlistProduct(2);
+const wishlist = () => setWishlistProduct(2);
 const bag = () => addBagProduct(1);
 const removeItem = () => deleteBagProduct(1);
 
