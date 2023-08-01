@@ -8,8 +8,7 @@ import CartProduct from "../cartProduct";
 import { AuthContext } from "../../contexts/AuthContext";
 
 const HeaderModal = ({ setOpen, open }) => {
-  const { user, userProducts, subTotal, taxPrice, totalPrice, loading } = useContext(BagContext);
-
+  const { userProducts, subTotal, taxPrice, totalPrice } = useContext(BagContext);
   return (
     <>
       <Modal setOpen={setOpen} open={open}></Modal>
@@ -20,10 +19,10 @@ const HeaderModal = ({ setOpen, open }) => {
         </div>
         <div className={style.itemContainer}>
           {userProducts?.map((data) => (
-            <>
+            <div>
               <CartProduct qtn price remove data={data} key={data.id} stepper />
               <div className={style.separator}></div>
-            </>
+            </div>
           ))}
         </div>
         <div className={style.priceContainer} style={{ flexDirection: "column", gap: "12px", padding: "0px 8.5px" }}>

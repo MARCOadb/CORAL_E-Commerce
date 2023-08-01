@@ -9,6 +9,7 @@ import MinusSvg from "../../assets/icon/MinusSvg";
 import PlusSvg from "../../assets/icon/PlusSvg";
 import SmallMinus from "../../assets/icon/SmallMinus";
 import SmallPlus from "../../assets/icon/SmallPlus";
+import { AuthContext } from "../../contexts/AuthContext";
 
 /*PROPS
   {
@@ -25,17 +26,17 @@ import SmallPlus from "../../assets/icon/SmallPlus";
 
 const CartProduct = ({ data, qnt, stepper, price, remove }) => {
   const { update } = useContext(BagContext);
+  const { user } = useContext(AuthContext);
   const deleteProduct = () => {
-    // TODO Sujeito a mudança conforme uso da firebase
-    deleteBagProduct(data.id, true);
+    deleteBagProduct(user.uid, data.id, true);
     update();
   };
   const addProduct = () => {
-    addBagProduct(data.id);
+    addBagProduct(user.uid, data.id);
     update();
   };
   const removeProduct = () => {
-    deleteBagProduct(data.id);
+    deleteBagProduct(user.uid, data.id);
     update();
   };
   const setProduct = (e) => {

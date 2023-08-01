@@ -38,7 +38,7 @@ export const BagProvider = ({ children }) => {
           setUserProducts(produtosComplexo);
         })
         .finally(() => setLoading(false));
-    } else return console.log("Usuario invalido");
+    } else return "Invalid user";
   };
   useEffect(() => {
     update();
