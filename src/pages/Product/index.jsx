@@ -10,12 +10,25 @@ import { BagContext } from "../../contexts/BagContext";
 import { addBagProduct } from "../../services/addBagProduct";
 import { deleteBagProduct } from "../../services/deleteBagProduct";
 import { setProductQnt } from "../../services/setProductQnt";
+import DefaultBtn from "../../components/defaultBtn";
+import BagSvg from "../../assets/icon/Bagsvg";
+import WishlistSvg from "../../assets/icon/WishlistSvg";
+import Slider from "react-slick";
+import 'slick-carousel/slick/slick.css';
+import 'slick-carousel/slick/slick-theme.css';
 
 import styles from "./style.module.scss";
 
 export default function ProductPage() {
     const { update } = useContext(BagContext)
 
+    const settings = {
+        dots: false,
+        infinite: true,
+        speed: 500,
+        slidesToShow: 4,
+        slidesToScroll: 1
+    }
 
     const removeProduct = () => {
         deleteBagProduct('product id')//substituir pelo id do produto real
@@ -35,7 +48,17 @@ export default function ProductPage() {
                 <span className={styles.breadcrump}>BreadCrump aqui</span>
 
                 <div className={styles.product}>
-                    <img src={productPhoto} alt="Product Image" />
+                    <div className={styles.productImages}>
+                        <img src={productPhoto} alt="Product Image" className={styles.imageBig} />
+                        <div className={styles.carousel}>
+                            <Slider {...settings}>
+                                <img src={productPhoto} />
+                                <img src={productPhoto} />
+                                <img src={productPhoto} />
+                                <img src={productPhoto} />
+                            </Slider>
+                        </div>
+                    </div>
                     <div className={styles.productContent}>
 
                         <h1 className="text-dark display-medium">Coach</h1>
@@ -70,7 +93,7 @@ export default function ProductPage() {
                         </div>
 
                         <div className={styles.quantityContainer}>
-                            <span className="display-small text-dark">Quantity:</span>
+                            <span className="text-dark display-small ">Quantity:</span>
                             <div className={styles.stepperContainer}>
                                 <SmallMinus onClick={removeProduct} />
                                 <input type="number" placeholder='1'></input>
@@ -81,84 +104,61 @@ export default function ProductPage() {
                         <div className={styles.cupomContainer}>
                             <div className={styles.cupons}>
                                 <div className={styles.cupom}>
-                                    <span>Get upto 30% Off on order value above $100</span>
+                                    <div className={styles.cupomDescription}>
+                                        <span className="text-high-emphasis body-medium ">Get upto 30% Off on order value above $100</span>
+                                        <span className="text-primary body-small">Terms & Conditions</span>
+                                    </div>
+                                    <div className={styles.cupomCode}>
+                                        <span className="text-low-emphasis body-small">Use Code</span>
+                                        <span className="text-high-emphasis body-medium">ORDER100</span>
+                                    </div>
                                 </div>
 
                                 <div className={styles.cupom}>
-                                    <span>Get upto 30% Off on order value above $100</span>
-                                </div>
-
-                                <div className={styles.cupom}>
-                                    <span>Get upto 30% Off on order value above $100</span>
-                                </div>
-
-                                <div className={styles.cupom}>
-                                    <span>Get upto 30% Off on order value above $100</span>
+                                    <div className={styles.cupomDescription}>
+                                        <span className="text-high-emphasis body-medium ">Get upto 30% Off on order value above $100</span>
+                                        <span className="text-primary body-small">Terms & Conditions</span>
+                                    </div>
+                                    <div className={styles.cupomCode}>
+                                        <span className="text-low-emphasis body-small">Use Code</span>
+                                        <span className="text-high-emphasis body-medium">ORDER100</span>
+                                    </div>
                                 </div>
                             </div>
                         </div>
 
-                        <span>2 botoes</span>
+                        <div className={styles.buttons}>
+                            <DefaultBtn icon={<BagSvg stroke={'#fff'} />} width={'328px'} height={'44px'}>Add to bag</DefaultBtn>
+                            <DefaultBtn icon={<WishlistSvg />} outlined width={'240px'} height={'44px'}>Add to wishlist</DefaultBtn>
+                        </div>
+                    </div>
+                </div>
 
+                <div className={styles.productTabs}>
+                    <div className={styles.tabsTitle}>
+                        <span>Tab 1</span>
+                        <span>Tab 2</span>
+                        <span>Tab 3</span>
+                    </div>
+
+                    <div className={styles.tabsContent}>
+                        <div>
+                            <h1>Tab 1</h1>
+                            <span>conteudo tab 1</span>
+                        </div>
+
+                        <div>
+                            <h1>Tab 2</h1>
+                            <span>conteudo tab 2</span>
+                        </div>
+
+                        <div>
+                            <h1>Tab 3</h1>
+                            <span>conteudo tab 3</span>
+                        </div>
                     </div>
                 </div>
             </div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-            {/* <div className={styles.productImage}>
-
-            </div>
-            <ProductPhotos />
-            <Tabs />
-            <div className={styles.productInfo}>
-                <div className={styles.ProductNameAndDescription}>
-                    <h1 className="product-name display-medium">Coach</h1>
-                    <h2 className="description display-small">Leather Coach Bag with adjustable starps.</h2>
-                </div>
-                <div className="ratings"></div>
-                <div className="product-pricing display-large">$54.69
-                    <div className="subscribed-pricing">$78.66</div>
-                    <div className="discount display-small">50%OFF</div></div>
-                <div className="seperator"></div>
-                <div className="pin-code-check">
-                    <h1 className="display-small">Delivery Details</h1>
-                    <h2 className="body-medium">Check estimated delivery date/pickup option.</h2>
-                    <div className="pin-code"><input placeholder="Apply Valid Pincode" className="body-medium" /><button className="title-regular">CHECK</button></div>
-
-                </div>
-                <QuantityInput />
-                <Element className="offers">
-                    <div className="offers-container">
-                        <h1 className="body-medium">Get upto 30% Off on order value above $100</h1>
-                        <h2 className="body-small">Terms & Conditions</h2>
-                        <div className="offers-code">
-                            <h1 className="body-small">Use Code</h1>
-                            <button className="code body-medium" >ORDER100</button>
-                        </div>
-                    </div>
-                    <div className="offers-container">
-                        <h1 className="body-medium">Get upto 30% Off on order value above $100</h1>
-                        <h2 className="body-small">Terms & Conditions</h2>
-                        <div className="offers-code">
-                            <h1 className="body-small">Use Code</h1>
-                            <button className="code body-medium" >ORDER100</button>
-                        </div>
-                    </div>
-                </Element> 
-        </div >*/}
-
             <Footer />
         </>
     )
