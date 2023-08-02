@@ -2,7 +2,12 @@ import Header from "../../components/header";
 import Footer from "../../components/footer";
 import useBreakpoint from "../../hooks/useBreakPoint";
 import { useContext, useState } from "react";
-import productPhoto from '../../assets/pics/Product/product-image.png'
+
+import productPhoto from '../../assets/pics/Product/product-image.png'       //
+import pic2 from '../../assets/pics/Home/biba-logo.png'                      //
+import pic3 from '../../assets/pics/Home/bolsa-boujee.png'                   //fotos aleatórias simulando fotos do produto
+import pic4 from '../../assets/pics/Home/glasses.png'                        //
+
 import SmallMinus from "../../assets/icon/SmallMinus";
 import SmallPlus from "../../assets/icon/SmallPlus";
 import StarSvg from "../../assets/icon/StarSvg";
@@ -16,21 +21,23 @@ import WishlistSvg from "../../assets/icon/WishlistSvg";
 import Slider from "react-slick";
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
+import ChevronRightSvg from '../../assets/icon/ChevronRightSvg'
 
 import styles from "./style.module.scss";
 
 export default function ProductPage() {
     const { update } = useContext(BagContext)
 
-    const [activeTab, setActiveTab] = useState(1)
+    const productImages = [
+        productPhoto,               //
+        pic2,                       //
+        pic3,                       //fotos aleatórias simulando fotos do produto
+        pic4,                       //
 
-    const settings = {
-        dots: false,
-        infinite: true,
-        speed: 500,
-        slidesToShow: 4,
-        slidesToScroll: 1
-    }
+    ]
+
+    const [activePic, setActivePic] = useState(0)
+    const [activeTab, setActiveTab] = useState(1)
 
     const removeProduct = () => {
         deleteBagProduct('product id')//substituir pelo id do produto real
@@ -46,6 +53,22 @@ export default function ProductPage() {
         setActiveTab(index)
     }
 
+    function handleNextImg() {
+        if (activePic === (productImages.length - 1)) {
+            setActivePic(0)
+        } else {
+            setActivePic(activePic + 1)
+        }
+    }
+
+    function handlePrevImg() {
+        if (activePic === 0) {
+            setActivePic(productImages.length - 1)
+        } else {
+            setActivePic(activePic - 1)
+        }
+    }
+
     return (
         <>
             <Header />
@@ -55,15 +78,15 @@ export default function ProductPage() {
 
                 <div className={styles.product}>
                     <div className={styles.productImages}>
-                        <img src={productPhoto} alt="Product Image" className={styles.imageBig} />
-                        <div className={styles.carousel}>
-                            carousel
-                            {/* <Slider {...settings}>
-                                <img src={productPhoto} />
-                                <img src={productPhoto} />
-                                <img src={productPhoto} />
-                                <img src={productPhoto} />
-                            </Slider> */}
+                        <img src={productImages[activePic]} alt="Product Image" className={styles.imageBig} />
+                        <div className={styles.carouselContainer}>
+                            <ChevronRightSvg rotate={180} stroke={'#171520'} onClick={handlePrevImg} />
+                            <div className={styles.carousel}>
+                                {productImages.map((image, index) => (
+                                    <img src={image} key={index} className={`${activePic === index && styles.activePicture}`} />
+                                ))}
+                            </div>
+                            <ChevronRightSvg stroke={'#171520'} onClick={handleNextImg} />
                         </div>
                     </div>
                     <div className={styles.productContent}>
