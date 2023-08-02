@@ -14,6 +14,7 @@ import WishlistSvg from "../../assets/icon/WishlistSvg";
 import Product from "../../components/product";
 import getAllProducts from "../../services/getAllProducts";
 import DefaultBtn from "../../components/defaultBtn";
+import MyCart from "../MyCart";
 
 const wishlist = () => wishlistProduct(2);
 const bag = () => addBagProduct(1);
@@ -68,6 +69,7 @@ const Test = () => {
         <Header />
         <Header />
         <Header />
+        <MyCart />
       </MobileLayout>
     </>
   );

@@ -65,7 +65,6 @@ function AuthProvider({ children }) {
                 setLoadingAuth(false)
             })
     }
-
     async function signUp(firstName, lastName, phoneNumber, profilePhoto, email, password) {
         setLoadingAuth(true)
         await createUserWithEmailAndPassword(auth, email, password)
