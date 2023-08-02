@@ -22,6 +22,8 @@ import styles from "./style.module.scss";
 export default function ProductPage() {
     const { update } = useContext(BagContext)
 
+    const [activeTab, setActiveTab] = useState(1)
+
     const settings = {
         dots: false,
         infinite: true,
@@ -40,6 +42,10 @@ export default function ProductPage() {
         update()
     }
 
+    function handleChangeTabs(index) {
+        setActiveTab(index)
+    }
+
     return (
         <>
             <Header />
@@ -51,12 +57,13 @@ export default function ProductPage() {
                     <div className={styles.productImages}>
                         <img src={productPhoto} alt="Product Image" className={styles.imageBig} />
                         <div className={styles.carousel}>
-                            <Slider {...settings}>
+                            carousel
+                            {/* <Slider {...settings}>
                                 <img src={productPhoto} />
                                 <img src={productPhoto} />
                                 <img src={productPhoto} />
                                 <img src={productPhoto} />
-                            </Slider>
+                            </Slider> */}
                         </div>
                     </div>
                     <div className={styles.productContent}>
@@ -136,25 +143,29 @@ export default function ProductPage() {
 
                 <div className={styles.productTabs}>
                     <div className={styles.tabsTitle}>
-                        <span>Tab 1</span>
-                        <span>Tab 2</span>
-                        <span>Tab 3</span>
+                        <div className={styles.tabsBar} style={activeTab === 3 ? { left: `${(activeTab - 1) * 199 + 20}px` } : { left: `${(activeTab - 1) * 199 + 16}px` }}></div>
+                        <span className={`${styles.tabs} ${activeTab === 1 && styles.tabsActive}`} onClick={() => handleChangeTabs(1)}>Product Description</span>
+                        <span className={`${styles.tabs} ${activeTab === 2 && styles.tabsActive}`} onClick={() => handleChangeTabs(2)}>Related Products</span>
+                        <span className={`${styles.tabs} ${activeTab === 3 && styles.tabsActive}`} onClick={() => handleChangeTabs(3)}>Ratings and Reviews</span>
                     </div>
 
-                    <div className={styles.tabsContent}>
-                        <div>
-                            <h1>Tab 1</h1>
-                            <span>conteudo tab 1</span>
+                    <div className={styles.tabsContainer}>
+                        <div className={`${styles.tabsContent} ${activeTab === 1 && styles.tabsContentActive}`}>
+                            <p className="text-low-emphasis body-medium">
+                                Descrição do produto
+                            </p>
                         </div>
 
-                        <div>
-                            <h1>Tab 2</h1>
-                            <span>conteudo tab 2</span>
+                        <div className={`${styles.tabsContent} ${activeTab === 2 && styles.tabsContentActive}`}>
+                            <p className="text-low-emphasis body-medium">
+                                Produtos semelhantes
+                            </p>
                         </div>
 
-                        <div>
-                            <h1>Tab 3</h1>
-                            <span>conteudo tab 3</span>
+                        <div className={`${styles.tabsContent} ${activeTab === 3 && styles.tabsContentActive}`}>
+                            <p className="text-low-emphasis body-medium">
+                                Reviews
+                            </p>
                         </div>
                     </div>
                 </div>
