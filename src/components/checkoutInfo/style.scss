@@ -1,0 +1,7 @@
+@import "../../assets/utility.scss";
+
+@mixin phone {
+  @media (max-width: 1279px) {
+    @content;
+  }
+}
