@@ -3,7 +3,6 @@ import { db, storage } from "./firebaseConnection";
 import { ref, uploadBytes } from "firebase/storage";
 
 export const createProduct = async (productInfo, img) => {
-  console.log(img);
   const storageRef = ref(storage, `/productsImg/${productInfo.name}`);
   const productsRef = collection(db, "products");
   uploadBytes(storageRef, img).then((snapshot) => {

@@ -26,24 +26,24 @@ const btnIcon = <BagSvg stroke="#1B4B66" />;
   }
 */
 
-const Product = ({ data, largura, altura, button, label, ratings, discount, oldprice, sort, productConfig }) => {
+const Product = ({ data, itemId, largura, altura, button, label, ratings, discount, oldprice, sort, productConfig }) => {
   const { user, update } = useContext(BagContext);
   const { desktop, phone } = useBreakpoint();
   const [isWishlisted, setIsWishlisted] = useState(null);
 
   useEffect(() => {
     if (user) {
-      checkWishlist(user?.uid, data.id).then((data) => setIsWishlisted(data));
+      checkWishlist(user?.uid, itemId).then((data) => setIsWishlisted(data));
     }
   }, [setIsWishlisted]);
 
   const handleSvgOnClick = () => {
-    setWishlistProduct(user?.uid, data.id).then((data) => setIsWishlisted(data));
+    setWishlistProduct(user?.uid, itemId).then((data) => setIsWishlisted(data));
     update();
   };
   const handleBtnOnClick = () => {
     // TODO Sujeito a mudança conforme uso da firebase
-    addBagProduct(user?.uid, data.id);
+    addBagProduct(user?.uid, itemId);
     update();
   };
 
