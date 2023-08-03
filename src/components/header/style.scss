@@ -23,8 +23,7 @@
 .loginModal {
   width: 250px;
   height: auto;
-  background-color: #FFF;
-  z-index: 2;
+  background-color: #fff;
   position: fixed;
   top: 30px;
   right: 30px;
@@ -33,6 +32,7 @@
   align-items: center;
   border-radius: 8px;
   padding-top: 5px;
+  z-index: 21;
 
   @include for-desktop-up {
     width: 400px;
@@ -49,7 +49,7 @@
 
   a {
     background-color: #1b4b66;
-    color: #FFF;
+    color: #fff;
     width: 100px;
     height: 42px;
     border-radius: 8px;

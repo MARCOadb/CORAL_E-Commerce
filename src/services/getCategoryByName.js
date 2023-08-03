@@ -1,8 +1,14 @@
-import axios from "axios";
+import { collection, getDocs, query, where } from "firebase/firestore";
+import { db } from "./firebaseConnection";
 
 const getCategoryByName = async (name) => {
-  const response = await axios.get(`http://localhost:4000/categories`);
-  const category = response.data.find((item) => item.name === name);
-  return category?.id;
+  const categoriesRef = collection(db, "categories");
+  const q = query(categoriesRef, where("name", "==", name));
+  const querySnapshot = await getDocs(q);
+  if (querySnapshot.docs[0]) {
+    return {
+      id: querySnapshot.docs[0].data().id,
+    };
+  } else return console.log("Não existe essa categoria");
 };
 export default getCategoryByName;
