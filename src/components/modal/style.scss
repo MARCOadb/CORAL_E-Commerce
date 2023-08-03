@@ -3,8 +3,6 @@
   height: 100vh;
   background-color: transparent;
   position: fixed;
-  left: 0;
-  top: 0;
   z-index: -1;
   transition: all 700ms ease-in-out;
 }
@@ -12,4 +10,6 @@
 .opacityOpen {
   background-color: #00000044;
   z-index: 20;
+  left: 0;
+  top: 0;
 }

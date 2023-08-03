@@ -61,7 +61,7 @@ const Header = ({ path }) => {
   };
   return (
     <>
-      <HeaderModal setOpen={setOpen} open={open} />
+      {desktop && <HeaderModal setOpen={setOpen} open={open} />}
 
       <div className="headerContainer">
         {desktop ? (
@@ -115,7 +115,7 @@ const Header = ({ path }) => {
                 Apparels
               </button>
             </div>
-            <SearchBar text={"Search for products or brands....."} icon={true} />
+            <SearchBar text={"Search for products or brands....."} icon />
 
             <Modal open={loginModalOpen} setOpen={setLoginModalOpen}></Modal>
             {loginModalOpen && (

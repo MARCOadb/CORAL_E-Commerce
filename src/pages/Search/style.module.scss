@@ -1,0 +1,19 @@
+.pageContainer {
+  display: flex;
+  flex-direction: column;
+  width: 100vw;
+  height: 100vh;
+  justify-content: space-between;
+}
+.searchContainer {
+  display: flex;
+  flex-direction: column;
+  margin: 20px;
+  gap: 10px;
+}
+.productContainer {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: 20px;
+}
