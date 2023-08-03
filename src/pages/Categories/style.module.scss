@@ -198,6 +198,7 @@
 .pickGradient {
   position: relative;
   display: inline-block;
+  z-index: 1;
   span {
     position: absolute;
     right: 18px;

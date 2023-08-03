@@ -15,9 +15,11 @@ import BagSvg from "../../assets/icon/Bagsvg";
 import HeaderModal from "../headerModal";
 import { useLocation, useNavigate } from "react-router-dom";
 import { AuthContext } from "../../contexts/AuthContext";
+import { BagContext } from "../../contexts/BagContext";
 
 const Header = ({ path }) => {
   const { phone, desktop } = useBreakpoint();
+
   const [open, setOpen] = useState(false);
   const [loginModalOpen, setLoginModalOpen] = useState(false);
   const navigate = useNavigate();
@@ -25,7 +27,7 @@ const Header = ({ path }) => {
   const [pathCheck, setPathCheck] = useState("/home");
 
   const { signed } = useContext(AuthContext);
-
+  const { update } = useContext(BagContext);
   useEffect(() => {
     if (path) {
       setPathCheck(path);
@@ -142,7 +144,14 @@ const Header = ({ path }) => {
                 }}
                 navMovile={false}
               />
-              <BagSvg onClick={() => setOpen(true)} stroke={"#1B4B66"} height={44} />
+              <BagSvg
+                onClick={() => {
+                  setOpen(true);
+                  update();
+                }}
+                stroke={"#1B4B66"}
+                height={44}
+              />
             </div>
           </>
         ) : (
