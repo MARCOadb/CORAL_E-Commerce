@@ -10,6 +10,7 @@ import { setWishlistProduct } from "../../services/setWishlistProduct";
 import BagSvg from "../../assets/icon/Bagsvg";
 import { addBagProduct } from "../../services/addBagProduct";
 import { BagContext } from "../../contexts/BagContext";
+import { AuthContext } from "../../contexts/AuthContext";
 
 const btnIcon = <BagSvg stroke="#1B4B66" />;
 
@@ -27,24 +28,29 @@ const btnIcon = <BagSvg stroke="#1B4B66" />;
 */
 
 const Product = ({ data, itemId, largura, altura, button, label, ratings, discount, oldprice, sort, productConfig }) => {
-  const { user, update } = useContext(BagContext);
+  const { update } = useContext(BagContext);
+  const { user } = useContext(AuthContext);
   const { desktop, phone } = useBreakpoint();
   const [isWishlisted, setIsWishlisted] = useState(null);
 
   useEffect(() => {
-    if (user) {
+    if (!!user) {
       checkWishlist(user?.uid, itemId).then((data) => setIsWishlisted(data));
+      update();
     }
   }, [setIsWishlisted]);
 
   const handleSvgOnClick = () => {
-    setWishlistProduct(user?.uid, itemId).then((data) => setIsWishlisted(data));
-    update();
+    if (!!user) {
+      setWishlistProduct(user?.uid, itemId).then((data) => setIsWishlisted(data));
+      update();
+    }
   };
   const handleBtnOnClick = () => {
-    // TODO Sujeito a mudança conforme uso da firebase
-    addBagProduct(user?.uid, itemId);
-    update();
+    if (!!user) {
+      addBagProduct(user?.uid, itemId);
+      update();
+    }
   };
 
   return (
