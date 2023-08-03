@@ -1,10 +1,20 @@
+@mixin phone {
+  @media (max-width: 1279px) {
+    @content;
+  }
+}
+
 .searchBar {
   display: flex;
   gap: 8px;
   padding: 10px 6px;
   width: 362px;
   height: 44px;
-
+  @include phone {
+    height: 40px;
+    max-width: 80vw;
+    flex-grow: 1;
+  }
   background-color: #f1f1f1;
   font-size: 14px;
   font-weight: 500;
@@ -20,6 +30,11 @@
   background-image: url("../../assets/icon/searchBlack.svg");
   background-repeat: no-repeat;
   background-position: left 8px center;
+  @include phone {
+    padding-right: 40px;
+    padding-left: 8px;
+    background-position: right 8px center;
+  }
 }
 
 .redirectBtn {
@@ -30,22 +45,9 @@
   line-height: 18px;
   color: #171520;
 }
-
-/* Remove o ‘X’ do Internet Explorer */
-input[type="search"]::-ms-clear {
-  display: none;
-  width: 0;
-  height: 0;
-}
-input[type="search"]::-ms-reveal {
-  display: none;
-  width: 0;
-  height: 0;
-}
-/* Remove o ‘X’ do Chrome */
-input[type="search"]::-webkit-search-decoration,
-input[type="search"]::-webkit-search-cancel-button,
-input[type="search"]::-webkit-search-results-button,
-input[type="search"]::-webkit-search-results-decoration {
-  display: none;
+.searchBody {
+  display: flex;
+  flex-direction: column;
+  padding: 16px;
+  gap: 28px;
 }

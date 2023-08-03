@@ -6,11 +6,13 @@ import Modal from "../modal";
 import Product from "../product";
 import { useNavigate } from "react-router-dom";
 import getAllProducts from "../../services/getAllProducts";
-const SearchBar = ({ text, icon }) => {
+import MobileLayout from "../../layouts/mobileLayout";
+
+const SearchBar = ({ open, setOpen, text, icon }) => {
   const [loading, setLoading] = useState(false);
-  const [open, setOpen] = useState(false);
   const [products, setProducts] = useState(null);
   const { desktop, phone } = useBreakpoint();
+
   const navigate = useNavigate();
 
   const searchHandler = (e) => {
@@ -33,23 +35,32 @@ const SearchBar = ({ text, icon }) => {
         .finally(() => setLoading(false));
     }
   }, []);
+
   return (
     <>
       {desktop ? (
         <input onKeyUp={searchHandler} id={icon ? "icon" : undefined} className="searchBar" placeholder={text} />
       ) : (
         <>
-          <div className="searchHeader">
-            <ArrowSvg stroke={"#13101E"} x={90} />
-            <input id={icon ? "icon" : undefined} className="searchBar" type="search" placeholder={text} />
-          </div>
-          <div className="searchBody">
-            <div className="arrivals-carousel">
-              {!loading && products?.map((item) => <Product largura={desktop ? 286 : 136} altura={desktop ? 286 : 136} data={item.data} label key={item.uid} itemId={item.uid} />)}
+          <MobileLayout
+            headerSuffix={<input onKeyUp={searchHandler} id="icon" className="searchBar" placeholder={"Search"} />}
+            icon="arrow"
+            iconStroke={"#13101E"}
+            iconAngle={90}
+            open={open}
+            setOpen={setOpen}
+          >
+            <div className="searchBody">
+              <span>Recent Searchs</span>
+              <span>New Arrivals</span>
+              <div className="arrivals-carousel" style={{ padding: "0" }}>
+                {!loading && products?.map((item) => <Product largura={desktop ? 286 : 136} altura={desktop ? 286 : 136} data={item.data} label key={item.uid} itemId={item.uid} />)}
+              </div>
             </div>
-          </div>
+          </MobileLayout>
         </>
       )}
+      {console.log("aa")}
     </>
   );
 };
