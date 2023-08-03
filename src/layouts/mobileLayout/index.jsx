@@ -20,8 +20,9 @@ Props
 Config
   {
     text: string;
-    outline: boolean;
+    outlined: boolean;
     onClick: () => void;
+    btnIcon: ReactNode;
   }
 */
 
@@ -44,7 +45,7 @@ const MobileLayout = ({ children, headerSuffix, title, buttons, direction = "row
             <div className={direction === "row" ? "footerLayout" : "footerLayout columnFooter"}>
               {footerPrefix}
               {buttons?.map((item, index) => (
-                <DefaultBtn outlined={item.outlined} key={index} onClick={item.onClick}>
+                <DefaultBtn outlined={item.outlined} key={index} onClick={item.onClick} icon={item.btnIcon}>
                   {item.text}
                 </DefaultBtn>
               ))}

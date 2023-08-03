@@ -1,3 +1,9 @@
+@mixin phone {
+    @media (max-width: 1279px) {
+        @content;
+    }
+}
+
 .content {
     width: 100%;
     height: auto;
@@ -17,7 +23,14 @@
     display: flex;
     gap: 24px;
     margin: 0 auto 55px auto;
-    width: 1280px;
+    width: 100vw;
+
+    @include phone {
+        padding: 0;
+        margin: 0;
+        flex-direction: column;
+        gap: 0;
+    }
 }
 
 .productImages {
@@ -29,6 +42,16 @@
         width: 605px;
         height: 605px;
         border-radius: 16px;
+    }
+
+    @include phone {
+        width: 100%;
+        max-width: 550px;
+        max-height: 550px;
+        min-height: 340px;
+        padding: 0 16px;
+        overflow: auto;
+        margin: 0 auto 10px auto;
     }
 }
 
@@ -61,12 +84,51 @@
         width: 75px;
         border-radius: 8px;
     }
+
+    @include phone {
+        width: auto;
+        height: 100%;
+        max-width: 100%;
+        max-height: 550px;
+        min-width: 328px;
+        min-height: 340px;
+        display: flex;
+        gap: 10px;
+        align-items: start;
+        justify-content: left;
+        margin-right: 16px;
+
+
+        div {
+            flex: 0 0 auto;
+            width: 100%;
+            height: 100%;
+            min-height: 340px;
+
+            img {
+                width: 100%;
+                height: 100%;
+                min-width: 328px;
+                min-height: 340px;
+                border-radius: 8px;
+                margin-right: 16px;
+
+            }
+        }
+    }
 }
 
 .productContent {
     width: 611px;
     display: flex;
     flex-direction: column;
+
+    @include phone {
+        width: 100%;
+        max-width: 650px;
+        margin: 0 auto;
+        padding: 0 16px;
+    }
 }
 
 .ratingsContainer {
@@ -74,12 +136,53 @@
     align-items: center;
     gap: 16px;
     margin: 32px 0 24px 0;
+
+    @include phone {
+        margin: 0 0 24px 0;
+        gap: 14px;
+
+        .mobRatingsStar {
+            background-color: #f1f1f1;
+            border-radius: 4px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 4px;
+            padding: 9px 12px;
+
+            span {
+                font-size: 16px;
+                font-style: normal;
+                font-weight: 600;
+                line-height: 16px;
+            }
+        }
+
+        .mobRatingsAmount {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+    }
 }
 
 .productPrice {
     display: flex;
     gap: 16px;
     align-items: center;
+
+    @include phone {
+        gap: 0;
+        margin: 10px 0 16px 0;
+
+        h1 {
+            margin-right: 12px;
+        }
+
+        h2 {
+            margin-right: 8px;
+        }
+    }
 }
 
 .seperator {
@@ -97,6 +200,12 @@
     justify-content: space-between;
     align-items: center;
     position: relative;
+
+    @include phone {
+        height: auto;
+        flex-direction: column;
+        gap: 8px;
+    }
 }
 
 .deliveryTitle {
@@ -104,6 +213,10 @@
     display: flex;
     flex-direction: column;
     gap: 8px;
+
+    @include phone {
+        width: 100%;
+    }
 }
 
 .deliveryPincode {
@@ -114,12 +227,21 @@
     outline: none;
     border-radius: 4px;
     padding-left: 16px;
+
+    @include phone {
+        width: 100%;
+        height: 46px;
+    }
 }
 
 .checkBtn {
     position: absolute;
     right: 12px;
     cursor: pointer;
+
+    @include phone {
+        top: 65px;
+    }
 }
 
 .quantityContainer {
@@ -148,6 +270,11 @@
 .cupomContainer {
     width: calc(100% + 20px);
     margin-bottom: 40px;
+
+    @include phone {
+        width: calc(100% + 16px);
+        margin-bottom: 24px;
+    }
 }
 
 .cupons {
@@ -156,6 +283,10 @@
     overflow-y: hidden;
     display: flex;
     gap: 32px;
+
+    @include phone {
+        gap: 8px;
+    }
 }
 
 .cupom {
@@ -184,6 +315,11 @@
         display: flex;
         flex-direction: column;
         gap: 8px;
+
+        @include phone {
+            width: 184px;
+            gap: 4px;
+        }
     }
 
     .cupomCode {
@@ -197,6 +333,25 @@
         border-radius: 4px;
         background-color: #f1f1f1;
         transition: all 0.2s;
+
+        @include phone {
+            width: 110px;
+            height: 59px;
+            padding: 0;
+            gap: 0;
+            justify-content: center;
+        }
+    }
+
+    @include phone {
+        width: 328px;
+        min-width: 328px;
+        padding: 12px;
+        height: 75px;
+
+        &:last-child {
+            margin-right: 16px;
+        }
     }
 }
 
