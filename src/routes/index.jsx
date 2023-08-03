@@ -38,7 +38,14 @@ export default function RoutesApp() {
               </Private>
             }
           />
-          <Route
+          
+        </>
+      )}
+      <Route path="/" element={<Home />} />
+      <Route path="/about" element={<About />} />
+      <Route path="/test" element={<ProductRegister />} />
+      <Route path="/login" element={<Login />} />
+      <Route
             path="/bag"
             element={
               <Private>
@@ -46,12 +53,6 @@ export default function RoutesApp() {
               </Private>
             }
           />
-        </>
-      )}
-      <Route path="/" element={<Home />} />
-      <Route path="/about" element={<About />} />
-      <Route path="/test" element={<ProductRegister />} />
-      <Route path="/login" element={<Login />} />
       {/* 
         Pagina de produtos
         <Route path={`/home/:category/:id`} element={<ProductPage />} />

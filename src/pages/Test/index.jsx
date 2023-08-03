@@ -13,6 +13,7 @@ import WishlistSvg from "../../assets/icon/WishlistSvg";
 import Product from "../../components/product";
 import getAllProducts from "../../services/getAllProducts";
 import DefaultBtn from "../../components/defaultBtn";
+import MyCart from "../../pages/MyCart"
 import { setWishlistProduct } from "../../services/setWishlistProduct";
 import { AuthContext } from "../../contexts/AuthContext";
 

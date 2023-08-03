@@ -20,7 +20,7 @@ const HeaderModal = ({ setOpen, open }) => {
         <div className={style.itemContainer}>
           {userProducts?.map((item) => (
             <div>
-              <CartProduct qtn price remove data={item.data} qnt={item.qnt} key={item.uid} itemId={item.uid} stepper />
+              <CartProduct price remove data={item.data} qnt={item.qnt} key={item.uid} itemId={item.uid} stepper />
               <div className={style.separator}></div>
             </div>
           ))}
