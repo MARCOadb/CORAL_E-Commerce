@@ -18,9 +18,9 @@ const HeaderModal = ({ setOpen, open }) => {
           <span className="display-small text-primary">Back</span>
         </div>
         <div className={style.itemContainer}>
-          {userProducts?.map((data) => (
+          {userProducts?.map((item) => (
             <div>
-              <CartProduct qtn price remove data={data} key={data.id} stepper />
+              <CartProduct qtn price remove data={item.data} qnt={item.qnt} key={item.uid} itemId={item.uid} stepper />
               <div className={style.separator}></div>
             </div>
           ))}

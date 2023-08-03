@@ -18,9 +18,10 @@ export const BagProvider = ({ children }) => {
       getAllProducts()
         .then(async (data) => {
           const arrayDeIds = await getBag(user.uid);
-          const produtosFiltrados = data.filter((item) => !!arrayDeIds?.find((bagItem) => item.id === bagItem.id));
+          const produtosFiltrados = data.filter((item) => !!arrayDeIds?.find((bagItem) => item.uid === bagItem.id));
           const produtosComplexo = produtosFiltrados.map((item) => {
-            const qnt = arrayDeIds.find((bagItem) => bagItem.id === item.id).qnt;
+            const qnt = arrayDeIds.find((bagItem) => bagItem.id === item.uid).qnt;
+
             return {
               ...item,
               qnt,
@@ -28,7 +29,7 @@ export const BagProvider = ({ children }) => {
           });
           let tax = 0;
           const valor = produtosComplexo.reduce((acc, cur) => {
-            acc += cur.price * cur.qnt;
+            acc += cur.data.price * cur.qnt;
             tax += cur.qnt;
             return acc;
           }, 0);
@@ -44,5 +45,5 @@ export const BagProvider = ({ children }) => {
     update();
   }, []);
 
-  return <BagContext.Provider value={{ user, userProducts, taxPrice, subTotal, totalPrice, loading, update }}>{children}</BagContext.Provider>;
+  return <BagContext.Provider value={{ userProducts, taxPrice, subTotal, totalPrice, loading, update }}>{children}</BagContext.Provider>;
 };

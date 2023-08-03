@@ -5,8 +5,10 @@ const getCategoryByName = async (name) => {
   const categoriesRef = collection(db, "categories");
   const q = query(categoriesRef, where("name", "==", name));
   const querySnapshot = await getDocs(q);
-  return {
-    id: querySnapshot.docs[0].data().id,
-  };
+  if (querySnapshot.docs[0]) {
+    return {
+      id: querySnapshot.docs[0].data().id,
+    };
+  } else return console.log("Não existe essa categoria");
 };
 export default getCategoryByName;

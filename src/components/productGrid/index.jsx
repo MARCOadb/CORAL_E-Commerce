@@ -82,12 +82,13 @@ const ProductGrid = ({ categoryId, productConfig }) => {
                 <>
                   <>
                     {!loading &&
-                      products?.map(
-                        (item) =>
-                          item.categoryId === categoryId && (
-                            <Product largura={286} altura={286} data={item} label={true} key={item.id} sort={gridClass == "list" && true} button={gridClass == "list" && true} />
-                          )
-                      )}
+                      products?.map((item) => {
+                        if (item.data?.categoryId && categoryId?.id && item.data?.categoryId === categoryId.id.toString())
+                          return (
+                            <Product largura={286} altura={286} label data={item.data} key={item.uid} itemId={item.uid} sort={gridClass === "list" && true} button={gridClass === "list" && true} />
+                          );
+                        else return console.log("Não tem produtos");
+                      })}
                   </>
                 </>
               </div>
@@ -99,7 +100,6 @@ const ProductGrid = ({ categoryId, productConfig }) => {
               <p className="title-regular text-low-emphasis">
                 {products?.reduce((acc, cur) => {
                   if (cur.categoryId === categoryId) acc++;
-
                   return acc;
                 }, 0)}
                 {` Product(s)`}
@@ -107,7 +107,11 @@ const ProductGrid = ({ categoryId, productConfig }) => {
               <div className="grid-mobile">
                 <>
                   {!loading &&
-                    products?.map((item) => item.categoryId === categoryId && <Product altura={false} largura={false} data={item} key={item.id} productConfig ={productConfig} sort={gridClass === "list" && true} />)}
+                    products?.map((item) => {
+                      if (item.data?.categoryId && categoryId?.id && item.data?.categoryId === categoryId.id.toString())
+                        return <Product altura={false} largura={false} data={item.data} key={item.uid} itemId={item.uid} productConfig={productConfig} sort={gridClass === "list" && true} />;
+                      else return console.log("Não tem produtos");
+                    })}
                 </>
               </div>
             </div>

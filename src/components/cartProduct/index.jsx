@@ -24,26 +24,26 @@ import { AuthContext } from "../../contexts/AuthContext";
   }
 */
 
-const CartProduct = ({ data, qnt, stepper, price, remove }) => {
+const CartProduct = ({ data, qnt, stepper, price, remove, itemId, showQnt }) => {
   const { update } = useContext(BagContext);
   const { user } = useContext(AuthContext);
   const deleteProduct = () => {
-    deleteBagProduct(user.uid, data.id, true);
+    deleteBagProduct(user.uid, itemId, true);
     update();
   };
   const addProduct = () => {
-    addBagProduct(user.uid, data.id);
+    addBagProduct(user.uid, itemId);
     update();
   };
   const removeProduct = () => {
-    deleteBagProduct(user.uid, data.id);
+    deleteBagProduct(user.uid, itemId);
     update();
   };
   const setProduct = (e) => {
     e.preventDefault();
     if (e.key === "Enter") {
-      if (e.target.value > 0) setProductQnt(data.id, parseInt(e.target.value));
-      else deleteBagProduct(data.id, true);
+      if (e.target.value > 0) setProductQnt(itemId, parseInt(e.target.value));
+      else deleteBagProduct(itemId, true);
       update();
     }
   };
@@ -54,11 +54,12 @@ const CartProduct = ({ data, qnt, stepper, price, remove }) => {
       <div className={styles.detailsContainer}>
         <span>{data.name}</span>
         <span>{data.description}</span>
-        {qnt && <span>Qty- {data.qnt}</span>}
+
+        {showQnt && <span>Qty- {qnt}</span>}
         {stepper && (
           <div className={styles.stepperContainer}>
             <SmallMinus onClick={removeProduct} />
-            <input type="number" onKeyUp={setProduct} placeholder={data.qnt}></input>
+            <input type="number" onKeyUp={setProduct} placeholder={qnt}></input>
             <SmallPlus onClick={addProduct} />
           </div>
         )}
