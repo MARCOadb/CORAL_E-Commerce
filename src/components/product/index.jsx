@@ -11,6 +11,9 @@ import BagSvg from "../../assets/icon/Bagsvg";
 import { addBagProduct } from "../../services/addBagProduct";
 import { BagContext } from "../../contexts/BagContext";
 import { AuthContext } from "../../contexts/AuthContext";
+import { useLocation, useNavigate } from "react-router-dom";
+import getCategoryByName from "../../services/getCategoryByName";
+import getCategoryById from "../../services/getCategoryById";
 
 const btnIcon = <BagSvg stroke="#1B4B66" />;
 
@@ -31,12 +34,19 @@ const Product = ({ data, itemId, largura, altura, button, label, ratings, discou
   const { update } = useContext(BagContext);
   const { user } = useContext(AuthContext);
   const { desktop, phone } = useBreakpoint();
+  const navigate = useNavigate();
+  const location = useLocation();
+  const [pathCheck, setPathCheck] = useState("/home");
   const [isWishlisted, setIsWishlisted] = useState(null);
 
   useEffect(() => {
     if (!!user) {
       checkWishlist(user?.uid, itemId).then((data) => setIsWishlisted(data));
       update();
+    }
+
+    if (location.state?.path) {
+      setPathCheck(location.state?.path);
     }
   }, [setIsWishlisted]);
 
@@ -53,9 +63,21 @@ const Product = ({ data, itemId, largura, altura, button, label, ratings, discou
     }
   };
 
+  const handleProductClick = () => {
+    getCategoryById(data.categoryId).then((category) =>
+      navigate(`${category}/${itemId}`, {
+        state: {
+          path: pathCheck,
+          category,
+          itemId,
+        },
+      })
+    );
+  };
+
   return (
     <div className={sort ? `${styles.product} ${styles.productSort}` : styles.product}>
-      <img src={data.image} style={altura && largura ? { width: `${largura}px`, height: `${altura}px` } : { width: "100%", height: "100%" }} alt={data.name} />
+      <img onClick={handleProductClick} src={data.image} style={altura && largura ? { width: `${largura}px`, height: `${altura}px` } : { width: "100%", height: "100%" }} alt={data.name} />
       <div className={styles.detailContainer} style={sort ? { flexDirection: "column", justifyContent: "space-between" } : {}}>
         <div className={desktop ? `${styles.textContainer}` : `${styles.textContainer} ${styles.mobileText} ${sort && label && styles.sortText}`}>
           <span className={`text-high-emphasis ${desktop ? "body-medium" : "label-small "}`}>{data.name}</span>

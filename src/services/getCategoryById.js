@@ -3,10 +3,10 @@ import { db } from "./firebaseConnection";
 
 const getCategoryById = async (id) => {
   const categoriesRef = collection(db, "categories");
-  const q = query(categoriesRef, where("id", "==", id));
+  const q = query(categoriesRef, where("id", "==", parseInt(id)));
   const querySnapshot = await getDocs(q);
-  return {
-    name: querySnapshot.docs[0].data().name,
-  };
+
+  return querySnapshot.docs[0].data().name,
+ 
 };
 export default getCategoryById;
