@@ -51,11 +51,11 @@ const Search = () => {
           <div className={style.searchContainer} style={!loading && products?.length >= 1 ? { height: "auto" } : {}}>
             {!loading && products?.length >= 1 ? (
               <>
-                <span className={desktop ? "display-large text-dark" : "display-small text-dark"}>
+                <span className={desktop ? "display-large text-dark" : "display-small text-dark"} style={desktop ? { paddingLeft: '20px' } : { paddingLeft: '0' }}>
                   Search Results for: {desktop && <br />} <span className='text-primary'>{capitalize(location.state.searchValue)}</span>
                 </span>
                 <div className={style.productContainer}>
-                  <span>Mostrando {!loading && products && products.length} resultados</span>
+                  <span style={desktop ? { paddingLeft: '20px' } : { paddingLeft: '0' }}>Mostrando {!loading && products && products.length} resultados</span>
                   <div className={style.productItems}>
                     {!loading && products?.map((item) => <div style={desktop ? { width: '286px' } : { width: '152px' }}><Product largura={desktop ? 286 : 152} altura={desktop ? 286 : 152} discount data={item.data} key={item.uid} itemId={item.uid} button label /></div>)}
                   </div>
