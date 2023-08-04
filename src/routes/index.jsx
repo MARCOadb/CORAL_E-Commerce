@@ -28,6 +28,8 @@ export default function RoutesApp() {
           />
           <Route path={`/home/:category`} element={<Categories />} />
           <Route path={`/about/:category`} element={<Categories />} />
+          <Route path={`/home/:category/:id`} element={<ProductPage />} />
+          <Route path={`/about/:category/:id`} element={<ProductPage />} />
         </>
       ) : (
         <>
@@ -57,11 +59,6 @@ export default function RoutesApp() {
       <Route path="/test" element={<ProductRegister />} />
       <Route path="/login" element={<Login />} />
       <Route path="/search/:searchValue" element={<Search />} />
-      {/* 
-        Pagina de produtos
-        <Route path={`/home/:category/:id`} element={<ProductPage />} />
-        <Route path={`/about/:category/:id`} element={<ProductPage />} /> 
-        */}
     </Routes>
   );
 }

@@ -3,28 +3,14 @@
   height: 100vh;
   background-color: transparent;
   position: fixed;
-<<<<<<< HEAD
-  left: 0;
-  top: 0;
-  z-index: 20;
-=======
   z-index: -1;
-  right: -1000px;
-  bottom: 100px;
->>>>>>> af074015a19066d656a45013fd2b8aea46d894d7
+
   transition: all 700ms ease-in-out;
-  display: none;
 }
 
 .opacityOpen {
-  display: block;
   background-color: #00000044;
   z-index: 20;
-<<<<<<< HEAD
-  pointer-events: none;
-}
-=======
   left: 0;
   top: 0;
 }
->>>>>>> af074015a19066d656a45013fd2b8aea46d894d7

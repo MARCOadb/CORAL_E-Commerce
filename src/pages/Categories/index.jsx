@@ -375,7 +375,8 @@ export default function Category() {
 
             <div className={styles.imgContainer}>
               <div className={`${styles.pickGradient} ${styles.bageGrad}`} onClick={() => handleCategoryClick("Skincare")}>
-                <span className={`display-small text-bright`}>Skincare</span>
+                {!modalOpen && <span className={`display-small text-bright`}>Skincare</span>}
+
                 <img src={skincare}></img>
               </div>
               <div className={`${styles.pickGradient} ${styles.lightPinkGrad}`} onClick={() => handleCategoryClick()}>
