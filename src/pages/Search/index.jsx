@@ -39,6 +39,10 @@ const Search = () => {
       .finally(() => setLoading(false));
   }, [location.state.searchValue]);
 
+  function capitalize(word) {
+    return word.charAt(0).toUpperCase() + word.slice(1)
+  }
+
   return (
     <>
       <div className={style.pageContainer}>
@@ -47,12 +51,14 @@ const Search = () => {
           <div className={style.searchContainer} style={!loading && products?.length >= 1 ? { height: "auto" } : {}}>
             {!loading && products?.length >= 1 ? (
               <>
-                <span className={desktop ? "display-large text-primary" : "display-medium text-primary"}>
-                  Resultados da busca para <br /> <span style={{ color: "black" }}>{location.state.searchValue}</span>
+                <span className={desktop ? "display-large text-dark" : "display-small text-dark"}>
+                  Search Results for: {desktop && <br />} <span className='text-primary'>{capitalize(location.state.searchValue)}</span>
                 </span>
                 <div className={style.productContainer}>
                   <span>Mostrando {!loading && products && products.length} resultados</span>
-                  {!loading && products?.map((item) => <Product largura={desktop ? 286 : 136} altura={desktop ? 286 : 136} data={item.data} key={item.uid} itemId={item.uid} button label />)}
+                  <div className={style.productItems}>
+                    {!loading && products?.map((item) => <div style={desktop ? { width: '286px' } : { width: '152px' }}><Product largura={desktop ? 286 : 152} altura={desktop ? 286 : 152} discount data={item.data} key={item.uid} itemId={item.uid} button label /></div>)}
+                  </div>
                 </div>
               </>
             ) : (
@@ -68,7 +74,7 @@ const Search = () => {
           </div>
         </div>
         {desktop && <Footer />}
-        {!loading && products?.length >= 1 && <NavBarMobile />}
+        {!loading && products?.length >= 1 && phone && <NavBarMobile />}
       </div>
     </>
   );
