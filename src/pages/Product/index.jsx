@@ -1,7 +1,7 @@
 import Header from "../../components/header";
 import Footer from "../../components/footer";
 import useBreakpoint from "../../hooks/useBreakPoint";
-import { useContext, useState } from "react";
+import { useContext, useEffect, useRef, useState } from "react";
 
 import productPhoto from '../../assets/pics/Product/product-image.png'       //
 import pic2 from '../../assets/pics/Home/bolsa-remus.png'                      //
@@ -25,6 +25,11 @@ import ChevronRightSvg from '../../assets/icon/ChevronRightSvg'
 
 import styles from "./style.module.scss";
 import MobileLayout from "../../layouts/mobileLayout";
+import ArrowSvg from "../../assets/icon/ArrowSvg";
+import ArrowPointerSvg from "../../assets/icon/ArrowPointerSvg";
+
+import Product from "../../components/product";
+import getAllProducts from "../../services/getAllProducts";
 
 export default function ProductPage() {
     const { update } = useContext(BagContext)
@@ -39,6 +44,21 @@ export default function ProductPage() {
 
     const [activePic, setActivePic] = useState(0)
     const [activeTab, setActiveTab] = useState(1)
+
+    const [dropdownOpen, setDropdownOpen] = useState(false)
+    const [dropdownHeight, setDropdownHeight] = useState()
+
+    const dropdownRefHeight = useRef();
+
+    useEffect(() => {
+        setDropdownOpen(true)
+    }, [])
+
+    useEffect(() => {
+        if (phone) {
+            setDropdownHeight(`${dropdownRefHeight.current.scrollHeight}px`)
+        }
+    }, [phone, desktop, dropdownOpen])
 
     const removeProduct = () => {
         deleteBagProduct('product id')//substituir pelo id do produto real
@@ -73,6 +93,33 @@ export default function ProductPage() {
     function handleChangeImg(index) {
         setActivePic(index)
     }
+
+    function toggleDropdownState() {
+        setDropdownOpen(!dropdownOpen)
+    }
+
+
+
+    //pra simular os produtos//
+
+    const [loading, setLoading] = useState(false);
+    const [products, setProducts] = useState(null);
+
+    const getProducts = async () => {
+        setLoading(true);
+        const produtos = await getAllProducts();
+        return produtos;
+    };
+
+    useEffect(() => {
+        getProducts()
+            .then((data) => setProducts(data))
+            .finally(() => setLoading(false));
+    }, []);
+
+    //pra simular os produtos//
+
+
 
     return (
         <>
@@ -163,10 +210,58 @@ export default function ProductPage() {
                                     <input className={`${styles.deliveryPincode} title-medium`} type="text" placeholder="Apply Valid Pincode" />
                                     <span className={`${styles.checkBtn} text-primary title-regular`}>CHECK</span>
                                 </div>
+                            </div>
+                        </div>
+                        <div className={styles.seperator}></div>
 
+                        <div className={styles.descriptionDropdown}>
+                            <span>{dropdownOpen}</span>
+                            <div className={styles.dropdownTitle}>
+                                <h1 className="type-high-emphasis title-regular">Product Description</h1>
+                                <ArrowSvg onClick={toggleDropdownState} x={dropdownOpen && 180} />
+                            </div>
+                            <div
+                                className={`${styles.dropdownContent} ${dropdownOpen && styles.dropdownOpen}`}
+                                ref={dropdownRefHeight}
+                                style={{ height: dropdownOpen ? `${dropdownHeight}` : '0px' }}
+                            >
+                                <p className="text-low-emphasis title-medium">
+                                    Experience comfortable and easy travelling
+                                    like never before with this coach bag.
+                                    It features a zip closure, removable straps and
+                                    multiple organization compartments to keep your
+                                    valuables safe. Crafted from premium material,
+                                    it is durable and lasts long.
+                                </p>
                             </div>
                         </div>
 
+                        <div className={styles.seperator} style={dropdownOpen ? { marginTop: '16px', transition: 'all 0.3s' } : { marginTop: '0', transition: 'all 0.3s 0.3s' }}></div>
+
+                        <div className={styles.ratingsTitle}>
+                            <h1 className="type-high-emphasis title-regular">Ratings and Reviews</h1>
+                            <ArrowSvg onClick={() => alert('abrir pagina de reviews')} x={270} />
+                        </div>
+
+                        <div className={styles.seperator}></div>
+
+                        <div className={styles.inviteAndEarn}>
+                            <div className={styles.inviteContent}>
+                                <h1 className="type-high-emphasis title-regular">Invite Friends & Earn</h1>
+                                <span className="text-low-emphasis title-medium">Get upto 100 reward points for every friend you invite</span>
+                                <button className="text-primary title-regular">Invite Now <ArrowPointerSvg /> </button>
+                            </div>
+                            <div className={styles.orangeBox}></div>
+                        </div>
+
+                        <div className={styles.seperator}></div>
+
+                        <div className={styles.otherProducts}>
+                            <h1 className="type-high-emphasis title-regular">You Might Also Like</h1>
+                            <div className={styles.productsContainer}>
+                                {!loading && products?.map((item) => <Product largura={136} altura={136} data={item} label key={item.id} />)}
+                            </div>
+                        </div>
                     </div>
                 </MobileLayout>
             ) : (
@@ -274,7 +369,12 @@ export default function ProductPage() {
                             <div className={styles.tabsContainer}>
                                 <div className={`${styles.tabsContent} ${activeTab === 1 && styles.tabsContentActive}`}>
                                     <p className="text-low-emphasis body-medium">
-                                        Descrição do produto
+                                        Experience comfortable and easy travelling
+                                        like never before with this coach bag.
+                                        It features a zip closure, removable straps and
+                                        multiple organization compartments to keep your
+                                        valuables safe. Crafted from premium material,
+                                        it is durable and lasts long.
                                     </p>
                                 </div>
 
