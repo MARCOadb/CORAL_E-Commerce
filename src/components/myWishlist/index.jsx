@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 
 import MobileLayout from "../../layouts/mobileLayout";
 import useBreakpoint from "../../hooks/useBreakPoint";
@@ -8,33 +8,17 @@ import Product from "../product";
 import "./style.scss";
 
 import noWishlist from "../../assets/pics/Layouts/wishlist.png";
+import { BagContext } from "../../contexts/BagContext";
 
 const MyWishlist = () => {
   const { phone, desktop } = useBreakpoint();
+  const { userWishlist, update } = useContext(BagContext);
 
   const [loading, setLoading] = useState(false);
   const [products, setProducts] = useState(null);
+  const [open, setOpen] = useState(true);
   const botoes = [{ text: "Start Shopping", outline: false }];
   const [emptyWishlist, setEmptyWishlist] = useState(false);
-
-  const checkWishlistStatus = () => {
-    const wishlist = JSON.parse(localStorage.getItem("wishlist"));
-    return wishlist && wishlist.length === 0;
-  };
-
-  const getProducts = async () => {
-    setLoading(true);
-    const produtos = await getAllProducts();
-    return produtos;
-  };
-
-  useEffect(() => {
-    getProducts()
-      .then((data) => setProducts(data))
-      .finally(() => setLoading(false));
-    const isEmpty = checkWishlistStatus();
-    setEmptyWishlist(isEmpty);
-  }, []);
 
   return (
     <>
@@ -42,9 +26,11 @@ const MyWishlist = () => {
         {desktop ? (
           <div className="wishlist">{!loading && products?.map((item) => <Product largura={172} altura={172} data={item} label={true} key={item.id} sort={true} button={true} />)}</div>
         ) : (
-          <MobileLayout icon={"arrow"} iconAngle={90} title={"My Wishlist"} buttons={emptyWishlist && botoes}>
+          <MobileLayout open={open} setOpen={setOpen} icon={"arrow"} iconAngle={90} title={"My Wishlist"} buttons={emptyWishlist && botoes}>
             {!emptyWishlist && (
-              <div className="wishlist-mobile">{!loading && products?.map((item) => <Product altura={false} largura={false} data={item} label={true} key={item.id} sort={false} button={true} />)}</div>
+              <div className="wishlist-mobile">
+                {!loading && userWishlist?.map((item) => <Product altura={false} largura={false} data={item.data} label key={item.uid} itemId={item.uid} button />)}
+              </div>
             )}
             {emptyWishlist && (
               <div className="no-wishlist">

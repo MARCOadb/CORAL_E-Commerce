@@ -3,9 +3,9 @@
   height: 100vh;
   background-color: transparent;
   position: fixed;
-  left: 0;
-  top: 0;
   z-index: -1;
+  right: -1000px;
+  bottom: 100px;
   transition: all 700ms ease-in-out;
 }
 

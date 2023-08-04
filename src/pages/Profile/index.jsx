@@ -19,6 +19,7 @@ import LogoutSvg from "../../assets/icon/LogoutSvg";
 
 //STYLES
 import styles from "./style.module.scss";
+import MyWishlist from "../../components/myWishlist";
 
 export default function Profile() {
   const location = useLocation();
@@ -66,7 +67,7 @@ export default function Profile() {
   return (
     <>
       {desktop && <Header />}
-
+      {activeTab === 4 && phone && <MyWishlist />}
       <div className={styles.content}>
         {desktop && (
           <div className={styles.breadcrump}>
