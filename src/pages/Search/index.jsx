@@ -42,7 +42,7 @@ const Search = () => {
   return (
     <>
       <div className={style.pageContainer}>
-        <div style={{ height: "100%" }}>
+        <div>
           <Header />
           <div className={style.searchContainer} style={!loading && products?.length >= 1 ? { height: "auto" } : {}}>
             {!loading && products?.length >= 1 ? (
