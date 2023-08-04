@@ -32,7 +32,7 @@ const MobileLayout = ({ children, headerSuffix, title, buttons, direction = "row
       {open && (
         <div className="layout">
           <div className="headerLayout">
-            <div className="containerLayout">
+            <div className="containerLayout" style={{ display: "flex", alignItems: "center" }}>
               {icon === "arrow" && <ArrowSvg stroke={iconStroke} x={iconAngle} onClick={() => setOpen(false)} />}
               {icon === "cross" && <CrossSvg stroke={iconStroke} onClick={() => setOpen(false)} />}
               <span>{title}</span>

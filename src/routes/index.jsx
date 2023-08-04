@@ -10,6 +10,7 @@ import Login from "../pages/Login";
 import useBreakpoint from "../hooks/useBreakPoint";
 import ProductPage from "../pages/Product";
 import ProductRegister from "../pages/ProductsRegister";
+import Search from "../pages/Search";
 
 export default function RoutesApp() {
   const { phone, desktop } = useBreakpoint();
@@ -55,6 +56,7 @@ export default function RoutesApp() {
       <Route path="/product" element={<ProductPage />} />
       <Route path="/test" element={<ProductRegister />} />
       <Route path="/login" element={<Login />} />
+      <Route path="/search/:searchValue" element={<Search />} />
       {/* 
         Pagina de produtos
         <Route path={`/home/:category/:id`} element={<ProductPage />} />

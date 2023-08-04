@@ -1,0 +1,77 @@
+@mixin phone {
+  @media (max-width: 1279px) {
+    @content;
+  }
+}
+
+@mixin desktop {
+  @media (min-width: 1280px) {
+    @content;
+  }
+}
+
+.pageContainer {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 100vh;
+  justify-content: space-between;
+}
+
+.searchContainer {
+  display: flex;
+  flex-direction: column;
+  height: 87vh;
+  justify-content: space-between;
+  max-width: 1280px;
+  margin: 0 auto;
+
+  @include phone {
+    padding: 16px;
+    max-width: 800px;
+    margin: 0 auto;
+    justify-content: flex-start;
+  }
+
+  gap: 10px;
+}
+
+.productContainer {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  gap: 20px;
+  overflow: auto;
+  margin-bottom: 40px;
+
+  @include phone {
+    justify-content: space-between;
+  }
+
+  .productItems {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+    margin-bottom: 28px;
+    gap: 22px;
+
+    @include desktop {
+      padding-left: 20px;
+    }
+  }
+}
+
+.notFoundPage {
+  display: flex;
+  height: 100%;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.notFoundTxt {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 80px;
+}
