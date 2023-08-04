@@ -50,3 +50,10 @@
 #productBtn {
   padding: 4px 0px;
 }
+
+.btnContainer {
+  display: flex;
+  flex-direction: row;
+  gap: 5px;
+  max-height: 32px;
+}

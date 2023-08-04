@@ -131,14 +131,7 @@ export default function Profile() {
             </div>
           </div>
 
-          {desktop && (
-            <div className={styles.component}>
-              <span>
-                título do componente: <strong>{tabTitle}</strong> | número do componente: <strong>{activeTab}</strong>. <br /> <br />
-                pra renderizar o componente certo, pode utilizar o título (tabTitle), ou o número (activeTab).
-              </span>
-            </div>
-          )}
+          {desktop && <div className={styles.component}>{activeTab === 4 && <MyWishlist />}</div>}
 
           {phone && (
             <div className={styles.logoutButton}>

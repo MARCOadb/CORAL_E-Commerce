@@ -27,7 +27,7 @@ const btnIcon = <BagSvg stroke="#1B4B66" />;
   }
 */
 
-const Product = ({ data, itemId, largura, altura, button, label, ratings, discount, oldprice, sort, productConfig }) => {
+const Product = ({ data, itemId, largura, altura, button, label, ratings, discount, oldprice, sort, productConfig, rmvWishlist }) => {
   const { update } = useContext(BagContext);
   const { user } = useContext(AuthContext);
   const { desktop, phone } = useBreakpoint();
@@ -86,9 +86,16 @@ const Product = ({ data, itemId, largura, altura, button, label, ratings, discou
           </div>
         </div>
         {button && sort && (
-          <DefaultBtn onClick={handleBtnOnClick} outlined={true} id={styles.productBtn}>
-            Add to bag
-          </DefaultBtn>
+          <div className={styles.btnContainer}>
+            <DefaultBtn onClick={handleBtnOnClick} outlined={true} id={styles.productBtn}>
+              Add to bag
+            </DefaultBtn>
+            {rmvWishlist && (
+              <DefaultBtn onClick={handleSvgOnClick} outlined={true} id={styles.productBtn}>
+                Remove
+              </DefaultBtn>
+            )}
+          </div>
         )}
         {(label || productConfig?.label) && !sort && (
           <div className={desktop ? `${styles.svgContainer}` : `${styles.mobileSvg} `}>

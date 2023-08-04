@@ -15,7 +15,6 @@ const MyWishlist = () => {
   const { userWishlist, update } = useContext(BagContext);
 
   const [loading, setLoading] = useState(false);
-  const [products, setProducts] = useState(null);
   const [open, setOpen] = useState(true);
   const botoes = [{ text: "Start Shopping", outline: false }];
   const [emptyWishlist, setEmptyWishlist] = useState(false);
@@ -24,7 +23,9 @@ const MyWishlist = () => {
     <>
       <div>
         {desktop ? (
-          <div className="wishlist">{!loading && products?.map((item) => <Product largura={172} altura={172} data={item} label={true} key={item.id} sort={true} button={true} />)}</div>
+          <div className="wishlist">
+            {!loading && userWishlist?.map((item) => <Product largura={172} altura={172} data={item.data} label key={item.uid} itemId={item.uid} button rmvWishlist sort />)}
+          </div>
         ) : (
           <MobileLayout open={open} setOpen={setOpen} icon={"arrow"} iconAngle={90} title={"My Wishlist"} buttons={emptyWishlist && botoes}>
             {!emptyWishlist && (
