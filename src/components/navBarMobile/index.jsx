@@ -13,19 +13,19 @@ import Modal from "../modal";
 
 const NavBarMobile = () => {
   const { phone, desktop } = useBreakpoint();
-  const [loginModalOpen, setLoginModalOpen] = useState(false)
+  const [loginModalOpen, setLoginModalOpen] = useState(false);
 
-  const { signed } = useContext(AuthContext)
+  const { signed } = useContext(AuthContext);
   const navigate = useNavigate();
   const location = useLocation();
   const [path, setPath] = useState(location.pathname);
 
   const handleClick = (i) => {
-    if (i === '/profile' || i === '/bag') {
+    if (i === "/profile" || i === "/bag") {
       if (signed) {
-        navigate(i)
+        navigate(i);
       } else {
-        setLoginModalOpen(true)
+        setLoginModalOpen(true);
       }
     } else {
       navigate(i);
@@ -39,15 +39,15 @@ const NavBarMobile = () => {
       {loginModalOpen && (
         <>
           <div className="loginModal">
-            <span className='text-high-emphasis'>You are not authenticated!</span>
-            <span className='text-high-emphasis'>Please log in to continue</span>
+            <span className="text-high-emphasis">You are not authenticated!</span>
+            <span className="text-high-emphasis">Please log in to continue</span>
             <a href="/login">Log In</a>
           </div>
         </>
       )}
       <div className="containerNav">
-        <HomeSvg stroke={path === "/home" && "#1B4B66"} onClick={() => handleClick("/home")} />
-        {path === "/home" && <span>Home</span>}
+        <HomeSvg stroke={path === "/" && "#1B4B66"} onClick={() => handleClick("/")} />
+        {path === "/" && <span>Home</span>}
       </div>
       <div className="containerNav">
         <CategorySvg stroke={path === "/categories" && "#1B4B66"} onClick={() => handleClick("/categories")} />

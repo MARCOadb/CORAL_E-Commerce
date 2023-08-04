@@ -1,0 +1,46 @@
+@mixin phone {
+  @media (max-width: 1279px) {
+    @content;
+  }
+}
+.pageContainer {
+  display: flex;
+  flex-direction: column;
+  width: 100vw;
+  height: 100vh;
+  justify-content: space-between;
+}
+.searchContainer {
+  display: flex;
+  flex-direction: column;
+  margin: 20px;
+  height: 87vh;
+  justify-content: space-between;
+  @include phone {
+    justify-content: flex-start;
+  }
+  gap: 10px;
+}
+.productContainer {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: 20px;
+  @include phone {
+    justify-content: space-between;
+  }
+}
+
+.notFoundPage {
+  display: flex;
+  height: 100%;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+}
+.notFoundTxt {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 80px;
+}
