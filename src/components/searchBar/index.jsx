@@ -38,9 +38,8 @@ const SearchBar = ({ open, setOpen, text, icon }) => {
         .then((data) => setProducts(data))
         .finally(() => setLoading(false));
       setGetSearchRecent(getRecentSearch());
-      console.log(getRecentSearch());
     }
-  }, []);
+  }, [open]);
 
   return (
     <>
