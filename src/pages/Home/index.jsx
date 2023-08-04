@@ -36,6 +36,7 @@ import boujee from "../../assets/pics/Home/bolsa-boujee.png";
 import coach from "../../assets/pics/Home/bolsa-coach.png";
 import grande from "../../assets/pics/Home/bolsa-grande.png";
 import remus from "../../assets/pics/Home/bolsa-remus.png";
+
 //STYLES
 import "./style.scss";
 import Product from "../../components/product";
@@ -43,7 +44,6 @@ import getAllProducts from "../../services/getAllProducts";
 
 export default function Home() {
   const { phone, desktop } = useBreakpoint();
-
   const [windowSize, setWindowSize] = useState(window.innerWidth);
 
   useEffect(() => {
@@ -75,7 +75,7 @@ export default function Home() {
 
   return (
     <>
-      <Header />
+      <Header path={"home"} />
 
       <div className="content">
         {desktop && (
@@ -146,7 +146,9 @@ export default function Home() {
             </button>
           </div>
 
-          <div className="arrivals-carousel">{!loading && products?.map((item) => <Product largura={desktop ? 286 : 136} altura={desktop ? 286 : 136} data={item} label={true} />)}</div>
+          <div className="arrivals-carousel">
+            {!loading && products?.map((item) => <Product button largura={desktop ? 286 : 136} altura={desktop ? 286 : 136} data={item.data} label key={item.uid} itemId={item.uid} />)}
+          </div>
         </div>
 
         <div className="collections-container">

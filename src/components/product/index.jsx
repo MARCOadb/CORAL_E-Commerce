@@ -2,13 +2,15 @@ import styles from "./style.module.scss";
 import WishlistSvg from "../../assets/icon/WishlistSvg";
 import StarSvg from "../../assets/icon/StarSvg";
 import DefaultBtn from "../defaultBtn";
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { checkWishlist } from "../../services/checkWishlist";
 import { useEffect } from "react";
 import useBreakpoint from "../../hooks/useBreakPoint";
-import { wishlistProduct } from "../../services/wishlistProduct";
+import { setWishlistProduct } from "../../services/setWishlistProduct";
 import BagSvg from "../../assets/icon/Bagsvg";
 import { addBagProduct } from "../../services/addBagProduct";
+import { BagContext } from "../../contexts/BagContext";
+import { AuthContext } from "../../contexts/AuthContext";
 
 const btnIcon = <BagSvg stroke="#1B4B66" />;
 
@@ -25,20 +27,30 @@ const btnIcon = <BagSvg stroke="#1B4B66" />;
   }
 */
 
-const Product = ({ data, largura, altura, button, label, ratings, discount, oldprice, sort }) => {
+const Product = ({ data, itemId, largura, altura, button, label, ratings, discount, oldprice, sort, productConfig }) => {
+  const { update } = useContext(BagContext);
+  const { user } = useContext(AuthContext);
   const { desktop, phone } = useBreakpoint();
   const [isWishlisted, setIsWishlisted] = useState(null);
 
   useEffect(() => {
-    setIsWishlisted(checkWishlist(data.id));
-  }, [isWishlisted]);
+    if (!!user) {
+      checkWishlist(user?.uid, itemId).then((data) => setIsWishlisted(data));
+      update();
+    }
+  }, [setIsWishlisted]);
 
   const handleSvgOnClick = () => {
-    wishlistProduct(data.id);
-    setIsWishlisted(true);
+    if (!!user) {
+      setWishlistProduct(user?.uid, itemId).then((data) => setIsWishlisted(data));
+      update();
+    }
   };
   const handleBtnOnClick = () => {
-    addBagProduct(data.id);
+    if (!!user) {
+      addBagProduct(user?.uid, itemId);
+      update();
+    }
   };
 
   return (
@@ -63,10 +75,12 @@ const Product = ({ data, largura, altura, button, label, ratings, discount, oldp
           <span className={`text-low-emphasis ${desktop ? "label-large" : "label-medium"}`}>{data.description}</span>
           <div className={styles.detailsText}>
             <span className={`text-high-emphasis ${desktop ? "body-medium" : "label-small "}`}>${data.price}</span>
-            {oldprice && <span className={`text-low-emphasis strike ${desktop ? "label-large" : "extra-small-label"}`}>${oldprice}</span>}
-            {discount && (
+            {(oldprice || productConfig?.oldprice) && (
+              <span className={`text-low-emphasis strike ${desktop ? "label-large" : "extra-small-label"}`}>${oldprice ? oldprice : productConfig?.oldprice}</span>
+            )}
+            {(discount || productConfig?.discount) && (
               <span className={`${desktop ? "body-medium" : "extra-small-label"}`} style={{ color: "#E21D1D" }}>
-                {discount}% OFF
+                {discount ? discount : productConfig?.discount}% OFF
               </span>
             )}
           </div>
@@ -76,7 +90,7 @@ const Product = ({ data, largura, altura, button, label, ratings, discount, oldp
             Add to bag
           </DefaultBtn>
         )}
-        {label && !sort && (
+        {(label || productConfig?.label) && !sort && (
           <div className={desktop ? `${styles.svgContainer}` : `${styles.mobileSvg} `}>
             <WishlistSvg
               onClick={handleSvgOnClick}
@@ -89,7 +103,7 @@ const Product = ({ data, largura, altura, button, label, ratings, discount, oldp
           </div>
         )}
       </div>
-      {button && !sort && (
+      {(button || productConfig?.butto) && !sort && (
         <DefaultBtn onClick={handleBtnOnClick} outlined={true} icon={btnIcon} id={styles.productBtn}>
           Add to bag
         </DefaultBtn>
