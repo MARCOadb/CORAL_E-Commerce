@@ -6,10 +6,11 @@ import { useContext, useState } from "react";
 import { checkWishlist } from "../../services/checkWishlist";
 import { useEffect } from "react";
 import useBreakpoint from "../../hooks/useBreakPoint";
-import { wishlistProduct } from "../../services/wishlistProduct";
+import { setWishlistProduct } from "../../services/setWishlistProduct";
 import BagSvg from "../../assets/icon/Bagsvg";
 import { addBagProduct } from "../../services/addBagProduct";
 import { BagContext } from "../../contexts/BagContext";
+import { AuthContext } from "../../contexts/AuthContext";
 
 const btnIcon = <BagSvg stroke="#1B4B66" />;
 
@@ -26,24 +27,30 @@ const btnIcon = <BagSvg stroke="#1B4B66" />;
   }
 */
 
-const Product = ({ data, largura, altura, button, label, ratings, discount, oldprice, sort, productConfig }) => {
+const Product = ({ data, itemId, largura, altura, button, label, ratings, discount, oldprice, sort, productConfig }) => {
   const { update } = useContext(BagContext);
+  const { user } = useContext(AuthContext);
   const { desktop, phone } = useBreakpoint();
   const [isWishlisted, setIsWishlisted] = useState(null);
 
   useEffect(() => {
-    setIsWishlisted(checkWishlist(data.id));
-  }, [isWishlisted]);
+    if (!!user) {
+      checkWishlist(user?.uid, itemId).then((data) => setIsWishlisted(data));
+      update();
+    }
+  }, [setIsWishlisted]);
 
   const handleSvgOnClick = () => {
-    // TODO Sujeito a mudança conforme uso da firebase
-    wishlistProduct(data.id);
-    setIsWishlisted(true);
+    if (!!user) {
+      setWishlistProduct(user?.uid, itemId).then((data) => setIsWishlisted(data));
+      update();
+    }
   };
   const handleBtnOnClick = () => {
-    // TODO Sujeito a mudança conforme uso da firebase
-    addBagProduct(data.id);
-    update();
+    if (!!user) {
+      addBagProduct(user?.uid, itemId);
+      update();
+    }
   };
 
   return (
