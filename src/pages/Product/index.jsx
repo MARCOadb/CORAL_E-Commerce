@@ -259,7 +259,7 @@ export default function ProductPage() {
                         <div className={styles.otherProducts}>
                             <h1 className="type-high-emphasis title-regular">You Might Also Like</h1>
                             <div className={styles.productsContainer}>
-                                {!loading && products?.map((item) => <Product largura={136} altura={136} data={item} label key={item.id} />)}
+                                {!loading && products?.map((item) => <Product largura={136} altura={136} data={item} label key={item.id} discount={true} />)}
                             </div>
                         </div>
                     </div>
@@ -368,7 +368,7 @@ export default function ProductPage() {
 
                             <div className={styles.tabsContainer}>
                                 <div className={`${styles.tabsContent} ${activeTab === 1 && styles.tabsContentActive}`}>
-                                    <p className="text-low-emphasis body-medium">
+                                    <p className="text-low-emphasis body-medium" style={{ width: '1134px' }}>
                                         Experience comfortable and easy travelling
                                         like never before with this coach bag.
                                         It features a zip closure, removable straps and
@@ -379,9 +379,11 @@ export default function ProductPage() {
                                 </div>
 
                                 <div className={`${styles.tabsContent} ${activeTab === 2 && styles.tabsContentActive}`}>
-                                    <p className="text-low-emphasis body-medium">
-                                        Produtos semelhantes
-                                    </p>
+                                    <div className={styles.otherProducts}>
+                                        <div className={styles.productsContainer}>
+                                            {!loading && products?.map((item) => <Product largura={286} altura={286} data={item} label key={item.id} ratings={false} />)}
+                                        </div>
+                                    </div>
                                 </div>
 
                                 <div className={`${styles.tabsContent} ${activeTab === 3 && styles.tabsContentActive}`}>

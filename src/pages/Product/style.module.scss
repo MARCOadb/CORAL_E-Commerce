@@ -4,6 +4,12 @@
     }
 }
 
+@mixin desktop {
+    @media (min-width: 1280px) {
+        @content;
+    }
+}
+
 .content {
     width: 100%;
     height: auto;
@@ -414,7 +420,7 @@
 }
 
 .tabsContainer {
-    width: 1134px;
+    width: 100%;
 }
 
 .tabsContent {
@@ -522,6 +528,10 @@
     h1 {
         margin-bottom: 8px;
     }
+
+    @include desktop {
+        max-width: 100%;
+    }
 }
 
 .productsContainer {
@@ -529,4 +539,8 @@
     width: auto;
     gap: 16px;
     display: flex;
+
+    @include desktop {
+        gap: 40px;
+    }
 }
