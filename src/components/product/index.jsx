@@ -59,7 +59,7 @@ const Product = ({ data, itemId, largura, altura, button, label, ratings, discou
       <div className={styles.detailContainer} style={sort ? { flexDirection: "column", justifyContent: "space-between" } : {}}>
         <div className={desktop ? `${styles.textContainer}` : `${styles.textContainer} ${styles.mobileText} ${sort && label && styles.sortText}`}>
           <span className={`text-high-emphasis ${desktop ? "body-medium" : "label-small "}`}>{data.name}</span>
-          {ratings ||
+          {!ratings ||
             (label && desktop && (
               <div className={styles.ratingsContainer}>
                 <div style={{ display: "flex" }}>
