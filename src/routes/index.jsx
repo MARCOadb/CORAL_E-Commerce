@@ -8,11 +8,8 @@ import Profile from "../pages/Profile";
 import Test from "../pages/Test";
 import Login from "../pages/Login";
 import useBreakpoint from "../hooks/useBreakPoint";
-<<<<<<< HEAD
 import ProductPage from "../pages/Product";
-=======
 import ProductRegister from "../pages/ProductsRegister";
->>>>>>> fdb7c1401e7dd1fe73326eb034eb6371d231313b
 
 export default function RoutesApp() {
   const { phone, desktop } = useBreakpoint();
@@ -54,7 +51,7 @@ export default function RoutesApp() {
       )}
       <Route path="/" element={<Home />} />
       <Route path="/about" element={<About />} />
-  
+
       <Route path="/product" element={<ProductPage />} />
       <Route path="/test" element={<ProductRegister />} />
       <Route path="/login" element={<Login />} />
