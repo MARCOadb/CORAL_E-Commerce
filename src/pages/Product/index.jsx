@@ -30,14 +30,15 @@ import ArrowPointerSvg from "../../assets/icon/ArrowPointerSvg";
 
 import Product from "../../components/product";
 import getProductById from "../../services/getProductById";
-import { useLocation } from "react-router-dom";
+import { useAsyncError, useLocation } from "react-router-dom";
 import getAllProducts from "../../services/getAllProducts";
 import Breadcrump from "../../components/breadcrumpDesktop";
 import { AuthContext } from "../../contexts/AuthContext";
 import { setWishlistProduct } from "../../services/setWishlistProduct";
+import { checkWishlist } from "../../services/checkWishlist";
 
-export default function ProductPage() {
-  const { update } = useContext(BagContext);
+export default function ProductPage({ itemId, data, open, setOpen }) {
+  const { update, userWishlist } = useContext(BagContext);
   const { user } = useContext(AuthContext);
   const { phone, desktop } = useBreakpoint();
 
@@ -97,9 +98,12 @@ export default function ProductPage() {
 
   useEffect(() => {
     setLoading(true);
-    getProductById(location.state.itemId)
-      .then((data) => setProduct(data))
-      .finally(() => setLoading(false));
+    if (desktop) {
+      setLoading(true);
+      getProductById(location.state.itemId)
+        .then((data) => setProduct(data))
+        .finally(() => setLoading(false));
+    }
     getAllProducts()
       .then((data) => setProducts(data))
       .finally(() => setLoading(false));
@@ -117,39 +121,52 @@ export default function ProductPage() {
   };
   const addToBag = () => {
     if (!!user) {
-      setLoading(true);
-      setProductQnt(user.uid, location.state.itemId, stepperQnt)
-        .then(() => update())
-        .finally(() => setLoading(false));
+      if (desktop) {
+        setLoading(true);
+        setProductQnt(user.uid, location.state.itemId, stepperQnt)
+          .then(() => update())
+          .finally(() => setLoading(false));
+      } else {
+        setLoading(true);
+        addBagProduct(user.uid, itemId)
+          .then(() => update())
+          .finally(() => setLoading(false));
+      }
     } else alert("Voce precisa estar logado para fazer isso");
   };
   const addToWishlist = () => {
     if (!!user) {
-      setWishlistProduct(user.uid, location.state.itemId)
-        .then(() => update())
-        .finally(() => setLoading(false));
+      setWishlistProduct(user.uid, itemId ? itemId : location.state.itemId).finally(() => setLoading(false));
+      update();
     } else alert("Voce precisa estar logado para fazer isso");
   };
   const productImages = [
-    product?.image, //
+    product?.image ? product?.image : data.image, //
     pic2, //
     pic3, //fotos aleatórias simulando fotos do produto
     pic4, //
   ];
+
+  const [isWishlisted, setIsWishlisted] = useState(null);
+  useEffect(() => {
+    setIsWishlisted(userWishlist.find((item) => item === itemId));
+  }, []);
   return (
     <>
-      {phone ? (
+      {console.log(isWishlisted)}
+      {phone && open ? (
         <MobileLayout
           icon="arrow"
           iconAngle={90}
           iconStroke="#13101E"
           footerPrefix={
             <div style={{ display: "flex", alignItems: "center" }}>
-              <WishlistSvg onClick={() => alert("adicionar a wishlist")} width={44} />
+              <WishlistSvg fill={isWishlisted && "red"} onClick={addToWishlist} width={44} />
             </div>
           }
-          buttons={[{ text: "Add to Bag", outlined: false, onClick: () => alert("adicionar a bag"), btnIcon: <BagSvg stroke="#fff" /> }]}
-          open
+          buttons={[{ text: "Add to Bag", outlined: false, onClick: addToBag, btnIcon: <BagSvg stroke="#fff" /> }]}
+          open={open}
+          setOpen={setOpen}
         >
           <div className={styles.content}>
             <div className={styles.product}>
@@ -169,9 +186,9 @@ export default function ProductPage() {
                 <span className="text-low-emphasis title-medium">Leather Coach Bag with adjustable starps.</span>
 
                 <div className={styles.productPrice}>
-                  <h1 className="text-high-emphasis display-small">$54.69</h1>
-                  <h2 className="text-light title-medium strike">$78.66</h2>
-                  <h3 className="text-vibrant title-medium">50%OFF</h3>
+                  <h1 className="text-high-emphasis display-small">${data.price}</h1>
+                  <h2 className="text-light title-medium strike">${data.oldPrice}</h2>
+                  <h3 className="text-vibrant title-medium">{data.discount}%OFF</h3>
                 </div>
 
                 <div className={styles.ratingsContainer}>
@@ -182,7 +199,7 @@ export default function ProductPage() {
 
                   <div className={styles.mobRatingsAmount}>
                     <span className="text-high-emphasis title-regular">Average Rating</span>
-                    <span className="text-low-emphasis title-medium">43 Ratings & 23 Reviews</span>
+                    <span className="text-low-emphasis title-medium">43 Ratings & {data.reviews.length} Reviews</span>
                   </div>
                 </div>
 
@@ -273,7 +290,9 @@ export default function ProductPage() {
 
             <div className={styles.otherProducts}>
               <h1 className="type-high-emphasis title-regular">You Might Also Like</h1>
-              <div className={styles.productsContainer}>{!loading && products?.map((item) => <Product largura={136} altura={136} data={item} label key={item.id} discount={true} />)}</div>
+              <div className={styles.productsContainer}>
+                {!loading && products?.map((item) => <Product largura={136} altura={136} data={item.data} label key={item.uid} itemId={item.uid} discount={true} />)}
+              </div>
             </div>
           </div>
         </MobileLayout>
@@ -367,7 +386,7 @@ export default function ProductPage() {
                   <DefaultBtn onClick={addToBag} icon={<BagSvg stroke={"#fff"} />} width={"328px"} height={"44px"}>
                     Add to bag
                   </DefaultBtn>
-                  <DefaultBtn onClick={addToWishlist} icon={<WishlistSvg />} outlined width={"240px"} height={"44px"}>
+                  <DefaultBtn onClick={addToWishlist} icon={<WishlistSvg fill={isWishlisted && "red"} />} outlined width={"240px"} height={"44px"}>
                     Add to wishlist
                   </DefaultBtn>
                 </div>

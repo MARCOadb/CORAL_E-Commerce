@@ -4,13 +4,14 @@
   background-color: transparent;
   position: fixed;
   z-index: -1;
-
+  left: 0;
+  top: 0;
+  pointer-events: none;
   transition: all 700ms ease-in-out;
 }
 
 .opacityOpen {
+  pointer-events: all;
   background-color: #00000044;
   z-index: 20;
-  left: 0;
-  top: 0;
 }
