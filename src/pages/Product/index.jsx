@@ -137,6 +137,8 @@ export default function ProductPage({ itemId, data, open, setOpen }) {
   const addToWishlist = () => {
     if (!!user) {
       setWishlistProduct(user.uid, itemId ? itemId : location.state.itemId).finally(() => setLoading(false));
+      if (isWishlisted === true) setIsWishlisted(false);
+      else setIsWishlisted(true);
       update();
     } else alert("Voce precisa estar logado para fazer isso");
   };
@@ -149,11 +151,11 @@ export default function ProductPage({ itemId, data, open, setOpen }) {
 
   const [isWishlisted, setIsWishlisted] = useState(null);
   useEffect(() => {
-    setIsWishlisted(userWishlist.find((item) => item === itemId));
+    setIsWishlisted(userWishlist.find((item) => item.uid === itemId));
+    update();
   }, []);
   return (
     <>
-      {console.log(isWishlisted)}
       {phone && open ? (
         <MobileLayout
           icon="arrow"

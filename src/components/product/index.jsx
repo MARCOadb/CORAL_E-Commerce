@@ -76,7 +76,10 @@ const Product = ({ data, itemId, largura, altura, button, label, ratings, discou
           },
         })
       );
-    } else setProductOpen(true);
+    } else {
+      update();
+      setProductOpen(true);
+    }
   };
 
   return (
@@ -120,23 +123,10 @@ const Product = ({ data, itemId, largura, altura, button, label, ratings, discou
           )}
           {(label || productConfig?.label) && !sort && (
             <div className={desktop ? `${styles.svgContainer}` : `${styles.mobileSvg} `}>
-              <WishlistSvg
-                onClick={handleSvgOnClick}
-                width={phone && "20"}
-                height={phone && "20"}
-                viewBox={phone && "0 0 28 28"}
-                fill={isWishlisted && "red"}
-                stroke={isWishlisted ? "red" : "#13101E"}
-              />
+              <WishlistSvg onClick={handleSvgOnClick} width={phone && "20"} height={phone && "20"} viewBox={phone && "0 0 28 28"} />
             </div>
           )}
         </div>
-<<<<<<< HEAD
-        {(button || productConfig?.butto) && !sort && (
-          <DefaultBtn onClick={handleBtnOnClick} outlined={true} icon={btnIcon} id={styles.productBtn}>
-            Add to bag
-          </DefaultBtn>
-=======
         {button && sort && (
           <div className={styles.btnContainer}>
             <DefaultBtn onClick={handleBtnOnClick} outlined={true} id={styles.productBtn}>
@@ -148,7 +138,6 @@ const Product = ({ data, itemId, largura, altura, button, label, ratings, discou
               </DefaultBtn>
             )}
           </div>
->>>>>>> 67314c629a698eba572e3cb5f33c4514109b6f94
         )}
       </div>
     </>
