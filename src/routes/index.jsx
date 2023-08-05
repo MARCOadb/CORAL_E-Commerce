@@ -8,6 +8,7 @@ import Profile from "../pages/Profile";
 import Test from "../pages/Test";
 import Login from "../pages/Login";
 import useBreakpoint from "../hooks/useBreakPoint";
+import ProductPage from "../pages/Product";
 import ProductRegister from "../pages/ProductsRegister";
 import Search from "../pages/Search";
 
@@ -27,6 +28,7 @@ export default function RoutesApp() {
           />
           <Route path={`/home/:category`} element={<Categories />} />
           <Route path={`/about/:category`} element={<Categories />} />
+          <Route path={`/:category/:id`} element={<ProductPage />} />
         </>
       ) : (
         <>
@@ -51,14 +53,11 @@ export default function RoutesApp() {
       )}
       <Route path="/" element={<Home />} />
       <Route path="/about" element={<About />} />
+
+      <Route path="/product" element={<ProductPage />} />
       <Route path="/test" element={<ProductRegister />} />
       <Route path="/login" element={<Login />} />
       <Route path="/search/:searchValue" element={<Search />} />
-      {/* 
-        Pagina de produtos
-        <Route path={`/home/:category/:id`} element={<ProductPage />} />
-        <Route path={`/about/:category/:id`} element={<ProductPage />} /> 
-        */}
     </Routes>
   );
 }

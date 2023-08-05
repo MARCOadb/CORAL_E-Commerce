@@ -36,7 +36,7 @@ import boujee from "../../assets/pics/Home/bolsa-boujee.png";
 import coach from "../../assets/pics/Home/bolsa-coach.png";
 import grande from "../../assets/pics/Home/bolsa-grande.png";
 import remus from "../../assets/pics/Home/bolsa-remus.png";
-
+import ProductPage from "../Product";
 //STYLES
 import "./style.scss";
 import Product from "../../components/product";

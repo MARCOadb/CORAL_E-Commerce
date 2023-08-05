@@ -1,0 +1,547 @@
+@mixin phone {
+    @media (max-width: 1279px) {
+        @content;
+    }
+}
+
+@mixin desktop {
+    @media (min-width: 1280px) {
+        @content;
+    }
+}
+
+.content {
+    width: 100%;
+    height: auto;
+}
+
+.breadcrump {
+    height: 24px;
+    width: 100%;
+    max-width: 1280px;
+    margin: 24px auto 16px auto;
+    padding-left: 20px;
+    display: block;
+}
+
+.product {
+    justify-content: center;
+    display: flex;
+    gap: 24px;
+    margin: 0 auto 55px auto;
+    width: calc(100% - 40px);
+
+
+    @include phone {
+        width: 100%;
+        padding: 0;
+        margin: 0;
+        flex-direction: column;
+        gap: 0;
+    }
+}
+
+.productImages {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+
+    .imageBig {
+        width: 605px;
+        height: 605px;
+        border-radius: 16px;
+    }
+
+    @include phone {
+        width: 100%;
+        max-width: 550px;
+        max-height: 550px;
+        min-height: 340px;
+        padding: 0 16px;
+        overflow: auto;
+        margin: 8px auto 10px auto;
+    }
+}
+
+.activePicture {
+    transition: all 0.3s;
+    border: 1px solid #1B4B66;
+}
+
+.carouselContainer {
+    width: 473px;
+    display: flex;
+    align-items: center;
+    margin: 0 auto;
+    justify-content: space-between;
+
+    svg {
+        cursor: pointer;
+    }
+}
+
+.carousel {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    height: 75px;
+
+    img {
+        cursor: pointer;
+        width: 75px;
+        border-radius: 8px;
+    }
+
+    @include phone {
+        width: auto;
+        height: 100%;
+        max-width: 100%;
+        max-height: 550px;
+        min-width: 328px;
+        min-height: 340px;
+        display: flex;
+        gap: 10px;
+        align-items: start;
+        justify-content: left;
+        margin-right: 16px;
+
+
+        div {
+            flex: 0 0 auto;
+            width: 100%;
+            height: 100%;
+            min-height: 340px;
+
+            img {
+                width: 100%;
+                height: 100%;
+                min-width: 328px;
+                min-height: 340px;
+                border-radius: 8px;
+                margin-right: 16px;
+
+            }
+        }
+    }
+}
+
+.productContent {
+    width: 611px;
+    display: flex;
+    flex-direction: column;
+
+    @include phone {
+        width: 100%;
+        max-width: 650px;
+        margin: 0 auto;
+        padding: 0 16px;
+    }
+}
+
+.ratingsContainer {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin: 32px 0 24px 0;
+
+    @include phone {
+        margin: 0 0 20px 0;
+        gap: 14px;
+
+        .mobRatingsStar {
+            background-color: #f1f1f1;
+            border-radius: 4px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 4px;
+            padding: 9px 12px;
+
+            span {
+                font-size: 16px;
+                font-style: normal;
+                font-weight: 600;
+                line-height: 16px;
+            }
+        }
+
+        .mobRatingsAmount {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+    }
+}
+
+.productPrice {
+    display: flex;
+    gap: 16px;
+    align-items: center;
+
+    @include phone {
+        gap: 0;
+        margin: 10px 0 16px 0;
+
+        h1 {
+            margin-right: 12px;
+        }
+
+        h2 {
+            margin-right: 8px;
+        }
+    }
+}
+
+.seperator {
+    width: 100%;
+    height: 1px;
+    margin: 24px 0;
+    background: rgba(0, 0, 0, 0.12);
+
+    @include phone {
+        height: 8px;
+        margin: 0;
+        background-color: #f1f1f1;
+    }
+}
+
+.delivery {
+    width: 100%;
+    height: 74px;
+    display: flex;
+    margin-bottom: 40px;
+    justify-content: space-between;
+    align-items: center;
+    position: relative;
+
+    @include phone {
+        height: auto;
+        flex-direction: column;
+        gap: 8px;
+        margin-bottom: 18px;
+    }
+}
+
+.deliveryTitle {
+    width: 205px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+
+    @include phone {
+        width: 100%;
+    }
+}
+
+.deliveryPincode {
+    width: 390px;
+    height: 52px;
+    background: #f1f1f1;
+    border: none;
+    outline: none;
+    border-radius: 4px;
+    padding-left: 16px;
+
+    @include phone {
+        width: 100%;
+        height: 46px;
+    }
+}
+
+.checkBtn {
+    position: absolute;
+    right: 12px;
+    cursor: pointer;
+
+    @include phone {
+        top: 65px;
+    }
+}
+
+.quantityContainer {
+    margin-bottom: 48px;
+    display: flex;
+    gap: 16px;
+}
+
+.stepperContainer {
+    display: flex;
+    align-items: center;
+    width: 73px;
+    height: 30px;
+    border-radius: 4px;
+    border: 1px solid var(--primary, #1b4b66);
+
+    input[type="number"] {
+        width: 25px;
+        height: auto;
+        border: none;
+        outline: none;
+        text-align: center;
+    }
+}
+
+.cupomContainer {
+    width: calc(100% + 20px);
+    margin-bottom: 40px;
+
+    @include phone {
+        width: calc(100% + 16px);
+        margin-bottom: 20px;
+    }
+}
+
+.cupons {
+    width: auto;
+    overflow-x: scroll;
+    overflow-y: hidden;
+    display: flex;
+    gap: 32px;
+
+    @include phone {
+        gap: 8px;
+    }
+}
+
+.cupom {
+    width: 391px;
+    min-width: 391px;
+    height: 96px;
+    border-radius: 8px;
+    border: 1px solid #1B4B66;
+    background: #FFF;
+    padding: 15px 16px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    transition: all 0.2s;
+
+    &:hover {
+        background-color: #f1f1f1;
+
+        .cupomCode {
+            background-color: #cfcfcf;
+        }
+    }
+
+    .cupomDescription {
+        width: 229px;
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+
+        @include phone {
+            width: 184px;
+            gap: 4px;
+        }
+    }
+
+    .cupomCode {
+        width: 109px;
+        height: 66px;
+        display: flex;
+        flex-direction: column;
+        padding: 14px 13px;
+        gap: 6px;
+        text-align: center;
+        border-radius: 4px;
+        background-color: #f1f1f1;
+        transition: all 0.2s;
+
+        @include phone {
+            width: 110px;
+            height: 59px;
+            padding: 0;
+            gap: 0;
+            justify-content: center;
+        }
+    }
+
+    @include phone {
+        width: 328px;
+        min-width: 328px;
+        padding: 12px;
+        height: 75px;
+
+        &:last-child {
+            margin-right: 16px;
+        }
+    }
+}
+
+.buttons {
+    display: flex;
+    gap: 24px;
+}
+
+.productTabs {
+    width: calc(100% - 40px);
+    max-width: 1240px;
+    margin: 0 auto 95px auto;
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+
+    .tabsTitle {
+        width: 100%;
+        height: 48px;
+        background-color: #f1f1f1;
+        border-radius: 12px;
+        display: flex;
+        gap: 24px;
+        align-items: center;
+        justify-content: left;
+        padding: 0 16px;
+        position: relative;
+    }
+}
+
+.tabs {
+    border-radius: 8px;
+    padding: 6px 18px;
+    color: #626262;
+    position: relative;
+    cursor: pointer;
+}
+
+.tabsBar {
+    position: absolute;
+    border-radius: 8px;
+    width: 189px;
+    height: 32px;
+    background-color: #1B4B66;
+    transition: all 0.3s;
+}
+
+.tabsActive {
+    transition: all 0.3s;
+    color: #FFF;
+}
+
+.tabsContainer {
+    width: 100%;
+}
+
+.tabsContent {
+    display: none;
+}
+
+.tabsContentActive {
+    display: block;
+
+    p {
+        white-space: pre-wrap;
+    }
+}
+
+.dropdownTitle {
+    width: 100%;
+    max-width: 650px;
+    height: 48px;
+    padding: 16px;
+    display: flex;
+    margin: 0 auto;
+    justify-content: space-between;
+}
+
+.ratingsTitle {
+    width: 100%;
+    max-width: 650px;
+    height: 48px;
+    padding: 16px;
+    display: flex;
+    margin: 0 auto;
+    justify-content: space-between;
+}
+
+.inviteAndEarn {
+    width: 100%;
+    max-width: 650px;
+    height: 126px;
+    padding: 16px;
+    display: flex;
+    margin: 0 auto;
+    justify-content: space-between;
+    gap: 19px;
+
+    .inviteContent {
+        height: 100%;
+        width: 65%;
+        display: flex;
+        flex-direction: column;
+
+        span {
+            margin: 4px 0 8px 0;
+        }
+
+        button {
+            background-color: transparent;
+            height: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            border: none;
+            outline: none;
+            width: 102px;
+        }
+    }
+}
+
+.dropdownContent {
+    width: 100%;
+    max-width: 650px;
+    opacity: 0;
+    margin: 0 auto;
+    transition:
+        opacity 0.3s ease-in-out,
+        display 0.3s ease-in-out,
+        height 0.3s 0.3s ease-in-out;
+    padding: 0 16px;
+}
+
+.dropdownOpen {
+    width: 100%;
+    max-width: 650px;
+    margin: 0 auto;
+    opacity: 1;
+    transition:
+        height 0.3s ease-in-out,
+        opacity 0.3s 0.3s ease-in-out;
+    padding: 0 16px;
+}
+
+.orangeBox {
+    width: 94px;
+    height: 94px;
+    border-radius: 8px;
+    background: #FFE6CA;
+}
+
+.otherProducts {
+    width: 100%;
+    max-width: 650px;
+    margin: 0 auto;
+    padding: 16px;
+    padding-right: 0;
+
+    h1 {
+        margin-bottom: 8px;
+    }
+
+    @include desktop {
+        max-width: 100%;
+    }
+}
+
+.productsContainer {
+    overflow: auto;
+    width: auto;
+    gap: 16px;
+    display: flex;
+
+    @include desktop {
+        gap: 40px;
+        padding: 10px;
+    }
+}

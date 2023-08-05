@@ -9,6 +9,7 @@ export const checkWishlist = async (userId, productId) => {
   if (querySnapshot.docs[0]) {
     const wishArr = querySnapshot.docs[0].data();
     const isWishListed = wishArr.products.find((item) => item === productId);
+
     return !!isWishListed;
   } else {
     await addDoc(wishlistRef, {
