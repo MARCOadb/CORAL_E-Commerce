@@ -29,18 +29,17 @@ import ArrowSvg from "../../assets/icon/ArrowSvg";
 import ArrowPointerSvg from "../../assets/icon/ArrowPointerSvg";
 
 import Product from "../../components/product";
+import getProductById from "../../services/getProductById";
+import { useLocation } from "react-router-dom";
 import getAllProducts from "../../services/getAllProducts";
+import Breadcrump from "../../components/breadcrumpDesktop";
+import { AuthContext } from "../../contexts/AuthContext";
+import { setWishlistProduct } from "../../services/setWishlistProduct";
 
 export default function ProductPage() {
   const { update } = useContext(BagContext);
+  const { user } = useContext(AuthContext);
   const { phone, desktop } = useBreakpoint();
-
-  const productImages = [
-    productPhoto, //
-    pic2, //
-    pic3, //fotos aleatórias simulando fotos do produto
-    pic4, //
-  ];
 
   const [activePic, setActivePic] = useState(0);
   const [activeTab, setActiveTab] = useState(1);
@@ -59,16 +58,6 @@ export default function ProductPage() {
       setDropdownHeight(`${dropdownRefHeight.current.scrollHeight}px`);
     }
   }, [phone, desktop, dropdownOpen]);
-
-  const removeProduct = () => {
-    deleteBagProduct("product id"); //substituir pelo id do produto real
-    update();
-  };
-
-  const addProduct = () => {
-    addBagProduct("product id"); //substituir pelo id do produto real
-    update();
-  };
 
   function handleChangeTabs(index) {
     setActiveTab(index);
@@ -101,22 +90,52 @@ export default function ProductPage() {
   //pra simular os produtos//
 
   const [loading, setLoading] = useState(false);
+  const [product, setProduct] = useState(null);
   const [products, setProducts] = useState(null);
-
-  const getProducts = async () => {
-    setLoading(true);
-    const produtos = await getAllProducts();
-    return produtos;
-  };
+  const [stepperQnt, setStepperQnt] = useState(1);
+  const location = useLocation();
 
   useEffect(() => {
-    getProducts()
+    setLoading(true);
+    getProductById(location.state.itemId)
+      .then((data) => setProduct(data))
+      .finally(() => setLoading(false));
+    getAllProducts()
       .then((data) => setProducts(data))
       .finally(() => setLoading(false));
   }, []);
 
-  //pra simular os produtos//
-
+  const setQnt = (e) => {
+    e.preventDefault();
+    setStepperQnt(parseInt(e.target.value));
+  };
+  const plusQnt = () => {
+    setStepperQnt(stepperQnt + 1);
+  };
+  const minusQnt = () => {
+    setStepperQnt(stepperQnt - 1);
+  };
+  const addToBag = () => {
+    if (!!user) {
+      setLoading(true);
+      setProductQnt(user.uid, location.state.itemId, stepperQnt)
+        .then(() => update())
+        .finally(() => setLoading(false));
+    } else alert("Voce precisa estar logado para fazer isso");
+  };
+  const addToWishlist = () => {
+    if (!!user) {
+      setWishlistProduct(user.uid, location.state.itemId)
+        .then(() => update())
+        .finally(() => setLoading(false));
+    } else alert("Voce precisa estar logado para fazer isso");
+  };
+  const productImages = [
+    product?.image, //
+    pic2, //
+    pic3, //fotos aleatórias simulando fotos do produto
+    pic4, //
+  ];
   return (
     <>
       {phone ? (
@@ -262,7 +281,7 @@ export default function ProductPage() {
         <>
           <Header />
           <div className={styles.content}>
-            <span className={styles.breadcrump}>BreadCrump aqui</span>
+            <Breadcrump />
 
             <div className={styles.product}>
               <div className={styles.productImages}>
@@ -278,8 +297,8 @@ export default function ProductPage() {
                 </div>
               </div>
               <div className={styles.productContent}>
-                <h1 className="text-dark display-medium">Coach</h1>
-                <span className="text-low-emphasis display-small">Leather Coach Bag with adjustable starps.</span>
+                <h1 className="text-dark display-medium">{product?.name}</h1>
+                <span className="text-low-emphasis display-small">{product?.description}</span>
 
                 <div className={styles.ratingsContainer}>
                   <div style={{ display: "flex", gap: "8px" }}>
@@ -289,13 +308,13 @@ export default function ProductPage() {
                     <StarSvg fill="#FF8C4B" stroke="#FF8C4B" />
                     <StarSvg fill="#B6B6B6" stroke="#B6B6B6" />
                   </div>
-                  <span className="text-light title-medium ">(250) Ratings</span>
+                  <span className="text-light title-medium ">({product?.reviews?.length}) Ratings</span>
                 </div>
 
                 <div className={styles.productPrice}>
-                  <h1 className="text-high-emphasis display-large">$54.69</h1>
-                  <h2 className="text-light display-medium strike">$78.66</h2>
-                  <h3 className="text-vibrant display-small">50%OFF</h3>
+                  <h1 className="text-high-emphasis display-large">{product?.price}$</h1>
+                  <h2 className="text-light display-medium strike">{product?.oldPrice}$</h2>
+                  <h3 className="text-vibrant display-small">{product?.discount}</h3>
                 </div>
 
                 <span className={styles.seperator}></span>
@@ -312,9 +331,9 @@ export default function ProductPage() {
                 <div className={styles.quantityContainer}>
                   <span className="text-dark display-small ">Quantity:</span>
                   <div className={styles.stepperContainer}>
-                    <SmallMinus onClick={removeProduct} />
-                    <input type="number" placeholder="1"></input>
-                    <SmallPlus onClick={addProduct} />
+                    <SmallMinus onClick={minusQnt} />
+                    <input type="number" onChange={setQnt} value={stepperQnt}></input>
+                    <SmallPlus onClick={plusQnt} />
                   </div>
                 </div>
 
@@ -345,10 +364,10 @@ export default function ProductPage() {
                 </div>
 
                 <div className={styles.buttons}>
-                  <DefaultBtn onClick={() => alert("adicionar a bag")} icon={<BagSvg stroke={"#fff"} />} width={"328px"} height={"44px"}>
+                  <DefaultBtn onClick={addToBag} icon={<BagSvg stroke={"#fff"} />} width={"328px"} height={"44px"}>
                     Add to bag
                   </DefaultBtn>
-                  <DefaultBtn onClick={() => alert("adicionar a wishlist")} icon={<WishlistSvg />} outlined width={"240px"} height={"44px"}>
+                  <DefaultBtn onClick={addToWishlist} icon={<WishlistSvg />} outlined width={"240px"} height={"44px"}>
                     Add to wishlist
                   </DefaultBtn>
                 </div>
@@ -379,7 +398,9 @@ export default function ProductPage() {
 
                 <div className={`${styles.tabsContent} ${activeTab === 2 && styles.tabsContentActive}`}>
                   <div className={styles.otherProducts}>
-                    <div className={styles.productsContainer}>{!loading && products?.map((item) => <Product largura={286} altura={286} data={item} label key={item.id} ratings={false} />)}</div>
+                    <div className={styles.productsContainer}>
+                      {!loading && products?.map((item) => <Product largura={286} altura={286} data={item.data} label key={item.uid} itemId={item.uid} ratings={false} />)}
+                    </div>
                   </div>
                 </div>
 

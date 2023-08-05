@@ -6,7 +6,6 @@ const getCategoryById = async (id) => {
   const q = query(categoriesRef, where("id", "==", parseInt(id)));
   const querySnapshot = await getDocs(q);
 
-  return querySnapshot.docs[0].data().name,
- 
+  return querySnapshot.docs[0].data().name;
 };
 export default getCategoryById;

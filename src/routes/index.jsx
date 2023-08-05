@@ -28,8 +28,7 @@ export default function RoutesApp() {
           />
           <Route path={`/home/:category`} element={<Categories />} />
           <Route path={`/about/:category`} element={<Categories />} />
-          <Route path={`/home/:category/:id`} element={<ProductPage />} />
-          <Route path={`/about/:category/:id`} element={<ProductPage />} />
+          <Route path={`/:category/:id`} element={<ProductPage />} />
         </>
       ) : (
         <>
