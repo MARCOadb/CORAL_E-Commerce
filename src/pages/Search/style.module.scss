@@ -21,7 +21,7 @@
 .searchContainer {
   display: flex;
   flex-direction: column;
-  height: 87vh;
+  height: 100%;
   justify-content: space-between;
   max-width: 1280px;
   margin: 0 auto;
@@ -63,7 +63,7 @@
 
 .notFoundPage {
   display: flex;
-  height: 100%;
+  height: 100vh;
   flex-direction: column;
   align-items: center;
   justify-content: space-between;
@@ -74,4 +74,16 @@
   flex-direction: column;
   align-items: center;
   padding-top: 80px;
+
+  @include desktop {
+    padding-top: 160px;
+  }
+}
+
+.btnContainer {
+  width: 100%;
+  max-width: 500px;
+  position: relative;
+  bottom: 0;
+  padding: 16px;
 }
