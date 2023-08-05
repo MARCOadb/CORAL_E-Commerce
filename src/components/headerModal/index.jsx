@@ -48,7 +48,7 @@ const HeaderModal = ({ setOpen, open }) => {
         <div style={{ width: "100%", padding: "0px 9px" }}>
           <DefaultBtn>Place Order</DefaultBtn>
         </div>
-        <span onClick={() => setOpen(false)} className="title-regular text-primary" style={{ lineHeight: "24px", textDecoration: "underline" }}>
+        <span onClick={() => setOpen(false)} className="title-regular text-primary" style={{ lineHeight: "24px", textDecoration: "underline", cursor: 'pointer' }}>
           Continue Shopping
         </span>
       </div>
