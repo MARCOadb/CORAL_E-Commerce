@@ -2,6 +2,7 @@
 $primary: #1b4b66;
 $tint: #639599;
 $error: #b00020;
+$vibrant: #FF404B;
 $highlight: #ff8c4b;
 $accent: #f4f4f4;
 $dark: #13101e;
@@ -40,6 +41,10 @@ $text-faded: #7E7E7E;
 
 .text-primary {
   color: $primary;
+}
+
+.text-vibrant {
+  color: $vibrant;
 }
 
 .text-dark {
@@ -88,6 +93,14 @@ $text-faded: #7E7E7E;
 }
 
 //CORPO DE TEXTO
+
+.body-small {
+  font-family: Inter;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 13px;
+}
 
 .body-medium {
   font-family: Inter;

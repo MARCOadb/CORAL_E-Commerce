@@ -4,8 +4,6 @@ import CrossSvg from "../../assets/icon/CrossSvg";
 import BottomModal from "../../components/bottomModal";
 import Header from "../../components/header";
 import MobileLayout from "../../layouts/mobileLayout";
-import getProductById from "../../services/getProductById";
-import getProducts from "../../services/getAllProducts";
 import { addBagProduct } from "../../services/addBagProduct";
 import { deleteBagProduct } from "../../services/deleteBagProduct";
 import IconBtn from "../../components/iconBtn";

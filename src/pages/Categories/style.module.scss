@@ -172,33 +172,38 @@
     }
   }
 }
+
 .imgContainer {
   display: flex;
   flex-direction: column;
   gap: 16px;
+
   div {
     width: 100%;
     border-radius: 8px;
     height: 120px;
     max-width: 100%;
+
     img {
       border-radius: 8px;
     }
   }
 }
+
 .txtContainer {
   width: 100%;
   padding: 15px 0px;
 }
+
 .mobileContainer {
   display: flex;
   flex-direction: column;
   padding: 0px 16px;
 }
+
 .pickGradient {
   position: relative;
   display: inline-block;
-  z-index: 1;
   span {
     position: absolute;
     right: 18px;
@@ -206,6 +211,7 @@
     z-index: 1;
   }
 }
+
 .pickGradient:after {
   content: "";
   position: absolute;
@@ -215,19 +221,25 @@
   height: 100%;
   display: inline-block;
   border-radius: 8px;
+  z-index: 0;
 }
+
 .bageGrad:after {
   background: linear-gradient(269deg, #f3a86d 0%, rgba(243, 168, 109, 0) 100%);
 }
+
 .blueGrad:after {
   background: linear-gradient(269deg, #09558d 0%, rgba(5, 97, 148, 0) 100%);
 }
+
 .pinkGrad:after {
   background: linear-gradient(269deg, #ff7884 0%, rgba(255, 120, 132, 0) 100%);
 }
+
 .lightBageGrad:after {
   background: linear-gradient(269deg, #ffc69a 0%, rgba(243, 168, 109, 0) 100%);
 }
+
 .lightPinkGrad:after {
   background: linear-gradient(269deg, #f1f1f1 0%, rgba(241, 241, 241, 0) 100%);
 }

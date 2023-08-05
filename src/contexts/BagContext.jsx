@@ -2,12 +2,14 @@ import { createContext, useContext, useEffect, useState } from "react";
 import { getBag } from "../services/getBag";
 import getAllProducts from "../services/getAllProducts";
 import { AuthContext } from "./AuthContext";
+import { getWishlist } from "../services/getWishlist";
 
 export const BagContext = createContext();
 
 export const BagProvider = ({ children }) => {
   const { user } = useContext(AuthContext);
   const [userProducts, setUserProducts] = useState(null);
+  const [userWishlist, setUserWishlist] = useState(null);
   const [subTotal, setSubTotal] = useState(null);
   const [taxPrice, setTaxPrice] = useState(null);
   const [totalPrice, setTotalPrice] = useState(null);
@@ -18,6 +20,9 @@ export const BagProvider = ({ children }) => {
       getAllProducts()
         .then(async (data) => {
           const arrayDeIds = await getBag(user.uid);
+          const wishlistIds = await getWishlist(user.uid);
+
+          const wishlistFiltrada = data.filter((item) => !!wishlistIds?.find((wishItem) => item.uid === wishItem));
           const produtosFiltrados = data.filter((item) => !!arrayDeIds?.find((bagItem) => item.uid === bagItem.id));
           const produtosComplexo = produtosFiltrados.map((item) => {
             const qnt = arrayDeIds.find((bagItem) => bagItem.id === item.uid).qnt;
@@ -37,6 +42,7 @@ export const BagProvider = ({ children }) => {
           setSubTotal(valor);
           setTotalPrice(tax + valor);
           setUserProducts(produtosComplexo);
+          setUserWishlist(wishlistFiltrada);
         })
         .finally(() => setLoading(false));
     } else return "Invalid user";
@@ -45,5 +51,5 @@ export const BagProvider = ({ children }) => {
     update();
   }, []);
 
-  return <BagContext.Provider value={{ userProducts, taxPrice, subTotal, totalPrice, loading, update }}>{children}</BagContext.Provider>;
+  return <BagContext.Provider value={{ userWishlist, userProducts, taxPrice, subTotal, totalPrice, loading, update }}>{children}</BagContext.Provider>;
 };
