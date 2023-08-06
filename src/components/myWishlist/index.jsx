@@ -11,14 +11,13 @@ import noWishlist from "../../assets/pics/Layouts/wishlist.png";
 import { BagContext } from "../../contexts/BagContext";
 import { useNavigate } from "react-router-dom";
 
-const MyWishlist = () => {
+export default function MyWishlist({ open, setOpen }) {
   const { phone, desktop } = useBreakpoint();
   const { userWishlist, update } = useContext(BagContext);
 
   const navigate = useNavigate()
 
   const [loading, setLoading] = useState(false);
-  const [open, setOpen] = useState(true);
   const botoes = [{ text: "Start Shopping", outline: false, onClick: () => navigate('/') }];
   const [emptyWishlist, setEmptyWishlist] = useState(false);
 
@@ -70,5 +69,3 @@ const MyWishlist = () => {
     </>
   );
 };
-
-export default MyWishlist;
