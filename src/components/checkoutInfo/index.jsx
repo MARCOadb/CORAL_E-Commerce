@@ -43,12 +43,19 @@ const CheckoutInfo = () => {
     </div>
   );
 
-  const selectPaymentContent = <h1>*imagine as formas de pagamento*</h1>;
+  const contactInfo = (
+    <>
+      <div className="input-holder">
+        <p className="body-medium-he">E-Mail</p>
+        <input type="text" placeholder="Enter e-mail" />
+      </div>
+    </>
+  );
 
   return (
     <>
       <Dropdown title="Add New Adress" content={addNewAdressContent} />
-      <Dropdown title="Select Payment Method" content={selectPaymentContent} />
+      <Dropdown title="Contact Information" content={contactInfo} />
     </>
   );
 };
