@@ -20,7 +20,6 @@
   align-items: center;
   justify-content: center;
   text-align: center;
-  background-color: $bright;
   border: 1px solid #e3e3e3;
   border-radius: 12px;
   padding: 12px;
@@ -28,19 +27,24 @@
   height: 143px;
   position: relative;
   cursor: pointer;
+  background-color: $bright;
+
   input[type="radio"] {
     display: none;
   }
+
   img {
     max-width: 130px;
     max-height: 100px;
     margin: 30px auto auto auto;
     pointer-events: none;
   }
+
   p {
     position: absolute;
     bottom: 20px;
   }
+
   span {
     display: block;
     position: absolute;
@@ -51,6 +55,7 @@
     border-radius: 50%;
     border: 2px solid $text-low-emphasis;
   }
+
   span:after {
     content: "";
     display: block;
@@ -64,7 +69,18 @@
     transform: translate(-50%, -50%) scale(0);
     transition: 0.25s cubic-bezier(1, 0, 0, 1) 0s;
   }
+
   input[type="radio"]:checked ~ span:after {
     transform: translate(-50%, -50%) scale(1);
+  }
+
+  &.checked {
+    background-color: #f3f3f7;
+    transition: 0.25s;
+  }
+
+  &:hover {
+    box-shadow: 0px 8px 16px 5px rgba(202, 202, 202, 0.25);
+    transition: 0.3s;
   }
 }
