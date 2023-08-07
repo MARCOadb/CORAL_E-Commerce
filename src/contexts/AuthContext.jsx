@@ -1,9 +1,10 @@
 import { useState, createContext, useEffect } from "react";
 import { createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut } from "firebase/auth";
 import { doc, getDoc, setDoc } from "firebase/firestore";
-import { auth, db } from "../services/firebaseConnection";
+import { auth, db, storage } from "../services/firebaseConnection";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router";
+import { ref, uploadBytes } from "@firebase/storage";
 
 export const AuthContext = createContext({});
 
@@ -71,7 +72,12 @@ function AuthProvider({ children }) {
     await createUserWithEmailAndPassword(auth, email, password)
       .then(async (value) => {
         let uid = value.user.uid;
-
+        if (profilePhoto) {
+          const storageRef = ref(storage, `/userImgs/${email}`);
+          uploadBytes(storageRef, profilePhoto).then((snapshot) => {
+            console.log("Uploaded a blob or file!");
+          });
+        }
         await setDoc(doc(db, "users", uid), {
           firstName: firstName,
           lastName: lastName,

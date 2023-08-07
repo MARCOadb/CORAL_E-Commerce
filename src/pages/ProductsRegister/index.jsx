@@ -1,4 +1,3 @@
-import { async } from "q";
 import { createProduct } from "../../services/createProduct";
 import styles from "./style.module.scss";
 
