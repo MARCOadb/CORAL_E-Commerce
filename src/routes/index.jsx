@@ -41,7 +41,6 @@ export default function RoutesApp() {
               </Private>
             }
           />
-          
         </>
       )}
       <Route path="/" element={<Home />} />
@@ -49,15 +48,13 @@ export default function RoutesApp() {
       <Route path="/test" element={<ProductRegister />} />
       <Route path="/login" element={<Login />} />
       <Route
-            path="/bag"
-            element={
-              <Private>
-                <Bag />
-              </Private>
-            }
-          />
-        </>
-      )}
+        path="/bag"
+        element={
+          <Private>
+            <Bag />
+          </Private>
+        }
+      />
       <Route path="/" element={<Home />} />
       <Route path="/about" element={<About />} />
 
