@@ -117,9 +117,16 @@ const Product = ({ data, itemId, largura, altura, button, label, ratings, discou
             </div>
           </div>
           {button && sort && (
-            <DefaultBtn onClick={handleBtnOnClick} outlined={true} id={styles.productBtn}>
-              Add to bag
-            </DefaultBtn>
+            <div style={{ display: "flex", gap: "5px", flexDirection: "column", width: "205px" }}>
+              <DefaultBtn onClick={handleBtnOnClick} outlined={true} id={styles.productBtn}>
+                Add to bag
+              </DefaultBtn>
+              {rmvWishlist && (
+                <DefaultBtn onClick={handleSvgOnClick} outlined={true} id={styles.productBtn}>
+                  Remove
+                </DefaultBtn>
+              )}
+            </div>
           )}
           {(label || productConfig?.label) && !sort && (
             <div className={desktop ? `${styles.svgContainer}` : `${styles.mobileSvg} `}>
@@ -127,7 +134,7 @@ const Product = ({ data, itemId, largura, altura, button, label, ratings, discou
             </div>
           )}
         </div>
-        {button && sort && (
+        {button && !sort && (
           <div className={styles.btnContainer}>
             <DefaultBtn onClick={handleBtnOnClick} outlined={true} id={styles.productBtn}>
               Add to bag
