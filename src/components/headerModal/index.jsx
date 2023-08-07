@@ -42,13 +42,13 @@ const HeaderModal = ({ setOpen, open }) => {
         <div style={{ width: "100%", padding: "0px 9px" }}>
           <div className={style.couponContainer}>
             <input className="body-medium" type="text" placeholder="Aplly Coupon Code"></input>
-            <input className="body-medium text-primary" type="submit" value="CHECK"></input>
+            <input className="title-regular text-primary" type="submit" value="CHECK" style={{ cursor: 'pointer' }}></input>
           </div>
         </div>
         <div style={{ width: "100%", padding: "0px 9px" }}>
           <DefaultBtn>Place Order</DefaultBtn>
         </div>
-        <span onClick={() => setOpen(false)} className="title-regular text-primary" style={{ lineHeight: "24px", textDecoration: "underline" }}>
+        <span onClick={() => setOpen(false)} className="title-regular text-primary" style={{ lineHeight: "24px", textDecoration: "underline", cursor: 'pointer' }}>
           Continue Shopping
         </span>
       </div>

@@ -1,4 +1,4 @@
-const WishlistSvg = ({ stroke, width, height, x, fill, viewBox, onClick }) => {
+const WishlistSvg = ({ stroke, width, height, fill, viewBox, onClick }) => {
   return (
     <svg
       onClick={onClick && onClick}
@@ -6,7 +6,6 @@ const WishlistSvg = ({ stroke, width, height, x, fill, viewBox, onClick }) => {
       height={height ? height : "24"}
       viewBox={viewBox ? viewBox : "0 0 24 24"}
       fill={fill ? fill : "none"}
-      transform={`rotate(${x})`}
       xmlns="http://www.w3.org/2000/svg"
     >
       <path
