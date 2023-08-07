@@ -41,16 +41,20 @@ export default function RoutesApp() {
               </Private>
             }
           />
-          <Route
-            path="/bag"
-            element={
-              <Private>
-                <Bag />
-              </Private>
-            }
-          />
         </>
       )}
+      <Route path="/" element={<Home />} />
+      <Route path="/about" element={<About />} />
+      <Route path="/test" element={<ProductRegister />} />
+      <Route path="/login" element={<Login />} />
+      <Route
+        path="/bag"
+        element={
+          <Private>
+            <Bag />
+          </Private>
+        }
+      />
       <Route path="/" element={<Home />} />
       <Route path="/about" element={<About />} />
 
