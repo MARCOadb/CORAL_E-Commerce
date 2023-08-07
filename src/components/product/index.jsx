@@ -117,7 +117,7 @@ const Product = ({ data, itemId, largura, altura, button, label, ratings, discou
             </div>
           </div>
           {button && sort && (
-            <div style={{ display: "flex", gap: "5px", flexDirection: "column" }}>
+            <div style={{ display: "flex", gap: "5px", flexDirection: "column", width: "205px" }}>
               <DefaultBtn onClick={handleBtnOnClick} outlined={true} id={styles.productBtn}>
                 Add to bag
               </DefaultBtn>
