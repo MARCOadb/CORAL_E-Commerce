@@ -1,0 +1,257 @@
+@mixin desktop {
+    @media (min-width: 1280px) {
+        @content;
+    }
+}
+
+.content {
+    width: 100%;
+    height: auto;
+}
+
+.productRating {
+    display: flex;
+    width: 100%;
+    height: auto;
+    max-width: 550px;
+    margin: 0 auto;
+    flex-direction: column;
+    padding-left: 16px;
+    gap: 16px;
+
+    @include desktop {
+        padding-left: 20px;
+        margin-top: 40px;
+        max-width: 1280px;
+    }
+}
+
+.productName {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.graphicRating {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+
+    .ratingNumber {
+        display: flex;
+        align-items: center;
+
+        @include desktop {
+            margin: 16px 0;
+        }
+
+        svg {
+            margin: 0 12px 0 4px;
+        }
+    }
+
+    .ratingsGraphic {
+        display: flex;
+        flex-direction: column;
+        gap: 4px;
+        width: 300px;
+
+        @include desktop {
+            width: 600px;
+        }
+    }
+}
+
+.barContainer {
+    width: 100%;
+    height: 18px;
+    display: flex;
+    gap: 8px;
+    align-items: center;
+
+    @include desktop {
+        height: 36px;
+    }
+
+    div {
+        width: 100%;
+        height: 8px;
+        border-radius: 4px;
+        background-color: #f1f1f1;
+
+        @include desktop {
+            height: 16px;
+            border-radius: 8px;
+        }
+
+        .bar {
+            border-radius: 4px;
+            height: 100%;
+            background-color: #1B4B66;
+
+            @include desktop {
+                border-radius: 8px;
+            }
+        }
+    }
+}
+
+.productPhotos {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+
+    @include desktop {
+        margin: 24px 0;
+        gap: 16px
+    }
+}
+
+.photoCaroulsel {
+    width: 100%;
+    height: 80px;
+    overflow: auto;
+
+    @include desktop {
+        height: auto;
+    }
+
+    div {
+        width: auto;
+        height: 100%;
+        display: flex;
+        gap: 12px;
+        padding-right: 16px;
+
+        @include desktop {
+            height: auto;
+            gap: 24px;
+        }
+
+        img {
+            width: 80px;
+            height: 80px;
+            border-radius: 4px;
+
+            @include desktop {
+                width: 286px;
+                height: 286px;
+                border-radius: 8px;
+            }
+
+        }
+    }
+}
+
+.separator {
+    height: 8px;
+    margin: 24px 0;
+    background-color: #f1f1f1;
+    width: 100%;
+}
+
+.ratingsContainer {
+    width: 100%;
+    padding-left: 16px;
+    max-width: 550px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+
+    @include desktop {
+        padding-left: 20px;
+        max-width: 1280px;
+        margin-top: 50px;
+    }
+}
+
+.ratingTitle {
+    width: 100%;
+    gap: 12px;
+    display: flex;
+    align-items: center;
+    margin-bottom: 12px;
+
+    @include desktop {
+        gap: 24px;
+    }
+}
+
+.titleStar {
+    background-color: #f1f1f1;
+    width: 74px;
+    height: 38px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 4px;
+    font-size: 16px;
+    font-weight: 600;
+    line-height: 16px;
+    gap: 3px;
+
+    @include desktop {
+        width: 100px;
+        height: 50px;
+    }
+}
+
+.ratingUser {
+    display: flex;
+    flex-direction: column;
+}
+
+.rating {
+    width: 100%;
+    margin-bottom: 24px;
+
+    @include desktop {
+        margin-bottom: 60px;
+    }
+}
+
+.ratingContent {
+    display: flex;
+    width: 100%;
+    flex-direction: column;
+
+    span {
+        margin-top: 20px;
+        padding-right: 16px;
+    }
+}
+
+.ratingPhotos {
+    width: 100%;
+    height: 80px;
+    overflow: auto;
+
+    div {
+        width: auto;
+        height: 100%;
+        display: flex;
+        gap: 12px;
+        padding-right: 16px;
+
+        img {
+            width: 80px;
+            height: 80px;
+            border-radius: 4px;
+
+            @include desktop {
+                height: 200px;
+                width: 200px;
+                border-radius: 8px;
+            }
+        }
+
+        @include desktop {
+            gap: 24px;
+        }
+    }
+
+    @include desktop {
+        margin-top: 20px;
+        height: auto;
+    }
+}
