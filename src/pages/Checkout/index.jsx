@@ -6,7 +6,7 @@ import { BagContext } from "../../contexts/BagContext";
 import Breadcrump from "../../components/breadcrumpDesktop";
 import Dropdown from "../../components/dropdown";
 
-import { useState, useContext } from "react";
+import { useState, useEffect, useContext } from "react";
 
 import UPI from "../../assets/pics/Payments/upi.png";
 import CDcard from "../../assets/pics/Payments/credit-debit-card.png";
@@ -163,6 +163,27 @@ export default function Checkout() {
     </div>
   );
 
+  const [buttonAvailable, setButtonAvailable] = useState(false);
+
+  useEffect(() => {
+    const isFormValid = fullName !== "" && streetAddress !== "" && city !== "" && DDD !== "" && mobNumber !== "" && state !== "" && pinCode !== "" && email !== "" && selectedOption !== "";
+
+    setButtonAvailable(isFormValid);
+  }, [fullName, streetAddress, city, DDD, mobNumber, state, pinCode, email, selectedOption]);
+
+  const available = () => {
+    const validEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!validEmail.test(email)) {
+      alert("The E-mail is not valid.");
+      return;
+    }
+    alert("Purchase done with success! Please, check your E-mail to track your order.");
+  };
+
+  const unavailable = () => {
+    alert("Please fill all of the necessary information above.");
+  };
+
   return (
     <>
       <Header path={"home"} />
@@ -177,7 +198,9 @@ export default function Checkout() {
             <a href="#" className="">
               Back to Cart
             </a>
-            <button>Next</button>
+            <button className={buttonAvailable ? "available" : "unavailable"} onClick={buttonAvailable ? available : unavailable}>
+              Next
+            </button>
           </div>
         </div>
         <div className="order-items">

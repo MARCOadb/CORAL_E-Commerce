@@ -64,6 +64,16 @@ body {
   line-height: 24px;
 }
 
+.available {
+  opacity: 1;
+  transition: 0.5s cubic-bezier(1, 0, 0, 1) 0s;
+}
+
+.unavailable {
+  opacity: 0.25;
+  transition: 0.5s cubic-bezier(1, 0, 0, 1) 0s;
+}
+
 .order-items {
   display: flex;
   flex-direction: column;
