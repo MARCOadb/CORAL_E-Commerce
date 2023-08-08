@@ -27,6 +27,7 @@ export default function Profile() {
   const { phone, desktop } = useBreakpoint();
   const [activeTab, setActiveTab] = useState(location.state?.initialTab ? location.state?.initialTab : 1);
   const [tabTitle, setTabTitle] = useState("");
+  const [tabMobileOpen, setTabMobileOpen] = useState(false)
 
   const { logout } = useContext(AuthContext);
 
@@ -57,6 +58,7 @@ export default function Profile() {
   }, [activeTab]);
 
   function handleTab(tab) {
+    setTabMobileOpen(true)
     setActiveTab(tab);
   }
 
@@ -67,7 +69,7 @@ export default function Profile() {
   return (
     <>
       {desktop && <Header />}
-      {activeTab === 4 && phone && <MyWishlist />}
+      {activeTab === 4 && phone && tabMobileOpen && <MyWishlist open={tabMobileOpen} setOpen={setTabMobileOpen} />}
       <div className={styles.content}>
         {desktop && (
           <div className={styles.breadcrump}>
@@ -98,6 +100,8 @@ export default function Profile() {
               <ChevronRightSvg />
             </div>
           )}
+
+          {console.log(activeTab)}
 
           <div className={`${styles.menu} body-medium text-dark`}>
             {desktop && <div className={styles.movingBar} style={{ top: `${(activeTab - 1) * 72}px` }} />}

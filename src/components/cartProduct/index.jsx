@@ -50,11 +50,11 @@ const CartProduct = ({ data, qnt, stepper, price, remove, itemId, showQnt }) => 
 
   return (
     <div className={styles.cardVertical}>
+      <div style={{display:"flex", gap:"16px"}}>
       <img src={data.image} style={{ height: "80px", width: "75px", borderRadius: "8px" }} />
       <div className={styles.detailsContainer}>
         <span>{data.name}</span>
         <span>{data.description}</span>
-
         {showQnt && <span>Qty- {qnt}</span>}
         {stepper && (
           <div className={styles.stepperContainer}>
@@ -63,6 +63,7 @@ const CartProduct = ({ data, qnt, stepper, price, remove, itemId, showQnt }) => 
             <SmallPlus onClick={addProduct} />
           </div>
         )}
+      </div>
       </div>
       <div className={styles.priceContainer}>
         {remove && <CrossSvg stroke={"#626262"} onClick={deleteProduct} />}

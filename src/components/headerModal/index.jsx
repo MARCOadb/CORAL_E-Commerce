@@ -6,9 +6,11 @@ import style from "./style.module.scss";
 import { BagContext } from "../../contexts/BagContext";
 import CartProduct from "../cartProduct";
 import { AuthContext } from "../../contexts/AuthContext";
+import { useNavigate } from "react-router-dom";
 
 const HeaderModal = ({ setOpen, open }) => {
   const { userProducts, subTotal, taxPrice, totalPrice } = useContext(BagContext);
+  const navigate = useNavigate();
   return (
     <>
       <Modal setOpen={setOpen} open={open}></Modal>
@@ -20,7 +22,7 @@ const HeaderModal = ({ setOpen, open }) => {
         <div className={style.itemContainer}>
           {userProducts?.map((item) => (
             <div>
-              <CartProduct qtn price remove data={item.data} qnt={item.qnt} key={item.uid} itemId={item.uid} stepper />
+              <CartProduct price remove data={item.data} qnt={item.qnt} key={item.uid} itemId={item.uid} stepper />
               <div className={style.separator}></div>
             </div>
           ))}
@@ -42,13 +44,13 @@ const HeaderModal = ({ setOpen, open }) => {
         <div style={{ width: "100%", padding: "0px 9px" }}>
           <div className={style.couponContainer}>
             <input className="body-medium" type="text" placeholder="Aplly Coupon Code"></input>
-            <input className="body-medium text-primary" type="submit" value="CHECK"></input>
+            <input className="title-regular text-primary" type="submit" value="CHECK" style={{ cursor: "pointer" }}></input>
           </div>
         </div>
         <div style={{ width: "100%", padding: "0px 9px" }}>
-          <DefaultBtn>Place Order</DefaultBtn>
+          <DefaultBtn onClick={() => navigate("/bag")}>Place Order</DefaultBtn>
         </div>
-        <span onClick={() => setOpen(false)} className="title-regular text-primary" style={{ lineHeight: "24px", textDecoration: "underline" }}>
+        <span onClick={() => setOpen(false)} className="title-regular text-primary" style={{ lineHeight: "24px", textDecoration: "underline", cursor: "pointer" }}>
           Continue Shopping
         </span>
       </div>
