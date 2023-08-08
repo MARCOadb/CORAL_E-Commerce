@@ -19,6 +19,7 @@ import LogoutSvg from "../../assets/icon/LogoutSvg";
 
 //STYLES
 import styles from "./style.module.scss";
+import MyWishlist from "../../components/myWishlist";
 
 export default function Profile() {
   const location = useLocation();
@@ -26,6 +27,7 @@ export default function Profile() {
   const { phone, desktop } = useBreakpoint();
   const [activeTab, setActiveTab] = useState(location.state?.initialTab ? location.state?.initialTab : 1);
   const [tabTitle, setTabTitle] = useState("");
+  const [tabMobileOpen, setTabMobileOpen] = useState(false)
 
   const { logout } = useContext(AuthContext);
 
@@ -56,6 +58,7 @@ export default function Profile() {
   }, [activeTab]);
 
   function handleTab(tab) {
+    setTabMobileOpen(true)
     setActiveTab(tab);
   }
 
@@ -66,7 +69,7 @@ export default function Profile() {
   return (
     <>
       {desktop && <Header />}
-
+      {activeTab === 4 && phone && tabMobileOpen && <MyWishlist open={tabMobileOpen} setOpen={setTabMobileOpen} />}
       <div className={styles.content}>
         {desktop && (
           <div className={styles.breadcrump}>
@@ -97,6 +100,8 @@ export default function Profile() {
               <ChevronRightSvg />
             </div>
           )}
+
+          {console.log(activeTab)}
 
           <div className={`${styles.menu} body-medium text-dark`}>
             {desktop && <div className={styles.movingBar} style={{ top: `${(activeTab - 1) * 72}px` }} />}
@@ -130,14 +135,7 @@ export default function Profile() {
             </div>
           </div>
 
-          {desktop && (
-            <div className={styles.component}>
-              <span>
-                título do componente: <strong>{tabTitle}</strong> | número do componente: <strong>{activeTab}</strong>. <br /> <br />
-                pra renderizar o componente certo, pode utilizar o título (tabTitle), ou o número (activeTab).
-              </span>
-            </div>
-          )}
+          {desktop && <div className={styles.component}>{activeTab === 4 && <MyWishlist />}</div>}
 
           {phone && (
             <div className={styles.logoutButton}>

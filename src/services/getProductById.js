@@ -1,12 +1,10 @@
-import axios from "axios";
+import { db, storage } from "./firebaseConnection";
+import { collection, doc, getDoc, getDocs, query, where } from "firebase/firestore";
+import { ref } from "firebase/storage";
 
 const getProductById = async (id) => {
-  const response = await axios.get(`http://localhost:4000/products/${id}`);
-  return {
-    name: response.data.name,
-    description: response.data.description,
-    price: response.data.price,
-    image: response.data.image,
-  };
+  const productRef = doc(db, "products", id);
+  const productSnap = await getDoc(productRef);
+  return productSnap.data();
 };
 export default getProductById;

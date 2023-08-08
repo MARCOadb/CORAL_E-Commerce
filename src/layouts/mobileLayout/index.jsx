@@ -20,8 +20,9 @@ Props
 Config
   {
     text: string;
-    outline: boolean;
+    outlined: boolean;
     onClick: () => void;
+    btnIcon: ReactNode;
   }
 */
 
@@ -31,7 +32,7 @@ const MobileLayout = ({ children, headerSuffix, title, buttons, direction = "row
       {open && (
         <div className="layout">
           <div className="headerLayout">
-            <div className="containerLayout">
+            <div className="containerLayout" style={{ display: "flex", alignItems: "center" }}>
               {icon === "arrow" && <ArrowSvg stroke={iconStroke} x={iconAngle} onClick={() => setOpen(false)} />}
               {icon === "cross" && <CrossSvg stroke={iconStroke} onClick={() => setOpen(false)} />}
               <span>{title}</span>
@@ -44,7 +45,7 @@ const MobileLayout = ({ children, headerSuffix, title, buttons, direction = "row
             <div className={direction === "row" ? "footerLayout" : "footerLayout columnFooter"}>
               {footerPrefix}
               {buttons?.map((item, index) => (
-                <DefaultBtn outlined={item.outlined} key={index} onClick={item.onClick}>
+                <DefaultBtn outlined={item.outlined} key={index} onClick={item.onClick} icon={item.btnIcon}>
                   {item.text}
                 </DefaultBtn>
               ))}

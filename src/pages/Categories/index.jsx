@@ -23,11 +23,11 @@ import { useLocation, useNavigate } from "react-router-dom";
 import getCategoryByName from "../../services/getCategoryByName";
 import MobileLayout from "../../layouts/mobileLayout";
 const config = {
-  label:true,
-  button:true,
-  discount:30,
-  oldprice:30
-}
+  label: true,
+  button: true,
+  discount: 30,
+  oldprice: 30,
+};
 export default function Category() {
   const { phone, desktop } = useBreakpoint();
 
@@ -149,7 +149,7 @@ export default function Category() {
     <>
       {phone && !loading && (
         <MobileLayout icon={"arrow"} iconStroke={"#1B4B66"} iconAngle={90} title={categoryName} open={modalOpen} setOpen={setModalOpen}>
-          <ProductGrid productConfig= {config} categoryId={categoryId}></ProductGrid>
+          <ProductGrid productConfig={config} categoryId={categoryId}></ProductGrid>
         </MobileLayout>
       )}
       {desktop && <Header path={location.state?.path} />}
@@ -375,7 +375,8 @@ export default function Category() {
 
             <div className={styles.imgContainer}>
               <div className={`${styles.pickGradient} ${styles.bageGrad}`} onClick={() => handleCategoryClick("Skincare")}>
-                <span className={`display-small text-bright`}>Skincare</span>
+                {!modalOpen && <span className={`display-small text-bright`}>Skincare</span>}
+
                 <img src={skincare}></img>
               </div>
               <div className={`${styles.pickGradient} ${styles.lightPinkGrad}`} onClick={() => handleCategoryClick()}>

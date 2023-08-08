@@ -15,17 +15,21 @@ import BagSvg from "../../assets/icon/Bagsvg";
 import HeaderModal from "../headerModal";
 import { useLocation, useNavigate } from "react-router-dom";
 import { AuthContext } from "../../contexts/AuthContext";
+import { BagContext } from "../../contexts/BagContext";
 
 const Header = ({ path }) => {
-  const { phone, desktop } = useBreakpoint();
-  const [open, setOpen] = useState(false);
-  const [loginModalOpen, setLoginModalOpen] = useState(false);
   const navigate = useNavigate();
   const location = useLocation();
+
+  const { phone, desktop } = useBreakpoint();
+
+  const [open, setOpen] = useState(false);
+  const [loginModalOpen, setLoginModalOpen] = useState(false);
   const [pathCheck, setPathCheck] = useState("/home");
+  const [searchOpen, setSearchOpen] = useState(false);
 
   const { signed } = useContext(AuthContext);
-
+  const { update } = useContext(BagContext);
   useEffect(() => {
     if (path) {
       setPathCheck(path);
@@ -57,9 +61,10 @@ const Header = ({ path }) => {
       });
     }
   };
+
   return (
     <>
-      <HeaderModal setOpen={setOpen} open={open} />
+      {desktop && <HeaderModal setOpen={setOpen} open={open} />}
 
       <div className="headerContainer">
         {desktop ? (
@@ -113,8 +118,7 @@ const Header = ({ path }) => {
                 Apparels
               </button>
             </div>
-            <SearchBar text={"Search for products or brands....."} icon={true} />
-
+            <SearchBar text={"Search for products or brands....."} icon />
             <Modal open={loginModalOpen} setOpen={setLoginModalOpen}></Modal>
             {loginModalOpen && (
               <>
@@ -142,12 +146,20 @@ const Header = ({ path }) => {
                 }}
                 navMovile={false}
               />
-              <BagSvg onClick={() => setOpen(true)} stroke={"#1B4B66"} height={44} />
+              <BagSvg
+                onClick={() => {
+                  setOpen(true);
+                  update();
+                }}
+                stroke={"#1B4B66"}
+                height={44}
+              />
             </div>
           </>
         ) : (
           <>
             <MobileDrawer setOpen={setOpen} open={open} />
+            <SearchBar setOpen={setSearchOpen} open={searchOpen} />
             <div className="navContainer">
               <div onClick={() => setOpen(true)}>
                 <img src={menuIcon} alt="menuIcon" />
@@ -156,7 +168,7 @@ const Header = ({ path }) => {
             </div>
             <div className="navContainer">
               <img src={addIcon} alt="addIcon" />
-              <img src={searchIcon} alt="searchIcon" />
+              <img src={searchIcon} onClick={() => setSearchOpen(true)} alt="searchIcon" />
               <img src={notificationIcon} alt="notificationIcon" />
             </div>
           </>

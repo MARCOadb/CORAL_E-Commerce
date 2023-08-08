@@ -10,9 +10,9 @@ Props
   }
 */
 
-const DefaultBtn = ({ children, outlined, onClick, icon, id }) => {
+const DefaultBtn = ({ children, outlined, onClick, icon, id, width, height }) => {
   return (
-    <div id={id && id} className={outlined ? `defaultBtn outlined` : `defaultBtn`} onClick={onClick}>
+    <div id={id && id} className={outlined ? `defaultBtn outlined` : `defaultBtn`} onClick={onClick} style={{ width: width, height: height }}>
       {icon}
       <span>{children}</span>
     </div>
