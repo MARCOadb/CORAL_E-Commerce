@@ -15,6 +15,8 @@ import { useLocation, useNavigate } from "react-router-dom";
 import getCategoryByName from "../../services/getCategoryByName";
 import getCategoryById from "../../services/getCategoryById";
 import ProductPage from "../../pages/Product";
+import { ref, getDownloadURL } from "firebase/storage";
+import { storage } from "../../services/firebaseConnection";
 
 const btnIcon = <BagSvg stroke="#1B4B66" />;
 
@@ -82,11 +84,24 @@ const Product = ({ data, itemId, largura, altura, button, label, ratings, discou
     }
   };
 
+  const [productImage, setProductImage] = useState()
+  const storageRef = ref(storage, `productsImg/${data.name}`)
+
+  useEffect(() => {
+    const getImages = async () => {
+      await getDownloadURL(storageRef)
+        .then((response) => {
+          setProductImage(response)
+        });
+    }
+    getImages()
+  }, [])
+
   return (
     <>
       {phone && productOpen && <ProductPage itemId={itemId} data={data} open={productOpen} setOpen={setProductOpen} />}
       <div className={sort ? `${styles.product} ${styles.productSort}` : styles.product}>
-        <img onClick={handleProductClick} src={data.image} style={altura && largura ? { width: `${largura}px`, height: `${altura}px` } : { width: "100%", height: "100%" }} alt={data.name} />
+        <img onClick={handleProductClick} src={productImage} style={altura && largura ? { width: `${largura}px`, height: `${altura}px` } : { width: "100%", height: "100%" }} alt={data.name} />
         <div className={styles.detailContainer} style={sort ? { flexDirection: "column", justifyContent: "space-between" } : {}}>
           <div className={desktop ? `${styles.textContainer}` : `${styles.textContainer} ${styles.mobileText} ${sort && label && styles.sortText}`}>
             <span className={`text-high-emphasis ${desktop ? "body-medium" : "label-small "}`}>{data.name}</span>
