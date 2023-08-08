@@ -5,6 +5,7 @@ import { BagContext } from "../../contexts/BagContext";
 //import CheckoutPayment from "../../components/checkoutPayment";
 import Breadcrump from "../../components/breadcrumpDesktop";
 import Dropdown from "../../components/dropdown";
+import { toast } from "react-toastify";
 
 import { useState, useEffect, useContext } from "react";
 
@@ -174,14 +175,14 @@ export default function Checkout() {
   const available = () => {
     const validEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!validEmail.test(email)) {
-      alert("The E-mail is not valid.");
+      toast.error("The E-mail is not valid.");
       return;
     }
-    alert("Purchase done with success! Please, check your E-mail to track your order.");
+    toast.success("Purchase done with success! Please, check your E-mail to track your order.");
   };
 
   const unavailable = () => {
-    alert("Please fill all of the necessary information above.");
+    toast.error("Please fill all of the fields.");
   };
 
   return (
