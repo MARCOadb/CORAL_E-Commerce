@@ -38,10 +38,11 @@ function AuthProvider({ children }) {
 
         let data = {
           uid: uid,
-          firstNamename: docSnap.data().firstName,
+          firstName: docSnap.data().firstName,
           lastName: docSnap.data().lastName,
           email: value.user.email,
           profilePhoto: docSnap.data().profilePhoto,
+          phone: docSnap.data().phoneNumber,
         };
 
         setUser(data);
@@ -72,12 +73,6 @@ function AuthProvider({ children }) {
     await createUserWithEmailAndPassword(auth, email, password)
       .then(async (value) => {
         let uid = value.user.uid;
-        if (profilePhoto) {
-          const storageRef = ref(storage, `/userImgs/${email}`);
-          uploadBytes(storageRef, profilePhoto).then((snapshot) => {
-            console.log("Uploaded a blob or file!");
-          });
-        }
         await setDoc(doc(db, "users", uid), {
           firstName: firstName,
           lastName: lastName,
@@ -89,10 +84,11 @@ function AuthProvider({ children }) {
         }).then(() => {
           let data = {
             uid: uid,
-            firstNamename: firstName,
+            firstName: firstName,
             lastName: lastName,
             email: value.user.email,
-            profilePhoto: null,
+            profilePhoto: profilePhoto,
+            phoneNumber: phoneNumber,
           };
           setUser(data);
           storageUser(data);

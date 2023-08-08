@@ -8,6 +8,8 @@ import { useNavigate } from "react-router-dom";
 import HomeSvg from "../../assets/icon/Homesvg";
 import { AuthContext } from "../../contexts/AuthContext";
 import { toast } from "react-toastify";
+import { storage } from "../../services/firebaseConnection";
+import { ref, uploadBytes } from "firebase/storage";
 
 export default function Login() {
   const { phone, desktop } = useBreakpoint();
@@ -20,6 +22,7 @@ export default function Login() {
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [profilePhoto, setProfilePhoto] = useState();
+  const [profileFile, setProfileFile] = useState(null);
   const [phoneNumber, setPhoneNumber] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -42,6 +45,7 @@ export default function Login() {
 
   function handleProfilePhotoChange(event) {
     const file = event.target.files[0];
+    setProfileFile(file);
     const reader = new FileReader();
 
     reader.onloadend = () => {
@@ -67,6 +71,12 @@ export default function Login() {
           if (validPassword(password)) {
             if (password === confirmPass) {
               await signUp(capitalize(firstName), capitalize(lastName), phoneNumber, profilePhoto, email, password);
+              if (profileFile) {
+                const storageRef = ref(storage, `/userImgs/${email}`);
+                uploadBytes(storageRef, profileFile).then((snapshot) => {
+                  console.log("Uploaded a blob or file!");
+                });
+              }
             } else {
               toast.error("Passwords don't match!");
               setConfirmPass("");
