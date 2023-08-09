@@ -184,9 +184,7 @@ export default function Checkout() {
           <Dropdown title="Contact Information" content={contactInfo} />
           <Dropdown title="Select Payment Method" content={cardArray} />
           <div className="inferior-link-button">
-            <a href="#" className="">
-              Back to Cart
-            </a>
+            <a href="#">Back to Cart</a>
             <button className={buttonAvailable ? "available" : "unavailable"} onClick={buttonAvailable ? available : unavailable}>
               Next
             </button>
@@ -202,6 +200,7 @@ export default function Checkout() {
               !!user &&
               userProducts.map((product) => (
                 <div key={product.uid} className="mapped-item">
+                  <img />
                   <div className="mapped-data">
                     <p className="body-medium-he">{product.data.name}</p>
                     <p className="body-regular text-low-emphasis">{product.data.description}</p>

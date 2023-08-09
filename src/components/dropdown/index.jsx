@@ -20,7 +20,7 @@ const Dropdown = ({ title, content }) => {
     <div>
       <button className="checkout-dropdown-button" onClick={toggleState}>
         <p className="display-small">{title}</p>
-        <img src={Chevron} className={toggle && "chevron-rotate"} />
+        <img src={Chevron} className={toggle ? "chevron-rotate" : undefined} />
       </button>
       <div className="button-separator"></div>
       <div className={toggle ? "checkout-dropdown-toggle animation" : "checkout-dropdown-toggle"} style={{ height: toggle ? `${height}` : "0px" }} ref={refHeight}>
