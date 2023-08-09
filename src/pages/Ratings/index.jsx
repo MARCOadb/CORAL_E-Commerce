@@ -226,7 +226,7 @@ export default function Ratings() {
                                 </div>
                             </div>
                             <div className={styles.productPhotos}>
-                                <h1 className='text-high-emphasis display-medium'>Customer Photos</h1>
+                                <h1 className='text-high-emphasis display-small'>Customer Photos</h1>
                                 <div className={styles.photoCaroulsel}>
                                     <div>
                                         <img src={productImage} alt="Product Name" />
@@ -245,58 +245,6 @@ export default function Ratings() {
                         </div>
                         <div className={styles.separator}></div>
                         <div className={styles.ratingsContainer}>
-                            <div className={styles.rating}>
-                                <div className={styles.ratingTitle}>
-                                    <div className={styles.titleStar}>
-                                        <span className='text-high-emphasis display-medium'>4.0</span>
-                                        <StarSvg fill="#FF8C4B" stroke="#FF8C4B" width={30} />
-                                    </div>
-                                    <div className={styles.ratingUser}>
-                                        <span className='text-high-emphasis display-medium'>Vincent Lobo</span>
-                                        <span className='text-low-emphasis body-medium'>20/03/2021</span>
-                                    </div>
-                                </div>
-                                <div className={styles.ratingContent}>
-                                    <span className='text-high-emphasis display-small'>Must go for the class feel.</span>
-                                    <span className='text-low-emphasis body-medium' style={{ margin: '4px 0 16px 0' }}>Totally amazing! I loved the material and the quality. It has a jolly vibe in it which makes me feel happy everytime I put it on.</span>
-                                    <div className={styles.ratingPhotos}>
-                                        <div>
-                                            <img src={productImage} alt="Product Name" />
-                                            <img src={productImage} alt="Product Name" />
-                                            <img src={productImage} alt="Product Name" />
-                                            <img src={productImage} alt="Product Name" />
-                                            <img src={productImage} alt="Product Name" />
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div className={styles.rating}>
-                                <div className={styles.ratingTitle}>
-                                    <div className={styles.titleStar}>
-                                        <span className='text-high-emphasis display-medium'>4.0</span>
-                                        <StarSvg fill="#FF8C4B" stroke="#FF8C4B" width={30} />
-                                    </div>
-                                    <div className={styles.ratingUser}>
-                                        <span className='text-high-emphasis display-medium'>Vincent Lobo</span>
-                                        <span className='text-low-emphasis body-medium'>20/03/2021</span>
-                                    </div>
-                                </div>
-                                <div className={styles.ratingContent}>
-                                    <span className='text-high-emphasis display-small'>Must go for the class feel.</span>
-                                    <span className='text-low-emphasis body-medium' style={{ margin: '4px 0 16px 0' }}>Totally amazing! I loved the material and the quality. It has a jolly vibe in it which makes me feel happy everytime I put it on.</span>
-                                    <div className={styles.ratingPhotos}>
-                                        <div>
-                                            <img src={productImage} alt="Product Name" />
-                                            <img src={productImage} alt="Product Name" />
-                                            <img src={productImage} alt="Product Name" />
-                                            <img src={productImage} alt="Product Name" />
-                                            <img src={productImage} alt="Product Name" />
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
                             <div className={styles.rating}>
                                 <div className={styles.ratingTitle}>
                                     <div className={styles.titleStar}>
