@@ -10,13 +10,13 @@ import { AuthContext } from "../../contexts/AuthContext";
 import flecha from "../../assets/icon/chevron-bottom.svg";
 import useBreakpoint from "../../hooks/useBreakPoint";
 import DefaultBtn from "../../components/defaultBtn";
+import { useLocation, useNavigate } from "react-router-dom";
 const MyCart = () => {
   const { phone, desktop } = useBreakpoint();
   const { userProducts, taxPrice, subTotal, totalPrice, loading, update } = useContext(BagContext);
-  useEffect(() => {
-    update();
-  }, []);
   const { user } = useContext(AuthContext);
+  const navigate = useNavigate();
+  const location = useLocation();
   const deleteProduct = (itemId) => {
     deleteBagProduct(user.uid, itemId, true);
     update();
@@ -31,6 +31,18 @@ const MyCart = () => {
       setCoupon(false);
     }
   };
+
+  const handleNavigate = (category) => {
+    category
+      ? navigate(`/${category}`, {
+          state: {
+            path: location.state.path,
+            category: category,
+          },
+        })
+      : navigate("/");
+  };
+
   return (
     <>
       <Header />
@@ -90,9 +102,11 @@ const MyCart = () => {
             </div>
           </div>
           <div style={{ display: "flex", gap: "5px" }}>
-            <DefaultBtn>Place Order</DefaultBtn>
+            <DefaultBtn onClick={() => handleNavigate("checkout")}>Place Order</DefaultBtn>
 
-            <DefaultBtn outlined>Continue Shopping</DefaultBtn>
+            <DefaultBtn onClick={() => handleNavigate()} outlined>
+              Continue Shopping
+            </DefaultBtn>
           </div>
         </div>
       </div>

@@ -6,11 +6,20 @@ import style from "./style.module.scss";
 import { BagContext } from "../../contexts/BagContext";
 import CartProduct from "../cartProduct";
 import { AuthContext } from "../../contexts/AuthContext";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 
 const HeaderModal = ({ setOpen, open }) => {
   const { userProducts, subTotal, taxPrice, totalPrice } = useContext(BagContext);
   const navigate = useNavigate();
+  const location = useLocation();
+  const handleNavigate = () => {
+    navigate(`/bag`, {
+      state: {
+        path: !!location.state?.path ? location.state.path : "home",
+        category: "bag",
+      },
+    });
+  };
   return (
     <>
       <Modal setOpen={setOpen} open={open}></Modal>
@@ -48,7 +57,7 @@ const HeaderModal = ({ setOpen, open }) => {
           </div>
         </div>
         <div style={{ width: "100%", padding: "0px 9px" }}>
-          <DefaultBtn onClick={() => navigate("/bag")}>Place Order</DefaultBtn>
+          <DefaultBtn onClick={handleNavigate}>Place Order</DefaultBtn>
         </div>
         <span onClick={() => setOpen(false)} className="title-regular text-primary" style={{ lineHeight: "24px", textDecoration: "underline", cursor: "pointer" }}>
           Continue Shopping
