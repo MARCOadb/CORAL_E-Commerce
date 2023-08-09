@@ -15,23 +15,11 @@ import ApplePay from "../../assets/pics/Payments/apple-pay.png";
 import AmazonPay from "../../assets/pics/Payments/amazon-pay.png";
 
 import "./style.scss";
+import { AuthContext } from "../../contexts/AuthContext";
 
 export default function Checkout() {
-  const bagContext = useContext(BagContext);
-  const { userProducts, subTotal, totalPrice } = bagContext;
-
-  const mappedItems =
-    userProducts &&
-    userProducts.length > 0 &&
-    userProducts.map((product) => (
-      <div key={product.id} className="mapped-item">
-        <img />
-        <div className="mapped-data">
-          <p className="body-medium-he">{product.name}</p>
-          <p className="body-regular text-low-emphasis">Qty - {product.qnt}</p>
-        </div>
-      </div>
-    ));
+  const { userProducts, subTotal, totalPrice } = useContext(BagContext);
+  const { user } = useContext(AuthContext);
 
   //CHECKOUT FORM
   const [fullName, setFullName] = useState("");
@@ -209,7 +197,19 @@ export default function Checkout() {
             <h1 className="display-small-he">Order summary</h1>
             <div className="separator"></div>
           </div>
-          <div className="items-container">{mappedItems}</div>
+          <div className="items-container">
+            {userProducts &&
+              !!user &&
+              userProducts.map((product) => (
+                <div key={product.uid} className="mapped-item">
+                  <div className="mapped-data">
+                    <p className="body-medium-he">{product.data.name}</p>
+                    <p className="body-regular text-low-emphasis">{product.data.description}</p>
+                    <p className="body-regular text-low-emphasis">Qty - {product.qnt}</p>
+                  </div>
+                </div>
+              ))}
+          </div>
           <div className="order-title">
             <h1 className="display-small-he">Order details</h1>
             <div className="separator"></div>
