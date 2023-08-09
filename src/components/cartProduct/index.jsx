@@ -42,7 +42,7 @@ const CartProduct = ({ data, qnt, stepper, price, remove, itemId, showQnt }) => 
   const setProduct = (e) => {
     e.preventDefault();
     if (e.key === "Enter") {
-      if (e.target.value > 0) setProductQnt(itemId, parseInt(e.target.value));
+      if (e.target.value > 0) setProductQnt(user.uid, itemId, parseInt(e.target.value));
       else deleteBagProduct(itemId, true);
       update();
     }
@@ -50,20 +50,20 @@ const CartProduct = ({ data, qnt, stepper, price, remove, itemId, showQnt }) => 
 
   return (
     <div className={styles.cardVertical}>
-      <div style={{display:"flex", gap:"16px"}}>
-      <img src={data.image} style={{ height: "80px", width: "75px", borderRadius: "8px" }} />
-      <div className={styles.detailsContainer}>
-        <span>{data.name}</span>
-        <span>{data.description}</span>
-        {showQnt && <span>Qty- {qnt}</span>}
-        {stepper && (
-          <div className={styles.stepperContainer}>
-            <SmallMinus onClick={removeProduct} />
-            <input type="number" onKeyUp={setProduct} placeholder={qnt}></input>
-            <SmallPlus onClick={addProduct} />
-          </div>
-        )}
-      </div>
+      <div style={{ display: "flex", gap: "16px" }}>
+        <img src={data.image} style={{ height: "80px", width: "75px", borderRadius: "8px" }} />
+        <div className={styles.detailsContainer}>
+          <span>{data.name}</span>
+          <span>{data.description}</span>
+          {showQnt && <span>Qty- {qnt}</span>}
+          {stepper && (
+            <div className={styles.stepperContainer}>
+              <SmallMinus onClick={removeProduct} />
+              <input type="number" onKeyUp={setProduct} placeholder={qnt}></input>
+              <SmallPlus onClick={addProduct} />
+            </div>
+          )}
+        </div>
       </div>
       <div className={styles.priceContainer}>
         {remove && <CrossSvg stroke={"#626262"} onClick={deleteProduct} />}

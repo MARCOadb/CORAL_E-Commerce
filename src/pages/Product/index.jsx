@@ -123,7 +123,7 @@ export default function ProductPage({ itemId, data, open, setOpen }) {
     if (!!user) {
       if (desktop) {
         setLoading(true);
-        setProductQnt(user.uid, location.state.itemId, stepperQnt)
+        setProductQnt(user.uid, location.state.itemId, stepperQnt, true)
           .then(() => update())
           .finally(() => setLoading(false));
       } else {
