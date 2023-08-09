@@ -1,24 +1,29 @@
-import { useState } from "react";
 import { createProduct } from "../../services/createProduct";
 import styles from "./style.module.scss";
 
 const ProductRegister = () => {
   const submitHandler = async (e) => {
     e.preventDefault();
-    const image = e.target.img.files[0];
-    const productInfo = {
-      name: e.target.name.value,
-      description: e.target.description.value,
-      price: e.target.price.value,
-      categoryId: e.target.categoryId.value,
-
-      stock: e.target.stock.value,
-      color: e.target.color.value,
-      brand: e.target.brand.value,
-      reviews: [],
-      oldPrice: e.target.price.value,
+    const imageFile = e.target.img.files[0];
+    const reader = new FileReader();
+    reader.onloadend = async () => {
+      const productInfo = {
+        name: e.target.name.value,
+        description: e.target.description.value,
+        price: e.target.price.value,
+        categoryId: e.target.categoryId.value,
+        stock: e.target.stock.value,
+        image: reader.result,
+        color: e.target.color.value,
+        brand: e.target.brand.value,
+        reviews: [],
+        oldPrice: e.target.price.value,
+      };
+      await createProduct(productInfo, imageFile).then(() => alert("Produto registrado com sucesso"));
     };
-    await createProduct(productInfo, image).then(() => alert("Produto registrado com sucesso"));
+    if (imageFile) {
+      reader.readAsDataURL(imageFile);
+    }
   };
   return (
     <form onSubmit={submitHandler} className={styles.formContainer}>
