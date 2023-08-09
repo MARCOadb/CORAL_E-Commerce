@@ -23,6 +23,8 @@
         padding-left: 20px;
         margin-top: 40px;
         max-width: 1280px;
+        flex-direction: row;
+        gap: 40px;
     }
 }
 
@@ -30,6 +32,10 @@
     display: flex;
     flex-direction: column;
     gap: 4px;
+
+    @include desktop {
+        margin-bottom: 10px;
+    }
 }
 
 .graphicRating {
@@ -102,7 +108,8 @@
     gap: 8px;
 
     @include desktop {
-        margin: 24px 0;
+        width: 620px;
+        height: 440px;
         gap: 16px
     }
 }
@@ -113,7 +120,7 @@
     overflow: auto;
 
     @include desktop {
-        height: auto;
+        height: 100%;
     }
 
     div {
@@ -124,7 +131,7 @@
         padding-right: 16px;
 
         @include desktop {
-            height: auto;
+            height: 100%;
             gap: 24px;
         }
 
@@ -134,11 +141,10 @@
             border-radius: 4px;
 
             @include desktop {
-                width: 286px;
-                height: 286px;
+                width: 440px;
+                height: 100%;
                 border-radius: 8px;
             }
-
         }
     }
 }
@@ -148,6 +154,10 @@
     margin: 24px 0;
     background-color: #f1f1f1;
     width: 100%;
+
+    @include desktop {
+        margin: 50px 0;
+    }
 }
 
 .ratingsContainer {
@@ -216,7 +226,6 @@
     flex-direction: column;
 
     span {
-        margin-top: 20px;
         padding-right: 16px;
     }
 }
@@ -254,4 +263,21 @@
         margin-top: 20px;
         height: auto;
     }
+}
+
+.reviewBtn {
+    margin: 24px auto 0 auto;
+    width: 328px;
+}
+
+.modal {
+    width: 200px;
+    height: 300px;
+    background-color: #fff;
+    border-radius: 8px;
+    position: fixed;
+    right: 0;
+    left: 0;
+    z-index: 21;
+    margin: 0 auto;
 }

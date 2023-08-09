@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import MobileLayout from '../../layouts/mobileLayout'
 import PlusSvg from '../../assets/icon/PlusSvg'
 import styles from './style.module.scss'
@@ -7,13 +7,16 @@ import productImage from '../../assets/pics/Home/bolsa-boujee.png'
 import useBreakpoint from '../../hooks/useBreakPoint'
 import Header from '../../components/header'
 import Footer from '../../components/footer';
+import DefaultBtn from '../../components/defaultBtn';
+import Modal from '../../components/modal';
 
 export default function Ratings() {
     const { phone, desktop } = useBreakpoint()
+    const [reviewModalOpen, setReviewModalOpen] = useState(false)
     return (
         <>
             {phone ? (
-                <MobileLayout open icon={'arrow'} iconAngle={90} iconStroke={'#13101E'} buttons={[{ text: 'Write a Review', btnIcon: <PlusSvg plus stroke={'#fff'} /> }]}>
+                <MobileLayout open icon={'arrow'} iconAngle={90} iconStroke={'#13101E'} buttons={[{ text: 'Write a Review', btnIcon: <PlusSvg plus stroke={'#fff'} />, onClick: () => setReviewModalOpen(true) }]}>
                     <div className={styles.content}>
                         <div className={styles.productRating}>
                             <div className={styles.productName}>
@@ -59,6 +62,9 @@ export default function Ratings() {
                                     </div>
                                 </div>
                             </div>
+                            <MobileLayout open={reviewModalOpen} setOpen={setReviewModalOpen} icon={'arrow'} title={'Add Review'} iconAngle={90} iconStroke={'#13101E'}>
+                                <div>oi</div>
+                            </MobileLayout>
                             <div className={styles.productPhotos}>
                                 <h1 className='text-high-emphasis title-regular'>Customer Photos</h1>
                                 <div className={styles.photoCaroulsel}>
@@ -154,7 +160,6 @@ export default function Ratings() {
                                     </div>
                                 </div>
                             </div>
-
                         </div>
                     </div>
                 </MobileLayout>
@@ -163,47 +168,61 @@ export default function Ratings() {
                     <Header />
                     <div className={styles.content}>
                         <div className={styles.productRating}>
-                            <div className={styles.productName}>
-                                <h1 className='text-high-emphasis display-medium'>Boujee</h1>
-                                <span className='text-low-emphasis body-medium'>Baker Solid Black Washable Shoulder Bag</span>
-                            </div>
-                            <div className={styles.graphicRating}>
-                                <div className={styles.ratingNumber}>
-                                    <span className='text-high-emphasis display-medium'>4.5</span>
-                                    <StarSvg fill="#FF8C4B" stroke="#FF8C4B" width={24} />
-                                    <span className='text-high-emphasis display-small'>Average Rating</span>
+                            <div>
+                                <div className={styles.productName}>
+                                    <h1 className='text-high-emphasis display-medium'>Boujee</h1>
+                                    <span className='text-low-emphasis body-medium'>Baker Solid Black Washable Shoulder Bag</span>
                                 </div>
-                                <div className={styles.ratingsGraphic}>
-                                    <div className={styles.barContainer}>
-                                        <span className='text-low-emphasis display-small'>5.0</span>
-                                        <div>
-                                            <div style={{ width: '75%' }} className={styles.bar}></div>
+                                <div className={styles.graphicRating}>
+                                    <div className={styles.ratingNumber}>
+                                        <span className='text-high-emphasis display-medium'>4.5</span>
+                                        <StarSvg fill="#FF8C4B" stroke="#FF8C4B" width={24} />
+                                        <span className='text-high-emphasis display-small'>Average Rating</span>
+                                    </div>
+                                    <div className={styles.ratingsGraphic}>
+                                        <div className={styles.barContainer}>
+                                            <span className='text-low-emphasis display-small'>5.0</span>
+                                            <div>
+                                                <div style={{ width: '75%' }} className={styles.bar}></div>
+                                            </div>
+                                        </div>
+                                        <div className={styles.barContainer}>
+                                            <span className='text-low-emphasis display-small'>4.0</span>
+                                            <div>
+                                                <div style={{ width: '50%' }} className={styles.bar}></div>
+                                            </div>
+                                        </div>
+                                        <div className={styles.barContainer}>
+                                            <span className='text-low-emphasis display-small'>3.0</span>
+                                            <div>
+                                                <div style={{ width: '10%' }} className={styles.bar}></div>
+                                            </div>
+                                        </div>
+                                        <div className={styles.barContainer}>
+                                            <span className='text-low-emphasis display-small'>2.0</span>
+                                            <div>
+                                                <div style={{ width: '20%' }} className={styles.bar}></div>
+                                            </div>
+                                        </div>
+                                        <div className={styles.barContainer}>
+                                            <span className='text-low-emphasis display-small'>1.0</span>
+                                            <div>
+                                                <div style={{ width: '45%' }} className={styles.bar}></div>
+                                            </div>
                                         </div>
                                     </div>
-                                    <div className={styles.barContainer}>
-                                        <span className='text-low-emphasis display-small'>4.0</span>
-                                        <div>
-                                            <div style={{ width: '50%' }} className={styles.bar}></div>
+                                    {desktop && (
+                                        <div className={styles.reviewBtn}>
+                                            <DefaultBtn icon={<PlusSvg plus stroke={'#fff'} />} onClick={() => setReviewModalOpen(true)}>Write a Review</DefaultBtn>
                                         </div>
-                                    </div>
-                                    <div className={styles.barContainer}>
-                                        <span className='text-low-emphasis display-small'>3.0</span>
-                                        <div>
-                                            <div style={{ width: '10%' }} className={styles.bar}></div>
+                                    )}
+
+                                    <Modal open={reviewModalOpen} setOpen={setReviewModalOpen}></Modal>
+                                    {reviewModalOpen && (
+                                        <div className={styles.modal}>
+                                            <span>oi</span>
                                         </div>
-                                    </div>
-                                    <div className={styles.barContainer}>
-                                        <span className='text-low-emphasis display-small'>2.0</span>
-                                        <div>
-                                            <div style={{ width: '20%' }} className={styles.bar}></div>
-                                        </div>
-                                    </div>
-                                    <div className={styles.barContainer}>
-                                        <span className='text-low-emphasis display-small'>1.0</span>
-                                        <div>
-                                            <div style={{ width: '45%' }} className={styles.bar}></div>
-                                        </div>
-                                    </div>
+                                    )}
                                 </div>
                             </div>
                             <div className={styles.productPhotos}>
