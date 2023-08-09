@@ -62,9 +62,41 @@ export default function Ratings() {
                                     </div>
                                 </div>
                             </div>
-                            <MobileLayout open={reviewModalOpen} setOpen={setReviewModalOpen} icon={'arrow'} title={'Add Review'} iconAngle={90} iconStroke={'#13101E'}>
-                                <div>oi</div>
+
+                            <MobileLayout open={reviewModalOpen} setOpen={setReviewModalOpen} buttons={[{ text: 'Submit Review' }]} icon={'cross'} title={'Add Review'} iconAngle={90} iconStroke={'#1B4B66'}>
+                                <div className={styles.reviewContent}>
+                                    <form>
+                                        <div className={styles.reviewRating}>
+                                            <h1 className='text-high-emphasis title-regular'>Product Rating</h1>
+                                            <div style={{ display: "flex", gap: '8px' }}>
+                                                <StarSvg fill="#FF8C4B" stroke="#FF8C4B" />
+                                                <StarSvg fill="#FF8C4B" stroke="#FF8C4B" />
+                                                <StarSvg fill="#FF8C4B" stroke="#FF8C4B" />
+                                                <StarSvg fill="#FF8C4B" stroke="#FF8C4B" />
+                                                <StarSvg />
+                                            </div>
+                                        </div>
+                                        <label className={styles.titleContainer}>
+                                            <h1 className='text-high-emphasis title-regular'>Review Title</h1>
+                                            <input className={`${styles.titleInput} title-medium`} type="text" placeholder="Enter Title" />
+                                        </label>
+                                        <label className={styles.inputContainer}>
+                                            <h1 className='text-high-emphasis title-regular'>Review Description</h1>
+                                            <textarea name="product-description" placeholder='Enter Description' className='title-medium' rows={4}></textarea>
+                                        </label>
+                                        <div className={styles.photosContainer}>
+                                            <h1 className='text-high-emphasis title-regular'>Upload Product Images</h1>
+
+                                            <label className={styles.imageInput}>
+                                                <input type="file" accept='image/*' />
+                                                <span><PlusSvg stroke={'#fff'} plus /></span>
+                                            </label>
+
+                                        </div>
+                                    </form>
+                                </div>
                             </MobileLayout>
+
                             <div className={styles.productPhotos}>
                                 <h1 className='text-high-emphasis title-regular'>Customer Photos</h1>
                                 <div className={styles.photoCaroulsel}>
@@ -85,56 +117,6 @@ export default function Ratings() {
                         </div>
                         <div className={styles.separator}></div>
                         <div className={styles.ratingsContainer}>
-                            <div className={styles.rating}>
-                                <div className={styles.ratingTitle}>
-                                    <div className={styles.titleStar}>
-                                        <span className='text-high-emphasis'>4.0</span>
-                                        <StarSvg fill="#FF8C4B" stroke="#FF8C4B" width={20} />
-                                    </div>
-                                    <div className={styles.ratingUser}>
-                                        <span className='text-high-emphasis title-regular'>Vincent Lobo</span>
-                                        <span className='text-low-emphasis title-medium'>20/03/2021</span>
-                                    </div>
-                                </div>
-                                <div className={styles.ratingContent}>
-                                    <span className='text-high-emphasis title-regular'>Must go for the class feel.</span>
-                                    <span className='text-low-emphasis title-medium' style={{ margin: '4px 0 16px 0' }}>Totally amazing! I loved the material and the quality. It has a jolly vibe in it which makes me feel happy everytime I put it on.</span>
-                                    <div className={styles.ratingPhotos}>
-                                        <div>
-                                            <img src={productImage} alt="Product Name" />
-                                            <img src={productImage} alt="Product Name" />
-                                            <img src={productImage} alt="Product Name" />
-                                            <img src={productImage} alt="Product Name" />
-                                            <img src={productImage} alt="Product Name" />
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div className={styles.rating}>
-                                <div className={styles.ratingTitle}>
-                                    <div className={styles.titleStar}>
-                                        <span className='text-high-emphasis'>4.0</span>
-                                        <StarSvg fill="#FF8C4B" stroke="#FF8C4B" width={20} />
-                                    </div>
-                                    <div className={styles.ratingUser}>
-                                        <span className='text-high-emphasis title-regular'>Vincent Lobo</span>
-                                        <span className='text-low-emphasis title-medium'>20/03/2021</span>
-                                    </div>
-                                </div>
-                                <div className={styles.ratingContent}>
-                                    <span className='text-high-emphasis title-regular'>Must go for the class feel.</span>
-                                    <span className='text-low-emphasis title-medium' style={{ margin: '4px 0 16px 0' }}>Totally amazing! I loved the material and the quality. It has a jolly vibe in it which makes me feel happy everytime I put it on.</span>
-                                    <div className={styles.ratingPhotos}>
-                                        <div>
-                                            <img src={productImage} alt="Product Name" />
-                                            <img src={productImage} alt="Product Name" />
-                                            <img src={productImage} alt="Product Name" />
-                                            <img src={productImage} alt="Product Name" />
-                                            <img src={productImage} alt="Product Name" />
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
                             <div className={styles.rating}>
                                 <div className={styles.ratingTitle}>
                                     <div className={styles.titleStar}>
@@ -220,7 +202,37 @@ export default function Ratings() {
                                     <Modal open={reviewModalOpen} setOpen={setReviewModalOpen}></Modal>
                                     {reviewModalOpen && (
                                         <div className={styles.modal}>
-                                            <span>oi</span>
+                                            <div className={styles.reviewContent}>
+                                                <form>
+                                                    <div className={styles.reviewRating}>
+                                                        <h1 className='text-high-emphasis title-regular'>Product Rating</h1>
+                                                        <div style={{ display: "flex", gap: '8px' }}>
+                                                            <StarSvg fill="#FF8C4B" stroke="#FF8C4B" />
+                                                            <StarSvg fill="#FF8C4B" stroke="#FF8C4B" />
+                                                            <StarSvg fill="#FF8C4B" stroke="#FF8C4B" />
+                                                            <StarSvg fill="#FF8C4B" stroke="#FF8C4B" />
+                                                            <StarSvg />
+                                                        </div>
+                                                    </div>
+                                                    <label className={styles.titleContainer}>
+                                                        <h1 className='text-high-emphasis title-regular'>Review Title</h1>
+                                                        <input className={`${styles.titleInput} title-medium`} type="text" placeholder="Enter Title" />
+                                                    </label>
+                                                    <label className={styles.inputContainer}>
+                                                        <h1 className='text-high-emphasis title-regular'>Review Description</h1>
+                                                        <textarea name="product-description" placeholder='Enter Description' className='title-medium' rows={4}></textarea>
+                                                    </label>
+                                                    <div className={styles.photosContainer}>
+                                                        <h1 className='text-high-emphasis title-regular'>Upload Product Images</h1>
+
+                                                        <label className={styles.imageInput}>
+                                                            <input type="file" accept='image/*' />
+                                                            <span><PlusSvg stroke={'#fff'} plus /></span>
+                                                        </label>
+
+                                                    </div>
+                                                </form>
+                                            </div>
                                         </div>
                                     )}
                                 </div>
