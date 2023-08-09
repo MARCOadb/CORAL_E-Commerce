@@ -21,7 +21,7 @@ export default function Login() {
 
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
-  const [profilePhoto, setProfilePhoto] = useState();
+  const [profilePhoto, setProfilePhoto] = useState(null);
   const [profileFile, setProfileFile] = useState(null);
   const [phoneNumber, setPhoneNumber] = useState("");
   const [email, setEmail] = useState("");
@@ -39,7 +39,7 @@ export default function Login() {
     setEmail("");
     setPassword("");
     setConfirmPass("");
-    setProfilePhoto();
+    setProfilePhoto(null);
     setShowPassword(false);
   }
 
