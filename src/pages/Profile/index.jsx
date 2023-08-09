@@ -96,7 +96,7 @@ export default function Profile() {
                 <div className={styles.txtContainer}>
                   <h2 className="text-high-emphasis display-small">{user?.firstName}</h2>
                   <span className="text-faded title-medium">{user?.email}</span>
-                  <span className="text-faded title-medium">{user?.phone}</span>
+                  <span className="text-faded title-medium">{user?.phoneNumber}</span>
                 </div>
               </div>
               <div style={{ flexShrink: "0" }}>
