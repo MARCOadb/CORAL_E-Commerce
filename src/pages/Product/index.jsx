@@ -2,6 +2,8 @@ import Header from "../../components/header";
 import Footer from "../../components/footer";
 import useBreakpoint from "../../hooks/useBreakPoint";
 import { useContext, useEffect, useRef, useState } from "react";
+import { ref, getDownloadURL } from "firebase/storage";
+import { storage } from "../../services/firebaseConnection";
 
 import productPhoto from "../../assets/pics/Product/product-image.png"; //
 import pic2 from "../../assets/pics/Home/bolsa-remus.png"; //
@@ -43,6 +45,8 @@ export default function ProductPage({ itemId, data, open, setOpen }) {
 
   const [activePic, setActivePic] = useState(0);
   const [activeTab, setActiveTab] = useState(1);
+
+  const [productPic, setProductPic] = useState();
 
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const [dropdownHeight, setDropdownHeight] = useState();
@@ -104,7 +108,10 @@ export default function ProductPage({ itemId, data, open, setOpen }) {
         .finally(() => setLoading(false));
     }
     getAllProducts()
-      .then((data) => setProducts(data))
+      .then((data) => {
+        setProducts(data);
+        getProductImage();
+      })
       .finally(() => setLoading(false));
   }, []);
 
@@ -131,6 +138,7 @@ export default function ProductPage({ itemId, data, open, setOpen }) {
           .then(() => update())
           .finally(() => setLoading(false));
       }
+      update();
     } else alert("Voce precisa estar logado para fazer isso");
   };
   const addToWishlist = () => {
@@ -138,14 +146,18 @@ export default function ProductPage({ itemId, data, open, setOpen }) {
       setWishlistProduct(user.uid, itemId ? itemId : location.state.itemId).finally(() => setLoading(false));
       if (isWishlisted === true) setIsWishlisted(false);
       else setIsWishlisted(true);
+      update();
     } else alert("Voce precisa estar logado para fazer isso");
   };
-  const productImages = [
-    product?.image ? product?.image : data.image, //
-    pic2, //
-    pic3, //fotos aleatórias simulando fotos do produto
-    pic4, //
-  ];
+
+  const getProductImage = async () => {
+    const storageRef = ref(storage, `productsImg/${product.name}`);
+    await getDownloadURL(storageRef).then((response) => {
+      setProductPic(response);
+    });
+  };
+
+  const productImages = [productPic];
 
   const [isWishlisted, setIsWishlisted] = useState(null);
   useEffect(() => {
@@ -158,12 +170,8 @@ export default function ProductPage({ itemId, data, open, setOpen }) {
           icon="arrow"
           iconAngle={90}
           iconStroke="#13101E"
-          footerPrefix={
-            <div style={{ display: "flex", alignItems: "center" }}>
-              <WishlistSvg fill={isWishlisted && "red"} onClick={addToWishlist} width={44} />
-            </div>
-          }
-          buttons={[{ text: "Add to Bag", outlined: false, onClick: addToBag, btnIcon: <BagSvg stroke="#fff" /> }]}
+          footerPrefix={<div style={{ display: "flex", alignItems: "center" }}>{/* <WishlistSvg fill={isWishlisted && "red"} onClick={addToWishlist} width={44} /> */}</div>}
+          //buttons={[{ text: "Add to Bag", outlined: false, onClick: addToBag, btnIcon: <BagSvg stroke="#fff" /> }]}
           open={open}
           setOpen={setOpen}
         >
@@ -300,7 +308,7 @@ export default function ProductPage({ itemId, data, open, setOpen }) {
           <Header />
           <div className={styles.content}>
             <Breadcrump />
-
+            {console.log(product?.name)}
             <div className={styles.product}>
               <div className={styles.productImages}>
                 <img src={productImages[activePic]} alt="Product Image" className={styles.imageBig} />
@@ -382,12 +390,12 @@ export default function ProductPage({ itemId, data, open, setOpen }) {
                 </div>
 
                 <div className={styles.buttons}>
-                  <DefaultBtn onClick={addToBag} icon={<BagSvg stroke={"#fff"} />} width={"328px"} height={"44px"}>
+                  {/* <DefaultBtn onClick={addToBag} icon={<BagSvg stroke={"#fff"} />} width={"328px"} height={"44px"}>
                     Add to bag
-                  </DefaultBtn>
-                  <DefaultBtn onClick={addToWishlist} icon={<WishlistSvg fill={isWishlisted && "red"} />} outlined width={"240px"} height={"44px"}>
+                  </DefaultBtn> */}
+                  {/* <DefaultBtn onClick={addToWishlist} icon={<WishlistSvg fill={isWishlisted && "red"} />} outlined width={"240px"} height={"44px"}>
                     Add to wishlist
-                  </DefaultBtn>
+                  </DefaultBtn> */}
                 </div>
               </div>
             </div>
@@ -409,8 +417,7 @@ export default function ProductPage({ itemId, data, open, setOpen }) {
               <div className={styles.tabsContainer}>
                 <div className={`${styles.tabsContent} ${activeTab === 1 && styles.tabsContentActive}`}>
                   <p className="text-low-emphasis body-medium" style={{ width: "1134px" }}>
-                    Experience comfortable and easy travelling like never before with this coach bag. It features a zip closure, removable straps and multiple organization compartments to keep your
-                    valuables safe. Crafted from premium material, it is durable and lasts long.
+                    {product?.description}
                   </p>
                 </div>
 

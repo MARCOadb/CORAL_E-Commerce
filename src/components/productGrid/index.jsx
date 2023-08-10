@@ -33,10 +33,18 @@ const ProductGrid = ({ categoryId, productConfig }) => {
     return produtos;
   };
 
+  const [productsAmount, setProductsAmount] = useState(0)
+
   useEffect(() => {
     getProducts()
-      .then((data) => setProducts(data))
-      .finally(() => setLoading(false));
+      .then((data) => {
+        setProducts(data)
+        const result = data.filter((product) => product.data.categoryId == categoryId?.id)
+        setProductsAmount(result.length)
+      })
+      .finally(() => {
+        setLoading(false)
+      });
   }, []);
 
   return (
@@ -51,13 +59,7 @@ const ProductGrid = ({ categoryId, productConfig }) => {
                     <img src={currentFormat} />
                   </button>
                   <p className="body-medium-he">
-                    Showing * - * of{" "}
-                    {products?.reduce((acc, cur) => {
-                      if (cur.categoryId === categoryId) acc++;
-
-                      return acc;
-                    }, 0)}{" "}
-                    items
+                    Showing {productsAmount} of {productsAmount} items
                   </p>
                   {/* PRODUCTS.LENGTH IRA MOSTRAR TODOS OS PRODUTOS, NAO SOMENTE OS DA CATEGORIA */}
                 </div>
@@ -85,9 +87,8 @@ const ProductGrid = ({ categoryId, productConfig }) => {
                       products?.map((item) => {
                         if (item.data?.categoryId && categoryId?.id && item.data?.categoryId === categoryId.id.toString())
                           return (
-                            <Product largura={286} altura={286} label data={item.data} key={item.uid} itemId={item.uid} sort={gridClass === "list" && true} button={gridClass === "list" && true} />
+                            <Product largura={286} altura={286} ratings discount={50} oldprice={item.data?.price * 2} label data={item.data} key={item.uid} itemId={item.uid} sort={gridClass === "list" && true} button={gridClass === "list" && true} />
                           );
-                        else return console.log("Não tem produtos");
                       })}
                   </>
                 </>
@@ -98,19 +99,15 @@ const ProductGrid = ({ categoryId, productConfig }) => {
           <>
             <div className="container-grid-mobile">
               <p className="title-regular text-low-emphasis">
-                {products?.reduce((acc, cur) => {
-                  if (cur.categoryId === categoryId) acc++;
-                  return acc;
-                }, 0)}
-                {` Product(s)`}
+                {productsAmount}
+                {' Product(s)'}
               </p>
               <div className="grid-mobile">
                 <>
                   {!loading &&
                     products?.map((item) => {
                       if (item.data?.categoryId && categoryId?.id && item.data?.categoryId === categoryId.id.toString())
-                        return <Product altura={false} largura={false} data={item.data} key={item.uid} itemId={item.uid} productConfig={productConfig} sort={gridClass === "list" && true} />;
-                      else return console.log("Não tem produtos");
+                        return <Product altura={156} largura={150} data={item.data} discount={50} oldprice={item.data?.price * 2} key={item.uid} itemId={item.uid} productConfig={productConfig} button sort={gridClass === "list" && true} />;
                     })}
                 </>
               </div>
