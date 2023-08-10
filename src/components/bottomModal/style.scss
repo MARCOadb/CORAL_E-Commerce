@@ -1,0 +1,38 @@
+.bottomModal {
+  display: flex;
+  width: 100vw;
+  height: auto;
+
+  border-top-left-radius: 24px;
+  border-top-right-radius: 24px;
+  background-color: #fff;
+  flex-direction: column;
+  position: fixed;
+  bottom: -400px;
+  z-index: -1;
+  transition: all 700ms ease-in-out;
+  overflow: auto;
+}
+.bottomModalOpen {
+  z-index: 21;
+  bottom: 0px;
+}
+
+.bottomHeader {
+  display: flex;
+  padding: 19px 16px;
+}
+
+.bottomHeaderContainer {
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+  align-items: flex-end;
+  padding: 8px;
+  border-bottom: 1px solid #0000001f;
+}
+.bottomFooter {
+  display: flex;
+  padding: 11px 16px;
+  gap: 10px;
+}

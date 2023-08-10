@@ -1,0 +1,152 @@
+@import "../../assets/utility.scss";
+
+@mixin phone {
+  @media (max-width: 1279px) {
+    @content;
+  }
+}
+
+body {
+  padding: 0;
+  margin: 0;
+  background-color: $bright;
+}
+
+img {
+  pointer-events: none;
+}
+
+.title {
+  font-size: 50px;
+  font-family: Inter;
+  font-style: normal;
+  font-weight: 600;
+  line-height: normal;
+  letter-spacing: 4.545px;
+  text-transform: uppercase;
+  margin: 0;
+}
+
+.banner {
+  display: flex;
+  width: 100%;
+  height: auto;
+  position: relative;
+}
+
+.banner img {
+  width: 100%;
+  height: auto;
+}
+
+.gradient {
+  display: flex;
+  width: 827px;
+  height: 100%;
+  position: absolute;
+  right: 0px;
+  align-items: center;
+  background: linear-gradient(270deg, rgba(255, 255, 255, 0.8) 0%, rgba(217, 217, 217, 0) 100%);
+  @include phone {
+    background: linear-gradient(360deg, rgba(255, 255, 255, 0.8) 0%, rgba(217, 217, 217, 0) 50%, rgba(217, 217, 217, 0) 100%);
+    width: 100%;
+    justify-content: center;
+    left: auto;
+    right: auto;
+  }
+}
+
+.title-textbox {
+  display: flex;
+  width: 453px;
+  height: auto;
+  position: absolute;
+  right: 5vw;
+  flex-direction: column;
+  gap: 12px;
+  @include phone {
+    width: 70vw;
+    height: auto;
+    text-align: center;
+    justify-content: center;
+    position: initial;
+    gap: 4vw;
+    text-shadow: 0px 4px 16px 0px rgba(0, 0, 0, 0.5);
+  }
+}
+
+.main-textbox {
+  display: flex;
+  width: 713px;
+  height: 132px;
+  gap: 8px;
+  flex-direction: column;
+  text-align: center;
+  align-self: center;
+  @include phone {
+    width: auto;
+    height: auto;
+    gap: 2vw;
+  }
+}
+
+.textbox {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  width: 497px;
+  height: 168px;
+  @include phone {
+    width: auto;
+    height: auto;
+    gap: 3vw;
+    text-align: justify;
+  }
+}
+
+.content-container {
+  display: flex;
+  flex-direction: column;
+  height: auto;
+  width: 100%;
+  gap: 40px;
+  padding: 20px;
+  margin-top: 20px;
+  margin-bottom: 97px;
+  box-sizing: border-box;
+  @include phone {
+    gap: 8vw;
+    padding: 4vw;
+    margin-top: 0;
+    margin-bottom: 24px;
+  }
+}
+
+.content-max-width {
+  display: flex;
+  max-width: 1640px;
+  height: auto;
+  justify-content: center;
+  margin: 0 auto;
+}
+
+.description-rows {
+  display: flex;
+  flex-direction: row;
+  height: auto;
+  width: auto;
+  align-items: center;
+  justify-content: center;
+  gap: 32px;
+  @include phone {
+    flex-direction: column;
+    gap: 3vw;
+  }
+}
+
+.description-rows img {
+  height: auto;
+  @include phone {
+    width: 100%;
+  }
+}

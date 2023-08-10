@@ -1,0 +1,66 @@
+@mixin phone {
+  @media (max-width: 1279px) {
+    @content;
+  }
+}
+
+.searchBar {
+  display: flex;
+  gap: 8px;
+  padding: 10px 6px;
+  width: 362px;
+  height: 44px;
+  @include phone {
+    height: 40px;
+    max-width: 80vw;
+    flex-grow: 1;
+  }
+  background-color: #f1f1f1;
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 18px;
+  color: #626262;
+
+  outline: none;
+  border: none;
+  border-radius: 4px;
+}
+#icon {
+  padding-left: 40px;
+  background-image: url("../../assets/icon/searchBlack.svg");
+  background-repeat: no-repeat;
+  background-position: left 8px center;
+  @include phone {
+    padding-right: 40px;
+    padding-left: 8px;
+    background-position: right 8px center;
+  }
+}
+
+.redirectBtn {
+  background: none;
+  border: none;
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 18px;
+  color: #171520;
+}
+.searchBody {
+  display: flex;
+  flex-direction: column;
+  padding: 16px;
+  gap: 28px;
+}
+.recentContainer {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 7px;
+}
+.recentBtn {
+  display: flex;
+  outline: none;
+  border: none;
+  padding: 7px 12px;
+  border-radius: 8px;
+  background-color: #f4f4f4;
+}
