@@ -49,6 +49,10 @@ export const BagProvider = ({ children }) => {
         .finally(() => setLoading(false));
     } else return "Invalid user";
   };
-
+  useEffect(() => {
+    if (!!user) {
+      update();
+    }
+  }, [user]);
   return <BagContext.Provider value={{ allProducts, userWishlist, userProducts, taxPrice, subTotal, totalPrice, loading, update }}>{children}</BagContext.Provider>;
 };

@@ -39,7 +39,7 @@ import { AuthContext } from "../../contexts/AuthContext";
 import { setWishlistProduct } from "../../services/setWishlistProduct";
 
 export default function ProductPage({ itemId, data, open, setOpen }) {
-  const { update, userWishlist } = useContext(BagContext);
+  const { allProducts, update, userWishlist } = useContext(BagContext);
   const { user } = useContext(AuthContext);
   const { phone, desktop } = useBreakpoint();
 
@@ -95,24 +95,18 @@ export default function ProductPage({ itemId, data, open, setOpen }) {
 
   const [loading, setLoading] = useState(false);
   const [product, setProduct] = useState(null);
-  const [products, setProducts] = useState(null);
   const [stepperQnt, setStepperQnt] = useState(1);
   const location = useLocation();
 
   useEffect(() => {
     setLoading(true);
+    getProductImage();
     if (desktop) {
       setLoading(true);
       getProductById(location.state.itemId)
         .then((data) => setProduct(data))
         .finally(() => setLoading(false));
     }
-    getAllProducts()
-      .then((data) => {
-        setProducts(data);
-        getProductImage();
-      })
-      .finally(() => setLoading(false));
   }, []);
 
   const setQnt = (e) => {
@@ -151,7 +145,7 @@ export default function ProductPage({ itemId, data, open, setOpen }) {
   };
 
   const getProductImage = async () => {
-    const storageRef = ref(storage, `productsImg/${product.name}`);
+    const storageRef = ref(storage, `productsImg/${data.name}`);
     await getDownloadURL(storageRef).then((response) => {
       setProductPic(response);
     });
@@ -298,7 +292,7 @@ export default function ProductPage({ itemId, data, open, setOpen }) {
             <div className={styles.otherProducts}>
               <h1 className="type-high-emphasis title-regular">You Might Also Like</h1>
               <div className={styles.productsContainer}>
-                {!loading && products?.map((item) => <Product largura={136} altura={136} data={item.data} label key={item.uid} itemId={item.uid} discount={true} />)}
+                {!loading && allProducts?.map((item) => <Product largura={136} altura={136} data={item.data} label key={item.uid} itemId={item.uid} discount={true} />)}
               </div>
             </div>
           </div>
@@ -424,7 +418,7 @@ export default function ProductPage({ itemId, data, open, setOpen }) {
                 <div className={`${styles.tabsContent} ${activeTab === 2 && styles.tabsContentActive}`}>
                   <div className={styles.otherProducts}>
                     <div className={styles.productsContainer}>
-                      {!loading && products?.map((item) => <Product largura={286} altura={286} data={item.data} label key={item.uid} itemId={item.uid} ratings={false} />)}
+                      {!loading && allProducts?.map((item) => <Product largura={286} altura={286} data={item.data} label key={item.uid} itemId={item.uid} ratings={false} />)}
                     </div>
                   </div>
                 </div>

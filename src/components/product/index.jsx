@@ -41,7 +41,7 @@ const Product = ({ data, itemId, largura, altura, button, label, ratings, discou
   const [pathCheck, setPathCheck] = useState("/home");
   const [isWishlisted, setIsWishlisted] = useState(null);
   const [productOpen, setProductOpen] = useState(false);
-  const [productImage, setProductImage] = useState()
+  const [productImage, setProductImage] = useState();
 
   useEffect(() => {
     if (location.state?.path) {
@@ -80,23 +80,22 @@ const Product = ({ data, itemId, largura, altura, button, label, ratings, discou
     }
   };
 
-  const storageRef = ref(storage, `productsImg/${data.name}`)
+  const storageRef = ref(storage, `productsImg/${data.name}`);
 
   useEffect(() => {
     const getImages = async () => {
-      await getDownloadURL(storageRef)
-        .then((response) => {
-          setProductImage(response)
-        });
-    }
-    getImages()
-  }, [])
+      await getDownloadURL(storageRef).then((response) => {
+        setProductImage(response);
+      });
+    };
+    getImages();
+  }, []);
 
   return (
     <>
       {phone && productOpen && <ProductPage itemId={itemId} data={data} open={productOpen} setOpen={setProductOpen} />}
       <div className={sort ? `${styles.product} ${styles.productSort}` : styles.product}>
-        <img onClick={handleProductClick} src={productImage} style={altura && largura ? { width: `${largura}px`, height: `${altura}px` } : { width: "100%", height: "100%" }} alt={data.name} />
+        <img onClick={handleProductClick} src={productImage} style={altura && largura ? { width: `${largura}px`, height: `${altura}px` } : { width: "100%", height: "100%" }} alt="" />
         <div className={styles.detailContainer} style={sort ? { flexDirection: "column", justifyContent: "space-between" } : {}}>
           <div className={desktop ? `${styles.textContainer}` : `${styles.textContainer} ${styles.mobileText} ${sort && label && styles.sortText}`}>
             <span className={`text-high-emphasis ${desktop ? "body-medium" : "label-small "}`}>{data.name}</span>
@@ -140,7 +139,7 @@ const Product = ({ data, itemId, largura, altura, button, label, ratings, discou
           )}
           {(label || productConfig?.label) && !sort && (
             <div className={desktop ? `${styles.svgContainer}` : `${styles.mobileSvg} `}>
-              <WishlistSvg onClick={handleSvgOnClick} width={phone && "20"} height={phone && "20"} viewBox={phone && "0 0 28 28"} stroke={'#13101E'} />
+              <WishlistSvg onClick={handleSvgOnClick} width={phone && "20"} height={phone && "20"} viewBox={phone && "0 0 28 28"} stroke={"#13101E"} />
             </div>
           )}
         </div>
