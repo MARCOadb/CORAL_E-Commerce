@@ -123,15 +123,15 @@ export default function ProductPage({ itemId, data, open, setOpen }) {
       if (desktop) {
         setLoading(true);
         setProductQnt(user.uid, location.state.itemId, stepperQnt, true)
-          .then(() => update())
+          .then(() => update({ products: false }))
           .finally(() => setLoading(false));
       } else {
         setLoading(true);
         addBagProduct(user.uid, itemId)
-          .then(() => update())
+          .then(() => update({ products: false }))
           .finally(() => setLoading(false));
       }
-      update();
+      update({ products: false });
     } else alert("Voce precisa estar logado para fazer isso");
   };
   const addToWishlist = () => {
@@ -139,7 +139,7 @@ export default function ProductPage({ itemId, data, open, setOpen }) {
       setWishlistProduct(user.uid, itemId ? itemId : location.state.itemId).finally(() => setLoading(false));
       if (isWishlisted === true) setIsWishlisted(false);
       else setIsWishlisted(true);
-      update();
+      update({ products: false });
     } else alert("Voce precisa estar logado para fazer isso");
   };
 
@@ -182,8 +182,7 @@ export default function ProductPage({ itemId, data, open, setOpen }) {
                 <div className={styles.carousel}>
                   {productImages.map((image) => (
                     <div>
-                      <img src={image} />
-                      {console.log(image)}
+                      <img src={image} alt="" />
                     </div>
                   ))}
                 </div>

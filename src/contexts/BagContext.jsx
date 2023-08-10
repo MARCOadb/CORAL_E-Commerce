@@ -15,7 +15,7 @@ export const BagProvider = ({ children }) => {
   const [taxPrice, setTaxPrice] = useState(null);
   const [totalPrice, setTotalPrice] = useState(null);
   const [loading, setLoading] = useState(false);
-  const update = () => {
+  const update = ({ products }) => {
     if (user) {
       setLoading(true);
       getAllProducts()
@@ -44,14 +44,14 @@ export const BagProvider = ({ children }) => {
             const wishlistFiltrada = data.filter((item) => !!userWish?.find((wishItem) => item.uid === wishItem));
             setUserWishlist(wishlistFiltrada);
           });
-          setAllProducts(data);
+          if (products) setAllProducts(data);
         })
         .finally(() => setLoading(false));
     } else return "Invalid user";
   };
   useEffect(() => {
     if (!!user) {
-      update();
+      update({ products: true });
     }
   }, [user]);
   return <BagContext.Provider value={{ allProducts, userWishlist, userProducts, taxPrice, subTotal, totalPrice, loading, update }}>{children}</BagContext.Provider>;

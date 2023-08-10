@@ -29,22 +29,22 @@ const CartProduct = ({ data, qnt, stepper, price, remove, itemId, showQnt }) => 
   const { user } = useContext(AuthContext);
   const deleteProduct = () => {
     deleteBagProduct(user.uid, itemId, true);
-    update();
+    update({ products: false });
   };
   const addProduct = () => {
     addBagProduct(user.uid, itemId);
-    update();
+    update({ products: false });
   };
   const removeProduct = () => {
     deleteBagProduct(user.uid, itemId);
-    update();
+    update({ products: false });
   };
   const setProduct = (e) => {
     e.preventDefault();
     if (e.key === "Enter") {
       if (e.target.value > 0) setProductQnt(user.uid, itemId, parseInt(e.target.value));
       else deleteBagProduct(itemId, true);
-      update();
+      update({ products: false });
     }
   };
 

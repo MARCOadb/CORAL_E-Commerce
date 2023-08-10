@@ -33,32 +33,31 @@ const btnIcon = <BagSvg stroke="#1B4B66" />;
 */
 
 const Product = ({ data, itemId, largura, altura, button, label, ratings, discount, oldprice, sort, productConfig, rmvWishlist }) => {
-  const { update } = useContext(BagContext);
+  const { update, userWishlist } = useContext(BagContext);
   const { user } = useContext(AuthContext);
   const { desktop, phone } = useBreakpoint();
+
   const navigate = useNavigate();
   const location = useLocation();
   const [pathCheck, setPathCheck] = useState("/home");
-  const [isWishlisted, setIsWishlisted] = useState(null);
   const [productOpen, setProductOpen] = useState(false);
-  const [productImage, setProductImage] = useState();
+  const [productImage, setProductImage] = useState(null);
+  const [isWishlisted, setIsWishlisted] = useState(null);
 
   useEffect(() => {
-    if (location.state?.path) {
-      setPathCheck(location.state?.path);
-    }
+    if (location.state?.path) setPathCheck(location.state?.path);
   }, []);
 
   const handleSvgOnClick = () => {
     if (!!user) {
       setWishlistProduct(user?.uid, itemId).then((data) => setIsWishlisted(data));
-      update();
+      update({ products: false });
     }
   };
   const handleBtnOnClick = () => {
     if (!!user) {
       addBagProduct(user?.uid, itemId);
-      update();
+      update({ products: false });
     }
   };
 
@@ -75,7 +74,7 @@ const Product = ({ data, itemId, largura, altura, button, label, ratings, discou
         })
       );
     } else {
-      update();
+      update({ products: false });
       setProductOpen(true);
     }
   };
@@ -90,7 +89,6 @@ const Product = ({ data, itemId, largura, altura, button, label, ratings, discou
     };
     getImages();
   }, []);
-
   return (
     <>
       {phone && productOpen && <ProductPage itemId={itemId} data={data} open={productOpen} setOpen={setProductOpen} />}
@@ -139,7 +137,11 @@ const Product = ({ data, itemId, largura, altura, button, label, ratings, discou
           )}
           {(label || productConfig?.label) && !sort && (
             <div className={desktop ? `${styles.svgContainer}` : `${styles.mobileSvg} `}>
-              <WishlistSvg onClick={handleSvgOnClick} width={phone && "20"} height={phone && "20"} viewBox={phone && "0 0 28 28"} stroke={"#13101E"} />
+              {userWishlist && userWishlist.find((item) => item.uid === itemId) ? (
+                <WishlistSvg onClick={handleSvgOnClick} width={phone && "20"} height={phone && "20"} viewBox={phone && "0 0 28 28"} stroke="red" fill="red" />
+              ) : (
+                <WishlistSvg onClick={handleSvgOnClick} width={phone && "20"} height={phone && "20"} viewBox={phone && "0 0 28 28"} stroke={"#13101E"} />
+              )}
             </div>
           )}
         </div>
