@@ -18,7 +18,7 @@ const Search = () => {
   const [loading, setLoading] = useState(false);
   const [products, setProducts] = useState(null);
 
-  const [findProducts, setFindProducts] = useState(false)
+  const [findProducts, setFindProducts] = useState(false);
 
   const navigate = useNavigate();
   const location = useLocation();
@@ -41,34 +41,39 @@ const Search = () => {
         }, []);
         setProducts(produtosFiltrados);
         if (produtosFiltrados?.length >= 1) {
-          setFindProducts(true)
+          setFindProducts(true);
         } else {
-          setFindProducts(false)
+          setFindProducts(false);
         }
       })
       .finally(() => setLoading(false));
   }, [location.state.searchValue]);
 
   function capitalize(word) {
-    return word.charAt(0).toUpperCase() + word.slice(1)
+    return word.charAt(0).toUpperCase() + word.slice(1);
   }
 
   return (
     <>
       <div className={style.pageContainer}>
-        <div style={{ height: '100%' }}>
+        <div>
           {desktop && <Header />}
           {phone && findProducts && <Header />}
 
           {!loading && findProducts ? (
             <div className={style.searchContainer} style={!loading && products?.length >= 1 ? { height: "auto" } : {}}>
-              <span className={desktop ? "display-large text-dark" : "display-small text-dark"} style={desktop ? { paddingLeft: '20px' } : { paddingLeft: '0' }}>
-                Search Results for: {desktop && <br />} <span className='text-primary'>{capitalize(location.state.searchValue)}</span>
+              <span className={desktop ? "display-large text-dark" : "display-small text-dark"} style={desktop ? { paddingLeft: "20px" } : { paddingLeft: "0" }}>
+                Search Results for: {desktop && <br />} <span className="text-primary">{capitalize(location.state.searchValue)}</span>
               </span>
               <div className={style.productContainer}>
-                <span style={desktop ? { paddingLeft: '20px' } : { paddingLeft: '0' }}>Mostrando {!loading && products && products.length} resultados</span>
+                <span style={desktop ? { paddingLeft: "20px" } : { paddingLeft: "0" }}>Mostrando {!loading && products && products.length} resultados</span>
                 <div className={style.productItems}>
-                  {!loading && products?.map((item) => <div style={desktop ? { width: '286px' } : { width: '152px' }}><Product largura={desktop ? 286 : 152} altura={desktop ? 286 : 152} discount data={item.data} key={item.uid} itemId={item.uid} button label /></div>)}
+                  {!loading &&
+                    products?.map((item) => (
+                      <div style={desktop ? { width: "286px" } : { width: "152px" }}>
+                        <Product largura={desktop ? 286 : 152} altura={desktop ? 286 : 152} discount data={item.data} key={item.uid} itemId={item.uid} button label />
+                      </div>
+                    ))}
                 </div>
               </div>
             </div>
@@ -79,24 +84,28 @@ const Search = () => {
                   {phone && (
                     <div className="headerLayout">
                       <div className="containerLayout" style={{ display: "flex", alignItems: "center" }}>
-                        <ArrowSvg stroke={'#13101E'} x={90} onClick={() => navigate("/")} />
+                        <ArrowSvg stroke={"#13101E"} x={90} onClick={() => navigate("/")} />
                         <span>Search results</span>
                       </div>
                     </div>
                   )}
                   <div className={style.notFoundTxt} style={{ height: "100%" }}>
-                    <img src={notFound} style={desktop ? { width: '300px' } : {}} />
-                    <span className="text-dark" style={phone ? { fontSize: '28px', fontWeight: 700, lineHeight: '26px', marginTop: '24px' } : { fontSize: '40px', fontWeight: 700, lineHeight: '40px', marginTop: '24px' }}>Whoops!</span>
-                    <span className={`${phone ? 'title-medium' : 'body-medium'} text-dark`} style={{ textAlign: "center", marginTop: '16px', padding: '0 40px' }}>We coudn’t find what you’re looking for. Try something else.</span>
+                    <img src={notFound} style={desktop ? { width: "300px" } : {}} />
+                    <span
+                      className="text-dark"
+                      style={phone ? { fontSize: "28px", fontWeight: 700, lineHeight: "26px", marginTop: "24px" } : { fontSize: "40px", fontWeight: 700, lineHeight: "40px", marginTop: "24px" }}
+                    >
+                      Whoops!
+                    </span>
+                    <span className={`${phone ? "title-medium" : "body-medium"} text-dark`} style={{ textAlign: "center", marginTop: "16px", padding: "0 40px" }}>
+                      We coudn’t find what you’re looking for. Try something else.
+                    </span>
                   </div>
-                  <div className={style.btnContainer}>
-                    {phone && <DefaultBtn onClick={() => navigate("/")}>Back to home</DefaultBtn>}
-                  </div>
+                  <div className={style.btnContainer}>{phone && <DefaultBtn onClick={() => navigate("/")}>Back to home</DefaultBtn>}</div>
                 </div>
               )}
             </>
           )}
-
         </div>
         {desktop && <Footer />}
         {!loading && findProducts && phone && <NavBarMobile />}
