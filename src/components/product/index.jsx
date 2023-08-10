@@ -3,7 +3,6 @@ import WishlistSvg from "../../assets/icon/WishlistSvg";
 import StarSvg from "../../assets/icon/StarSvg";
 import DefaultBtn from "../defaultBtn";
 import { useContext, useState } from "react";
-import { checkWishlist } from "../../services/checkWishlist";
 import { useEffect } from "react";
 import useBreakpoint from "../../hooks/useBreakPoint";
 import { setWishlistProduct } from "../../services/setWishlistProduct";
@@ -42,15 +41,10 @@ const Product = ({ data, itemId, largura, altura, button, label, ratings, discou
   const [productOpen, setProductOpen] = useState(false);
 
   useEffect(() => {
-    if (!!user) {
-      checkWishlist(user?.uid, itemId).then((data) => setIsWishlisted(data));
-      update();
-    }
-
     if (location.state?.path) {
       setPathCheck(location.state?.path);
     }
-  }, [setIsWishlisted]);
+  }, []);
 
   const handleSvgOnClick = () => {
     if (!!user) {

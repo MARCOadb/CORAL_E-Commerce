@@ -35,7 +35,6 @@ import getAllProducts from "../../services/getAllProducts";
 import Breadcrump from "../../components/breadcrumpDesktop";
 import { AuthContext } from "../../contexts/AuthContext";
 import { setWishlistProduct } from "../../services/setWishlistProduct";
-import { checkWishlist } from "../../services/checkWishlist";
 
 export default function ProductPage({ itemId, data, open, setOpen }) {
   const { update, userWishlist } = useContext(BagContext);
@@ -139,7 +138,6 @@ export default function ProductPage({ itemId, data, open, setOpen }) {
       setWishlistProduct(user.uid, itemId ? itemId : location.state.itemId).finally(() => setLoading(false));
       if (isWishlisted === true) setIsWishlisted(false);
       else setIsWishlisted(true);
-      update();
     } else alert("Voce precisa estar logado para fazer isso");
   };
   const productImages = [
@@ -152,7 +150,6 @@ export default function ProductPage({ itemId, data, open, setOpen }) {
   const [isWishlisted, setIsWishlisted] = useState(null);
   useEffect(() => {
     setIsWishlisted(userWishlist.find((item) => item.uid === itemId));
-    update();
   }, []);
   return (
     <>
