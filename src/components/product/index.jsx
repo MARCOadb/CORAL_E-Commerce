@@ -39,7 +39,7 @@ const Product = ({ data, itemId, largura, altura, button, label, ratings, discou
 
   const navigate = useNavigate();
   const location = useLocation();
-  const [pathCheck, setPathCheck] = useState("/home");
+  const [pathCheck, setPathCheck] = useState("home");
   const [productOpen, setProductOpen] = useState(false);
   const [productImage, setProductImage] = useState(null);
   const [isWishlisted, setIsWishlisted] = useState(null);
@@ -64,7 +64,7 @@ const Product = ({ data, itemId, largura, altura, button, label, ratings, discou
   const handleProductClick = () => {
     if (desktop) {
       getCategoryById(data.categoryId).then((category) =>
-        navigate(`${category}/${itemId}`, {
+        navigate(`/${category}/${itemId}`, {
           state: {
             path: pathCheck,
             category,
