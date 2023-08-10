@@ -42,6 +42,7 @@ const Product = ({ data, itemId, largura, altura, button, label, ratings, discou
   const [pathCheck, setPathCheck] = useState("/home");
   const [isWishlisted, setIsWishlisted] = useState(null);
   const [productOpen, setProductOpen] = useState(false);
+  const [productImage, setProductImage] = useState()
 
   useEffect(() => {
     if (!!user) {
@@ -75,6 +76,7 @@ const Product = ({ data, itemId, largura, altura, button, label, ratings, discou
             path: pathCheck,
             category,
             itemId,
+            productImage,
           },
         })
       );
@@ -84,7 +86,6 @@ const Product = ({ data, itemId, largura, altura, button, label, ratings, discou
     }
   };
 
-  const [productImage, setProductImage] = useState()
   const storageRef = ref(storage, `productsImg/${data.name}`)
 
   useEffect(() => {

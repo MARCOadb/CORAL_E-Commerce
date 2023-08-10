@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import MobileLayout from '../../layouts/mobileLayout'
 import PlusSvg from '../../assets/icon/PlusSvg'
 import styles from './style.module.scss'
@@ -9,10 +9,55 @@ import Header from '../../components/header'
 import Footer from '../../components/footer';
 import DefaultBtn from '../../components/defaultBtn';
 import Modal from '../../components/modal';
+import { toast } from 'react-toastify';
 
 export default function Ratings() {
     const { phone, desktop } = useBreakpoint()
     const [reviewModalOpen, setReviewModalOpen] = useState(false)
+    const [reviewStars, setReviewStars] = useState(5)
+    const [reviewTitle, setReviewTitle] = useState('')
+    const [reviewDescription, setReviewDescription] = useState('')
+    const [reviewImages, setReviewImages] = useState([])
+
+    function handleStars(i) {
+        setReviewStars(i)
+    }
+
+    function handleFile(e) {
+        if (e.target.files[0]) {
+            const image = e.target.files[0]
+            const imageUrl = URL.createObjectURL(image)
+
+            if (image.type === 'image/jpeg' || image.type === 'image/png') {
+                setReviewImages([...reviewImages, imageUrl])
+            } else {
+                toast.error('The image must be .jpeg or .png type')
+            }
+        }
+    }
+
+    useEffect(() => {
+        setReviewStars(5)
+        setReviewTitle('')
+        setReviewDescription('')
+        setReviewImages([])
+    }, [reviewModalOpen])
+
+    function handleSubmitReview(e) {
+        e.preventDefault()
+        if (reviewTitle !== '' && reviewDescription !== '') {
+            console.log(reviewStars)
+            console.log(reviewTitle)
+            console.log(reviewDescription)                                          //aqui fazer o envio da review pro firebase
+            console.log(reviewImages)
+
+            toast.success('Review Saved!')
+            setReviewModalOpen(false)
+        } else {
+            toast.error('The Review must have a title and a description')
+        }
+    }
+
     return (
         <>
             {phone ? (
@@ -63,34 +108,41 @@ export default function Ratings() {
                                 </div>
                             </div>
 
-                            <MobileLayout open={reviewModalOpen} setOpen={setReviewModalOpen} buttons={[{ text: 'Submit Review' }]} icon={'cross'} title={'Add Review'} iconAngle={90} iconStroke={'#1B4B66'}>
+                            <MobileLayout open={reviewModalOpen} setOpen={setReviewModalOpen} buttons={[{ text: 'Submit Review', onClick: handleSubmitReview }]} icon={'cross'} title={'Add Review'} iconAngle={90} iconStroke={'#1B4B66'}>
                                 <div className={styles.reviewContent}>
                                     <form>
                                         <div className={styles.reviewRating}>
                                             <h1 className='text-high-emphasis title-regular'>Product Rating</h1>
                                             <div style={{ display: "flex", gap: '8px' }}>
-                                                <StarSvg fill="#FF8C4B" stroke="#FF8C4B" />
-                                                <StarSvg fill="#FF8C4B" stroke="#FF8C4B" />
-                                                <StarSvg fill="#FF8C4B" stroke="#FF8C4B" />
-                                                <StarSvg fill="#FF8C4B" stroke="#FF8C4B" />
-                                                <StarSvg />
+                                                <StarSvg fill={`${reviewStars >= 1 ? '#FF8C4B' : '#f1f1f1'}`} stroke={`${reviewStars >= 1 ? '#FF8C4B' : '#f1f1f1'}`} onClick={() => handleStars(1)} />
+                                                <StarSvg fill={`${reviewStars >= 2 ? '#FF8C4B' : '#f1f1f1'}`} stroke={`${reviewStars >= 2 ? '#FF8C4B' : '#f1f1f1'}`} onClick={() => handleStars(2)} />
+                                                <StarSvg fill={`${reviewStars >= 3 ? '#FF8C4B' : '#f1f1f1'}`} stroke={`${reviewStars >= 3 ? '#FF8C4B' : '#f1f1f1'}`} onClick={() => handleStars(3)} />
+                                                <StarSvg fill={`${reviewStars >= 4 ? '#FF8C4B' : '#f1f1f1'}`} stroke={`${reviewStars >= 4 ? '#FF8C4B' : '#f1f1f1'}`} onClick={() => handleStars(4)} />
+                                                <StarSvg fill={`${reviewStars >= 5 ? '#FF8C4B' : '#f1f1f1'}`} stroke={`${reviewStars >= 5 ? '#FF8C4B' : '#f1f1f1'}`} onClick={() => handleStars(5)} />
                                             </div>
                                         </div>
                                         <label className={styles.titleContainer}>
                                             <h1 className='text-high-emphasis title-regular'>Review Title</h1>
-                                            <input className={`${styles.titleInput} title-medium`} type="text" placeholder="Enter Title" />
+                                            <input className={`${styles.titleInput} title-medium`} type="text" placeholder="Enter Title" value={reviewTitle} onChange={(e) => setReviewTitle(e.target.value)} />
                                         </label>
                                         <label className={styles.inputContainer}>
                                             <h1 className='text-high-emphasis title-regular'>Review Description</h1>
-                                            <textarea name="product-description" placeholder='Enter Description' className='title-medium' rows={4}></textarea>
+                                            <textarea name="product-description" placeholder='Enter Description' className='title-medium' value={reviewDescription} onChange={(e) => setReviewDescription(e.target.value)}></textarea>
                                         </label>
                                         <div className={styles.photosContainer}>
                                             <h1 className='text-high-emphasis title-regular'>Upload Product Images</h1>
 
-                                            <label className={styles.imageInput}>
-                                                <input type="file" accept='image/*' />
-                                                <span><PlusSvg stroke={'#fff'} plus /></span>
-                                            </label>
+                                            <div className={styles.reviewUserPhotosContainer}>
+                                                <div className={styles.reviewUserPhotos}>
+                                                    {reviewImages.map((image, index) => (
+                                                        <img src={image} key={index} />
+                                                    ))}
+                                                    <label className={styles.imageInput}>
+                                                        <input type="file" accept='image/*' onChange={handleFile} />
+                                                        <span><PlusSvg stroke={'#fff'} plus /></span>
+                                                    </label>
+                                                </div>
+                                            </div>
 
                                         </div>
                                     </form>
@@ -198,43 +250,6 @@ export default function Ratings() {
                                             <DefaultBtn icon={<PlusSvg plus stroke={'#fff'} />} onClick={() => setReviewModalOpen(true)}>Write a Review</DefaultBtn>
                                         </div>
                                     )}
-
-                                    <Modal open={reviewModalOpen} setOpen={setReviewModalOpen}></Modal>
-                                    {reviewModalOpen && (
-                                        <div className={styles.modal}>
-                                            <div className={styles.reviewContent}>
-                                                <form>
-                                                    <div className={styles.reviewRating}>
-                                                        <h1 className='text-high-emphasis title-regular'>Product Rating</h1>
-                                                        <div style={{ display: "flex", gap: '8px' }}>
-                                                            <StarSvg fill="#FF8C4B" stroke="#FF8C4B" />
-                                                            <StarSvg fill="#FF8C4B" stroke="#FF8C4B" />
-                                                            <StarSvg fill="#FF8C4B" stroke="#FF8C4B" />
-                                                            <StarSvg fill="#FF8C4B" stroke="#FF8C4B" />
-                                                            <StarSvg />
-                                                        </div>
-                                                    </div>
-                                                    <label className={styles.titleContainer}>
-                                                        <h1 className='text-high-emphasis title-regular'>Review Title</h1>
-                                                        <input className={`${styles.titleInput} title-medium`} type="text" placeholder="Enter Title" />
-                                                    </label>
-                                                    <label className={styles.inputContainer}>
-                                                        <h1 className='text-high-emphasis title-regular'>Review Description</h1>
-                                                        <textarea name="product-description" placeholder='Enter Description' className='title-medium' rows={4}></textarea>
-                                                    </label>
-                                                    <div className={styles.photosContainer}>
-                                                        <h1 className='text-high-emphasis title-regular'>Upload Product Images</h1>
-
-                                                        <label className={styles.imageInput}>
-                                                            <input type="file" accept='image/*' />
-                                                            <span><PlusSvg stroke={'#fff'} plus /></span>
-                                                        </label>
-
-                                                    </div>
-                                                </form>
-                                            </div>
-                                        </div>
-                                    )}
                                 </div>
                             </div>
                             <div className={styles.productPhotos}>
@@ -255,6 +270,49 @@ export default function Ratings() {
                                 </div>
                             </div>
                         </div>
+                        <Modal open={reviewModalOpen} setOpen={setReviewModalOpen}></Modal>
+                        {reviewModalOpen && (
+                            <div className={styles.modal}>
+                                <div className={styles.reviewContent}>
+                                    <form onSubmit={handleSubmitReview}>
+                                        <div className={styles.reviewRating}>
+                                            <h1 className='text-high-emphasis title-regular'>Product Rating</h1>
+                                            <div style={{ display: "flex", gap: '8px' }}>
+                                                <StarSvg fill={`${reviewStars >= 1 ? '#FF8C4B' : '#f1f1f1'}`} stroke={`${reviewStars >= 1 ? '#FF8C4B' : '#f1f1f1'}`} onClick={() => handleStars(1)} />
+                                                <StarSvg fill={`${reviewStars >= 2 ? '#FF8C4B' : '#f1f1f1'}`} stroke={`${reviewStars >= 2 ? '#FF8C4B' : '#f1f1f1'}`} onClick={() => handleStars(2)} />
+                                                <StarSvg fill={`${reviewStars >= 3 ? '#FF8C4B' : '#f1f1f1'}`} stroke={`${reviewStars >= 3 ? '#FF8C4B' : '#f1f1f1'}`} onClick={() => handleStars(3)} />
+                                                <StarSvg fill={`${reviewStars >= 4 ? '#FF8C4B' : '#f1f1f1'}`} stroke={`${reviewStars >= 4 ? '#FF8C4B' : '#f1f1f1'}`} onClick={() => handleStars(4)} />
+                                                <StarSvg fill={`${reviewStars >= 5 ? '#FF8C4B' : '#f1f1f1'}`} stroke={`${reviewStars >= 5 ? '#FF8C4B' : '#f1f1f1'}`} onClick={() => handleStars(5)} />
+                                            </div>
+                                        </div>
+                                        <label className={styles.titleContainer}>
+                                            <h1 className='text-high-emphasis title-regular'>Review Title</h1>
+                                            <input className={`${styles.titleInput} title-medium`} type="text" placeholder="Enter Title" value={reviewTitle} onChange={(e) => setReviewTitle(e.target.value)} />
+                                        </label>
+                                        <label className={styles.inputContainer}>
+                                            <h1 className='text-high-emphasis title-regular'>Review Description</h1>
+                                            <textarea name="product-description" placeholder='Enter Description' className='title-medium' value={reviewDescription} onChange={(e) => setReviewDescription(e.target.value)}></textarea>
+                                        </label>
+                                        <div className={styles.photosContainer}>
+                                            <h1 className='text-high-emphasis title-regular'>Upload Product Images</h1>
+
+                                            <div className={styles.reviewUserPhotosContainer}>
+                                                <div className={styles.reviewUserPhotos}>
+                                                    {reviewImages.map((image, index) => (
+                                                        <img src={image} key={index} />
+                                                    ))}
+                                                    <label className={styles.imageInput}>
+                                                        <input type="file" accept='image/*' onChange={handleFile} />
+                                                        <span><PlusSvg stroke={'#fff'} plus /></span>
+                                                    </label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <button type='submit' className={`${styles.submitBtn} title-regular`}>Submit Review</button>
+                                    </form>
+                                </div>
+                            </div>
+                        )}
                         <div className={styles.separator}></div>
                         <div className={styles.ratingsContainer}>
                             <div className={styles.rating}>

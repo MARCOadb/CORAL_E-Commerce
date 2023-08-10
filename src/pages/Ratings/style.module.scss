@@ -275,9 +275,10 @@
     background-color: #fff;
     border-radius: 8px;
     position: fixed;
+    z-index: 21;
+    top: 185px;
     right: 0;
     left: 0;
-    z-index: 21;
     margin: 0 auto;
     padding: 20px;
 }
@@ -295,6 +296,10 @@
     flex-direction: column;
     gap: 8px;
     margin-bottom: 50px;
+
+    svg {
+        cursor: pointer;
+    }
 }
 
 .titleInput {
@@ -379,5 +384,45 @@
         border-radius: 50%;
         background-color: #1B4B66;
         transition: all 0.3s;
+    }
+}
+
+.reviewUserPhotosContainer {
+    display: flex;
+    //gap: 8px;
+}
+
+.reviewUserPhotos {
+    width: auto;
+    display: flex;
+    gap: 8px;
+    max-width: 100%;
+    flex-wrap: wrap;
+
+    img {
+        width: 80px;
+        height: 80px;
+        border-radius: 4px;
+        object-fit: cover;
+    }
+}
+
+.submitBtn {
+    width: 328px;
+    height: 44px;
+    border: none;
+    outline: none;
+    background-color: #1B4B66;
+    color: #fff;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 24px auto 0 auto;
+    transition: all 0.3s;
+
+    &:hover {
+        transform: scale(1.04);
+        background-color: #163c52;
     }
 }
