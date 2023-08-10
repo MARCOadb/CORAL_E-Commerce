@@ -46,7 +46,7 @@ export default function ProductPage({ itemId, data, open, setOpen }) {
   const [activePic, setActivePic] = useState(0);
   const [activeTab, setActiveTab] = useState(1);
 
-  const [productPic, setProductPic] = useState();
+  const [productPic, setProductPic] = useState(null);
 
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const [dropdownHeight, setDropdownHeight] = useState();
@@ -100,7 +100,6 @@ export default function ProductPage({ itemId, data, open, setOpen }) {
 
   useEffect(() => {
     setLoading(true);
-    getProductImage();
     if (desktop) {
       setLoading(true);
       getProductById(location.state.itemId)
@@ -144,19 +143,27 @@ export default function ProductPage({ itemId, data, open, setOpen }) {
     } else alert("Voce precisa estar logado para fazer isso");
   };
 
-  const getProductImage = async () => {
-    const storageRef = ref(storage, `productsImg/${data.name}`);
-    await getDownloadURL(storageRef).then((response) => {
-      setProductPic(response);
-    });
-  };
-
   const productImages = [productPic];
 
   const [isWishlisted, setIsWishlisted] = useState(null);
   useEffect(() => {
-    setIsWishlisted(userWishlist.find((item) => item.uid === itemId));
-  }, []);
+    if (!!userWishlist) {
+      setIsWishlisted(userWishlist.find((item) => item.uid === itemId));
+    }
+  }, [userWishlist]);
+
+  useEffect(() => {
+    const getProductImage = async (name) => {
+      const storageRef = ref(storage, `productsImg/${name}`);
+      return await getDownloadURL(storageRef);
+    };
+    if (!!product) {
+      getProductImage(product.name).then((response) => {
+        setProductPic(response);
+      });
+    }
+  }, [product]);
+
   return (
     <>
       {phone && open ? (
@@ -164,8 +171,8 @@ export default function ProductPage({ itemId, data, open, setOpen }) {
           icon="arrow"
           iconAngle={90}
           iconStroke="#13101E"
-          footerPrefix={<div style={{ display: "flex", alignItems: "center" }}>{/* <WishlistSvg fill={isWishlisted && "red"} onClick={addToWishlist} width={44} /> */}</div>}
-          //buttons={[{ text: "Add to Bag", outlined: false, onClick: addToBag, btnIcon: <BagSvg stroke="#fff" /> }]}
+          footerPrefix={<div style={{ display: "flex", alignItems: "center" }}>{<WishlistSvg fill={isWishlisted && "red"} onClick={addToWishlist} width={44} />}</div>}
+          buttons={[{ text: "Add to Bag", outlined: false, onClick: addToBag, btnIcon: <BagSvg stroke="#fff" /> }]}
           open={open}
           setOpen={setOpen}
         >
@@ -176,6 +183,7 @@ export default function ProductPage({ itemId, data, open, setOpen }) {
                   {productImages.map((image) => (
                     <div>
                       <img src={image} />
+                      {console.log(image)}
                     </div>
                   ))}
                 </div>
@@ -302,7 +310,6 @@ export default function ProductPage({ itemId, data, open, setOpen }) {
           <Header />
           <div className={styles.content}>
             <Breadcrump />
-            {console.log(product?.name)}
             <div className={styles.product}>
               <div className={styles.productImages}>
                 <img src={productImages[activePic]} alt="Product Image" className={styles.imageBig} />
@@ -384,12 +391,12 @@ export default function ProductPage({ itemId, data, open, setOpen }) {
                 </div>
 
                 <div className={styles.buttons}>
-                  {/* <DefaultBtn onClick={addToBag} icon={<BagSvg stroke={"#fff"} />} width={"328px"} height={"44px"}>
+                  <DefaultBtn onClick={addToBag} icon={<BagSvg stroke={"#fff"} />} width={"328px"} height={"44px"}>
                     Add to bag
-                  </DefaultBtn> */}
-                  {/* <DefaultBtn onClick={addToWishlist} icon={<WishlistSvg fill={isWishlisted && "red"} />} outlined width={"240px"} height={"44px"}>
+                  </DefaultBtn>
+                  <DefaultBtn onClick={addToWishlist} icon={<WishlistSvg fill={isWishlisted && "red"} />} outlined width={"240px"} height={"44px"}>
                     Add to wishlist
-                  </DefaultBtn> */}
+                  </DefaultBtn>
                 </div>
               </div>
             </div>
