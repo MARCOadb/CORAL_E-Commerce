@@ -6,7 +6,7 @@ import ProductGrid from "../../components/productGrid";
 
 //HOOKS
 import useBreakpoint from "../../hooks/useBreakPoint";
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef, useContext } from "react";
 
 //IMAGES & ICONS
 import hero from "../../assets/pics/Category/hero.png";
@@ -22,6 +22,7 @@ import Breadcrump from "../../components/breadcrumpDesktop";
 import { useLocation, useNavigate } from "react-router-dom";
 import getCategoryByName from "../../services/getCategoryByName";
 import MobileLayout from "../../layouts/mobileLayout";
+import { BagContext } from "../../contexts/BagContext";
 const config = {
   label: true,
   button: true,
@@ -123,6 +124,7 @@ export default function Category() {
   const [categoryName, setCategoryName] = useState(null);
   const [modalOpen, setModalOpen] = useState(false);
   const [loading, setLoading] = useState(false);
+
   const getCategoryId = async () => {
     setLoading(true);
     if (location.state?.category) {
@@ -153,7 +155,7 @@ export default function Category() {
         </MobileLayout>
       )}
       {desktop && <Header path={location.state?.path} />}
-      {!phone ? (
+      {!phone && !loading ? (
         <div className={styles.content}>
           <img src={hero} alt="Hero Banner" className={styles.heroBanner} />
 
@@ -368,37 +370,39 @@ export default function Category() {
         </div>
       ) : (
         <>
-          <div className={styles.mobileContainer}>
-            <div className={`${styles.txtContainer} display-small text-primary`}>
-              <span>Categories</span>
-            </div>
+          {!loading && (
+            <div className={styles.mobileContainer}>
+              <div className={`${styles.txtContainer} display-small text-primary`}>
+                <span>Categories</span>
+              </div>
 
-            <div className={styles.imgContainer}>
-              <div className={`${styles.pickGradient} ${styles.bageGrad}`} onClick={() => handleCategoryClick("Skincare")}>
-                {!modalOpen && <span className={`display-small text-bright`}>Skincare</span>}
+              <div className={styles.imgContainer}>
+                <div className={`${styles.pickGradient} ${styles.bageGrad}`} onClick={() => handleCategoryClick("Skincare")}>
+                  {!modalOpen && <span className={`display-small text-bright`}>Skincare</span>}
 
-                <img src={skincare}></img>
-              </div>
-              <div className={`${styles.pickGradient} ${styles.lightPinkGrad}`} onClick={() => handleCategoryClick()}>
-                <span className={`display-small text-bright`} style={{ color: "#CF118A" }}>
-                  Fragrance
-                </span>
-                <img src={fragrance}></img>
-              </div>
-              <div className={`${styles.pickGradient} ${styles.blueGrad}`} onClick={() => handleCategoryClick("Handbags")}>
-                <span className={`display-small text-bright`}>Handbags</span>
-                <img src={handbags}></img>
-              </div>
-              <div className={`${styles.pickGradient} ${styles.pinkGrad}`} onClick={() => handleCategoryClick()}>
-                <span className={`display-small text-bright`}>Eyewear</span>
-                <img src={eyewear}></img>
-              </div>
-              <div className={`${styles.pickGradient} ${styles.lightBageGrad}`} onClick={() => handleCategoryClick("Apparels")}>
-                <span className={`display-small text-bright`}>Apparels</span>
-                <img src={apparels}></img>
+                  <img src={skincare}></img>
+                </div>
+                <div className={`${styles.pickGradient} ${styles.lightPinkGrad}`} onClick={() => handleCategoryClick("Fragrances")}>
+                  <span className={`display-small text-bright`} style={{ color: "#CF118A" }}>
+                    Fragrance
+                  </span>
+                  <img src={fragrance}></img>
+                </div>
+                <div className={`${styles.pickGradient} ${styles.blueGrad}`} onClick={() => handleCategoryClick("Handbags")}>
+                  <span className={`display-small text-bright`}>Handbags</span>
+                  <img src={handbags}></img>
+                </div>
+                <div className={`${styles.pickGradient} ${styles.pinkGrad}`} onClick={() => handleCategoryClick("Eyewear")}>
+                  <span className={`display-small text-bright`}>Eyewear</span>
+                  <img src={eyewear}></img>
+                </div>
+                <div className={`${styles.pickGradient} ${styles.lightBageGrad}`} onClick={() => handleCategoryClick("Apparels")}>
+                  <span className={`display-small text-bright`}>Apparels</span>
+                  <img src={apparels}></img>
+                </div>
               </div>
             </div>
-          </div>
+          )}
         </>
       )}
 
