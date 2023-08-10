@@ -29,70 +29,72 @@ const Footer = () => {
 
       {(desktop || (phone && footer)) && (
         <footer>
-          <div className="listcontainer">
-            <div className="lista">
-              <span>Shop by Category</span>
-              <a href="#">Skincare</a>
-              <a href="#">Personal Care</a>
-              <a href="#">Handbags</a>
-              <a href="#">Apparels</a>
-              <a href="#">Watches</a>
-              <a href="#">Eye Wear</a>
-              <a href="#">Jewellery</a>
+          <div style={{ width: '100%', height: 'auto', maxWidth: '1280px', margin: '0 auto', display: 'flex' }}>
+            <div className="listcontainer">
+              <div className="lista">
+                <span>Shop by Category</span>
+                <a href="#">Skincare</a>
+                <a href="#">Personal Care</a>
+                <a href="#">Handbags</a>
+                <a href="#">Apparels</a>
+                <a href="#">Watches</a>
+                <a href="#">Eye Wear</a>
+                <a href="#">Jewellery</a>
+              </div>
+              {desktop ? (
+                <>
+                  <div className="lista">
+                    <span>About</span>
+                    <a href="#">Contact Us</a>
+                    <a href="#">About Us</a>
+                    <a href="#">Careers</a>
+                    <a href="#">Press</a>
+                  </div>
+                  <div className="lista">
+                    <span>Policy</span>
+                    <a href="#">Return Policy</a>
+                    <a href="#">Terms of Use</a>
+                    <a href="#">Sitemap</a>
+                    <a href="#">Security</a>
+                    <a href="#">Privacy</a>
+                    <a href="#">EPR Compliance</a>
+                  </div>
+                </>
+              ) : (
+                <>
+                  <div className="lista">
+                    <span>Policy</span>
+                    <span>
+                      <a href="#">Return Policy |</a>
+                      <a href="#"> Terms of Use |</a>
+                      <a href="#"> Sitemap |</a>
+                      <a href="#"> Security |</a>
+                      <a href="#"> Privacy |</a>
+                      <a href="#"> EPR Compliance</a>
+                    </span>
+                  </div>
+                  <div className="lista">
+                    <span>About</span>
+                    <span>
+                      <a href="#">Contact Us |</a>
+                      <a href="#"> About Us |</a>
+                      <a href="#"> Careers |</a>
+                      <a href="#"> Press</a>
+                    </span>
+                  </div>
+                  <div className="linha"></div>
+                </>
+              )}
             </div>
-            {desktop ? (
-              <>
-                <div className="lista">
-                  <span>About</span>
-                  <a href="#">Contact Us</a>
-                  <a href="#">About Us</a>
-                  <a href="#">Careers</a>
-                  <a href="#">Press</a>
-                </div>
-                <div className="lista">
-                  <span>Policy</span>
-                  <a href="#">Return Policy</a>
-                  <a href="#">Terms of Use</a>
-                  <a href="#">Sitemap</a>
-                  <a href="#">Security</a>
-                  <a href="#">Privacy</a>
-                  <a href="#">EPR Compliance</a>
-                </div>
-              </>
-            ) : (
-              <>
-                <div className="lista">
-                  <span>Policy</span>
-                  <span>
-                    <a href="#">Return Policy |</a>
-                    <a href="#"> Terms of Use |</a>
-                    <a href="#"> Sitemap |</a>
-                    <a href="#"> Security |</a>
-                    <a href="#"> Privacy |</a>
-                    <a href="#"> EPR Compliance</a>
-                  </span>
-                </div>
-                <div className="lista">
-                  <span>About</span>
-                  <span>
-                    <a href="#">Contact Us |</a>
-                    <a href="#"> About Us |</a>
-                    <a href="#"> Careers |</a>
-                    <a href="#"> Press</a>
-                  </span>
-                </div>
-                <div className="linha"></div>
-              </>
-            )}
-          </div>
-          <div className="box">
-            <img className="logos" src={logos} alt="logos" />
-            <div className="location">
-              <img src={location} alt="location" />
-              <p className="us">United States</p>
+            <div className="box">
+              <img className="logos" src={logos} alt="logos" />
+              <div className="location">
+                <img src={location} alt="location" />
+                <p className="us">United States</p>
+              </div>
+              <span> © 2021 | Cora Leviene All Rights Reserved </span>
             </div>
-            <span> © 2021 | Cora Leviene All Rights Reserved </span>
-          </div>
+          </div >
         </footer>
       )}
     </>

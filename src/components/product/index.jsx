@@ -3,7 +3,6 @@ import WishlistSvg from "../../assets/icon/WishlistSvg";
 import StarSvg from "../../assets/icon/StarSvg";
 import DefaultBtn from "../defaultBtn";
 import { useContext, useState } from "react";
-import { checkWishlist } from "../../services/checkWishlist";
 import { useEffect } from "react";
 import useBreakpoint from "../../hooks/useBreakPoint";
 import { setWishlistProduct } from "../../services/setWishlistProduct";
@@ -15,6 +14,8 @@ import { useLocation, useNavigate } from "react-router-dom";
 import getCategoryByName from "../../services/getCategoryByName";
 import getCategoryById from "../../services/getCategoryById";
 import ProductPage from "../../pages/Product";
+import { ref, getDownloadURL } from "firebase/storage";
+import { storage } from "../../services/firebaseConnection";
 
 const btnIcon = <BagSvg stroke="#1B4B66" />;
 
@@ -32,36 +33,31 @@ const btnIcon = <BagSvg stroke="#1B4B66" />;
 */
 
 const Product = ({ data, itemId, largura, altura, button, label, ratings, discount, oldprice, sort, productConfig, rmvWishlist }) => {
-  const { update } = useContext(BagContext);
+  const { update, userWishlist } = useContext(BagContext);
   const { user } = useContext(AuthContext);
   const { desktop, phone } = useBreakpoint();
+
   const navigate = useNavigate();
   const location = useLocation();
   const [pathCheck, setPathCheck] = useState("/home");
-  const [isWishlisted, setIsWishlisted] = useState(null);
   const [productOpen, setProductOpen] = useState(false);
+  const [productImage, setProductImage] = useState(null);
+  const [isWishlisted, setIsWishlisted] = useState(null);
 
   useEffect(() => {
-    if (!!user) {
-      checkWishlist(user?.uid, itemId).then((data) => setIsWishlisted(data));
-      update();
-    }
-
-    if (location.state?.path) {
-      setPathCheck(location.state?.path);
-    }
-  }, [setIsWishlisted]);
+    if (location.state?.path) setPathCheck(location.state?.path);
+  }, []);
 
   const handleSvgOnClick = () => {
     if (!!user) {
       setWishlistProduct(user?.uid, itemId).then((data) => setIsWishlisted(data));
-      update();
+      update({ products: false });
     }
   };
   const handleBtnOnClick = () => {
     if (!!user) {
       addBagProduct(user?.uid, itemId);
-      update();
+      update({ products: false });
     }
   };
 
@@ -73,20 +69,31 @@ const Product = ({ data, itemId, largura, altura, button, label, ratings, discou
             path: pathCheck,
             category,
             itemId,
+            productImage,
           },
         })
       );
     } else {
-      update();
+      update({ products: false });
       setProductOpen(true);
     }
   };
 
+  const storageRef = ref(storage, `productsImg/${data.name}`);
+
+  useEffect(() => {
+    const getImages = async () => {
+      await getDownloadURL(storageRef).then((response) => {
+        setProductImage(response);
+      });
+    };
+    getImages();
+  }, []);
   return (
     <>
       {phone && productOpen && <ProductPage itemId={itemId} data={data} open={productOpen} setOpen={setProductOpen} />}
       <div className={sort ? `${styles.product} ${styles.productSort}` : styles.product}>
-        <img onClick={handleProductClick} src={data.image} style={altura && largura ? { width: `${largura}px`, height: `${altura}px` } : { width: "100%", height: "100%" }} alt={data.name} />
+        <img onClick={handleProductClick} src={productImage} style={altura && largura ? { width: `${largura}px`, height: `${altura}px` } : { width: "100%", height: "100%" }} alt="" />
         <div className={styles.detailContainer} style={sort ? { flexDirection: "column", justifyContent: "space-between" } : {}}>
           <div className={desktop ? `${styles.textContainer}` : `${styles.textContainer} ${styles.mobileText} ${sort && label && styles.sortText}`}>
             <span className={`text-high-emphasis ${desktop ? "body-medium" : "label-small "}`}>{data.name}</span>
@@ -130,7 +137,11 @@ const Product = ({ data, itemId, largura, altura, button, label, ratings, discou
           )}
           {(label || productConfig?.label) && !sort && (
             <div className={desktop ? `${styles.svgContainer}` : `${styles.mobileSvg} `}>
-              <WishlistSvg onClick={handleSvgOnClick} width={phone && "20"} height={phone && "20"} viewBox={phone && "0 0 28 28"} />
+              {userWishlist && userWishlist.find((item) => item.uid === itemId) ? (
+                <WishlistSvg onClick={handleSvgOnClick} width={phone && "20"} height={phone && "20"} viewBox={phone && "0 0 28 28"} stroke="red" fill="red" />
+              ) : (
+                <WishlistSvg onClick={handleSvgOnClick} width={phone && "20"} height={phone && "20"} viewBox={phone && "0 0 28 28"} stroke={"#13101E"} />
+              )}
             </div>
           )}
         </div>

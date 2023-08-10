@@ -6,7 +6,7 @@ import NavBarMobile from "../../components/navBarMobile";
 
 //HOOKS
 import useBreakpoint from "../../hooks/useBreakPoint";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 
 //IMAGES & ICONS
 import hero3 from "../../assets/pics/Home/hero-3.png";
@@ -41,10 +41,12 @@ import ProductPage from "../Product";
 import "./style.scss";
 import Product from "../../components/product";
 import getAllProducts from "../../services/getAllProducts";
+import { BagContext } from "../../contexts/BagContext";
 
 export default function Home() {
   const { phone, desktop } = useBreakpoint();
   const [windowSize, setWindowSize] = useState(window.innerWidth);
+  const { allProducts } = useContext(BagContext);
 
   useEffect(() => {
     const handleResize = () => {
@@ -56,21 +58,6 @@ export default function Home() {
     return () => {
       window.removeEventListener("resize", handleResize);
     };
-  }, []);
-
-  const [loading, setLoading] = useState(false);
-  const [products, setProducts] = useState(null);
-
-  const getProducts = async () => {
-    setLoading(true);
-    const produtos = await getAllProducts();
-    return produtos;
-  };
-
-  useEffect(() => {
-    getProducts()
-      .then((data) => setProducts(data))
-      .finally(() => setLoading(false));
   }, []);
 
   return (
@@ -147,7 +134,9 @@ export default function Home() {
           </div>
 
           <div className="arrivals-carousel">
-            {!loading && products?.map((item) => <Product button largura={desktop ? 286 : 136} altura={desktop ? 286 : 136} data={item.data} label key={item.uid} itemId={item.uid} />)}
+            {allProducts?.map((item) => (
+              <Product button largura={desktop ? 286 : 136} altura={desktop ? 286 : 136} data={item.data} label key={item.uid} itemId={item.uid} />
+            ))}
           </div>
         </div>
 

@@ -1,0 +1,428 @@
+@mixin desktop {
+    @media (min-width: 1280px) {
+        @content;
+    }
+}
+
+.content {
+    width: 100%;
+    height: auto;
+}
+
+.productRating {
+    display: flex;
+    width: 100%;
+    height: auto;
+    max-width: 550px;
+    margin: 0 auto;
+    flex-direction: column;
+    padding-left: 16px;
+    gap: 16px;
+
+    @include desktop {
+        padding-left: 20px;
+        margin-top: 40px;
+        max-width: 1280px;
+        flex-direction: row;
+        gap: 40px;
+    }
+}
+
+.productName {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+
+    @include desktop {
+        margin-bottom: 10px;
+    }
+}
+
+.graphicRating {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+
+    .ratingNumber {
+        display: flex;
+        align-items: center;
+
+        @include desktop {
+            margin: 16px 0;
+        }
+
+        svg {
+            margin: 0 12px 0 4px;
+        }
+    }
+
+    .ratingsGraphic {
+        display: flex;
+        flex-direction: column;
+        gap: 4px;
+        width: 300px;
+
+        @include desktop {
+            width: 600px;
+        }
+    }
+}
+
+.barContainer {
+    width: 100%;
+    height: 18px;
+    display: flex;
+    gap: 8px;
+    align-items: center;
+
+    @include desktop {
+        height: 36px;
+    }
+
+    div {
+        width: 100%;
+        height: 8px;
+        border-radius: 4px;
+        background-color: #f1f1f1;
+
+        @include desktop {
+            height: 16px;
+            border-radius: 8px;
+        }
+
+        .bar {
+            border-radius: 4px;
+            height: 100%;
+            background-color: #1B4B66;
+
+            @include desktop {
+                border-radius: 8px;
+            }
+        }
+    }
+}
+
+.productPhotos {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+
+    @include desktop {
+        width: 620px;
+        height: 440px;
+        gap: 16px
+    }
+}
+
+.photoCaroulsel {
+    width: 100%;
+    height: 80px;
+    overflow: auto;
+
+    @include desktop {
+        height: 100%;
+    }
+
+    div {
+        width: auto;
+        height: 100%;
+        display: flex;
+        gap: 12px;
+        padding-right: 16px;
+
+        @include desktop {
+            height: 100%;
+            gap: 24px;
+        }
+
+        img {
+            width: 80px;
+            height: 80px;
+            border-radius: 4px;
+
+            @include desktop {
+                width: 440px;
+                height: 100%;
+                border-radius: 8px;
+            }
+        }
+    }
+}
+
+.separator {
+    height: 8px;
+    margin: 24px 0;
+    background-color: #f1f1f1;
+    width: 100%;
+
+    @include desktop {
+        margin: 50px 0;
+    }
+}
+
+.ratingsContainer {
+    width: 100%;
+    padding-left: 16px;
+    max-width: 550px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+
+    @include desktop {
+        padding-left: 20px;
+        max-width: 1280px;
+        margin-top: 50px;
+    }
+}
+
+.ratingTitle {
+    width: 100%;
+    gap: 12px;
+    display: flex;
+    align-items: center;
+    margin-bottom: 12px;
+
+    @include desktop {
+        gap: 24px;
+    }
+}
+
+.titleStar {
+    background-color: #f1f1f1;
+    width: 74px;
+    height: 38px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 4px;
+    font-size: 16px;
+    font-weight: 600;
+    line-height: 16px;
+    gap: 3px;
+
+    @include desktop {
+        width: 100px;
+        height: 50px;
+    }
+}
+
+.ratingUser {
+    display: flex;
+    flex-direction: column;
+}
+
+.rating {
+    width: 100%;
+    margin-bottom: 24px;
+
+    @include desktop {
+        margin-bottom: 60px;
+    }
+}
+
+.ratingContent {
+    display: flex;
+    width: 100%;
+    flex-direction: column;
+
+    span {
+        padding-right: 16px;
+    }
+}
+
+.ratingPhotos {
+    width: 100%;
+    height: 80px;
+    overflow: auto;
+
+    div {
+        width: auto;
+        height: 100%;
+        display: flex;
+        gap: 12px;
+        padding-right: 16px;
+
+        img {
+            width: 80px;
+            height: 80px;
+            border-radius: 4px;
+
+            @include desktop {
+                height: 200px;
+                width: 200px;
+                border-radius: 8px;
+            }
+        }
+
+        @include desktop {
+            gap: 24px;
+        }
+    }
+
+    @include desktop {
+        margin-top: 20px;
+        height: auto;
+    }
+}
+
+.reviewBtn {
+    margin: 24px auto 0 auto;
+    width: 328px;
+}
+
+.modal {
+    max-width: 550px;
+    background-color: #fff;
+    border-radius: 8px;
+    position: fixed;
+    z-index: 21;
+    top: 185px;
+    right: 0;
+    left: 0;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+.reviewContent {
+    width: 100%;
+    max-width: 550px;
+    margin: 0 auto;
+    height: auto;
+    padding: 0 16px;
+}
+
+.reviewRating {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin-bottom: 50px;
+
+    svg {
+        cursor: pointer;
+    }
+}
+
+.titleInput {
+    width: 100%;
+    max-width: 550px;
+    height: 46px;
+    background: #f1f1f1;
+    border: none;
+    outline: none;
+    border-radius: 4px;
+    padding-left: 16px;
+}
+
+.checkBtn {
+    position: absolute;
+    right: 12px;
+    cursor: pointer;
+}
+
+.titleContainer {
+    display: flex;
+    position: relative;
+    margin-bottom: 24px;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.inputContainer {
+    width: 100%;
+    max-width: 550px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin-bottom: 24px;
+
+    textarea {
+        width: 100%;
+        height: 96px;
+        background-color: #f1f1f1;
+        border: none;
+        outline: none;
+        border-radius: 4px;
+        resize: none;
+        padding: 12px 16px;
+    }
+}
+
+.photosContainer {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.imageInput {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 80px;
+    height: 80px;
+    cursor: pointer;
+    flex-direction: column;
+    border-radius: 8px;
+    background-color: #f1f1f1;
+
+    &:hover {
+        span {
+            transform: scale(1.15);
+            background-color: #163c52;
+        }
+    }
+
+    input {
+        display: none;
+    }
+
+    span {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 42px;
+        height: 42px;
+        border-radius: 50%;
+        background-color: #1B4B66;
+        transition: all 0.3s;
+    }
+}
+
+.reviewUserPhotosContainer {
+    display: flex;
+    //gap: 8px;
+}
+
+.reviewUserPhotos {
+    width: auto;
+    display: flex;
+    gap: 8px;
+    max-width: 100%;
+    flex-wrap: wrap;
+
+    img {
+        width: 80px;
+        height: 80px;
+        border-radius: 4px;
+        object-fit: cover;
+    }
+}
+
+.submitBtn {
+    width: 328px;
+    height: 44px;
+    border: none;
+    outline: none;
+    background-color: #1B4B66;
+    color: #fff;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 24px auto 0 auto;
+    transition: all 0.3s;
+
+    &:hover {
+        transform: scale(1.04);
+        background-color: #163c52;
+    }
+}
