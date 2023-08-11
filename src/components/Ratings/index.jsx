@@ -23,12 +23,11 @@ export default function Ratings({ setRatingsOpen, product }) {
     const [reviewTitle, setReviewTitle] = useState('')
     const [reviewDescription, setReviewDescription] = useState('')
     const [reviewImages, setReviewImages] = useState([])
-    const [reviewsList, setReviewsList] = useState()
+    const [reviewsList, setReviewsList] = useState([])
 
     const location = useLocation()
     const itemId = location.state.itemId
     const docRef = doc(db, 'products', itemId)
-    const reviewArr = reviewsList
 
     const { user } = useContext(AuthContext)
 
@@ -51,22 +50,18 @@ export default function Ratings({ setRatingsOpen, product }) {
 
     useEffect(() => {
         async function getReviews() {
-            var reviewList = []
+            // var reviewList = []
             await getDoc(docRef)
                 .then((snapshot) => {
-                    snapshot.data().reviews.map((review => {
-                        reviewList.push(review)
-                    }))
-                    return reviewList
-                })
-                .finally(() => {
-                    setReviewsList(reviewList)
+                    snapshot.data().reviews.map((review) => {
+                        setReviewsList([...reviewsList, review])
+                    })
                 })
                 .catch((error) => {
                     console.log(error)
                 })
         }
-        setReviewsList(getReviews())
+        getReviews()
     }, [])
 
     useEffect(() => {
@@ -119,6 +114,13 @@ export default function Ratings({ setRatingsOpen, product }) {
         const user = await getUserById(id)
         return user.name
     }
+
+    const reviewArr = []
+    useEffect(() => {
+        for (let i = 0; i < reviewsList?.length; i++) {
+            reviewArr.push(reviewsList[i])
+        }
+    }, [reviewsList])
 
     return (
         <>
@@ -376,8 +378,8 @@ export default function Ratings({ setRatingsOpen, product }) {
                         )}
                         <div className={styles.separator}></div>
                         <div className={styles.ratingsContainer}>
-
-                            {/* {reviewArr[0].map((review) => (
+                            {console.log(reviewsList)}
+                            {/* {reviewsList.map((review) => (
                                 <div className={styles.rating}>
                                     <div className={styles.ratingTitle}>
                                         <div className={styles.titleStar}>
