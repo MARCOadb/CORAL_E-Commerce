@@ -4,6 +4,7 @@
   gap: 8px;
   transition: all 0.3s;
   cursor: pointer;
+  justify-content: space-between;
 
   img {
     border-radius: 8px;
@@ -12,6 +13,7 @@
 
 .productSort {
   flex-direction: row;
+  justify-content: left;
   width: 100%;
 }
 

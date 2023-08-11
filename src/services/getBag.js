@@ -6,11 +6,11 @@ export const getBag = async (userId) => {
   const q = query(bagRef, where("userId", "==", userId));
   const querySnapshot = await getDocs(q);
 
-  // if (!querySnapshot.docs[0]) {
-  //   await addDoc(bagRef, {
-  //     userId,
-  //     products: [],
-  //   });
-  // }
-  return querySnapshot.docs[0].data().products;
+  if (querySnapshot.empty) {
+    console.log(querySnapshot.docs);
+    await addDoc(bagRef, {
+      userId,
+      products: [],
+    });
+  } else return querySnapshot.docs[0].data().products;
 };

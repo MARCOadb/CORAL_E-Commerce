@@ -17,7 +17,7 @@ export const addBagProduct = async (userId, productId) => {
     } else productFound.qnt++;
 
     await updateDoc(querySnapshot.docs[0].ref, bagArr);
-  } else {
+  } else if (!querySnapshot.docs[0]) {
     await addDoc(bagRef, {
       userId,
       products: [
