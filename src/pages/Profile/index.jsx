@@ -136,7 +136,7 @@ export default function Profile() {
               <ChevronRightSvg stroke={activeTab === 7 && desktop ? "#1B4B66" : "#13101E"} />
             </div>
           </div>
-
+          {desktop && <div style={{}}>{activeTab === 1}<span>test</span></div>}
           {desktop && <div className={styles.component}>{activeTab === 4 && <MyWishlist />}</div>}
 
           {phone && (
@@ -144,6 +144,7 @@ export default function Profile() {
               <DefaultBtn outlined={true} children={"Logout"} icon={<LogoutSvg />} onClick={handleLogout} />
             </div>
           )}
+          
         </div>
       </div>
 

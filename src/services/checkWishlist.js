@@ -11,11 +11,11 @@ export const checkWishlist = async (userId, productId) => {
     const isWishListed = wishArr.products.find((item) => item === productId);
 
     return !!isWishListed;
-  } else {
-    await addDoc(wishlistRef, {
-      userId,
-      products: [],
-    });
+  // } else {
+  //   await addDoc(wishlistRef, {
+  //     userId,
+  //     products: [],
+  //   });
     return false;
   }
 };
