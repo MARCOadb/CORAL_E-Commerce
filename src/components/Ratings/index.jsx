@@ -1,23 +1,36 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useContext } from 'react'
 import MobileLayout from '../../layouts/mobileLayout'
 import PlusSvg from '../../assets/icon/PlusSvg'
 import styles from './style.module.scss'
 import StarSvg from "../../assets/icon/StarSvg";
 import productImage from '../../assets/pics/Home/bolsa-boujee.png'
 import useBreakpoint from '../../hooks/useBreakPoint'
-import Header from '../../components/header'
-import Footer from '../../components/footer';
-import DefaultBtn from '../../components/defaultBtn';
-import Modal from '../../components/modal';
+import Header from '../header'
+import Footer from '../footer';
+import DefaultBtn from '../defaultBtn';
+import Modal from '../modal';
 import { toast } from 'react-toastify';
+import { doc, getDoc, updateDoc } from 'firebase/firestore'
+import { AuthContext } from '../../contexts/AuthContext';
+import { db } from '../../services/firebaseConnection';
+import { useLocation } from 'react-router-dom';
+import getUserById from '../../services/getUserById';
 
-export default function Ratings() {
+export default function Ratings({ setRatingsOpen, product }) {
     const { phone, desktop } = useBreakpoint()
     const [reviewModalOpen, setReviewModalOpen] = useState(false)
     const [reviewStars, setReviewStars] = useState(5)
     const [reviewTitle, setReviewTitle] = useState('')
     const [reviewDescription, setReviewDescription] = useState('')
     const [reviewImages, setReviewImages] = useState([])
+    const [reviewsList, setReviewsList] = useState()
+
+    const location = useLocation()
+    const itemId = location.state.itemId
+    const docRef = doc(db, 'products', itemId)
+    const reviewArr = reviewsList
+
+    const { user } = useContext(AuthContext)
 
     function handleStars(i) {
         setReviewStars(i)
@@ -37,31 +50,80 @@ export default function Ratings() {
     }
 
     useEffect(() => {
+        async function getReviews() {
+            var reviewList = []
+            await getDoc(docRef)
+                .then((snapshot) => {
+                    snapshot.data().reviews.map((review => {
+                        reviewList.push(review)
+                    }))
+                    return reviewList
+                })
+                .finally(() => {
+                    setReviewsList(reviewList)
+                })
+                .catch((error) => {
+                    console.log(error)
+                })
+        }
+        setReviewsList(getReviews())
+    }, [])
+
+    useEffect(() => {
         setReviewStars(5)
         setReviewTitle('')
         setReviewDescription('')
         setReviewImages([])
     }, [reviewModalOpen])
 
-    function handleSubmitReview(e) {
+    async function handleSubmitReview(e) {
         e.preventDefault()
         if (reviewTitle !== '' && reviewDescription !== '') {
-            console.log(reviewStars)
-            console.log(reviewTitle)
-            console.log(reviewDescription)                                          //aqui fazer o envio da review pro firebase
-            console.log(reviewImages)
-
-            toast.success('Review Saved!')
-            setReviewModalOpen(false)
+            const currentDate = getDate();
+            let reviewList = reviewsList
+            let review = {
+                reviewStars: reviewStars,
+                reviewTitle: reviewTitle,
+                reviewDescription: reviewDescription,
+                reviewImages: reviewImages,
+                user: user.uid,
+                reviewDate: currentDate
+            }
+            reviewList.push(review)
+            await updateDoc(docRef, {
+                reviews: reviewsList
+            })
+                .then(() => {
+                    toast.success('Review Saved!')
+                    setReviewModalOpen(false)
+                    setReviewsList(reviewList)
+                })
+                .catch((error) => {
+                    console.log(error)
+                })
         } else {
             toast.error('The Review must have a title and a description')
         }
     }
 
+    function getDate() {
+        const today = new Date();
+        const day = String(today.getDate()).padStart(2, '0');
+        const month = String(today.getMonth() + 1).padStart(2, '0'); // Mês começa em 0
+        const year = today.getFullYear();
+
+        return `${day}/${month}/${year}`;
+    }
+
+    async function getUserName(id) {
+        const user = await getUserById(id)
+        return user.name
+    }
+
     return (
         <>
             {phone ? (
-                <MobileLayout open icon={'arrow'} iconAngle={90} iconStroke={'#13101E'} buttons={[{ text: 'Write a Review', btnIcon: <PlusSvg plus stroke={'#fff'} />, onClick: () => setReviewModalOpen(true) }]}>
+                <MobileLayout open setOpen={setRatingsOpen} icon={'arrow'} iconAngle={90} iconStroke={'#13101E'} buttons={[{ text: 'Write a Review', btnIcon: <PlusSvg plus stroke={'#fff'} />, onClick: () => setReviewModalOpen(true) }]}>
                     <div className={styles.content}>
                         <div className={styles.productRating}>
                             <div className={styles.productName}>
@@ -199,13 +261,12 @@ export default function Ratings() {
                 </MobileLayout>
             ) : (
                 <>
-                    <Header />
                     <div className={styles.content}>
                         <div className={styles.productRating}>
                             <div>
                                 <div className={styles.productName}>
-                                    <h1 className='text-high-emphasis display-medium'>Boujee</h1>
-                                    <span className='text-low-emphasis body-medium'>Baker Solid Black Washable Shoulder Bag</span>
+                                    <h1 className='text-high-emphasis display-medium'>{product?.name}</h1>
+                                    <span className='text-low-emphasis body-medium'>{product?.description}</span>
                                 </div>
                                 <div className={styles.graphicRating}>
                                     <div className={styles.ratingNumber}>
@@ -315,34 +376,35 @@ export default function Ratings() {
                         )}
                         <div className={styles.separator}></div>
                         <div className={styles.ratingsContainer}>
-                            <div className={styles.rating}>
-                                <div className={styles.ratingTitle}>
-                                    <div className={styles.titleStar}>
-                                        <span className='text-high-emphasis display-medium'>4.0</span>
-                                        <StarSvg fill="#FF8C4B" stroke="#FF8C4B" width={30} />
+
+                            {/* {reviewArr[0].map((review) => (
+                                <div className={styles.rating}>
+                                    <div className={styles.ratingTitle}>
+                                        <div className={styles.titleStar}>
+                                            <span className='text-high-emphasis display-medium'>{review.reviewStars}.0</span>
+                                            <StarSvg fill="#FF8C4B" stroke="#FF8C4B" width={30} />
+                                        </div>
+                                        <div className={styles.ratingUser}>
+                                            <span className='text-high-emphasis display-medium'>{getUserName(review.user)}</span>
+                                            <span className='text-low-emphasis body-medium'>{review.reviewDate}</span>
+                                        </div>
                                     </div>
-                                    <div className={styles.ratingUser}>
-                                        <span className='text-high-emphasis display-medium'>Vincent Lobo</span>
-                                        <span className='text-low-emphasis body-medium'>20/03/2021</span>
-                                    </div>
-                                </div>
-                                <div className={styles.ratingContent}>
-                                    <span className='text-high-emphasis display-small'>Must go for the class feel.</span>
-                                    <span className='text-low-emphasis body-medium' style={{ margin: '4px 0 16px 0' }}>Totally amazing! I loved the material and the quality. It has a jolly vibe in it which makes me feel happy everytime I put it on.</span>
-                                    <div className={styles.ratingPhotos}>
-                                        <div>
-                                            <img src={productImage} alt="Product Name" />
-                                            <img src={productImage} alt="Product Name" />
-                                            <img src={productImage} alt="Product Name" />
-                                            <img src={productImage} alt="Product Name" />
-                                            <img src={productImage} alt="Product Name" />
+                                    <div className={styles.ratingContent}>
+                                        <span className='text-high-emphasis display-small'>{review.reviewTitle}</span>
+                                        <span className='text-low-emphasis body-medium' style={{ margin: '4px 0 16px 0' }}>{review.reviewDescription}</span>
+                                        <div className={styles.ratingPhotos}>
+                                            <div>
+                                                {review.reviewImages.map((image) => (
+                                                    <img src={image} alt={product?.name} />
+                                                ))}
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
+                            ))} */}
                         </div>
                     </div>
-                    <Footer />
+
                 </>
             )}
         </>

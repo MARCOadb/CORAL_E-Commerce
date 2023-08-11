@@ -108,7 +108,7 @@
     gap: 8px;
 
     @include desktop {
-        width: 620px;
+        width: 600px;
         height: 440px;
         gap: 16px
     }
@@ -409,7 +409,7 @@
 
 .submitBtn {
     width: 328px;
-    height: 44px;
+    height: 48px;
     border: none;
     outline: none;
     background-color: #1B4B66;

@@ -4,6 +4,7 @@ import useBreakpoint from "../../hooks/useBreakPoint";
 import { useContext, useEffect, useRef, useState } from "react";
 import { ref, getDownloadURL } from "firebase/storage";
 import { storage } from "../../services/firebaseConnection";
+import Ratings from "../../components/Ratings";
 
 import productPhoto from "../../assets/pics/Product/product-image.png"; //
 import pic2 from "../../assets/pics/Home/bolsa-remus.png"; //
@@ -43,6 +44,7 @@ export default function ProductPage({ itemId, data, open, setOpen }) {
   const { update, userWishlist } = useContext(BagContext);
   const { user } = useContext(AuthContext);
   const { phone, desktop } = useBreakpoint();
+  const [reviewModalOpen, setReviewModalOpen] = useState(false)
 
   const [activePic, setActivePic] = useState(0);
   const [activeTab, setActiveTab] = useState(1);
@@ -151,7 +153,7 @@ export default function ProductPage({ itemId, data, open, setOpen }) {
   // };
 
   const getProductImage = async () => {
-    const storageRef = ref(storage, `productsImg/${product.name}`)
+    const storageRef = ref(storage, `productsImg/${data.name}`)
     await getDownloadURL(storageRef)
       .then((response) => {
         setProductPic(response)
@@ -285,8 +287,13 @@ export default function ProductPage({ itemId, data, open, setOpen }) {
 
             <div className={styles.ratingsTitle}>
               <h1 className="type-high-emphasis title-regular">Ratings and Reviews</h1>
-              <ArrowSvg onClick={() => alert("abrir pagina de reviews")} x={270} />
+              <ArrowSvg onClick={() => setReviewModalOpen(true)} x={270} />
             </div>
+
+            {reviewModalOpen && (
+              <Ratings setRatingsOpen={setReviewModalOpen} />
+            )}
+
 
             <div className={styles.seperator}></div>
 
@@ -316,7 +323,6 @@ export default function ProductPage({ itemId, data, open, setOpen }) {
           <Header />
           <div className={styles.content}>
             <Breadcrump />
-            {console.log(product?.name)}
             <div className={styles.product}>
               <div className={styles.productImages}>
                 <img src={productImages[activePic]} alt="Product Image" className={styles.imageBig} />
@@ -438,7 +444,7 @@ export default function ProductPage({ itemId, data, open, setOpen }) {
                 </div>
 
                 <div className={`${styles.tabsContent} ${activeTab === 3 && styles.tabsContentActive}`}>
-                  <p className="text-low-emphasis body-medium">Reviews</p>
+                  <Ratings product={product} />
                 </div>
               </div>
             </div>
