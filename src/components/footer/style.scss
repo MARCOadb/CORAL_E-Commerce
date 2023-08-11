@@ -120,26 +120,7 @@ footer {
   margin: 0px -15px;
 }
 
-.buttonDropDown {
+.dropdown-spacer {
   width: 100%;
-  background-color: #ffffff;
-  border: none;
-  font-size: 14px;
-  font-weight: 500;
-  line-height: 18px;
-  text-align: left;
-  padding: 16px 15px;
-  font-family: "Inter";
-
-  img {
-    position: absolute;
-    right: 30px;
-  }
-
-  $flecha-rotacao: 180deg;
-
-  .flecha {
-    transition: transform 0.5s;
-    transform: rotate(0deg);
-  }
+  height: 56px;
 }
