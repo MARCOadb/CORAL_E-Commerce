@@ -7,6 +7,7 @@ import "./style.scss";
 const Dropdown = ({ title, content }) => {
   const [toggle, setToggle] = useState(false);
   const [height, setHeight] = useState();
+  const [firstTimePress, setFirstTimePress] = useState(true);
   const refHeight = useRef();
   const { phone, desktop } = useBreakpoint();
 
@@ -16,6 +17,27 @@ const Dropdown = ({ title, content }) => {
 
   const toggleState = () => {
     setToggle(!toggle);
+  };
+
+  const toggleStateMobile = () => {
+    setToggle(!toggle);
+    firstScrollCheck();
+  };
+
+  const firstScrollCheck = () => {
+    if (firstTimePress) {
+      setTimeout(() => {
+        const currentScrollY = window.scrollY;
+        const targetScrollY = Math.max(currentScrollY + 590, 0);
+
+        window.scrollTo({
+          top: targetScrollY,
+          behavior: "smooth",
+        });
+        setFirstTimePress(false);
+      }, 250);
+      return;
+    }
   };
 
   return (
@@ -36,7 +58,7 @@ const Dropdown = ({ title, content }) => {
       ) : (
         <>
           <div>
-            <button className="checkout-dropdown-button" onClick={toggleState}>
+            <button className="checkout-dropdown-button" onClick={toggleStateMobile}>
               <p className="title-medium">{title}</p>
               <img src={Chevron} className={toggle ? "chevron-rotate" : undefined} />
             </button>

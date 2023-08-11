@@ -9,15 +9,6 @@ const Footer = () => {
   const { phone, desktop } = useBreakpoint();
   const [footer, setFooter] = useState(false);
 
-  const buttonHandler = (e) => {
-    e.preventDefault();
-    if (footer == false) {
-      setFooter(true);
-    } else {
-      setFooter(false);
-    }
-  };
-
   const mobileContent = (
     <>
       <div
