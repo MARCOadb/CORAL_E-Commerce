@@ -10,7 +10,7 @@ import Footer from '../footer';
 import DefaultBtn from '../defaultBtn';
 import Modal from '../modal';
 import { toast } from 'react-toastify';
-import { doc, getDoc, updateDoc } from 'firebase/firestore'
+import { doc, getDoc, onSnapshot, updateDoc } from 'firebase/firestore'
 import { AuthContext } from '../../contexts/AuthContext';
 import { db } from '../../services/firebaseConnection';
 import { useLocation } from 'react-router-dom';
@@ -24,6 +24,9 @@ export default function Ratings({ setRatingsOpen, product }) {
     const [reviewDescription, setReviewDescription] = useState('')
     const [reviewImages, setReviewImages] = useState([])
     const [reviewsList, setReviewsList] = useState([])
+    const [reviewData, setReviewData] = useState([]);
+    const [allReviewImages, setAllReviewImages] = useState([])
+    const [ratingStars, setRatingStars] = useState([])
 
     const location = useLocation()
     const itemId = location.state.itemId
@@ -38,10 +41,16 @@ export default function Ratings({ setRatingsOpen, product }) {
     function handleFile(e) {
         if (e.target.files[0]) {
             const image = e.target.files[0]
-            const imageUrl = URL.createObjectURL(image)
+            const reader = new FileReader()
 
             if (image.type === 'image/jpeg' || image.type === 'image/png') {
-                setReviewImages([...reviewImages, imageUrl])
+                reader.onloadend = () => {
+                    setReviewImages([...reviewImages, reader.result])
+                }
+
+                if (image) {
+                    reader.readAsDataURL(image)
+                }
             } else {
                 toast.error('The image must be .jpeg or .png type')
             }
@@ -50,18 +59,27 @@ export default function Ratings({ setRatingsOpen, product }) {
 
     useEffect(() => {
         async function getReviews() {
-            // var reviewList = []
+            var reviewList = []
+            var reviewImagesList = []
+            var reviewStarsList = []
             await getDoc(docRef)
                 .then((snapshot) => {
-                    snapshot.data().reviews.map((review) => {
-                        setReviewsList([...reviewsList, review])
+                    snapshot.data().reviews.forEach((review) => {
+                        reviewList.push(review)
+                        reviewStarsList.push(review.reviewStars)
+                        review.reviewImages.map((image) => {
+                            reviewImagesList.push(image)
+                        })
                     })
+                    setReviewsList(reviewList)
+                    setAllReviewImages(reviewImagesList)
+                    setRatingStars(reviewStarsList)
                 })
                 .catch((error) => {
                     console.log(error)
                 })
         }
-        getReviews()
+        getReviews();
     }, [])
 
     useEffect(() => {
@@ -112,15 +130,68 @@ export default function Ratings({ setRatingsOpen, product }) {
 
     async function getUserName(id) {
         const user = await getUserById(id)
-        return user.name
+        const userName = user.firstName + ' ' + user.lastName
+        return (userName)
     }
 
-    const reviewArr = []
+    const [userNamesFetched, setUserNamesFetched] = useState(false);
+
     useEffect(() => {
-        for (let i = 0; i < reviewsList?.length; i++) {
-            reviewArr.push(reviewsList[i])
+        if (!userNamesFetched && reviewsList.length > 0) {
+            const fetchUserNames = async () => {
+                const updatedReviews = await Promise.all(
+                    reviewsList.map(async (review) => {
+                        const userName = await getUserName(review.user);
+                        return {
+                            ...review,
+                            userName: userName,
+                        };
+                    })
+                );
+                setReviewData(updatedReviews);
+                setUserNamesFetched(true);
+            };
+
+            fetchUserNames();
         }
-    }, [reviewsList])
+    }, [reviewsList, getUserName, userNamesFetched]);
+
+    const [averageRating, setAverageRating] = useState()
+    const [starsFive, setStarsFive] = useState()
+    const [starsFour, setStarsFour] = useState()
+    const [starsThree, setStarsThree] = useState()
+    const [starsTwo, setStarsTwo] = useState()
+    const [starsOne, setStarsOne] = useState()
+
+    useEffect(() => {
+        let sum = 0
+        if (ratingStars.length < 1) {
+            setAverageRating('0.0')
+            setStarsFive(0)
+            setStarsFour(0)
+            setStarsThree(0)
+            setStarsTwo(0)
+            setStarsOne(0)
+        } else {
+            for (let i = 0; i < ratingStars.length; i++) {
+                sum += ratingStars[i]
+            }
+            const media = Math.round((sum / ratingStars.length) * 2) / 2;
+            setAverageRating(media % 1 === 0 ? `${media}.0` : media)
+
+            const star5 = ratingStars.filter((number) => number === 5)
+            const star4 = ratingStars.filter((number) => number === 4)
+            const star3 = ratingStars.filter((number) => number === 3)
+            const star2 = ratingStars.filter((number) => number === 2)
+            const star1 = ratingStars.filter((number) => number === 1)
+
+            setStarsFive((star5.length * 100) / ratingStars.length)
+            setStarsFour((star4.length * 100) / ratingStars.length)
+            setStarsThree((star3.length * 100) / ratingStars.length)
+            setStarsTwo((star2.length * 100) / ratingStars.length)
+            setStarsOne((star1.length * 100) / ratingStars.length)
+        }
+    }, [ratingStars, reviewsList])
 
     return (
         <>
@@ -272,7 +343,7 @@ export default function Ratings({ setRatingsOpen, product }) {
                                 </div>
                                 <div className={styles.graphicRating}>
                                     <div className={styles.ratingNumber}>
-                                        <span className='text-high-emphasis display-medium'>4.5</span>
+                                        <span className='text-high-emphasis display-medium'>{averageRating}</span>
                                         <StarSvg fill="#FF8C4B" stroke="#FF8C4B" width={24} />
                                         <span className='text-high-emphasis display-small'>Average Rating</span>
                                     </div>
@@ -280,31 +351,31 @@ export default function Ratings({ setRatingsOpen, product }) {
                                         <div className={styles.barContainer}>
                                             <span className='text-low-emphasis display-small'>5.0</span>
                                             <div>
-                                                <div style={{ width: '75%' }} className={styles.bar}></div>
+                                                <div style={{ width: starsFive + '%' }} className={styles.bar}></div>
                                             </div>
                                         </div>
                                         <div className={styles.barContainer}>
                                             <span className='text-low-emphasis display-small'>4.0</span>
                                             <div>
-                                                <div style={{ width: '50%' }} className={styles.bar}></div>
+                                                <div style={{ width: starsFour + '%' }} className={styles.bar}></div>
                                             </div>
                                         </div>
                                         <div className={styles.barContainer}>
                                             <span className='text-low-emphasis display-small'>3.0</span>
                                             <div>
-                                                <div style={{ width: '10%' }} className={styles.bar}></div>
+                                                <div style={{ width: starsThree + '%' }} className={styles.bar}></div>
                                             </div>
                                         </div>
                                         <div className={styles.barContainer}>
                                             <span className='text-low-emphasis display-small'>2.0</span>
                                             <div>
-                                                <div style={{ width: '20%' }} className={styles.bar}></div>
+                                                <div style={{ width: starsTwo + '%' }} className={styles.bar}></div>
                                             </div>
                                         </div>
                                         <div className={styles.barContainer}>
                                             <span className='text-low-emphasis display-small'>1.0</span>
                                             <div>
-                                                <div style={{ width: '45%' }} className={styles.bar}></div>
+                                                <div style={{ width: starsOne + '%' }} className={styles.bar}></div>
                                             </div>
                                         </div>
                                     </div>
@@ -319,16 +390,9 @@ export default function Ratings({ setRatingsOpen, product }) {
                                 <h1 className='text-high-emphasis display-small'>Customer Photos</h1>
                                 <div className={styles.photoCaroulsel}>
                                     <div>
-                                        <img src={productImage} alt="Product Name" />
-                                        <img src={productImage} alt="Product Name" />
-                                        <img src={productImage} alt="Product Name" />
-                                        <img src={productImage} alt="Product Name" />
-                                        <img src={productImage} alt="Product Name" />
-                                        <img src={productImage} alt="Product Name" />
-                                        <img src={productImage} alt="Product Name" />
-                                        <img src={productImage} alt="Product Name" />
-                                        <img src={productImage} alt="Product Name" />
-                                        <img src={productImage} alt="Product Name" />
+                                        {allReviewImages.map((image, index) => (
+                                            <img src={image} key={index} />
+                                        ))}
                                     </div>
                                 </div>
                             </div>
@@ -378,8 +442,7 @@ export default function Ratings({ setRatingsOpen, product }) {
                         )}
                         <div className={styles.separator}></div>
                         <div className={styles.ratingsContainer}>
-                            {console.log(reviewsList)}
-                            {/* {reviewsList.map((review) => (
+                            {reviewData.map((review) => (
                                 <div className={styles.rating}>
                                     <div className={styles.ratingTitle}>
                                         <div className={styles.titleStar}>
@@ -387,7 +450,7 @@ export default function Ratings({ setRatingsOpen, product }) {
                                             <StarSvg fill="#FF8C4B" stroke="#FF8C4B" width={30} />
                                         </div>
                                         <div className={styles.ratingUser}>
-                                            <span className='text-high-emphasis display-medium'>{getUserName(review.user)}</span>
+                                            <span className='text-high-emphasis display-medium'>{review.userName}</span>
                                             <span className='text-low-emphasis body-medium'>{review.reviewDate}</span>
                                         </div>
                                     </div>
@@ -396,14 +459,14 @@ export default function Ratings({ setRatingsOpen, product }) {
                                         <span className='text-low-emphasis body-medium' style={{ margin: '4px 0 16px 0' }}>{review.reviewDescription}</span>
                                         <div className={styles.ratingPhotos}>
                                             <div>
-                                                {review.reviewImages.map((image) => (
-                                                    <img src={image} alt={product?.name} />
+                                                {review.reviewImages.map((image, index) => (
+                                                    <img src={image} alt={product?.name} key={index} />
                                                 ))}
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-                            ))} */}
+                            ))}
                         </div>
                     </div>
 
