@@ -25,6 +25,7 @@ import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import ChevronRightSvg from "../../assets/icon/ChevronRightSvg";
+import { toast } from 'react-toastify'
 
 import styles from "./style.module.scss";
 import MobileLayout from "../../layouts/mobileLayout";
@@ -128,29 +129,29 @@ export default function ProductPage({ itemId, data, open, setOpen }) {
   const minusQnt = () => {
     setStepperQnt(stepperQnt - 1);
   };
-  const addToBag = () => {
-    if (!!user) {
-      if (desktop) {
-        setLoading(true);
-        setProductQnt(user.uid, location.state.itemId, stepperQnt)
-          .then(() => update())
-          .finally(() => setLoading(false));
-      } else {
-        setLoading(true);
-        addBagProduct(user.uid, itemId)
-          .then(() => update())
-          .finally(() => setLoading(false));
-      }
-    } else alert("You must be logged to do this!");
-  };
-  const addToWishlist = () => {
-    if (!!user) {
-      setWishlistProduct(user.uid, itemId ? itemId : location.state.itemId).finally(() => setLoading(false));
-      if (isWishlisted === true) setIsWishlisted(false);
-      else setIsWishlisted(true);
-      update();
-    } else alert("You must be logged to do this!");
-  };
+  // const addToBag = () => {
+  //   if (!!user) {
+  //     if (desktop) {
+  //       setLoading(true);
+  //       setProductQnt(user.uid, location.state.itemId, stepperQnt)
+  //         .then(() => update())
+  //         .finally(() => setLoading(false));
+  //     } else {
+  //       setLoading(true);
+  //       addBagProduct(user.uid, itemId)
+  //         .then(() => update())
+  //         .finally(() => setLoading(false));
+  //     }
+  //   } else toast.error("You must be logged to do this!");
+  // };
+  // const addToWishlist = () => {
+  //   if (!!user) {
+  //     setWishlistProduct(user.uid, itemId ? itemId : location.state.itemId).finally(() => setLoading(false));
+  //     if (isWishlisted === true) setIsWishlisted(false);
+  //     else setIsWishlisted(true);
+  //     update();
+  //   } else toast.error("You must be logged to do this!");
+  // };
 
   const getProductImage = async () => {
     const storageRef = ref(storage, `productsImg/${data.name}`)
@@ -164,11 +165,11 @@ export default function ProductPage({ itemId, data, open, setOpen }) {
     productPic
   ];
 
-  const [isWishlisted, setIsWishlisted] = useState(null);
-  useEffect(() => {
-    setIsWishlisted(userWishlist.find((item) => item.uid === itemId));
-    update();
-  }, []);
+  // const [isWishlisted, setIsWishlisted] = useState(null);
+  // useEffect(() => {
+  //   setIsWishlisted(userWishlist.find((item) => item.uid === itemId));
+  //   update();
+  // }, []);
   return (
     <>
       {phone && open ? (
@@ -178,10 +179,10 @@ export default function ProductPage({ itemId, data, open, setOpen }) {
           iconStroke="#13101E"
           footerPrefix={
             <div style={{ display: "flex", alignItems: "center" }}>
-              <WishlistSvg fill={isWishlisted && "red"} onClick={addToWishlist} width={44} />
+              {/* <WishlistSvg fill={isWishlisted && "red"} onClick={addToWishlist} width={44} /> */}
             </div>
           }
-          buttons={[{ text: "Add to Bag", outlined: false, onClick: addToBag, btnIcon: <BagSvg stroke="#fff" /> }]}
+          //buttons={[{ text: "Add to Bag", outlined: false, onClick: addToBag, btnIcon: <BagSvg stroke="#fff" /> }]}
           open={open}
           setOpen={setOpen}
         >
@@ -403,12 +404,12 @@ export default function ProductPage({ itemId, data, open, setOpen }) {
                 </div>
 
                 <div className={styles.buttons}>
-                  <DefaultBtn onClick={addToBag} icon={<BagSvg stroke={"#fff"} />} width={"328px"} height={"44px"}>
+                  {/* <DefaultBtn onClick={addToBag} icon={<BagSvg stroke={"#fff"} />} width={"328px"} height={"44px"}>
                     Add to bag
-                  </DefaultBtn>
-                  <DefaultBtn onClick={addToWishlist} icon={<WishlistSvg fill={isWishlisted && "red"} />} outlined width={"240px"} height={"44px"}>
+                  </DefaultBtn> */}
+                  {/* <DefaultBtn onClick={addToWishlist} icon={<WishlistSvg fill={isWishlisted && "red"} />} outlined width={"240px"} height={"44px"}>
                     Add to wishlist
-                  </DefaultBtn>
+                  </DefaultBtn> */}
                 </div>
               </div>
             </div>

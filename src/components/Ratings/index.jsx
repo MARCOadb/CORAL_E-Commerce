@@ -16,7 +16,7 @@ import { db } from '../../services/firebaseConnection';
 import { useLocation } from 'react-router-dom';
 import getUserById from '../../services/getUserById';
 
-export default function Ratings({ setRatingsOpen, product, setRatingsNumber }) {
+export default function Ratings({ setRatingsOpen, product, setRatingsNumber, itemId }) {
     const { phone, desktop } = useBreakpoint()
     const [reviewModalOpen, setReviewModalOpen] = useState(false)
     const [reviewStars, setReviewStars] = useState(5)
@@ -28,10 +28,7 @@ export default function Ratings({ setRatingsOpen, product, setRatingsNumber }) {
     const [allReviewImages, setAllReviewImages] = useState([])
     const [ratingStars, setRatingStars] = useState([])
 
-    const location = useLocation()
-    const itemId = location.state.itemId
     const docRef = doc(db, 'products', itemId)
-
     const { user } = useContext(AuthContext)
 
     function handleStars(i) {
@@ -191,7 +188,7 @@ export default function Ratings({ setRatingsOpen, product, setRatingsNumber }) {
             setStarsTwo((star2.length * 100) / ratingStars.length)
             setStarsOne((star1.length * 100) / ratingStars.length)
         }
-        setRatingsNumber(averageRating)
+        //setRatingsNumber(averageRating)
     }, [ratingStars, reviewsList])
 
     return (
@@ -287,49 +284,42 @@ export default function Ratings({ setRatingsOpen, product, setRatingsNumber }) {
 
                             <div className={styles.productPhotos}>
                                 <h1 className='text-high-emphasis title-regular'>Customer Photos</h1>
-                                <div className={styles.photoCaroulsel}>
+                                <div className={styles.photoCarousel}>
                                     <div>
-                                        <img src={productImage} alt="Product Name" />
-                                        <img src={productImage} alt="Product Name" />
-                                        <img src={productImage} alt="Product Name" />
-                                        <img src={productImage} alt="Product Name" />
-                                        <img src={productImage} alt="Product Name" />
-                                        <img src={productImage} alt="Product Name" />
-                                        <img src={productImage} alt="Product Name" />
-                                        <img src={productImage} alt="Product Name" />
-                                        <img src={productImage} alt="Product Name" />
-                                        <img src={productImage} alt="Product Name" />
+                                        {allReviewImages.map((image, index) => (
+                                            <img src={image} key={index} />
+                                        ))}
                                     </div>
                                 </div>
                             </div>
                         </div>
                         <div className={styles.separator}></div>
                         <div className={styles.ratingsContainer}>
-                            <div className={styles.rating}>
-                                <div className={styles.ratingTitle}>
-                                    <div className={styles.titleStar}>
-                                        <span className='text-high-emphasis'>4.0</span>
-                                        <StarSvg fill="#FF8C4B" stroke="#FF8C4B" width={20} />
+                            {reviewData.map((review) => (
+                                <div className={styles.rating}>
+                                    <div className={styles.ratingTitle}>
+                                        <div className={styles.titleStar}>
+                                            <span className='text-high-emphasis'>{review.reviewStars}.0</span>
+                                            <StarSvg fill="#FF8C4B" stroke="#FF8C4B" width={30} />
+                                        </div>
+                                        <div className={styles.ratingUser}>
+                                            <span className='text-high-emphasis title-regular'>{review.userName}</span>
+                                            <span className='text-low-emphasis title-medium'>{review.reviewDate}</span>
+                                        </div>
                                     </div>
-                                    <div className={styles.ratingUser}>
-                                        <span className='text-high-emphasis title-regular'>Vincent Lobo</span>
-                                        <span className='text-low-emphasis title-medium'>20/03/2021</span>
-                                    </div>
-                                </div>
-                                <div className={styles.ratingContent}>
-                                    <span className='text-high-emphasis title-regular'>Must go for the class feel.</span>
-                                    <span className='text-low-emphasis title-medium' style={{ margin: '4px 0 16px 0' }}>Totally amazing! I loved the material and the quality. It has a jolly vibe in it which makes me feel happy everytime I put it on.</span>
-                                    <div className={styles.ratingPhotos}>
-                                        <div>
-                                            <img src={productImage} alt="Product Name" />
-                                            <img src={productImage} alt="Product Name" />
-                                            <img src={productImage} alt="Product Name" />
-                                            <img src={productImage} alt="Product Name" />
-                                            <img src={productImage} alt="Product Name" />
+                                    <div className={styles.ratingContent}>
+                                        <span className='text-high-emphasis title-regular'>{review.reviewTitle}</span>
+                                        <span className='text-low-emphasis title-medium' style={{ margin: '4px 0 16px 0' }}>{review.reviewDescription}</span>
+                                        <div className={styles.ratingPhotos}>
+                                            <div>
+                                                {review.reviewImages.map((image, index) => (
+                                                    <img src={image} alt={product?.name} key={index} />
+                                                ))}
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
+                            ))}
                         </div>
                     </div>
                 </MobileLayout>
@@ -389,7 +379,7 @@ export default function Ratings({ setRatingsOpen, product, setRatingsNumber }) {
                             </div>
                             <div className={styles.productPhotos}>
                                 <h1 className='text-high-emphasis display-small'>Customer Photos</h1>
-                                <div className={styles.photoCaroulsel}>
+                                <div className={styles.photoCarousel}>
                                     <div>
                                         {allReviewImages.map((image, index) => (
                                             <img src={image} key={index} />
