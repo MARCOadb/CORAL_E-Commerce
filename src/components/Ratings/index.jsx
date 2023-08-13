@@ -16,7 +16,7 @@ import { db } from '../../services/firebaseConnection';
 import { useLocation } from 'react-router-dom';
 import getUserById from '../../services/getUserById';
 
-export default function Ratings({ setRatingsOpen, product }) {
+export default function Ratings({ setRatingsOpen, product, setRatingsNumber }) {
     const { phone, desktop } = useBreakpoint()
     const [reviewModalOpen, setReviewModalOpen] = useState(false)
     const [reviewStars, setReviewStars] = useState(5)
@@ -191,6 +191,7 @@ export default function Ratings({ setRatingsOpen, product }) {
             setStarsTwo((star2.length * 100) / ratingStars.length)
             setStarsOne((star1.length * 100) / ratingStars.length)
         }
+        setRatingsNumber(averageRating)
     }, [ratingStars, reviewsList])
 
     return (
@@ -200,12 +201,12 @@ export default function Ratings({ setRatingsOpen, product }) {
                     <div className={styles.content}>
                         <div className={styles.productRating}>
                             <div className={styles.productName}>
-                                <h1 className='text-high-emphasis body-medium'>Boujee</h1>
-                                <span className='text-low-emphasis title-medium'>Baker Solid Black Washable Shoulder Bag</span>
+                                <h1 className='text-high-emphasis body-medium'>{product?.name}</h1>
+                                <span className='text-low-emphasis title-medium'>{product?.description}</span>
                             </div>
                             <div className={styles.graphicRating}>
                                 <div className={styles.ratingNumber}>
-                                    <span className='text-high-emphasis title-regular'>4.5</span>
+                                    <span className='text-high-emphasis title-regular'>{averageRating}</span>
                                     <StarSvg fill="#FF8C4B" stroke="#FF8C4B" width={20} />
                                     <span className='text-high-emphasis title-regular'>Average Rating</span>
                                 </div>
@@ -213,31 +214,31 @@ export default function Ratings({ setRatingsOpen, product }) {
                                     <div className={styles.barContainer}>
                                         <span className='text-low-emphasis title-medium'>5.0</span>
                                         <div>
-                                            <div style={{ width: '75%' }} className={styles.bar}></div>
+                                            <div style={{ width: starsFive + '%' }} className={styles.bar}></div>
                                         </div>
                                     </div>
                                     <div className={styles.barContainer}>
                                         <span className='text-low-emphasis title-medium'>4.0</span>
                                         <div>
-                                            <div style={{ width: '50%' }} className={styles.bar}></div>
+                                            <div style={{ width: starsFour + '%' }} className={styles.bar}></div>
                                         </div>
                                     </div>
                                     <div className={styles.barContainer}>
                                         <span className='text-low-emphasis title-medium'>3.0</span>
                                         <div>
-                                            <div style={{ width: '10%' }} className={styles.bar}></div>
+                                            <div style={{ width: starsThree + '%' }} className={styles.bar}></div>
                                         </div>
                                     </div>
                                     <div className={styles.barContainer}>
                                         <span className='text-low-emphasis title-medium'>2.0</span>
                                         <div>
-                                            <div style={{ width: '20%' }} className={styles.bar}></div>
+                                            <div style={{ width: starsTwo + '%' }} className={styles.bar}></div>
                                         </div>
                                     </div>
                                     <div className={styles.barContainer}>
                                         <span className='text-low-emphasis title-medium'>1.0</span>
                                         <div>
-                                            <div style={{ width: '45%' }} className={styles.bar}></div>
+                                            <div style={{ width: starsOne + '%' }} className={styles.bar}></div>
                                         </div>
                                     </div>
                                 </div>

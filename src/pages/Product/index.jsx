@@ -56,6 +56,8 @@ export default function ProductPage({ itemId, data, open, setOpen }) {
 
   const dropdownRefHeight = useRef();
 
+  const [averageRatingsNumber, setAverageRatingsNumber] = useState(0)
+
   useEffect(() => {
     setDropdownOpen(true);
   }, []);
@@ -94,8 +96,6 @@ export default function ProductPage({ itemId, data, open, setOpen }) {
     setDropdownOpen(!dropdownOpen);
   }
 
-  //pra simular os produtos//
-
   const [loading, setLoading] = useState(false);
   const [product, setProduct] = useState(null);
   const [products, setProducts] = useState(null);
@@ -128,29 +128,29 @@ export default function ProductPage({ itemId, data, open, setOpen }) {
   const minusQnt = () => {
     setStepperQnt(stepperQnt - 1);
   };
-  // const addToBag = () => {
-  //   if (!!user) {
-  //     if (desktop) {
-  //       setLoading(true);
-  //       setProductQnt(user.uid, location.state.itemId, stepperQnt)
-  //         .then(() => update())
-  //         .finally(() => setLoading(false));
-  //     } else {
-  //       setLoading(true);
-  //       addBagProduct(user.uid, itemId)
-  //         .then(() => update())
-  //         .finally(() => setLoading(false));
-  //     }
-  //   } else alert("You must be logged to do this!");
-  // };
-  // const addToWishlist = () => {
-  //   if (!!user) {
-  //     setWishlistProduct(user.uid, itemId ? itemId : location.state.itemId).finally(() => setLoading(false));
-  //     if (isWishlisted === true) setIsWishlisted(false);
-  //     else setIsWishlisted(true);
-  //     update();
-  //   } else alert("You must be logged to do this!");
-  // };
+  const addToBag = () => {
+    if (!!user) {
+      if (desktop) {
+        setLoading(true);
+        setProductQnt(user.uid, location.state.itemId, stepperQnt)
+          .then(() => update())
+          .finally(() => setLoading(false));
+      } else {
+        setLoading(true);
+        addBagProduct(user.uid, itemId)
+          .then(() => update())
+          .finally(() => setLoading(false));
+      }
+    } else alert("You must be logged to do this!");
+  };
+  const addToWishlist = () => {
+    if (!!user) {
+      setWishlistProduct(user.uid, itemId ? itemId : location.state.itemId).finally(() => setLoading(false));
+      if (isWishlisted === true) setIsWishlisted(false);
+      else setIsWishlisted(true);
+      update();
+    } else alert("You must be logged to do this!");
+  };
 
   const getProductImage = async () => {
     const storageRef = ref(storage, `productsImg/${data.name}`)
@@ -164,11 +164,11 @@ export default function ProductPage({ itemId, data, open, setOpen }) {
     productPic
   ];
 
-  // const [isWishlisted, setIsWishlisted] = useState(null);
-  // useEffect(() => {
-  //   setIsWishlisted(userWishlist.find((item) => item.uid === itemId));
-  //   update();
-  // }, []);
+  const [isWishlisted, setIsWishlisted] = useState(null);
+  useEffect(() => {
+    setIsWishlisted(userWishlist.find((item) => item.uid === itemId));
+    update();
+  }, []);
   return (
     <>
       {phone && open ? (
@@ -178,10 +178,10 @@ export default function ProductPage({ itemId, data, open, setOpen }) {
           iconStroke="#13101E"
           footerPrefix={
             <div style={{ display: "flex", alignItems: "center" }}>
-              {/* <WishlistSvg fill={isWishlisted && "red"} onClick={addToWishlist} width={44} /> */}
+              <WishlistSvg fill={isWishlisted && "red"} onClick={addToWishlist} width={44} />
             </div>
           }
-          //buttons={[{ text: "Add to Bag", outlined: false, onClick: addToBag, btnIcon: <BagSvg stroke="#fff" /> }]}
+          buttons={[{ text: "Add to Bag", outlined: false, onClick: addToBag, btnIcon: <BagSvg stroke="#fff" /> }]}
           open={open}
           setOpen={setOpen}
         >
@@ -198,9 +198,9 @@ export default function ProductPage({ itemId, data, open, setOpen }) {
               </div>
               <div className={styles.productContent}>
                 <h1 className="text-high-emphasis body-medium" style={{ marginBottom: "4px" }}>
-                  Coach
+                  {data?.name}
                 </h1>
-                <span className="text-low-emphasis title-medium">Leather Coach Bag with adjustable starps.</span>
+                <span className="text-low-emphasis title-medium">{data?.description}</span>
 
                 <div className={styles.productPrice}>
                   <h1 className="text-high-emphasis display-small">${data.price}</h1>
@@ -210,13 +210,13 @@ export default function ProductPage({ itemId, data, open, setOpen }) {
 
                 <div className={styles.ratingsContainer}>
                   <div className={styles.mobRatingsStar}>
-                    <span>4.5</span>
+                    <span>{averageRatingsNumber}</span>
                     <StarSvg fill="#FF8C4B" stroke="#FF8C4B" width={20} height={20} />
                   </div>
 
                   <div className={styles.mobRatingsAmount}>
                     <span className="text-high-emphasis title-regular">Average Rating</span>
-                    <span className="text-low-emphasis title-medium">43 Ratings & {data.reviews.length} Reviews</span>
+                    <span className="text-low-emphasis title-medium">{data.reviews.length} Reviews</span>
                   </div>
                 </div>
 
@@ -277,8 +277,7 @@ export default function ProductPage({ itemId, data, open, setOpen }) {
               </div>
               <div className={`${styles.dropdownContent} ${dropdownOpen && styles.dropdownOpen}`} ref={dropdownRefHeight} style={{ height: dropdownOpen ? `${dropdownHeight}` : "0px" }}>
                 <p className="text-low-emphasis title-medium">
-                  Experience comfortable and easy travelling like never before with this coach bag. It features a zip closure, removable straps and multiple organization compartments to keep your
-                  valuables safe. Crafted from premium material, it is durable and lasts long.
+                  {data?.description}
                 </p>
               </div>
             </div>
@@ -404,12 +403,12 @@ export default function ProductPage({ itemId, data, open, setOpen }) {
                 </div>
 
                 <div className={styles.buttons}>
-                  {/* <DefaultBtn onClick={addToBag} icon={<BagSvg stroke={"#fff"} />} width={"328px"} height={"44px"}>
+                  <DefaultBtn onClick={addToBag} icon={<BagSvg stroke={"#fff"} />} width={"328px"} height={"44px"}>
                     Add to bag
-                  </DefaultBtn> */}
-                  {/* <DefaultBtn onClick={addToWishlist} icon={<WishlistSvg fill={isWishlisted && "red"} />} outlined width={"240px"} height={"44px"}>
+                  </DefaultBtn>
+                  <DefaultBtn onClick={addToWishlist} icon={<WishlistSvg fill={isWishlisted && "red"} />} outlined width={"240px"} height={"44px"}>
                     Add to wishlist
-                  </DefaultBtn> */}
+                  </DefaultBtn>
                 </div>
               </div>
             </div>
