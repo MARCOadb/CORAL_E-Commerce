@@ -129,29 +129,29 @@ export default function ProductPage({ itemId, data, open, setOpen }) {
   const minusQnt = () => {
     setStepperQnt(stepperQnt - 1);
   };
-  // const addToBag = () => {
-  //   if (!!user) {
-  //     if (desktop) {
-  //       setLoading(true);
-  //       setProductQnt(user.uid, location.state.itemId, stepperQnt)
-  //         .then(() => update())
-  //         .finally(() => setLoading(false));
-  //     } else {
-  //       setLoading(true);
-  //       addBagProduct(user.uid, itemId)
-  //         .then(() => update())
-  //         .finally(() => setLoading(false));
-  //     }
-  //   } else toast.error("You must be logged to do this!");
-  // };
-  // const addToWishlist = () => {
-  //   if (!!user) {
-  //     setWishlistProduct(user.uid, itemId ? itemId : location.state.itemId).finally(() => setLoading(false));
-  //     if (isWishlisted === true) setIsWishlisted(false);
-  //     else setIsWishlisted(true);
-  //     update();
-  //   } else toast.error("You must be logged to do this!");
-  // };
+  const addToBag = () => {
+    if (!!user) {
+      if (desktop) {
+        setLoading(true);
+        setProductQnt(user.uid, location.state.itemId, stepperQnt)
+          .then(() => update())
+          .finally(() => setLoading(false));
+      } else {
+        setLoading(true);
+        addBagProduct(user.uid, itemId)
+          .then(() => update())
+          .finally(() => setLoading(false));
+      }
+    } else toast.error("You must be logged to do this!");
+  };
+  const addToWishlist = () => {
+    if (!!user) {
+      setWishlistProduct(user.uid, itemId ? itemId : location.state.itemId).finally(() => setLoading(false));
+      if (isWishlisted === true) setIsWishlisted(false);
+      else setIsWishlisted(true);
+      update();
+    } else toast.error("You must be logged to do this!");
+  };
 
   const getProductImage = async () => {
     const storageRef = ref(storage, `productsImg/${data.name}`)
@@ -165,11 +165,11 @@ export default function ProductPage({ itemId, data, open, setOpen }) {
     productPic
   ];
 
-  // const [isWishlisted, setIsWishlisted] = useState(null);
-  // useEffect(() => {
-  //   setIsWishlisted(userWishlist.find((item) => item.uid === itemId));
-  //   update();
-  // }, []);
+  const [isWishlisted, setIsWishlisted] = useState(null);
+  useEffect(() => {
+    setIsWishlisted(userWishlist.find((item) => item.uid === itemId));
+    update();
+  }, []);
   return (
     <>
       {phone && open ? (
@@ -179,10 +179,10 @@ export default function ProductPage({ itemId, data, open, setOpen }) {
           iconStroke="#13101E"
           footerPrefix={
             <div style={{ display: "flex", alignItems: "center" }}>
-              {/* <WishlistSvg fill={isWishlisted && "red"} onClick={addToWishlist} width={44} /> */}
+              <WishlistSvg fill={isWishlisted && "red"} onClick={addToWishlist} width={44} />
             </div>
           }
-          //buttons={[{ text: "Add to Bag", outlined: false, onClick: addToBag, btnIcon: <BagSvg stroke="#fff" /> }]}
+          buttons={[{ text: "Add to Bag", outlined: false, onClick: addToBag, btnIcon: <BagSvg stroke="#fff" /> }]}
           open={open}
           setOpen={setOpen}
         >
@@ -205,7 +205,7 @@ export default function ProductPage({ itemId, data, open, setOpen }) {
 
                 <div className={styles.productPrice}>
                   <h1 className="text-high-emphasis display-small">${data.price}</h1>
-                  <h2 className="text-light title-medium strike">${data.oldPrice}</h2>
+                  <h2 className="text-light title-medium strike">${data.oldPrice * 2}</h2>
                   <h3 className="text-vibrant title-medium">{data.discount}%OFF</h3>
                 </div>
 
@@ -291,7 +291,7 @@ export default function ProductPage({ itemId, data, open, setOpen }) {
             </div>
 
             {reviewModalOpen && (
-              <Ratings setRatingsOpen={setReviewModalOpen} />
+              <Ratings setRatingsOpen={setReviewModalOpen} itemId={itemId} product={data} setAverageRatingsNumber={setAverageRatingsNumber} />
             )}
 
 
@@ -313,7 +313,7 @@ export default function ProductPage({ itemId, data, open, setOpen }) {
             <div className={styles.otherProducts}>
               <h1 className="type-high-emphasis title-regular">You Might Also Like</h1>
               <div className={styles.productsContainer}>
-                {!loading && products?.map((item) => <Product largura={136} altura={136} data={item.data} label key={item.uid} itemId={item.uid} discount={true} />)}
+                {!loading && products?.map((item) => <Product largura={136} altura={136} discount={50} oldprice={item.data?.price * 2} data={item.data} label key={item.uid} itemId={item.uid} />)}
               </div>
             </div>
           </div>
@@ -341,20 +341,21 @@ export default function ProductPage({ itemId, data, open, setOpen }) {
                 <span className="text-low-emphasis display-small">{product?.description}</span>
 
                 <div className={styles.ratingsContainer}>
+                  {console.log(Math.floor(parseFloat(averageRatingsNumber)))}
                   <div style={{ display: "flex", gap: "8px" }}>
-                    <StarSvg fill="#FF8C4B" stroke="#FF8C4B" />
-                    <StarSvg fill="#FF8C4B" stroke="#FF8C4B" />
-                    <StarSvg fill="#FF8C4B" stroke="#FF8C4B" />
-                    <StarSvg fill="#FF8C4B" stroke="#FF8C4B" />
-                    <StarSvg fill="#B6B6B6" stroke="#B6B6B6" />
+                    <StarSvg fill={Math.floor(parseFloat(averageRatingsNumber)) >= 1 ? '#FF8C4B' : '#B6B6B6'} stroke={Math.floor(parseFloat(averageRatingsNumber)) >= 1 ? '#FF8C4B' : '#B6B6B6'} />
+                    <StarSvg fill={Math.floor(parseFloat(averageRatingsNumber)) >= 2 ? '#FF8C4B' : '#B6B6B6'} stroke={Math.floor(parseFloat(averageRatingsNumber)) >= 2 ? '#FF8C4B' : '#B6B6B6'} />
+                    <StarSvg fill={Math.floor(parseFloat(averageRatingsNumber)) >= 3 ? '#FF8C4B' : '#B6B6B6'} stroke={Math.floor(parseFloat(averageRatingsNumber)) >= 3 ? '#FF8C4B' : '#B6B6B6'} />
+                    <StarSvg fill={Math.floor(parseFloat(averageRatingsNumber)) >= 4 ? '#FF8C4B' : '#B6B6B6'} stroke={Math.floor(parseFloat(averageRatingsNumber)) >= 4 ? '#FF8C4B' : '#B6B6B6'} />
+                    <StarSvg fill={Math.floor(parseFloat(averageRatingsNumber)) === 5 ? '#FF8C4B' : '#B6B6B6'} stroke={Math.floor(parseFloat(averageRatingsNumber)) === 5 ? '#FF8C4B' : '#B6B6B6'} />
                   </div>
                   <span className="text-light title-medium ">({product?.reviews?.length}) Ratings</span>
                 </div>
 
                 <div className={styles.productPrice}>
-                  <h1 className="text-high-emphasis display-large">{product?.price}$</h1>
-                  <h2 className="text-light display-medium strike">{product?.oldPrice}$</h2>
-                  <h3 className="text-vibrant display-small">{product?.discount}</h3>
+                  <h1 className="text-high-emphasis display-large">{product?.price % 1 === 0 ? `${product?.price}.00` : product?.price}$</h1>
+                  <h2 className="text-light display-medium strike">{product?.price % 1 === 0 ? `${product?.price * 2}.00` : product?.price * 2}$</h2>
+                  <h3 className="text-vibrant display-small">50%</h3>
                 </div>
 
                 <span className={styles.seperator}></span>
@@ -404,12 +405,12 @@ export default function ProductPage({ itemId, data, open, setOpen }) {
                 </div>
 
                 <div className={styles.buttons}>
-                  {/* <DefaultBtn onClick={addToBag} icon={<BagSvg stroke={"#fff"} />} width={"328px"} height={"44px"}>
+                  <DefaultBtn onClick={addToBag} icon={<BagSvg stroke={"#fff"} />} width={"328px"} height={"44px"}>
                     Add to bag
-                  </DefaultBtn> */}
-                  {/* <DefaultBtn onClick={addToWishlist} icon={<WishlistSvg fill={isWishlisted && "red"} />} outlined width={"240px"} height={"44px"}>
+                  </DefaultBtn>
+                  <DefaultBtn onClick={addToWishlist} icon={<WishlistSvg fill={isWishlisted && "red"} />} outlined width={"240px"} height={"44px"}>
                     Add to wishlist
-                  </DefaultBtn> */}
+                  </DefaultBtn>
                 </div>
               </div>
             </div>
@@ -438,13 +439,13 @@ export default function ProductPage({ itemId, data, open, setOpen }) {
                 <div className={`${styles.tabsContent} ${activeTab === 2 && styles.tabsContentActive}`}>
                   <div className={styles.otherProducts}>
                     <div className={styles.productsContainer}>
-                      {!loading && products?.map((item) => <Product largura={286} altura={286} data={item.data} label key={item.uid} itemId={item.uid} ratings={false} />)}
+                      {!loading && products?.map((item) => <Product largura={286} altura={286} data={item.data} discount={50} oldprice={item.data?.price * 2} label key={item.uid} itemId={item.uid} ratings={false} />)}
                     </div>
                   </div>
                 </div>
 
                 <div className={`${styles.tabsContent} ${activeTab === 3 && styles.tabsContentActive}`}>
-                  <Ratings product={product} />
+                  <Ratings product={product} itemId={location.state.itemId} setAverageRatingsNumber={setAverageRatingsNumber} />
                 </div>
               </div>
             </div>
