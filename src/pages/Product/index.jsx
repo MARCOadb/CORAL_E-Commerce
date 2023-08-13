@@ -204,9 +204,9 @@ export default function ProductPage({ itemId, data, open, setOpen }) {
                 <span className="text-low-emphasis title-medium">{data?.description}</span>
 
                 <div className={styles.productPrice}>
-                  <h1 className="text-high-emphasis display-small">${data.price}</h1>
-                  <h2 className="text-light title-medium strike">${data.oldPrice * 2}</h2>
-                  <h3 className="text-vibrant title-medium">{data.discount}%OFF</h3>
+                  <h1 className="text-high-emphasis display-small">${data?.price % 1 === 0 ? `${data?.price}.00` : data?.price}</h1>
+                  <h2 className="text-light title-medium strike">${data?.price % 1 === 0 ? `${data?.price * 2}.00` : data?.price}</h2>
+                  <h3 className="text-vibrant title-medium">50%OFF</h3>
                 </div>
 
                 <div className={styles.ratingsContainer}>
@@ -353,9 +353,9 @@ export default function ProductPage({ itemId, data, open, setOpen }) {
                 </div>
 
                 <div className={styles.productPrice}>
-                  <h1 className="text-high-emphasis display-large">{product?.price % 1 === 0 ? `${product?.price}.00` : product?.price}$</h1>
-                  <h2 className="text-light display-medium strike">{product?.price % 1 === 0 ? `${product?.price * 2}.00` : product?.price * 2}$</h2>
-                  <h3 className="text-vibrant display-small">50%</h3>
+                  <h1 className="text-high-emphasis display-large">${product?.price % 1 === 0 ? `${product?.price}.00` : product?.price}</h1>
+                  <h2 className="text-light display-medium strike">${product?.price % 1 === 0 ? `${product?.price * 2}.00` : product?.price * 2}</h2>
+                  <h3 className="text-vibrant display-small">50%OFF</h3>
                 </div>
 
                 <span className={styles.seperator}></span>
