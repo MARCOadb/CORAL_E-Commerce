@@ -200,53 +200,55 @@ export default function Checkout() {
           <>
             <Header path={"home"} />
             <Breadcrump page={"home"} category={"Checkout"} />
-            <h1 className="page-title display-medium text-primary">Checkout</h1>
-            <div className="main-container">
-              <div className="form-container">
-                <Dropdown title="Add New Address" content={addNewAdressContent} />
-                <Dropdown title="Contact Information" content={contactInfo} />
-                <Dropdown title="Select Payment Method" content={cardArray} />
-                <div className="inferior-link-button">
-                  <a onClick={() => handleNavigate("bag")}>Back to Cart</a>
-                  <button className={buttonAvailable ? "available" : "unavailable"} onClick={buttonAvailable ? available : unavailable}>
-                    Next
-                  </button>
-                </div>
-              </div>
-              <div className="order-items">
-                <div className="order-title">
-                  <h1 className="display-small-he">Order summary</h1>
-                  <div className="separator"></div>
-                </div>
-                <div className="items-container">
-                  {userProducts &&
-                    !!user &&
-                    userProducts.map((product) => (
-                      <div key={product.uid} className="mapped-item">
-                        <CartProduct showQnt data={product.data} largura={476} qnt={product.qnt} key={product.uid} itemId={product.uid} />
-                      </div>
-                    ))}
-                </div>
-                <div className="order-title">
-                  <h1 className="display-small-he">Order details</h1>
-                  <div className="separator"></div>
-                </div>
-                <div className="details-container">
-                  <div className="rows">
-                    <p className="body-medium text-low-emphasis">Sub Total</p>
-                    <p className="cost">${subTotal?.toFixed(2)}</p>
+            <div className="checkout-content">
+              <h1 className="page-title display-medium text-primary">Checkout</h1>
+              <div className="main-container">
+                <div className="form-container">
+                  <Dropdown title="Add New Address" content={addNewAdressContent} />
+                  <Dropdown title="Contact Information" content={contactInfo} />
+                  <Dropdown title="Select Payment Method" content={cardArray} />
+                  <div className="inferior-link-button">
+                    <a onClick={() => handleNavigate("bag")}>Back to Cart</a>
+                    <button className={buttonAvailable ? "available" : "unavailable"} onClick={buttonAvailable ? available : unavailable}>
+                      Next
+                    </button>
                   </div>
-                  <div className="rows ">
-                    <p className="body-medium text-low-emphasis">Discount</p>
-                    <p className="cost">$0.00</p>
+                </div>
+                <div className="order-items">
+                  <div className="order-title">
+                    <h1 className="display-small-he">Order summary</h1>
+                    <div className="separator"></div>
                   </div>
-                  <div className="rows ">
-                    <p className="body-medium text-low-emphasis">Delivery Fee</p>
-                    <p className="cost">${taxPrice?.toFixed(2)}</p>
+                  <div className="items-container">
+                    {userProducts &&
+                      !!user &&
+                      userProducts.map((product) => (
+                        <div key={product.uid} className="mapped-item">
+                          <CartProduct showQnt data={product.data} largura={476} qnt={product.qnt} key={product.uid} itemId={product.uid} />
+                        </div>
+                      ))}
                   </div>
-                  <div className="rows grand-total">
-                    <p>Grand Total</p>
-                    <p>${totalPrice?.toFixed(2)}</p>
+                  <div className="order-title">
+                    <h1 className="display-small-he">Order details</h1>
+                    <div className="separator"></div>
+                  </div>
+                  <div className="details-container">
+                    <div className="rows">
+                      <p className="body-medium text-low-emphasis">Sub Total</p>
+                      <p className="cost">${subTotal?.toFixed(2)}</p>
+                    </div>
+                    <div className="rows ">
+                      <p className="body-medium text-low-emphasis">Discount</p>
+                      <p className="cost">$0.00</p>
+                    </div>
+                    <div className="rows ">
+                      <p className="body-medium text-low-emphasis">Delivery Fee</p>
+                      <p className="cost">${taxPrice?.toFixed(2)}</p>
+                    </div>
+                    <div className="rows grand-total">
+                      <p>Grand Total</p>
+                      <p>${totalPrice?.toFixed(2)}</p>
+                    </div>
                   </div>
                 </div>
               </div>
