@@ -42,11 +42,13 @@ body {
   box-sizing: border-box;
   z-index: 2;
   margin-top: 40px;
+
   a {
     padding: 10px 8px;
     text-decoration-line: underline;
     color: $primary;
   }
+
   button {
     width: 136px;
     height: 44px;
@@ -56,6 +58,7 @@ body {
     border: none;
     border-radius: 8px;
   }
+
   text-align: center;
   font-family: Inter;
   font-size: 14px;
@@ -67,6 +70,7 @@ body {
 .available {
   opacity: 1;
   transition: all 0.5s;
+
   &:hover {
     box-shadow: 0px 6px 16px 0px rgba(27, 75, 102, 0.69), 0px 0px 8px 0px rgba(255, 255, 255, 0.42) inset;
   }
@@ -112,12 +116,14 @@ body {
   height: auto;
   width: auto;
   gap: 12px;
+
   .rows {
     display: flex;
     flex-direction: row;
     width: 388px;
     justify-content: space-between;
   }
+
   .cost {
     color: $text-high-emphasis;
     font-family: Inter;
@@ -126,6 +132,7 @@ body {
     font-weight: 500;
     line-height: 18px;
   }
+
   .grand-total {
     color: $text-high-emphasis;
     font-family: Inter;
@@ -133,6 +140,17 @@ body {
     font-style: normal;
     font-weight: 600;
     line-height: 20px;
+  }
+
+  @include phone {
+    gap: 8px;
+
+    .rows {
+      display: flex;
+      flex-direction: row;
+      width: 100%;
+      justify-content: space-between;
+    }
   }
 }
 
@@ -142,16 +160,19 @@ body {
   gap: 24px;
   height: auto;
   width: 100%;
+
   img {
     width: 75px;
     height: 80px;
     border-radius: 8px;
   }
+
   .mapped-item {
     display: flex;
     flex-direction: row;
     gap: 16px;
   }
+
   .mapped-data {
     display: flex;
     flex-direction: column;
@@ -185,6 +206,7 @@ body {
   width: 287px;
   height: auto;
   gap: 8px;
+
   input {
     width: 100%;
     height: 52px;
@@ -194,10 +216,12 @@ body {
     padding: 16px 12px 16px 16px;
     border-radius: 4px;
     transition: all 0.3s;
+
     &:focus {
       outline: none;
       box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.15);
     }
+
     @extend .body-medium;
     @extend .text-low-emphasis;
   }
@@ -221,6 +245,11 @@ body {
   flex-direction: row;
   height: auto;
   gap: 8px;
+
+  @include phone {
+    width: 100%;
+    gap: 16px;
+  }
 }
 
 .number {
@@ -232,12 +261,19 @@ body {
   padding: 16px 12px 16px 16px;
   border-radius: 4px;
   transition: all 0.3s;
+
   &:focus {
     outline: none;
     box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.15);
   }
+
   @extend .body-medium;
   @extend .text-low-emphasis;
+
+  @include phone {
+    width: auto;
+    height: 100%;
+  }
 }
 
 .ddd {
@@ -249,12 +285,19 @@ body {
   padding: 16px 12px 16px 16px;
   border-radius: 4px;
   transition: all 0.3s;
+
   &:focus {
     outline: none;
     box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.15);
   }
+
   @extend .body-medium;
   @extend .text-low-emphasis;
+
+  @include phone {
+    width: 64px !important;
+    height: 100%;
+  }
 }
 
 .card-array {
@@ -263,6 +306,13 @@ body {
   justify-content: space-between;
   width: 100%;
   height: auto;
+
+  @include phone {
+    width: 100%;
+    gap: 16px;
+    overflow-x: scroll;
+    border-radius: 12px;
+  }
 }
 
 .card {
@@ -321,7 +371,7 @@ body {
     transition: 0.25s cubic-bezier(1, 0, 0, 1) 0s;
   }
 
-  input[type="radio"]:checked ~ span:after {
+  input[type="radio"]:checked~span:after {
     transform: translate(-50%, -50%) scale(1);
   }
 
@@ -334,4 +384,145 @@ body {
     box-shadow: 0px 8px 16px 5px rgba(202, 202, 202, 0.25);
     transition: 0.3s;
   }
+
+  @include phone {
+    width: 125px;
+    height: 150px;
+
+    img {
+      max-width: 96px;
+      max-height: 64px;
+      margin: 30px auto auto auto;
+      pointer-events: none;
+    }
+
+    z-index: -2;
+  }
+}
+
+.topbar {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  height: 56px;
+  padding: 16px;
+  gap: 20px;
+  box-sizing: border-box;
+  background-color: $bright;
+  position: fixed;
+  top: 0;
+  max-width: 650px;
+  margin: 0 auto;
+  left: 0;
+  right: 0;
+
+  img {
+    rotate: 180deg;
+    width: 24px;
+    height: 24px;
+  }
+}
+
+.button-container {
+  width: 100%;
+  height: 66px;
+  box-sizing: border-box;
+  padding: 11px 16px;
+  background-color: $bright;
+  position: fixed;
+  bottom: 0;
+  max-width: 650px;
+  margin: 0 auto;
+  left: 0;
+  right: 0;
+
+  button {
+    width: 100%;
+    height: 100%;
+    justify-content: center;
+    align-items: center;
+    background-color: $primary;
+    outline: none;
+    border: none;
+    border-radius: 8px;
+
+    color: $bright;
+    text-align: center;
+    font-family: Inter;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: 24px;
+  }
+}
+
+.mobile-main-container {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 100%;
+  gap: 18px;
+  box-sizing: border-box;
+  padding: 16px;
+  margin: 56px auto 66px auto;
+  overflow: hidden;
+  max-width: 650px;
+}
+
+.spacer {
+  width: 100%;
+  height: 66px;
+}
+
+.sub-container {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: auto;
+  gap: 8px;
+}
+
+.input-container {
+  display: flex;
+  flex-direction: column;
+  height: auto;
+  width: 100%;
+  gap: 16px;
+
+  input {
+    width: 100%;
+    height: 42px;
+    padding: 12px 12px 12px 16px;
+    box-sizing: border-box;
+    border-radius: 4px;
+    border: none;
+    outline: none;
+    background-color: $grey;
+    transition: all 0.3s;
+
+    &:focus {
+      outline: none;
+      box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.15);
+    }
+
+    @extend .title-medium;
+    @extend .text-low-emphasis;
+  }
+}
+
+.mobile-separator {
+  position: relative;
+  top: -6px;
+  width: 100%;
+  height: 1px;
+  background: rgba(0, 0, 0, 0.12);
+  z-index: -2;
+}
+
+.card-container {
+  display: flex;
+  flex-direction: column;
+  height: auto;
+  width: 100%;
+  gap: 16px;
 }
