@@ -60,7 +60,7 @@ const Dropdown = ({ title, content }) => {
           <div>
             <button className="checkout-dropdown-button" onClick={toggleStateMobile}>
               <p className="title-medium">{title}</p>
-              <img src={Chevron} className={toggle ? "chevron-rotate" : undefined} />
+              <ChevronRigthSvg stroke={'#13101E'} rotate={toggle ? 270 : 90} />
             </button>
             <div className={toggle ? "checkout-dropdown-toggle animation" : "checkout-dropdown-toggle"} style={{ height: toggle ? "906px" : "0px" }} ref={refHeight}>
               {content}
