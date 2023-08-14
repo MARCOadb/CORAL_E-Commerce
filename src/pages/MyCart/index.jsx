@@ -11,6 +11,7 @@ import flecha from "../../assets/icon/chevron-bottom.svg";
 import useBreakpoint from "../../hooks/useBreakPoint";
 import DefaultBtn from "../../components/defaultBtn";
 import { useLocation, useNavigate } from "react-router-dom";
+
 const MyCart = () => {
   const { phone, desktop } = useBreakpoint();
   const { userProducts, taxPrice, subTotal, totalPrice, loading, update } = useContext(BagContext);
@@ -70,11 +71,11 @@ const MyCart = () => {
                   </div>
                 </div>
                 <div className={styles.txtcontainer}>
-                  <button className={styles.removetxt} onClick={() => deleteProduct(item.uid)} onTouchStart={() => deleteProduct(item.uid)}>
-                    Remove
-                  </button>
                   <button className={styles.wishlisttxt} key={index}>
                     Move to Wishlist
+                  </button>
+                  <button className={styles.removetxt} onClick={() => deleteProduct(item.uid)} onTouchStart={() => deleteProduct(item.uid)}>
+                    Remove
                   </button>
                 </div>
               </div>
@@ -84,7 +85,7 @@ const MyCart = () => {
             <span className="body-medium text-dark">Apply Coupon Code</span>
             <img className="flecha" src={flecha} style={{ transform: `rotate(${coupon ? "180deg" : "0deg"})` }} />
           </button>
-          {desktop && coupon ? (
+          {desktop && coupon && (
             <>
               <div style={{ width: "360px" }}>
                 <div className={styles.couponContainer}>
@@ -93,8 +94,6 @@ const MyCart = () => {
                 </div>
               </div>
             </>
-          ) : (
-            ""
           )}
         </div>
         <div className={styles.ordersummary}>
@@ -107,11 +106,11 @@ const MyCart = () => {
             </div>
             <div className={styles.pricecontainer}>
               <span className="body-medium text-low-emphasis">Discount</span>
-              <span className="body-medium text-high-emphasis">$0</span>
+              <span className="body-medium text-high-emphasis">$0.00</span>
             </div>
             <div className={styles.pricecontainer}>
-              <span className="body-medium text-low-emphasis">Delivery Free</span>
-              <span className="body-medium text-high-emphasis">$0</span>
+              <span className="body-medium text-low-emphasis">Delivery Fee</span>
+              <span className="body-medium text-high-emphasis">${taxPrice.toFixed(2)}</span>
             </div>
             <div className={styles.pricecontainer}>
               <span className="body-medium text-high-emphasis" style={{ fontWeight: '600' }}>Grand Total</span>

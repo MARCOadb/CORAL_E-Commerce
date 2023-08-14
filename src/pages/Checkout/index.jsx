@@ -1,3 +1,4 @@
+import "./style.scss";
 import Header from "../../components/header";
 import Footer from "../../components/footer";
 import { BagContext } from "../../contexts/BagContext";
@@ -7,6 +8,7 @@ import Breadcrump from "../../components/breadcrumpDesktop";
 import Dropdown from "../../components/dropdown";
 import useBreakpoint from "../../hooks/useBreakPoint";
 import { toast } from "react-toastify";
+import CartProduct from "../../components/cartProduct";
 
 import { useState, useEffect, useContext } from "react";
 
@@ -15,12 +17,12 @@ import CDcard from "../../assets/pics/Payments/credit-debit-card.png";
 import ApplePay from "../../assets/pics/Payments/apple-pay.png";
 import AmazonPay from "../../assets/pics/Payments/amazon-pay.png";
 import ChevronRight from "../../assets/icon/chevron-right.svg";
-
-import "./style.scss";
 import { AuthContext } from "../../contexts/AuthContext";
 
+import { useLocation, useNavigate } from "react-router-dom";
+
 export default function Checkout() {
-  const { userProducts, subTotal, totalPrice } = useContext(BagContext);
+  const { userProducts, taxPrice, subTotal, totalPrice } = useContext(BagContext);
   const { user } = useContext(AuthContext);
   const { phone, desktop } = useBreakpoint();
 
@@ -35,7 +37,7 @@ export default function Checkout() {
   const [email, setEmail] = useState("");
 
   const handleFullName = (e) => {
-    const capitalizedFullName = e.target.value.replace(/\b\w/g, (c) => c.toUpperCase());
+    const capitalizedFullName = e.target.value.replace(/(^|\s)\S/g, (c) => c.toUpperCase());
     setFullName(capitalizedFullName);
   };
 
@@ -65,6 +67,20 @@ export default function Checkout() {
 
   const handleEmail = (e) => {
     setEmail(e.target.value);
+  };
+
+  const navigate = useNavigate();
+  const location = useLocation();
+
+  const handleNavigate = (category) => {
+    category
+      ? navigate(`/${category}`, {
+        state: {
+          path: location.state.path,
+          category: category,
+        },
+      })
+      : navigate("/");
   };
 
   const addNewAdressContent = (
@@ -170,6 +186,7 @@ export default function Checkout() {
       return;
     }
     toast.success("Purchase done with success! Please, check your E-mail to track your order.");
+    navigate("/")
   };
 
   const unavailable = () => {
@@ -190,7 +207,7 @@ export default function Checkout() {
                 <Dropdown title="Contact Information" content={contactInfo} />
                 <Dropdown title="Select Payment Method" content={cardArray} />
                 <div className="inferior-link-button">
-                  <a href="#">Back to Cart</a>
+                  <a onClick={() => handleNavigate("bag")}>Back to Cart</a>
                   <button className={buttonAvailable ? "available" : "unavailable"} onClick={buttonAvailable ? available : unavailable}>
                     Next
                   </button>
@@ -206,12 +223,7 @@ export default function Checkout() {
                     !!user &&
                     userProducts.map((product) => (
                       <div key={product.uid} className="mapped-item">
-                        <img />
-                        <div className="mapped-data">
-                          <p className="body-medium-he">{product.data.name}</p>
-                          <p className="body-regular text-low-emphasis">{product.data.description}</p>
-                          <p className="body-regular text-low-emphasis">Qty - {product.qnt}</p>
-                        </div>
+                        <CartProduct showQnt data={product.data} largura={476} qnt={product.qnt} key={product.uid} itemId={product.uid} />
                       </div>
                     ))}
                 </div>
@@ -222,19 +234,19 @@ export default function Checkout() {
                 <div className="details-container">
                   <div className="rows">
                     <p className="body-medium text-low-emphasis">Sub Total</p>
-                    <p className="cost">${subTotal}</p>
+                    <p className="cost">${subTotal.toFixed(2)}</p>
                   </div>
                   <div className="rows ">
                     <p className="body-medium text-low-emphasis">Discount</p>
-                    <p className="cost">$**.**</p>
+                    <p className="cost">$0.00</p>
                   </div>
                   <div className="rows ">
                     <p className="body-medium text-low-emphasis">Delivery Fee</p>
-                    <p className="cost">$**.**</p>
+                    <p className="cost">${taxPrice.toFixed(2)}</p>
                   </div>
                   <div className="rows grand-total">
                     <p>Grand Total</p>
-                    <p>${totalPrice}</p>
+                    <p>${totalPrice.toFixed(2)}</p>
                   </div>
                 </div>
               </div>
@@ -263,12 +275,13 @@ export default function Checkout() {
                       !!user &&
                       userProducts.map((product) => (
                         <div key={product.uid} className="mapped-item">
-                          <img />
+                          <CartProduct showQnt data={product.data} largura={476} qnt={product.qnt} key={product.uid} itemId={product.uid} />
+                          {/* <img />
                           <div className="mapped-data">
                             <p className="body-medium-he">{product.data.name}</p>
                             <p className="body-regular text-low-emphasis">{product.data.description}</p>
                             <p className="body-regular text-low-emphasis">Qty - {product.qnt}</p>
-                          </div>
+                          </div> */}
                         </div>
                       ))}
                   </div>
@@ -281,19 +294,19 @@ export default function Checkout() {
                 <div className="details-container">
                   <div className="rows">
                     <p className="title-medium text-low-emphasis">Sub Total</p>
-                    <p className="title-medium-he">${subTotal}</p>
+                    <p className="title-medium-he">${subTotal.toFixed(2)}</p>
                   </div>
                   <div className="rows">
                     <p className="title-medium text-low-emphasis">Discount</p>
-                    <p className="title-medium-he">$**.**</p>
+                    <p className="title-medium-he">$0.00</p>
                   </div>
                   <div className="rows">
                     <p className="title-medium text-low-emphasis">Delivery Fee</p>
-                    <p className="title-medium-he">$**.**</p>
+                    <p className="title-medium-he">${taxPrice.toFixed(2)}</p>
                   </div>
                   <div className="rows title-regular-he">
                     <p>Grand Total</p>
-                    <p>${totalPrice}</p>
+                    <p>${totalPrice.toFixed(2)}</p>
                   </div>
                 </div>
               </div>
