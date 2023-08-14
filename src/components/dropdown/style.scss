@@ -32,6 +32,13 @@
     transition: 0.1s;
     background-color: #f3f3f7;
   }
+  @include phone {
+    height: 48px;
+    margin-bottom: 0px;
+    z-index: 0;
+    padding: 15px;
+    box-sizing: border-box;
+  }
 }
 
 .button-separator {
@@ -47,10 +54,14 @@
 .checkout-dropdown-toggle {
   height: 0;
   opacity: 0;
-  transition: opacity 0.25s cubic-bezier(1, 0, 0, 1), height 0.25s cubic-bezier(1, 0, 0, 1);
+  transition: opacity 0.5s cubic-bezier(1, 0, 0, 1), height 0.375s cubic-bezier(1, 0, 0, 1);
+  overflow: hidden;
+  z-index: -1;
 }
 
 .animation {
   opacity: 1;
-  transition: opacity 0.25s cubic-bezier(1, 0, 0, 1), height 0.25s cubic-bezier(1, 0, 0, 1);
+  transition: opacity 0.5s ease-out, height 0.5s cubic-bezier(0.5, 0, 0, 1);
+
+  z-index: -1;
 }
