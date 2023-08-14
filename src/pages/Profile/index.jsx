@@ -4,7 +4,6 @@ import Footer from "../../components/footer";
 import NavBarMobile from "../../components/navBarMobile";
 import DefaultBtn from "../../components/defaultBtn";
 import Breadcrump from "../../components/breadcrumpDesktop";
-
 import { AuthContext } from "../../contexts/AuthContext";
 
 //HOOKS
@@ -16,6 +15,7 @@ import { useLocation } from "react-router-dom";
 import profile from "../../assets/pics/profile-picture.jpg";
 import ChevronRightSvg from "../../assets/icon/ChevronRightSvg";
 import LogoutSvg from "../../assets/icon/LogoutSvg";
+import deleteSvg from "../../assets/icon/delete-small.svg"
 
 //STYLES
 import styles from "./style.module.scss";
@@ -28,8 +28,59 @@ export default function Profile() {
   const [activeTab, setActiveTab] = useState(location.state?.initialTab ? location.state?.initialTab : 1);
   const [tabTitle, setTabTitle] = useState("");
   const [tabMobileOpen, setTabMobileOpen] = useState(false);
-
+  const { profilePhoto } = useContext(AuthContext);
   const { logout } = useContext(AuthContext);
+  const [fullName, setFullName] = useState("");
+  const [streetAddress, setStreetAddress] = useState("");
+  const [city, setCity] = useState("");
+  const [DDD, setDDD] = useState("");
+  const [mobNumber, setMobNumber] = useState("");
+  const [state, setState] = useState("");
+  const [pinCode, setPinCode] = useState("");
+  const [email, setEmail] = useState("");
+  const [date, setDate] = useState("");
+  const [password, setPassword] = useState("");
+
+  const handleFullName = (e) => {
+    const capitalizedFullName = e.target.value.replace(/\b\w/g, (c) => c.toUpperCase());
+    setFullName(capitalizedFullName);
+  };
+
+  const handleStreetAddress = (e) => {
+    setStreetAddress(e.target.value.charAt(0).toUpperCase() + e.target.value.slice(1));
+  };
+
+  const handleCity = (e) => {
+    setCity(e.target.value.charAt(0).toUpperCase() + e.target.value.slice(1));
+  };
+
+  const handleDDD = (e) => {
+    setDDD(e.target.value);
+  };
+
+  const handleMobNumber = (e) => {
+    setMobNumber(e.target.value);
+  };
+
+  const handleState = (e) => {
+    setState(e.target.value);
+  };
+
+  const handlePinCode = (e) => {
+    setPinCode(e.target.value);
+  };
+
+  const handleEmail = (e) => {
+    setEmail(e.target.value);
+  };
+  
+  const handleDate = (e) => {
+    setDate(e.target.value);
+  };
+
+  const handlePassword = (e) => {
+    setPassword(e.target.value);
+  };
 
   useEffect(() => {
     switch (activeTab) {
@@ -65,6 +116,9 @@ export default function Profile() {
   async function handleLogout() {
     await logout();
   }
+
+
+
 
   return (
     <>
@@ -135,9 +189,86 @@ export default function Profile() {
               <span>My Saved Cards</span>
               <ChevronRightSvg stroke={activeTab === 7 && desktop ? "#1B4B66" : "#13101E"} />
             </div>
-          </div>
-          {desktop && <div style={{}}>{activeTab === 1}<span>test</span></div>}
-          {desktop && <div className={styles.component}>{activeTab === 4 && <MyWishlist />}</div>}
+          </div>       
+          <>
+
+          {desktop && <div class={styles.profilepage}>{activeTab === 1 &&
+          <>
+            <h1 style={{ fontsize: "20px", fontweight: "600", lineheight: "26px", color: "#13101E"}}>
+            Personal Information
+            </h1>
+            <form>
+              <div class={styles.photosection}>
+                <img style={{width:"80px", height:"80px", borderRadius:"80px"}}src={user.profilePhoto}></img>
+                <label for="inputphoto" style={{alignItems:"center" }}>
+                Photo
+                <input type="file" class={styles.profileinput} id="photo" name="photo">
+                </input>
+                </label>
+                <div>
+                  {photos.map(photo => (
+                    <div key={photo.id} className="photo-container">
+                      <button onClick={() => handleDelete(photo.id)}><img src={deleteSvg}></img>Delete Photo</button>
+                    </div>
+                  ))}
+                </div>
+              </div>
+              <div style={{display:"flex", width:"46%", justifyContent:"space-between", padding: "10px 0px"}}>
+              <label for="firstname" className="body-medium-he">First Name</label>
+              <label for="lastname" className="body-medium-he">Last Name</label>
+              </div>
+              <div style={{flexDirection:"row", width:"75%", justifycontent: "space-around"  }}className="input-holder">
+                <input style={{padding:"10px"}} type="text" placeholder={ user.firstName} className="firstname" onChange={setFullName} />
+                <input style={{padding:"10px"}} type="text" placeholder={user.lastName} className="lastname" onChange={setFullName} />
+                </div>
+                <div>
+                <p className="body-medium-he" style={{padding:"10px 0px"}}>Email</p>
+                <div className="input-holder" style={{width: "75%",}}>
+                <input type="email" placeholder={user.email} className="email" onChange={handleEmail} />
+                </div>
+                </div>
+                <div className="phone-input-holder">
+                <p className="body-medium-he" style={{padding:"10px 0px"}}>Mobile Number</p>
+                <div className="phone-input-fields">
+                <input type="number" placeholder="DDD" className="ddd" value={DDD} onChange={handleDDD} />
+                <input style={{width:"38%"}}type="number" placeholder="Enter Number" className="number" value={mobNumber} onChange={handleMobNumber} />
+                </div>
+                </div>
+                <div>
+                <p className="body-medium-he" style={{padding:"10px 0px"}}>Date of Birthday</p>
+                <div className="input-holder">
+                <input type="date" placeholder="" className="date" onChange={handleDate} />
+                </div>
+                </div>
+                <div class={styles.passwordsection}>
+                <h1 style={{color: "#13101E", fontsize: "20px", fontstyle: "normal", fontweight: "600", lineheight: "26px", padding:"53px 0px"}}>Change Password</h1>
+                <div>
+                <p className="body-medium-he" style={{padding:"10px 0px"}}>Current Password</p>
+                <div className="input-holder">
+                <input type="password" placeholder="" className="password" onChange={handlePassword} />
+                </div>
+                </div>
+                <div>
+                <p className="body-medium-he" style={{padding:"10px 0px"}}>New Password</p>
+                <div className="input-holder">
+                <input type="password" placeholder="" className="password" onChange={handlePassword} />
+                </div>
+                </div>
+                <div>
+                <p className="body-medium-he" style={{padding:"10px 0px"}}>Confirm Password</p>
+                <div className="input-holder">
+                <input type="password" placeholder="" className="password" onChange={handlePassword} />
+                </div>
+                </div>
+            </div>
+            <button class={styles.submitbutton}>Save Changes</button>
+            </form>
+          </>
+          
+          }</div>}
+
+</>
+          {/* {desktop && <div className={styles.component}>{activeTab === 4 && <MyWishlist />}</div>} */}
 
           {phone && (
             <div className={styles.logoutButton}>

@@ -174,3 +174,66 @@
     }
   }
 }
+
+.profilepage {
+  width: 100%;
+  background-color: #fff;
+  border-radius: 8px;
+  padding: 20px;
+  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+}
+.photosection {
+  display: flex;
+  padding: 24px 0px;
+}
+.profileinput {
+  display: flex;
+  width: 136px;
+  padding: 10px 8px;
+  gap: 8px;
+}
+.profileinput[type="file"] {
+  cursor: pointer;
+}
+.profileinput[type="file"]::file-selector-button {
+  padding: 8px;
+  border: none;
+  background-color: #3498db;
+  color: #fff;
+  border-radius: 4px;
+  cursor: pointer;
+}
+.deletebutton {
+  display: flex;
+  width: 136px;
+  padding: 10px 8px;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+  border-radius: 8px;
+  border: 2px solid #B00020;
+  background-color: #fff;
+}
+.deletebutton:hover {
+  background-color: rgb(122, 122, 122)
+}
+.passwordsection {
+  margin-top: 20px;
+}
+.submitbutton {
+  display: flex;
+  width: 136px;
+  padding: 8px;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+  border-radius: 8px;
+  background-color: #1B4B66;
+  color: #fff;
+  position: relative;
+  top: 69px;
+  left: 893px;
+}
+.submitbutton:hover {
+  background-color: #19252c;
+}
