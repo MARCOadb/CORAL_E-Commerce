@@ -234,7 +234,7 @@ export default function Checkout() {
                 <div className="details-container">
                   <div className="rows">
                     <p className="body-medium text-low-emphasis">Sub Total</p>
-                    <p className="cost">${subTotal.toFixed(2)}</p>
+                    <p className="cost">${subTotal?.toFixed(2)}</p>
                   </div>
                   <div className="rows ">
                     <p className="body-medium text-low-emphasis">Discount</p>
@@ -242,11 +242,11 @@ export default function Checkout() {
                   </div>
                   <div className="rows ">
                     <p className="body-medium text-low-emphasis">Delivery Fee</p>
-                    <p className="cost">${taxPrice.toFixed(2)}</p>
+                    <p className="cost">${taxPrice?.toFixed(2)}</p>
                   </div>
                   <div className="rows grand-total">
                     <p>Grand Total</p>
-                    <p>${totalPrice.toFixed(2)}</p>
+                    <p>${totalPrice?.toFixed(2)}</p>
                   </div>
                 </div>
               </div>
@@ -294,7 +294,7 @@ export default function Checkout() {
                 <div className="details-container">
                   <div className="rows">
                     <p className="title-medium text-low-emphasis">Sub Total</p>
-                    <p className="title-medium-he">${subTotal.toFixed(2)}</p>
+                    <p className="title-medium-he">${subTotal?.toFixed(2)}</p>
                   </div>
                   <div className="rows">
                     <p className="title-medium text-low-emphasis">Discount</p>
@@ -302,11 +302,11 @@ export default function Checkout() {
                   </div>
                   <div className="rows">
                     <p className="title-medium text-low-emphasis">Delivery Fee</p>
-                    <p className="title-medium-he">${taxPrice.toFixed(2)}</p>
+                    <p className="title-medium-he">${taxPrice?.toFixed(2)}</p>
                   </div>
                   <div className="rows title-regular-he">
                     <p>Grand Total</p>
-                    <p>${totalPrice.toFixed(2)}</p>
+                    <p>${totalPrice?.toFixed(2)}</p>
                   </div>
                 </div>
               </div>
