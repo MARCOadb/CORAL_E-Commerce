@@ -10,7 +10,7 @@ import getAllProducts from "../../services/getAllProducts";
 import Product from "../product";
 import { BagContext } from "../../contexts/BagContext";
 
-const ProductGrid = ({ categoryId, productConfig }) => {
+const ProductGrid = ({ filterConfig, categoryId, productConfig }) => {
   const { phone, desktop } = useBreakpoint();
   const { allProducts } = useContext(BagContext);
   const [toShow, setToShow] = useState("9");

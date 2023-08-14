@@ -35,27 +35,27 @@ export default function Category() {
   //STATES
   const [openSize, setOpenSize] = useState(false);
   const [heightSize, setHeightSize] = useState(null);
-  const [selectedSize, setSelectedSize] = useState("Extra Small");
+  const [selectedSize, setSelectedSize] = useState(null);
 
   const [openColor, setOpenColor] = useState(false);
   const [heightColor, setHeightColor] = useState(null);
-  const [selectedColor, setSelectedColor] = useState("Blue");
+  const [selectedColor, setSelectedColor] = useState(null);
 
   const [openBrand, setOpenBrand] = useState(false);
   const [heightBrand, setHeightBrand] = useState(null);
-  const [selectedBrand, setSelectedBrand] = useState("Zara");
+  const [selectedBrand, setSelectedBrand] = useState(null);
 
   const [openPrice, setOpenPrice] = useState(false);
   const [heightPrice, setHeightPrice] = useState(null);
-  const [selectedPrice, setSelectedPrice] = useState("20");
+  const [selectedPrice, setSelectedPrice] = useState(null);
 
   const [openDiscount, setOpenDiscount] = useState(false);
   const [heightDiscount, setHeightDiscount] = useState(null);
-  const [selectedDiscount, setSelectedDiscount] = useState("10%");
+  const [selectedDiscount, setSelectedDiscount] = useState(null);
 
   const [openAvailability, setOpenAvailability] = useState(false);
   const [heightAvailability, setHeightAvailability] = useState(null);
-  const [selectedAvailability, setSelectedAvailability] = useState("Available");
+  const [selectedAvailability, setSelectedAvailability] = useState(null);
 
   //REFS
   const sizeRefHeight = useRef();
@@ -365,7 +365,7 @@ export default function Category() {
                 </div>
               </div>
             </div>
-            <ProductGrid categoryId={categoryId} />
+            <ProductGrid filterConfig={{ selectedAvailability, selectedBrand, selectedColor, selectedDiscount, selectedPrice, selectedSize }} categoryId={categoryId} />
           </div>
         </div>
       ) : (
