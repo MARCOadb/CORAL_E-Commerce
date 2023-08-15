@@ -33,9 +33,6 @@ export default function Category() {
   const { phone, desktop } = useBreakpoint();
 
   //STATES
-  const [openSize, setOpenSize] = useState(false);
-  const [heightSize, setHeightSize] = useState(null);
-  const [selectedSize, setSelectedSize] = useState(null);
 
   const [openColor, setOpenColor] = useState(false);
   const [heightColor, setHeightColor] = useState(null);
@@ -58,7 +55,6 @@ export default function Category() {
   const [selectedAvailability, setSelectedAvailability] = useState(null);
 
   //REFS
-  const sizeRefHeight = useRef();
   const colorRefHeight = useRef();
   const brandRefHeight = useRef();
   const priceRefHeight = useRef();
@@ -67,7 +63,6 @@ export default function Category() {
 
   //EFFECT
   useEffect(() => {
-    setHeightSize(`${sizeRefHeight.current?.scrollHeight}px`);
     setHeightColor(`${colorRefHeight.current?.scrollHeight}px`);
     setHeightBrand(`${brandRefHeight.current?.scrollHeight}px`);
     setHeightPrice(`${priceRefHeight.current?.scrollHeight}px`);
@@ -76,13 +71,6 @@ export default function Category() {
   }, []);
 
   //HANDLES
-  function handleOpenSize() {
-    setOpenSize(!openSize);
-  }
-  function handleCheckboxSize(option) {
-    setSelectedSize(option);
-  }
-
   function handleOpenColor() {
     setOpenColor(!openColor);
   }
@@ -165,41 +153,6 @@ export default function Category() {
 
           <div className={styles.categoriesContainer}>
             <div className={`text-dark ${styles.sideMenu}`}>
-              <div className={styles.menuCategory}>
-                <div className={styles.filterTitle}>
-                  <span>Size</span>
-                  <button onClick={handleOpenSize}>{openSize ? <PlusSvg plus={false} /> : <PlusSvg plus={true} />}</button>
-                </div>
-                <div className={`${styles.filterContent} ${openSize && styles.show}`} ref={sizeRefHeight} style={{ height: openSize ? heightSize : "0px" }}>
-                  <div className={styles.options}>
-                    <label className="body-medium text-low-emphasis">
-                      <input type="checkbox" checked={selectedSize === "Extra Small"} onChange={() => handleCheckboxSize("Extra Small")} />
-                      Extra Small
-                    </label>
-
-                    <label className="body-medium text-low-emphasis">
-                      <input type="checkbox" checked={selectedSize === "Small"} onChange={() => handleCheckboxSize("Small")} />
-                      Small
-                    </label>
-
-                    <label className="body-medium text-low-emphasis">
-                      <input type="checkbox" checked={selectedSize === "Medium"} onChange={() => handleCheckboxSize("Medium")} />
-                      Medium
-                    </label>
-
-                    <label className="body-medium text-low-emphasis">
-                      <input type="checkbox" checked={selectedSize === "Large"} onChange={() => handleCheckboxSize("Large")} />
-                      Large
-                    </label>
-
-                    <label className="body-medium text-low-emphasis">
-                      <input type="checkbox" checked={selectedSize === "Extra Large"} onChange={() => handleCheckboxSize("Extra Large")} />
-                      Extra Large
-                    </label>
-                  </div>
-                </div>
-              </div>
-
               <div className={styles.menuCategory}>
                 <div className={styles.filterTitle}>
                   <span>Color</span>
@@ -365,7 +318,7 @@ export default function Category() {
                 </div>
               </div>
             </div>
-            <ProductGrid filterConfig={{ selectedAvailability, selectedBrand, selectedColor, selectedDiscount, selectedPrice, selectedSize }} categoryId={categoryId} />
+            <ProductGrid filterConfig={{ selectedAvailability, selectedBrand, selectedColor, selectedDiscount, selectedPrice }} categoryId={categoryId} />
           </div>
         </div>
       ) : (
