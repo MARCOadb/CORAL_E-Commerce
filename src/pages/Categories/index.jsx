@@ -219,14 +219,13 @@ export default function Category() {
 
   const preventDefault = (e) => {
     setSort(e.target.value);
-    console.log(e.target.value);
   };
 
   return (
     <>
       {phone && !loading && (
         <MobileLayout footerPrefix={sortFilter} icon={"arrow"} iconStroke={"#1B4B66"} iconAngle={90} title={categoryName} open={modalOpen} setOpen={setModalOpen}>
-          <ProductGrid productConfig={config} categoryId={categoryId}></ProductGrid>
+          <ProductGrid filterConfig={{ selectedAvailability, selectedBrand, selectedColor, selectedDiscount, selectedPrice, sort }} productConfig={config} categoryId={categoryId}></ProductGrid>
           <BottomModal open={sortOpen} setOpen={() => setSortOpen(false)} title={"Sort by"}>
             <form className={styles.radioContainer} onChange={preventDefault}>
               <div>
@@ -234,12 +233,12 @@ export default function Category() {
                 <label htmlFor="popular">Popular Products</label>
               </div>
               <div>
-                <input type="radio" id="lowToHigh" name="sort" value="lowToHigh" />
-                <label htmlFor="lowToHigh">Price- Low to High</label>
+                <input type="radio" id="Lowest price" name="sort" value="Lowest price" />
+                <label htmlFor="Lowest price">Price- Low to High</label>
               </div>
               <div>
-                <input type="radio" id="hightToLow" name="sort" value="hightToLow" />
-                <label htmlFor="hightToLow">Price- High to Low</label>
+                <input type="radio" id="Highest price" name="sort" value="Highest price" />
+                <label htmlFor="Highest price">Price- High to Low</label>
               </div>
               <div>
                 <input type="radio" id="onSale" name="sort" value="onSale" />
@@ -248,36 +247,43 @@ export default function Category() {
             </form>
           </BottomModal>
           <MobileLayout
-            buttons={[{ text: "Clear All", outlined: true, onClick: closeRadio }, { text: "Apply" }]}
+            buttons={[
+              { text: "Clear All", outlined: true, onClick: closeRadio },
+              { text: "Apply", onClick: () => setFilterOpen(false) },
+            ]}
             icon={"cross"}
             title={"Filters"}
             open={filterOpen}
             setOpen={() => setFilterOpen(false)}
           >
             <div className={styles.filterContainer}>
-              <div>
+              <div style={{ height: "86vh", backgroundColor: "#F1F1F1" }}>
                 <div className={styles.filterTitle}>
-                  <button style={{ backgroundColor: openColor ? "#FFFFFF" : "#F1F1F1" }} onClick={handleOpenColor}>
+                  <button className="body-medium" style={{ backgroundColor: openColor ? "#FFFFFF" : "#F1F1F1", color: openColor ? "#171520" : "#626262" }} onClick={handleOpenColor}>
                     Color
                   </button>
                 </div>
                 <div className={styles.filterTitle}>
-                  <button style={{ backgroundColor: openBrand ? "#FFFFFF" : "#F1F1F1" }} onClick={handleOpenBrand}>
+                  <button className="body-medium" style={{ backgroundColor: openBrand ? "#FFFFFF" : "#F1F1F1", color: openBrand ? "#171520" : "#626262" }} onClick={handleOpenBrand}>
                     Brand
                   </button>
                 </div>
                 <div className={styles.filterTitle}>
-                  <button style={{ backgroundColor: openPrice ? "#FFFFFF" : "#F1F1F1" }} onClick={handleOpenPrice}>
+                  <button className="body-medium" style={{ backgroundColor: openPrice ? "#FFFFFF" : "#F1F1F1", color: openPrice ? "#171520" : "#626262" }} onClick={handleOpenPrice}>
                     Price
                   </button>
                 </div>
                 <div className={styles.filterTitle}>
-                  <button style={{ backgroundColor: openDiscount ? "#FFFFFF" : "#F1F1F1" }} onClick={handleOpenDiscount}>
+                  <button className="body-medium" style={{ backgroundColor: openDiscount ? "#FFFFFF" : "#F1F1F1", color: openDiscount ? "#171520" : "#626262" }} onClick={handleOpenDiscount}>
                     Discount
                   </button>
                 </div>
                 <div className={styles.filterTitle}>
-                  <button style={{ backgroundColor: openAvailability ? "#FFFFFF" : "#F1F1F1" }} onClick={handleOpenAvailability}>
+                  <button
+                    className="body-medium"
+                    style={{ backgroundColor: openAvailability ? "#FFFFFF" : "#F1F1F1", color: openAvailability ? "#171520" : "#626262" }}
+                    onClick={handleOpenAvailability}
+                  >
                     Availability
                   </button>
                 </div>
@@ -292,38 +298,38 @@ export default function Category() {
                       </label>
 
                       <label className="body-medium text-low-emphasis">
-                        <input type="checkbox" checked={selectedColor === "Maroon Red"} onChange={() => handleCheckboxColor("Maroon Red")} />
-                        Maroon Red
+                        <input type="checkbox" checked={selectedColor === "Black"} onChange={() => handleCheckboxColor("Black")} />
+                        Black
                       </label>
 
                       <label className="body-medium text-low-emphasis">
-                        <input type="checkbox" checked={selectedColor === "Crimson Red"} onChange={() => handleCheckboxColor("Crimson Red")} />
-                        Crimson Red
+                        <input type="checkbox" checked={selectedColor === "Red"} onChange={() => handleCheckboxColor("Red")} />
+                        Red
                       </label>
 
                       <label className="body-medium text-low-emphasis">
-                        <input type="checkbox" checked={selectedColor === "Seinna Pink"} onChange={() => handleCheckboxColor("Seinna Pink")} />
-                        Seinna Pink
+                        <input type="checkbox" checked={selectedColor === "Pink"} onChange={() => handleCheckboxColor("Pink")} />
+                        Pink
                       </label>
 
                       <label className="body-medium text-low-emphasis">
-                        <input type="checkbox" checked={selectedColor === "Teal"} onChange={() => handleCheckboxColor("Teal")} />
-                        Teal
+                        <input type="checkbox" checked={selectedColor === "Green"} onChange={() => handleCheckboxColor("Green")} />
+                        Green
                       </label>
 
                       <label className="body-medium text-low-emphasis">
-                        <input type="checkbox" checked={selectedColor === "Aquamarine"} onChange={() => handleCheckboxColor("Aquamarine")} />
-                        Aquamarine
+                        <input type="checkbox" checked={selectedColor === "Brown"} onChange={() => handleCheckboxColor("Brown")} />
+                        Brown
                       </label>
 
                       <label className="body-medium text-low-emphasis">
-                        <input type="checkbox" checked={selectedColor === "Off-White"} onChange={() => handleCheckboxColor("Off-White")} />
-                        Off-White
+                        <input type="checkbox" checked={selectedColor === "Golden"} onChange={() => handleCheckboxColor("Golden")} />
+                        Golden
                       </label>
 
                       <label className="body-medium text-low-emphasis">
-                        <input type="checkbox" checked={selectedColor === "Muave Orange"} onChange={() => handleCheckboxColor("Muave Orange")} />
-                        Muave Orange
+                        <input type="checkbox" checked={selectedColor === "Silver"} onChange={() => handleCheckboxColor("Silver")} />
+                        Silver
                       </label>
                     </div>
                   </div>
@@ -460,38 +466,38 @@ export default function Category() {
                     </label>
 
                     <label className="body-medium text-low-emphasis">
-                      <input type="checkbox" checked={selectedColor === "Maroon Red"} onChange={() => handleCheckboxColor("Maroon Red")} />
-                      Maroon Red
+                      <input type="checkbox" checked={selectedColor === "Black"} onChange={() => handleCheckboxColor("Black")} />
+                      Black
                     </label>
 
                     <label className="body-medium text-low-emphasis">
-                      <input type="checkbox" checked={selectedColor === "Crimson Red"} onChange={() => handleCheckboxColor("Crimson Red")} />
-                      Crimson Red
+                      <input type="checkbox" checked={selectedColor === "Red"} onChange={() => handleCheckboxColor("Red")} />
+                      Red
                     </label>
 
                     <label className="body-medium text-low-emphasis">
-                      <input type="checkbox" checked={selectedColor === "Seinna Pink"} onChange={() => handleCheckboxColor("Seinna Pink")} />
-                      Seinna Pink
+                      <input type="checkbox" checked={selectedColor === "Pink"} onChange={() => handleCheckboxColor("Pink")} />
+                      Pink
                     </label>
 
                     <label className="body-medium text-low-emphasis">
-                      <input type="checkbox" checked={selectedColor === "Teal"} onChange={() => handleCheckboxColor("Teal")} />
-                      Teal
+                      <input type="checkbox" checked={selectedColor === "Teal"} onChange={() => handleCheckboxColor("Green")} />
+                      Green
                     </label>
 
                     <label className="body-medium text-low-emphasis">
-                      <input type="checkbox" checked={selectedColor === "Aquamarine"} onChange={() => handleCheckboxColor("Aquamarine")} />
-                      Aquamarine
+                      <input type="checkbox" checked={selectedColor === "Brown"} onChange={() => handleCheckboxColor("Brown")} />
+                      Brown
                     </label>
 
                     <label className="body-medium text-low-emphasis">
-                      <input type="checkbox" checked={selectedColor === "Off-White"} onChange={() => handleCheckboxColor("Off-White")} />
-                      Off-White
+                      <input type="checkbox" checked={selectedColor === "Golden"} onChange={() => handleCheckboxColor("Golden")} />
+                      Golden
                     </label>
 
                     <label className="body-medium text-low-emphasis">
-                      <input type="checkbox" checked={selectedColor === "Muave Orange"} onChange={() => handleCheckboxColor("Muave Orange")} />
-                      Muave Orange
+                      <input type="checkbox" checked={selectedColor === "Silver"} onChange={() => handleCheckboxColor("Silver")} />
+                      Silver
                     </label>
                   </div>
                 </div>

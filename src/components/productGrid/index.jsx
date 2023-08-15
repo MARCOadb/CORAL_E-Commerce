@@ -14,24 +14,31 @@ import BottomModal from "../bottomModal";
 const ProductGrid = ({ filterConfig, categoryId, productConfig }) => {
   const { allProducts } = useContext(BagContext);
   const { phone, desktop } = useBreakpoint();
+  const [toShow, setToShow] = useState(9);
+  const handleToShow = (e) => {
+    setToShow(e.target.value);
+  };
+  const [sort, setSort] = useState(null);
+  const handleSelect = (e) => {
+    setSort(e.target.value);
+  };
+
   const produtosFiltrados = useMemo(() => {
-    if (desktop) {
-      if (allProducts?.length > 0 && categoryId?.id) {
-        return allProducts?.filter(
+    if (allProducts?.length > 0 && categoryId?.id) {
+      const filtrados = allProducts
+        ?.filter(
           (item) =>
             (!categoryId.id || item.data.categoryId == categoryId.id) &&
             (!filterConfig.selectedColor || item.data.color === filterConfig.selectedColor) &&
             (!filterConfig.selectedBrand || item.data.brand === filterConfig.selectedBrand) &&
             (!filterConfig.selectedPrice || item.data.price <= filterConfig.selectedPrice)
-        );
-      } else return console.log("Allproducts ta vazio");
-    }
-  }, [filterConfig, allProducts]);
-
-  const [toShow, setToShow] = useState("9");
-  const handleToShow = (e) => {
-    setToShow(e.target.value);
-  };
+        )
+        .filter((item, index) => !desktop || index < toShow);
+      if ((sort || filterConfig.sort) === "Lowest price") filtrados.sort((a, b) => a.data.price - b.data.price);
+      else if ((sort || filterConfig.sort) === "Highest price") filtrados.sort((a, b) => b.data.price - a.data.price);
+      return filtrados;
+    } else return console.log("Allproducts ta vazio");
+  }, [filterConfig, allProducts, toShow, sort]);
 
   const [currentFormat, setCurrentFormat] = useState(GridIcon);
   const [gridClass, setGridClass] = useState("grid");
@@ -61,9 +68,8 @@ const ProductGrid = ({ filterConfig, categoryId, productConfig }) => {
                     <img src={currentFormat} />
                   </button>
                   <p className="body-medium-he">
-                    Showing {productsAmount} of {productsAmount} items
+                    Showing {produtosFiltrados?.length} of {toShow} items
                   </p>
-                  {/* PRODUCTS.LENGTH IRA MOSTRAR TODOS OS PRODUTOS, NAO SOMENTE OS DA CATEGORIA */}
                 </div>
                 <div className="sorting-options">
                   <div className="to-show">
@@ -72,7 +78,7 @@ const ProductGrid = ({ filterConfig, categoryId, productConfig }) => {
                   </div>
                   <div className="sort-by">
                     <p className="body-medium-he">Sort by</p>
-                    <select id="sort-by-options" className="body-medium-he">
+                    <select id="sort-by-options" className="body-medium-he" onChange={handleSelect}>
                       <option value="Position">Position</option>
                       <option value="Best reviews">Best reviews</option>
                       <option value="Most sold">Most sold</option>
@@ -85,7 +91,7 @@ const ProductGrid = ({ filterConfig, categoryId, productConfig }) => {
               <div className={gridClass}>
                 <>
                   <>
-                    {produtosFiltrados?.map((item) => (
+                    {produtosFiltrados?.map((item, index) => (
                       <Product
                         largura={286}
                         altura={286}
@@ -110,25 +116,26 @@ const ProductGrid = ({ filterConfig, categoryId, productConfig }) => {
             <BottomModal></BottomModal>
             <div className="container-grid-mobile">
               <p className="title-regular text-low-emphasis">
-                {productsAmount}
+                {produtosFiltrados?.length}
                 {" Product(s)"}
               </p>
               <div className="grid-mobile">
                 <>
-                  {allProducts?.map((item) => {
-                    if (item.data?.categoryId && categoryId?.id && item.data?.categoryId === categoryId.id.toString())
-                      return (
-                        <Product
-                          data={item.data}
-                          discount={50}
-                          oldprice={item.data?.price * 2}
-                          key={item.uid}
-                          itemId={item.uid}
-                          productConfig={productConfig}
-                          button
-                          sort={gridClass === "list" && true}
-                        />
-                      );
+                  {produtosFiltrados?.map((item) => {
+                    return (
+                      <Product
+                        largura={false}
+                        altura={false}
+                        data={item.data}
+                        discount={50}
+                        oldprice={item.data?.price * 2}
+                        key={item.uid}
+                        itemId={item.uid}
+                        productConfig={productConfig}
+                        button
+                        sort={gridClass === "list" && true}
+                      />
+                    );
                   })}
                 </>
               </div>
