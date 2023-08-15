@@ -12,7 +12,7 @@ import useBreakpoint from "../hooks/useBreakPoint";
 import ProductPage from "../pages/Product";
 import ProductRegister from "../pages/ProductsRegister";
 import Search from "../pages/Search";
-import Ratings from "../pages/Ratings";
+//import Ratings from '../pages/Ratings'
 
 export default function RoutesApp() {
   const { phone, desktop } = useBreakpoint();
@@ -65,7 +65,7 @@ export default function RoutesApp() {
       <Route path="/test" element={<ProductRegister />} />
       <Route path="/login" element={<Login />} />
       <Route path="/search/:searchValue" element={<Search />} />
-      <Route path={"/ratings"} element={<Ratings />} /> {/*    vai ser: category/id_do_produto/ratings   */}
+      {/* <Route path={'/ratings'} element={<Ratings />} />    vai ser: category/id_do_produto/ratings   */}
     </Routes>
   );
 }
