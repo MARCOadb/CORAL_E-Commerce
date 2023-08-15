@@ -1,9 +1,10 @@
 import { useState, createContext, useEffect } from "react";
 import { createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut } from "firebase/auth";
 import { doc, getDoc, setDoc } from "firebase/firestore";
-import { auth, db } from "../services/firebaseConnection";
+import { auth, db, storage } from "../services/firebaseConnection";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router";
+import { ref, uploadBytes } from "@firebase/storage";
 
 export const AuthContext = createContext({});
 
@@ -37,10 +38,11 @@ function AuthProvider({ children }) {
 
         let data = {
           uid: uid,
-          firstNamename: docSnap.data().firstName,
+          firstName: docSnap.data().firstName,
           lastName: docSnap.data().lastName,
           email: value.user.email,
           profilePhoto: docSnap.data().profilePhoto,
+          phone: docSnap.data().phoneNumber,
         };
 
         setUser(data);
@@ -71,7 +73,6 @@ function AuthProvider({ children }) {
     await createUserWithEmailAndPassword(auth, email, password)
       .then(async (value) => {
         let uid = value.user.uid;
-
         await setDoc(doc(db, "users", uid), {
           firstName: firstName,
           lastName: lastName,
@@ -83,10 +84,11 @@ function AuthProvider({ children }) {
         }).then(() => {
           let data = {
             uid: uid,
-            firstNamename: firstName,
+            firstName: firstName,
             lastName: lastName,
             email: value.user.email,
-            profilePhoto: null,
+            profilePhoto: profilePhoto,
+            phoneNumber: phoneNumber,
           };
           setUser(data);
           storageUser(data);

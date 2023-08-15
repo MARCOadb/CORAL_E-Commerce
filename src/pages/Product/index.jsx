@@ -25,7 +25,7 @@ import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import ChevronRightSvg from "../../assets/icon/ChevronRightSvg";
-import { toast } from 'react-toastify'
+import { toast } from "react-toastify";
 
 import styles from "./style.module.scss";
 import MobileLayout from "../../layouts/mobileLayout";
@@ -39,25 +39,24 @@ import getAllProducts from "../../services/getAllProducts";
 import Breadcrump from "../../components/breadcrumpDesktop";
 import { AuthContext } from "../../contexts/AuthContext";
 import { setWishlistProduct } from "../../services/setWishlistProduct";
-import { checkWishlist } from "../../services/checkWishlist";
 
 export default function ProductPage({ itemId, data, open, setOpen }) {
-  const { update, userWishlist } = useContext(BagContext);
+  const { allProducts, update, userWishlist } = useContext(BagContext);
   const { user } = useContext(AuthContext);
   const { phone, desktop } = useBreakpoint();
-  const [reviewModalOpen, setReviewModalOpen] = useState(false)
+  const [reviewModalOpen, setReviewModalOpen] = useState(false);
 
   const [activePic, setActivePic] = useState(0);
   const [activeTab, setActiveTab] = useState(1);
 
-  const [productPic, setProductPic] = useState()
+  const [productPic, setProductPic] = useState(null);
 
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const [dropdownHeight, setDropdownHeight] = useState();
 
   const dropdownRefHeight = useRef();
 
-  const [averageRatingsNumber, setAverageRatingsNumber] = useState(0)
+  const [averageRatingsNumber, setAverageRatingsNumber] = useState(0);
 
   useEffect(() => {
     setDropdownOpen(true);
@@ -99,7 +98,6 @@ export default function ProductPage({ itemId, data, open, setOpen }) {
 
   const [loading, setLoading] = useState(false);
   const [product, setProduct] = useState(null);
-  const [products, setProducts] = useState(null);
   const [stepperQnt, setStepperQnt] = useState(1);
   const location = useLocation();
 
@@ -111,12 +109,6 @@ export default function ProductPage({ itemId, data, open, setOpen }) {
         .then((data) => setProduct(data))
         .finally(() => setLoading(false));
     }
-    getAllProducts()
-      .then((data) => {
-        setProducts(data)
-        getProductImage()
-      })
-      .finally(() => setLoading(false));
   }, []);
 
   const setQnt = (e) => {
@@ -133,43 +125,48 @@ export default function ProductPage({ itemId, data, open, setOpen }) {
     if (!!user) {
       if (desktop) {
         setLoading(true);
-        setProductQnt(user.uid, location.state.itemId, stepperQnt)
-          .then(() => update())
+        setProductQnt(user.uid, location.state.itemId, stepperQnt, true)
+          .then(() => update({ products: false }))
           .finally(() => setLoading(false));
       } else {
         setLoading(true);
         addBagProduct(user.uid, itemId)
-          .then(() => update())
+          .then(() => update({ products: false }))
           .finally(() => setLoading(false));
       }
-    } else toast.error("You must be logged to do this!");
+      update({ products: false });
+    } else alert("Voce precisa estar logado para fazer isso");
   };
   const addToWishlist = () => {
     if (!!user) {
       setWishlistProduct(user.uid, itemId ? itemId : location.state.itemId).finally(() => setLoading(false));
       if (isWishlisted === true) setIsWishlisted(false);
       else setIsWishlisted(true);
-      update();
-    } else toast.error("You must be logged to do this!");
+      update({ products: false });
+    } else alert("Voce precisa estar logado para fazer isso");
   };
 
-  const getProductImage = async () => {
-    const storageRef = ref(storage, `productsImg/${data.name}`)
-    await getDownloadURL(storageRef)
-      .then((response) => {
-        setProductPic(response)
-      });
-  }
-
-  const productImages = [
-    productPic
-  ];
+  const productImages = [productPic];
 
   const [isWishlisted, setIsWishlisted] = useState(null);
   useEffect(() => {
-    setIsWishlisted(userWishlist.find((item) => item.uid === itemId));
-    update();
-  }, []);
+    if (!!userWishlist) {
+      setIsWishlisted(userWishlist.find((item) => item.uid === itemId));
+    }
+  }, [userWishlist]);
+
+  useEffect(() => {
+    const getProductImage = async (name) => {
+      const storageRef = ref(storage, `productsImg/${name}`);
+      return await getDownloadURL(storageRef);
+    };
+    if (!!product) {
+      getProductImage(product.name).then((response) => {
+        setProductPic(response);
+      });
+    }
+  }, [product]);
+
   return (
     <>
       {phone && open ? (
@@ -177,11 +174,7 @@ export default function ProductPage({ itemId, data, open, setOpen }) {
           icon="arrow"
           iconAngle={90}
           iconStroke="#13101E"
-          footerPrefix={
-            <div style={{ display: "flex", alignItems: "center" }}>
-              <WishlistSvg fill={isWishlisted && "red"} onClick={addToWishlist} width={44} />
-            </div>
-          }
+          footerPrefix={<div style={{ display: "flex", alignItems: "center" }}>{<WishlistSvg fill={isWishlisted && "red"} onClick={addToWishlist} width={44} />}</div>}
           buttons={[{ text: "Add to Bag", outlined: false, onClick: addToBag, btnIcon: <BagSvg stroke="#fff" /> }]}
           open={open}
           setOpen={setOpen}
@@ -192,7 +185,7 @@ export default function ProductPage({ itemId, data, open, setOpen }) {
                 <div className={styles.carousel}>
                   {productImages.map((image) => (
                     <div>
-                      <img src={image} />
+                      <img src={image} alt="" />
                     </div>
                   ))}
                 </div>
@@ -277,9 +270,7 @@ export default function ProductPage({ itemId, data, open, setOpen }) {
                 <ArrowSvg onClick={toggleDropdownState} x={dropdownOpen && 180} />
               </div>
               <div className={`${styles.dropdownContent} ${dropdownOpen && styles.dropdownOpen}`} ref={dropdownRefHeight} style={{ height: dropdownOpen ? `${dropdownHeight}` : "0px" }}>
-                <p className="text-low-emphasis title-medium">
-                  {data?.description}
-                </p>
+                <p className="text-low-emphasis title-medium">{data?.description}</p>
               </div>
             </div>
 
@@ -290,10 +281,7 @@ export default function ProductPage({ itemId, data, open, setOpen }) {
               <ArrowSvg onClick={() => setReviewModalOpen(true)} x={270} />
             </div>
 
-            {reviewModalOpen && (
-              <Ratings setRatingsOpen={setReviewModalOpen} itemId={itemId} product={data} setAverageRatingsNumber={setAverageRatingsNumber} />
-            )}
-
+            {reviewModalOpen && <Ratings setRatingsOpen={setReviewModalOpen} itemId={itemId} product={data} setAverageRatingsNumber={setAverageRatingsNumber} />}
 
             <div className={styles.seperator}></div>
 
@@ -313,7 +301,7 @@ export default function ProductPage({ itemId, data, open, setOpen }) {
             <div className={styles.otherProducts}>
               <h1 className="type-high-emphasis title-regular">You Might Also Like</h1>
               <div className={styles.productsContainer}>
-                {!loading && products?.map((item) => <Product largura={136} altura={136} discount={50} oldprice={item.data?.price * 2} data={item.data} label key={item.uid} itemId={item.uid} />)}
+                {!loading && allProducts?.map((item) => <Product largura={136} altura={136} data={item.data} label key={item.uid} itemId={item.uid} discount={true} />)}
               </div>
             </div>
           </div>
@@ -343,11 +331,11 @@ export default function ProductPage({ itemId, data, open, setOpen }) {
                 <div className={styles.ratingsContainer}>
                   {console.log(Math.floor(parseFloat(averageRatingsNumber)))}
                   <div style={{ display: "flex", gap: "8px" }}>
-                    <StarSvg fill={Math.floor(parseFloat(averageRatingsNumber)) >= 1 ? '#FF8C4B' : '#B6B6B6'} stroke={Math.floor(parseFloat(averageRatingsNumber)) >= 1 ? '#FF8C4B' : '#B6B6B6'} />
-                    <StarSvg fill={Math.floor(parseFloat(averageRatingsNumber)) >= 2 ? '#FF8C4B' : '#B6B6B6'} stroke={Math.floor(parseFloat(averageRatingsNumber)) >= 2 ? '#FF8C4B' : '#B6B6B6'} />
-                    <StarSvg fill={Math.floor(parseFloat(averageRatingsNumber)) >= 3 ? '#FF8C4B' : '#B6B6B6'} stroke={Math.floor(parseFloat(averageRatingsNumber)) >= 3 ? '#FF8C4B' : '#B6B6B6'} />
-                    <StarSvg fill={Math.floor(parseFloat(averageRatingsNumber)) >= 4 ? '#FF8C4B' : '#B6B6B6'} stroke={Math.floor(parseFloat(averageRatingsNumber)) >= 4 ? '#FF8C4B' : '#B6B6B6'} />
-                    <StarSvg fill={Math.floor(parseFloat(averageRatingsNumber)) === 5 ? '#FF8C4B' : '#B6B6B6'} stroke={Math.floor(parseFloat(averageRatingsNumber)) === 5 ? '#FF8C4B' : '#B6B6B6'} />
+                    <StarSvg fill={Math.floor(parseFloat(averageRatingsNumber)) >= 1 ? "#FF8C4B" : "#B6B6B6"} stroke={Math.floor(parseFloat(averageRatingsNumber)) >= 1 ? "#FF8C4B" : "#B6B6B6"} />
+                    <StarSvg fill={Math.floor(parseFloat(averageRatingsNumber)) >= 2 ? "#FF8C4B" : "#B6B6B6"} stroke={Math.floor(parseFloat(averageRatingsNumber)) >= 2 ? "#FF8C4B" : "#B6B6B6"} />
+                    <StarSvg fill={Math.floor(parseFloat(averageRatingsNumber)) >= 3 ? "#FF8C4B" : "#B6B6B6"} stroke={Math.floor(parseFloat(averageRatingsNumber)) >= 3 ? "#FF8C4B" : "#B6B6B6"} />
+                    <StarSvg fill={Math.floor(parseFloat(averageRatingsNumber)) >= 4 ? "#FF8C4B" : "#B6B6B6"} stroke={Math.floor(parseFloat(averageRatingsNumber)) >= 4 ? "#FF8C4B" : "#B6B6B6"} />
+                    <StarSvg fill={Math.floor(parseFloat(averageRatingsNumber)) === 5 ? "#FF8C4B" : "#B6B6B6"} stroke={Math.floor(parseFloat(averageRatingsNumber)) === 5 ? "#FF8C4B" : "#B6B6B6"} />
                   </div>
                   <span className="text-light title-medium ">({product?.reviews?.length}) Ratings</span>
                 </div>
@@ -439,7 +427,7 @@ export default function ProductPage({ itemId, data, open, setOpen }) {
                 <div className={`${styles.tabsContent} ${activeTab === 2 && styles.tabsContentActive}`}>
                   <div className={styles.otherProducts}>
                     <div className={styles.productsContainer}>
-                      {!loading && products?.map((item) => <Product largura={286} altura={286} data={item.data} discount={50} oldprice={item.data?.price * 2} label key={item.uid} itemId={item.uid} ratings={false} />)}
+                      {!loading && allProducts?.map((item) => <Product largura={286} altura={286} data={item.data} label key={item.uid} itemId={item.uid} ratings={false} />)}
                     </div>
                   </div>
                 </div>

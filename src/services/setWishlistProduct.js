@@ -11,7 +11,7 @@ export const setWishlistProduct = async (userId, productId) => {
     if (removedProduct) wishArr.products = removedProduct;
     await updateDoc(querySnapshot.docs[0].ref, wishArr);
     return !removedProduct;
-  } else {
+  } else if (!querySnapshot.docs[0]) {
     await addDoc(wishlistRef, {
       userId,
       products: [productId],

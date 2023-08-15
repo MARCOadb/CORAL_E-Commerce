@@ -11,6 +11,7 @@ import WishlistSvg from "../../assets/icon/WishlistSvg";
 import Product from "../../components/product";
 import getAllProducts from "../../services/getAllProducts";
 import DefaultBtn from "../../components/defaultBtn";
+import MyCart from "../../pages/MyCart";
 import { setWishlistProduct } from "../../services/setWishlistProduct";
 import { AuthContext } from "../../contexts/AuthContext";
 import { storage } from "../../services/firebaseConnection";
@@ -19,25 +20,24 @@ import { ref, getBytes, listAll, child, getDownloadURL } from "firebase/storage"
 const Test = () => {
   const [loading, setLoading] = useState(false);
   const [products, setProducts] = useState(null);
-  const [photos, setPhotos] = useState(null)
+  const [photos, setPhotos] = useState(null);
 
-  const [img, setImg] = useState()
+  const [img, setImg] = useState();
 
-  const storageRef = ref(storage, 'productsImg')
+  const storageRef = ref(storage, "productsImg");
 
   //const folderRef = storageRef.child('productsImg/')
 
-  const productImgList = []
+  const productImgList = [];
 
   const getImages = async () => {
     // const photos = await getBytes(storageRef)
     // return photos
-    await getDownloadURL(storageRef)
-      .then((x) => {
-        productImgList.push(x)
-      });
-    console.log(productImgList)
-  }
+    await getDownloadURL(storageRef).then((x) => {
+      productImgList.push(x);
+    });
+    console.log(productImgList);
+  };
 
   // const getProducts = async () => {
   //   const produtos = await getAllProducts();
@@ -47,8 +47,7 @@ const Test = () => {
   useEffect(() => {
     // getProducts()
     //   .then((data) => setProducts(data))
-    getImages()
-      .then((data) => setPhotos(data))
+    getImages().then((data) => setPhotos(data));
   }, []);
 
   return (

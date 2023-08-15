@@ -149,7 +149,7 @@ const Header = ({ path }) => {
               <BagSvg
                 onClick={() => {
                   setOpen(true);
-                  update();
+                  update({ products: false });
                 }}
                 stroke={"#1B4B66"}
                 height={44}
