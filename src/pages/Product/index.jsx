@@ -152,16 +152,15 @@ export default function ProductPage({ itemId, data, open, setOpen }) {
     }
   }, [userWishlist]);
 
+  const storageRef = ref(storage, `productsImg/${desktop ? product?.name : data?.name}`);
+
   useEffect(() => {
-    const getProductImage = async (name) => {
-      const storageRef = ref(storage, `productsImg/${name}`);
-      return await getDownloadURL(storageRef);
-    };
-    if (!!product) {
-      getProductImage(product.name).then((response) => {
+    const getProductImage = async () => {
+      await getDownloadURL(storageRef).then((response) => {
         setProductPic(response);
       });
-    }
+    };
+    getProductImage()
   }, [product]);
 
   return (
@@ -171,7 +170,7 @@ export default function ProductPage({ itemId, data, open, setOpen }) {
           icon="arrow"
           iconAngle={90}
           iconStroke="#13101E"
-          footerPrefix={<div style={{ display: "flex", alignItems: "center" }}>{<WishlistSvg fill={isWishlisted && "red"} onClick={addToWishlist} width={44} />}</div>}
+          footerPrefix={<div style={{ display: "flex", alignItems: "center" }}>{<WishlistSvg fill={isWishlisted && "red"} stroke={isWishlisted && "red"} onClick={addToWishlist} width={44} />}</div>}
           buttons={[{ text: "Add to Bag", outlined: false, onClick: addToBag, btnIcon: <BagSvg stroke="#fff" /> }]}
           open={open}
           setOpen={setOpen}
@@ -307,6 +306,7 @@ export default function ProductPage({ itemId, data, open, setOpen }) {
       ) : (
         <>
           <Header />
+          {console.log(product?.name)}
           <div className={styles.content}>
             <Breadcrump />
             <div className={styles.product}>
@@ -338,9 +338,9 @@ export default function ProductPage({ itemId, data, open, setOpen }) {
                 </div>
 
                 <div className={styles.productPrice}>
-                  <h1 className="text-high-emphasis display-large">{product?.price}$</h1>
-                  <h2 className="text-light display-medium strike">{product?.oldPrice}$</h2>
-                  <h3 className="text-vibrant display-small">{product?.discount}</h3>
+                  <h1 className="text-high-emphasis display-large">${product?.price % 1 === 0 ? `${product?.price}.00` : product?.price}</h1>
+                  <h2 className="text-light display-medium strike">${product?.price * 2 % 1 === 0 ? `${product?.price * 2}.00` : product?.price * 2}</h2>
+                  <h3 className="text-vibrant display-small">50% OFF</h3>
                 </div>
 
                 <span className={styles.seperator}></span>

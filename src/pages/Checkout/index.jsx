@@ -208,7 +208,7 @@ export default function Checkout() {
                   <Dropdown title="Contact Information" content={contactInfo} />
                   <Dropdown title="Select Payment Method" content={cardArray} />
                   <div className="inferior-link-button">
-                    <a onClick={() => handleNavigate("bag")}>Back to Cart</a>
+                    <a onClick={() => navigate('/bag')} style={{ cursor: 'pointer' }}>Back to Cart</a>
                     <button className={buttonAvailable ? "available" : "unavailable"} onClick={buttonAvailable ? available : unavailable}>
                       Next
                     </button>
@@ -258,7 +258,7 @@ export default function Checkout() {
         ) : (
           <>
             <div className="topbar">
-              <a href="#">
+              <a onClick={() => navigate('/bag')}>
                 <img src={ChevronRight} />
               </a>
               <h1 className="display-small text-primary">Checkout</h1>
