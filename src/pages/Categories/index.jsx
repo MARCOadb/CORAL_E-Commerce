@@ -23,16 +23,36 @@ import { useLocation, useNavigate } from "react-router-dom";
 import getCategoryByName from "../../services/getCategoryByName";
 import MobileLayout from "../../layouts/mobileLayout";
 import { BagContext } from "../../contexts/BagContext";
+import DefaultBtn from "../../components/defaultBtn";
+import BottomModal from "../../components/bottomModal";
+import SortSvg from "../../assets/icon/SortSvg";
+import FilterSvg from "../../assets/icon/FilterSvg";
 const config = {
   label: true,
   button: true,
   discount: 30,
   oldprice: 30,
 };
+
 export default function Category() {
   const { phone, desktop } = useBreakpoint();
-
+  const [sortOpen, setSortOpen] = useState(false);
+  const [filterOpen, setFilterOpen] = useState(false);
+  const sortFilter = (
+    <div className={styles.footerContainer}>
+      <div className={styles.btnContainer} onClick={() => setSortOpen(true)}>
+        <SortSvg />
+        <span className="title-regular">Sort</span>
+      </div>
+      <div className={styles.btnContainer} onClick={() => setFilterOpen(true)}>
+        <FilterSvg />
+        <span className="title-regular">Filter</span>
+      </div>
+    </div>
+  );
   //STATES
+
+  const [sort, setSort] = useState(null);
 
   const [openColor, setOpenColor] = useState(false);
   const [heightColor, setHeightColor] = useState(null);
@@ -70,40 +90,102 @@ export default function Category() {
     setHeightAvailability(`${AvailabilityRefHeight.current?.scrollHeight}px`);
   }, []);
 
+  const closeRadio = (name) => {
+    switch (name) {
+      case "Color":
+        setOpenBrand(null);
+        setOpenPrice(null);
+        setOpenDiscount(null);
+        setOpenAvailability(null);
+        break;
+      case "Brand":
+        setOpenColor(null);
+        setOpenPrice(null);
+        setOpenDiscount(null);
+        setOpenAvailability(null);
+        break;
+      case "Price":
+        setOpenBrand(null);
+        setOpenColor(null);
+        setOpenDiscount(null);
+        setOpenAvailability(null);
+        break;
+      case "Discount":
+        setOpenBrand(null);
+        setOpenPrice(null);
+        setOpenColor(null);
+        setOpenAvailability(null);
+        break;
+      case "Availability":
+        setOpenColor(null);
+        setOpenPrice(null);
+        setOpenDiscount(null);
+        setOpenBrand(null);
+        break;
+      default:
+        setSelectedColor(null);
+        setSelectedPrice(null);
+        setSelectedDiscount(null);
+        setSelectedBrand(null);
+        setSelectedAvailability(null);
+        break;
+    }
+  };
+
   //HANDLES
   function handleOpenColor() {
     setOpenColor(!openColor);
+    if (phone) {
+      closeRadio("Color");
+    }
   }
   function handleCheckboxColor(option) {
-    setSelectedColor(option);
+    if (selectedColor != option) setSelectedColor(option);
+    else setSelectedColor(null);
   }
 
   function handleOpenBrand() {
     setOpenBrand(!openBrand);
+    if (phone) {
+      closeRadio("Brand");
+    }
   }
   function handleCheckboxBrand(option) {
-    setSelectedBrand(option);
+    if (selectedBrand != option) setSelectedBrand(option);
+    else setSelectedBrand(null);
   }
 
   function handleOpenPrice() {
     setOpenPrice(!openPrice);
+    if (phone) {
+      closeRadio("Price");
+    }
   }
   function handleCheckboxPrice(option) {
-    setSelectedPrice(option);
+    if (selectedPrice != option) setSelectedPrice(option);
+    else setSelectedPrice(null);
   }
 
   function handleOpenDiscount() {
     setOpenDiscount(!openDiscount);
+    if (phone) {
+      closeRadio("Discount");
+    }
   }
   function handleCheckboxDiscount(option) {
-    setSelectedDiscount(option);
+    if (selectedDiscount != option) setSelectedDiscount(option);
+    else setSelectedDiscount(null);
   }
 
   function handleOpenAvailability() {
     setOpenAvailability(!openAvailability);
+    if (phone) {
+      closeRadio("Availability");
+    }
   }
   function handleCheckboxAvailability(option) {
-    setSelectedAvailability(option);
+    if (selectedAvailability != option) setSelectedAvailability(option);
+    else setSelectedAvailability(null);
   }
 
   //NAVEGAÇÃO E GET NO ID DA CATEGORIA
@@ -135,11 +217,223 @@ export default function Category() {
     setModalOpen(true);
   };
 
+  const preventDefault = (e) => {
+    setSort(e.target.value);
+    console.log(e.target.value);
+  };
+
   return (
     <>
       {phone && !loading && (
-        <MobileLayout icon={"arrow"} iconStroke={"#1B4B66"} iconAngle={90} title={categoryName} open={modalOpen} setOpen={setModalOpen}>
+        <MobileLayout footerPrefix={sortFilter} icon={"arrow"} iconStroke={"#1B4B66"} iconAngle={90} title={categoryName} open={modalOpen} setOpen={setModalOpen}>
           <ProductGrid productConfig={config} categoryId={categoryId}></ProductGrid>
+          <BottomModal open={sortOpen} setOpen={() => setSortOpen(false)} title={"Sort by"}>
+            <form className={styles.radioContainer} onChange={preventDefault}>
+              <div>
+                <input type="radio" id="popular" name="sort" value="popular" />
+                <label htmlFor="popular">Popular Products</label>
+              </div>
+              <div>
+                <input type="radio" id="lowToHigh" name="sort" value="lowToHigh" />
+                <label htmlFor="lowToHigh">Price- Low to High</label>
+              </div>
+              <div>
+                <input type="radio" id="hightToLow" name="sort" value="hightToLow" />
+                <label htmlFor="hightToLow">Price- High to Low</label>
+              </div>
+              <div>
+                <input type="radio" id="onSale" name="sort" value="onSale" />
+                <label htmlFor="onSale">On Sale</label>
+              </div>
+            </form>
+          </BottomModal>
+          <MobileLayout
+            buttons={[{ text: "Clear All", outlined: true, onClick: closeRadio }, { text: "Apply" }]}
+            icon={"cross"}
+            title={"Filters"}
+            open={filterOpen}
+            setOpen={() => setFilterOpen(false)}
+          >
+            <div className={styles.filterContainer}>
+              <div>
+                <div className={styles.filterTitle}>
+                  <button style={{ backgroundColor: openColor ? "#FFFFFF" : "#F1F1F1" }} onClick={handleOpenColor}>
+                    Color
+                  </button>
+                </div>
+                <div className={styles.filterTitle}>
+                  <button style={{ backgroundColor: openBrand ? "#FFFFFF" : "#F1F1F1" }} onClick={handleOpenBrand}>
+                    Brand
+                  </button>
+                </div>
+                <div className={styles.filterTitle}>
+                  <button style={{ backgroundColor: openPrice ? "#FFFFFF" : "#F1F1F1" }} onClick={handleOpenPrice}>
+                    Price
+                  </button>
+                </div>
+                <div className={styles.filterTitle}>
+                  <button style={{ backgroundColor: openDiscount ? "#FFFFFF" : "#F1F1F1" }} onClick={handleOpenDiscount}>
+                    Discount
+                  </button>
+                </div>
+                <div className={styles.filterTitle}>
+                  <button style={{ backgroundColor: openAvailability ? "#FFFFFF" : "#F1F1F1" }} onClick={handleOpenAvailability}>
+                    Availability
+                  </button>
+                </div>
+              </div>
+              <div>
+                {openColor && (
+                  <div className={`${styles.filterContent} ${openColor && styles.show}`} ref={colorRefHeight} style={{ height: openColor ? heightColor : "0px" }}>
+                    <div className={styles.options}>
+                      <label className="body-medium text-low-emphasis">
+                        <input type="checkbox" checked={selectedColor === "Blue"} onChange={() => handleCheckboxColor("Blue")} />
+                        Blue
+                      </label>
+
+                      <label className="body-medium text-low-emphasis">
+                        <input type="checkbox" checked={selectedColor === "Maroon Red"} onChange={() => handleCheckboxColor("Maroon Red")} />
+                        Maroon Red
+                      </label>
+
+                      <label className="body-medium text-low-emphasis">
+                        <input type="checkbox" checked={selectedColor === "Crimson Red"} onChange={() => handleCheckboxColor("Crimson Red")} />
+                        Crimson Red
+                      </label>
+
+                      <label className="body-medium text-low-emphasis">
+                        <input type="checkbox" checked={selectedColor === "Seinna Pink"} onChange={() => handleCheckboxColor("Seinna Pink")} />
+                        Seinna Pink
+                      </label>
+
+                      <label className="body-medium text-low-emphasis">
+                        <input type="checkbox" checked={selectedColor === "Teal"} onChange={() => handleCheckboxColor("Teal")} />
+                        Teal
+                      </label>
+
+                      <label className="body-medium text-low-emphasis">
+                        <input type="checkbox" checked={selectedColor === "Aquamarine"} onChange={() => handleCheckboxColor("Aquamarine")} />
+                        Aquamarine
+                      </label>
+
+                      <label className="body-medium text-low-emphasis">
+                        <input type="checkbox" checked={selectedColor === "Off-White"} onChange={() => handleCheckboxColor("Off-White")} />
+                        Off-White
+                      </label>
+
+                      <label className="body-medium text-low-emphasis">
+                        <input type="checkbox" checked={selectedColor === "Muave Orange"} onChange={() => handleCheckboxColor("Muave Orange")} />
+                        Muave Orange
+                      </label>
+                    </div>
+                  </div>
+                )}
+                {openBrand && (
+                  <div className={styles.menuCategory}>
+                    <div className={`${styles.filterContent} ${openBrand && styles.show}`} ref={brandRefHeight} style={{ height: openBrand ? heightBrand : "0px" }}>
+                      <div className={styles.options}>
+                        <label className="body-medium text-low-emphasis">
+                          <input type="checkbox" checked={selectedBrand === "Zara"} onChange={() => handleCheckboxBrand("Zara")} />
+                          Zara
+                        </label>
+
+                        <label className="body-medium text-low-emphasis">
+                          <input type="checkbox" checked={selectedBrand === "D&G"} onChange={() => handleCheckboxBrand("D&G")} />
+                          D&G
+                        </label>
+
+                        <label className="body-medium text-low-emphasis">
+                          <input type="checkbox" checked={selectedBrand === "H&M"} onChange={() => handleCheckboxBrand("H&M")} />
+                          H&M
+                        </label>
+
+                        <label className="body-medium text-low-emphasis">
+                          <input type="checkbox" checked={selectedBrand === "Chanel"} onChange={() => handleCheckboxBrand("Chanel")} />
+                          Chanel
+                        </label>
+
+                        <label className="body-medium text-low-emphasis">
+                          <input type="checkbox" checked={selectedBrand === "Prada"} onChange={() => handleCheckboxBrand("Prada")} />
+                          Prada
+                        </label>
+
+                        <label className="body-medium text-low-emphasis">
+                          <input type="checkbox" checked={selectedBrand === "Biba"} onChange={() => handleCheckboxBrand("Biba")} />
+                          Biba
+                        </label>
+                      </div>
+                    </div>
+                  </div>
+                )}
+                {openPrice && (
+                  <div className={styles.menuCategory}>
+                    <div className={`${styles.filterContent} ${openPrice && styles.show}`} ref={priceRefHeight} style={{ height: openPrice ? heightPrice : "0px" }}>
+                      <div className={styles.options}>
+                        <label className="body-medium text-low-emphasis">
+                          <input type="checkbox" checked={selectedPrice === "20"} onChange={() => handleCheckboxPrice("20")} />
+                          $0 - 20
+                        </label>
+
+                        <label className="body-medium text-low-emphasis">
+                          <input type="checkbox" checked={selectedPrice === "40"} onChange={() => handleCheckboxPrice("40")} />
+                          $40
+                        </label>
+
+                        <label className="body-medium text-low-emphasis">
+                          <input type="checkbox" checked={selectedPrice === "60"} onChange={() => handleCheckboxPrice("60")} />
+                          $60
+                        </label>
+
+                        <label className="body-medium text-low-emphasis">
+                          <input type="checkbox" checked={selectedPrice === "OverPrice"} onChange={() => handleCheckboxPrice("OverPrice")} />
+                          $60 +
+                        </label>
+                      </div>
+                    </div>
+                  </div>
+                )}
+                {openDiscount && (
+                  <div className={styles.menuCategory}>
+                    <div className={`${styles.filterContent} ${openDiscount && styles.show}`} ref={discountRefHeight} style={{ height: openDiscount ? heightDiscount : "0px" }}>
+                      <div className={styles.options}>
+                        <label className="body-medium text-low-emphasis">
+                          <input type="checkbox" checked={selectedDiscount === "10%"} onChange={() => handleCheckboxDiscount("10%")} />
+                          10%
+                        </label>
+
+                        <label className="body-medium text-low-emphasis">
+                          <input type="checkbox" checked={selectedDiscount === "20%"} onChange={() => handleCheckboxDiscount("20%")} />
+                          20%
+                        </label>
+
+                        <label className="body-medium text-low-emphasis">
+                          <input type="checkbox" checked={selectedDiscount === "50%"} onChange={() => handleCheckboxDiscount("50%")} />
+                          50%
+                        </label>
+                      </div>
+                    </div>
+                  </div>
+                )}
+                {openAvailability && (
+                  <div className={styles.menuCategory}>
+                    <div className={`${styles.filterContent} ${openAvailability && styles.show}`} ref={AvailabilityRefHeight} style={{ height: openAvailability ? heightAvailability : "0px" }}>
+                      <div className={styles.options}>
+                        <label className="body-medium text-low-emphasis">
+                          <input type="checkbox" checked={selectedAvailability === "Available"} onChange={() => handleCheckboxAvailability("Available")} />
+                          Available
+                        </label>
+
+                        <label className="body-medium text-low-emphasis">
+                          <input type="checkbox" checked={selectedAvailability === "Unavailable"} onChange={() => handleCheckboxAvailability("Unavailable")} />
+                          Unavailable
+                        </label>
+                      </div>
+                    </div>
+                  </div>
+                )}
+              </div>
+            </div>
+          </MobileLayout>
         </MobileLayout>
       )}
       {desktop && <Header path={location.state?.path} />}
