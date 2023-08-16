@@ -32,6 +32,10 @@ export default function Profile() {
   const { logout } = useContext(AuthContext);
 
   useEffect(() => {
+    if (desktop) handleTab(location.state.initialTab);
+  }, [location.state?.initialTab]);
+
+  useEffect(() => {
     switch (activeTab) {
       case 1:
         setTabTitle("Personal Information");
