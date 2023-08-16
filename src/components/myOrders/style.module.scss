@@ -1,6 +1,9 @@
 .compContainer {
   display: flex;
+  flex-direction: column;
   width: 100%;
+  height: 100%;
+  gap: 52px;
 }
 // fazer a parte mobile com o mixin
 .statusContainer {
@@ -23,4 +26,15 @@
     border-radius: 8px;
     transition: background-color 500ms ease-in-out;
   }
+}
+.infoContainer {
+  display: flex;
+  width: 100%;
+  border-bottom: 1px solid #0000001f;
+  padding: 9px 53px;
+  justify-content: space-between;
+}
+.orderContainer {
+  display: flex;
+  width: 100%;
 }
