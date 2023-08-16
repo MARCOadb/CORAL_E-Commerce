@@ -43,7 +43,6 @@ export default function Profile() {
   }, [location.state?.initialTab]);
 
   useEffect(() => {
-    handleTab(location.state.initialTab);
     switch (activeTab) {
       case 1:
         setTabTitle("Personal Information");
@@ -67,8 +66,7 @@ export default function Profile() {
         setTabTitle("My Saved Cards");
         break;
     }
-    update({ products: false });
-  }, [activeTab, location.state.initialTab]);
+  }, [activeTab]);
 
   async function handleLogout() {
     await logout();
