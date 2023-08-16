@@ -12,6 +12,7 @@ import useBreakpoint from "../hooks/useBreakPoint";
 import ProductPage from "../pages/Product";
 import ProductRegister from "../pages/ProductsRegister";
 import Search from "../pages/Search";
+import NotFound from "../pages/notFound";
 //import Ratings from '../pages/Ratings'
 
 export default function RoutesApp() {
@@ -66,6 +67,7 @@ export default function RoutesApp() {
       <Route path="/login" element={<Login />} />
       <Route path="/search/:searchValue" element={<Search />} />
       {/* <Route path={'/ratings'} element={<Ratings />} />    vai ser: category/id_do_produto/ratings   */}
+      <Route path="*" element={<NotFound />} />
     </Routes>
   );
 }
