@@ -1,12 +1,14 @@
 import "./style.scss";
 import Modal from "../modal";
-import profileImg from "../../assets/icon/bag.svg"; //placeholder
+import profileImg from "../../assets/pics/Login/profile-default.png"; //placeholder
 import ArrowSvg from "../../assets/icon/ArrowSvg";
 import TextAndArrow from "../textAndArrow";
-
-const nome = "Vicente"; //placeholder
+import { useContext } from 'react'
+import { AuthContext } from "../../contexts/AuthContext";
 
 const MobileDrawer = ({ setOpen, open }) => {
+  const { user } = useContext(AuthContext)
+
   return (
     <>
       <Modal setOpen={setOpen} open={open} />
@@ -15,8 +17,8 @@ const MobileDrawer = ({ setOpen, open }) => {
           <>
             <div className="profileDiv">
               <div>
-                <img src={profileImg} className="imgOutline" alt="nome"></img>
-                <span>{`Hello, ${nome}`}</span>
+                <img src={user?.profilePhoto === null ? profileImg : user?.profilePhoto} className="imgOutline" alt="nome"></img>
+                <span>{`Hello, ${user.firstName}`}</span>
               </div>
               <ArrowSvg stroke="black" x={-90} />
             </div>
