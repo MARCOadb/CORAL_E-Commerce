@@ -20,9 +20,11 @@ import ChevronRight from "../../assets/icon/chevron-right.svg";
 import { AuthContext } from "../../contexts/AuthContext";
 
 import { useLocation, useNavigate } from "react-router-dom";
+import { addOrder } from "../../services/addOrder";
+import { clearBag } from "../../services/clearBag";
 
 export default function Checkout() {
-  const { userProducts, taxPrice, subTotal, totalPrice } = useContext(BagContext);
+  const { userProducts, taxPrice, subTotal, totalPrice, update } = useContext(BagContext);
   const { user } = useContext(AuthContext);
   const { phone, desktop } = useBreakpoint();
 
@@ -199,21 +201,34 @@ export default function Checkout() {
     };
     const phoneNumber = DDD + mobNumber;
     const adress = `${streetAddress} ${city} ${state}`;
+    const orderProds = userProducts.map((item) => {
+      const product = {
+        uid: item.uid,
+        qnt: item.qnt,
+      };
+      return product;
+    });
+
     const order = {
       fullName,
       phoneNumber,
       adress,
       pinCode,
       email,
-      selectedOption,
       userId: user.uid,
-      totalPrice,
-      userProducts,
-      orderDate,
+      price: totalPrice,
+      products: orderProds,
+      date: orderDate,
     };
-    console.log(order);
-    toast.success("Purchase done with success! Please, check your E-mail to track your order.");
-    // navigate("/");
+    addOrder(order).then(() => {
+      toast.success("Purchase done with success! Please, check your E-mail to track your order.");
+      clearBag(user.uid).then(() => {
+        toast.success("Your bag was cleard");
+        update({ products: false });
+      });
+    });
+
+    navigate("/");
   };
 
   const unavailable = () => {
