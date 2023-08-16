@@ -20,9 +20,11 @@ import LogoutSvg from "../../assets/icon/LogoutSvg";
 //STYLES
 import styles from "./style.module.scss";
 import MyWishlist from "../../components/myWishlist";
+import { BagContext } from "../../contexts/BagContext";
 
 export default function Profile() {
   const location = useLocation();
+  const { update } = useContext(BagContext);
   const { user } = useContext(AuthContext);
   const { phone, desktop } = useBreakpoint();
   const [activeTab, setActiveTab] = useState(location.state?.initialTab ? location.state?.initialTab : 1);
@@ -31,7 +33,13 @@ export default function Profile() {
 
   const { logout } = useContext(AuthContext);
 
+  function handleTab(tab) {
+    setTabMobileOpen(true);
+    setActiveTab(tab);
+  }
+
   useEffect(() => {
+    handleTab(location.state.initialTab);
     switch (activeTab) {
       case 1:
         setTabTitle("Personal Information");
@@ -55,12 +63,8 @@ export default function Profile() {
         setTabTitle("My Saved Cards");
         break;
     }
-  }, [activeTab]);
-
-  function handleTab(tab) {
-    setTabMobileOpen(true);
-    setActiveTab(tab);
-  }
+    update({ products: false });
+  }, [activeTab, location.state.initialTab]);
 
   async function handleLogout() {
     await logout();
@@ -146,9 +150,7 @@ export default function Profile() {
           )}
         </div>
       </div>
-
       {desktop && <Footer />}
-
       {phone && <NavBarMobile />}
     </>
   );

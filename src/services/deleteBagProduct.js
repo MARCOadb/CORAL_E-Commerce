@@ -1,5 +1,6 @@
 import { addDoc, collection, getDocs, query, updateDoc, where } from "firebase/firestore";
 import { db } from "./firebaseConnection";
+import { toast } from 'react-toastify'
 
 export const deleteBagProduct = async (userId, productId, remove) => {
   const bagRef = collection(db, "bag");
@@ -20,4 +21,6 @@ export const deleteBagProduct = async (userId, productId, remove) => {
       products: bagArr,
     });
   }
+
+  toast.warning('Item Removed from the Bag')
 };
