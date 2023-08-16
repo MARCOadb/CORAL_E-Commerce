@@ -135,7 +135,7 @@ export default function Home() {
 
           <div className="arrivals-carousel">
             {allProducts?.map((item) => (
-              <Product button largura={desktop ? 286 : 136} altura={desktop ? 286 : 136} data={item.data} label key={item.uid} itemId={item.uid} />
+              <Product largura={desktop ? 286 : 136} altura={desktop ? 286 : 136} data={item.data} label key={item.uid} itemId={item.uid} />
             ))}
           </div>
         </div>

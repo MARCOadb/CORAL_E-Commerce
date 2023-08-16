@@ -4,6 +4,12 @@
     }
 }
 
+@mixin phone {
+    @media (max-width: 1279px) {
+        @content;
+    }
+}
+
 .content {
     width: 100%;
     height: auto;
@@ -108,13 +114,13 @@
     gap: 8px;
 
     @include desktop {
-        width: 620px;
+        width: 600px;
         height: 440px;
         gap: 16px
     }
 }
 
-.photoCaroulsel {
+.photoCarousel {
     width: 100%;
     height: 80px;
     overflow: auto;
@@ -125,7 +131,7 @@
 
     div {
         width: auto;
-        height: 100%;
+        height: auto;
         display: flex;
         gap: 12px;
         padding-right: 16px;
@@ -139,6 +145,7 @@
             width: 80px;
             height: 80px;
             border-radius: 4px;
+            object-fit: cover;
 
             @include desktop {
                 width: 440px;
@@ -232,12 +239,12 @@
 
 .ratingPhotos {
     width: 100%;
-    height: 80px;
+    height: auto;
     overflow: auto;
 
     div {
         width: auto;
-        height: 100%;
+        height: auto;
         display: flex;
         gap: 12px;
         padding-right: 16px;
@@ -246,6 +253,7 @@
             width: 80px;
             height: 80px;
             border-radius: 4px;
+            object-fit: cover;
 
             @include desktop {
                 height: 200px;
@@ -389,7 +397,6 @@
 
 .reviewUserPhotosContainer {
     display: flex;
-    //gap: 8px;
 }
 
 .reviewUserPhotos {
@@ -409,7 +416,7 @@
 
 .submitBtn {
     width: 328px;
-    height: 44px;
+    height: 48px;
     border: none;
     outline: none;
     background-color: #1B4B66;
@@ -424,5 +431,26 @@
     &:hover {
         transform: scale(1.04);
         background-color: #163c52;
+    }
+}
+
+.noTasks {
+    width: 100%;
+    margin-top: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    gap: 20px;
+
+    @include phone {
+        text-align: center;
+        height: 100vh;
+
+        div {
+            width: 100%;
+            max-width: 300px;
+            margin: 0 auto;
+        }
     }
 }

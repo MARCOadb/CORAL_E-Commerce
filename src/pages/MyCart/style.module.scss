@@ -19,7 +19,7 @@ body {
     width: 100%;
     padding: 0 20px;
     max-width: 1280px;
-    margin: 0 auto 32px auto;
+    margin: 0 auto 96px auto;
     display: flex;
     flex-direction: row;
     justify-content: space-between;
@@ -245,4 +245,33 @@ body {
     width: 100%;
     display: flex;
     justify-content: space-between;
+}
+
+.noItem {
+    width: 100%;
+    max-width: 1280px;
+    margin: 0 auto 130px auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 30px;
+
+    img {
+        margin-top: 100px;
+        width: 300px;
+        height: 300px;
+    }
+
+    div {
+        display: flex;
+        flex-direction: column;
+        gap: 16px;
+        align-items: center;
+        text-align: center;
+    }
+
+    span {
+        width: 75%;
+    }
 }
