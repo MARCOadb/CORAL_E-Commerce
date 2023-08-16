@@ -21,6 +21,7 @@ import LogoutSvg from "../../assets/icon/LogoutSvg";
 import styles from "./style.module.scss";
 import MyWishlist from "../../components/myWishlist";
 import { BagContext } from "../../contexts/BagContext";
+import MyOrders from "../../components/myOrders";
 
 export default function Profile() {
   const location = useLocation();
@@ -143,7 +144,12 @@ export default function Profile() {
             </div>
           </div>
 
-          {desktop && <div className={styles.component}>{activeTab === 4 && <MyWishlist />}</div>}
+          {desktop && (
+            <div className={styles.component}>
+              {activeTab === 4 && <MyWishlist />}
+              {activeTab === 3 && <MyOrders />}
+            </div>
+          )}
 
           {phone && (
             <div className={styles.logoutButton}>
