@@ -481,7 +481,7 @@ export default function Category() {
                     </label>
 
                     <label className="body-medium text-low-emphasis">
-                      <input type="checkbox" checked={selectedColor === "Teal"} onChange={() => handleCheckboxColor("Green")} />
+                      <input type="checkbox" checked={selectedColor === "Green"} onChange={() => handleCheckboxColor("Green")} />
                       Green
                     </label>
 
