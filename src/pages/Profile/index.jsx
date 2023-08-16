@@ -13,7 +13,7 @@ import { useContext, useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
 
 //IMAGES & ICONS
-import profile from "../../assets/pics/profile-picture.jpg";
+import profile from "../../assets/pics/Login/profile-default.png";
 import ChevronRightSvg from "../../assets/icon/ChevronRightSvg";
 import LogoutSvg from "../../assets/icon/LogoutSvg";
 
@@ -96,11 +96,11 @@ export default function Profile() {
           {phone && (
             <div className={styles.userDetails}>
               <div style={{ display: "flex", gap: "14px", overflow: "auto" }}>
-                <img src={user?.profilePhoto} alt="User Profile" />
+                <img src={user?.profilePhoto === null ? profile : user?.profilePhoto} alt="User Profile" />
                 <div className={styles.txtContainer}>
                   <h2 className="text-high-emphasis display-small">{user?.firstName}</h2>
                   <span className="text-faded title-medium">{user?.email}</span>
-                  <span className="text-faded title-medium">{user?.phoneNumber}</span>
+                  <span className="text-faded title-medium">{user?.phone}</span>
                 </div>
               </div>
               <div style={{ flexShrink: "0" }}>
