@@ -15,7 +15,6 @@ import useBreakpoint from "../../hooks/useBreakPoint";
 import ChevronRightSmallsvg from "../../assets/icon/ChevronRightSmallsvg";
 import { toast } from "react-toastify";
 
-
 /*PROPS
   {
     largura: number;
@@ -31,7 +30,7 @@ import { toast } from "react-toastify";
 
 const CartProduct = ({ data, qnt, stepper, price, remove, itemId, showQnt, largura }) => {
   const [productImage, setProductImage] = useState(null);
-  const { desktop, phone } = useBreakpoint()
+  const { desktop, phone } = useBreakpoint();
 
   const { update } = useContext(BagContext);
   const { user } = useContext(AuthContext);
@@ -58,7 +57,7 @@ const CartProduct = ({ data, qnt, stepper, price, remove, itemId, showQnt, largu
 
   const setProduct = (e) => {
     e.preventDefault();
-    if (e.key === "Enter") {
+    if (e.key === "Enter" || e.target.type === "select-one") {
       if (e.target.value > 0) setProductQnt(user.uid, itemId, parseInt(e.target.value));
       else deleteBagProduct(itemId, true);
       update({ products: false });
@@ -79,9 +78,9 @@ const CartProduct = ({ data, qnt, stepper, price, remove, itemId, showQnt, largu
   return (
     <>
       {desktop ? (
-        <div className={styles.cardVertical} style={largura && { width: largura + 'px' }}>
+        <div className={styles.cardVertical} style={largura && { width: largura + "px" }}>
           <div style={{ display: "flex", gap: "16px" }}>
-            <img src={productImage} style={{ height: "80px", width: "75px", borderRadius: "8px", objectFit: 'cover' }} />
+            <img src={productImage} style={{ height: "80px", width: "75px", borderRadius: "8px", objectFit: "cover" }} />
             <div className={styles.detailsContainer}>
               <span className="body-medium text-high-emphasis">{data.name}</span>
               <span className="body-regular text-low-emphasis">{data.description}</span>
@@ -95,23 +94,28 @@ const CartProduct = ({ data, qnt, stepper, price, remove, itemId, showQnt, largu
               )}
             </div>
           </div>
-          {price || remove && (
-            <div className={styles.priceContainer}>
-              {remove && <CrossSvg stroke={"#626262"} onClick={deleteProduct} />}
-              {price && <span className="label-large text-high-emphasis">${data?.price % 1 === 0 ? `${data?.price}.00` : data?.price}</span>}
-            </div>
-          )}
+          {price ||
+            (remove && (
+              <div className={styles.priceContainer}>
+                {remove && <CrossSvg stroke={"#626262"} onClick={deleteProduct} />}
+                {price && <span className="label-large text-high-emphasis">${data?.price % 1 === 0 ? `${data?.price}.00` : data?.price}</span>}
+              </div>
+            ))}
         </div>
       ) : (
         <div className={styles.bagItem}>
           <div className={styles.itemContent}>
             <img src={productImage} />
             <div className={styles.itemDetails}>
-              <span className="text-high-emphasis label-small" style={{ marginBottom: '2px' }}>{data.name}</span>
-              <span className="text-low-emphasis label-medium" style={{ marginBottom: '7px' }}>{data.description}</span>
+              <span className="text-high-emphasis label-small" style={{ marginBottom: "2px" }}>
+                {data.name}
+              </span>
+              <span className="text-low-emphasis label-medium" style={{ marginBottom: "7px" }}>
+                {data.description}
+              </span>
               <label className={styles.qty}>
                 <span className="text-low-emphasis link">Qty:</span>
-                <select value={qnt}>
+                <select onChange={setProduct} value={qnt}>
                   <option value="1">1</option>
                   <option value="2">2</option>
                   <option value="3">3</option>
@@ -124,20 +128,24 @@ const CartProduct = ({ data, qnt, stepper, price, remove, itemId, showQnt, largu
                   <option value="10">10</option>
                 </select>
                 <label>
-                  <ChevronRightSmallsvg stroke={'#13101E'} rotate={90} />
+                  <ChevronRightSmallsvg stroke={"#13101E"} rotate={90} />
                 </label>
               </label>
               <div>
                 <span className="text-high-emphasis title-regular">${data?.price % 1 === 0 ? `${data?.price}.00` : data?.price}</span>
-                <span className="text-low-emphasis extra-small-label strike">${data?.price * 2 % 1 === 0 ? `${data?.price * 2}.00` : data?.price * 2}</span>
+                <span className="text-low-emphasis extra-small-label strike">${(data?.price * 2) % 1 === 0 ? `${data?.price * 2}.00` : data?.price * 2}</span>
                 <span className="text-vibrant extra-small-label">50% OFF</span>
               </div>
             </div>
           </div>
           <div className={styles.itemButtons}>
-            <button className='text-primary title-regular' onClick={wishlistProduct}>Move to Wishlist</button>
+            <button className="text-primary title-regular" onClick={wishlistProduct}>
+              Move to Wishlist
+            </button>
             <div className={styles.verticalSeparator}> </div>
-            <button className='text-primary title-regular' onClick={deleteProduct}>Remove</button>
+            <button className="text-primary title-regular" onClick={deleteProduct}>
+              Remove
+            </button>
           </div>
         </div>
       )}

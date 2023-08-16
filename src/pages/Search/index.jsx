@@ -55,6 +55,7 @@ const Search = () => {
 
   return (
     <>
+      {console.log(location.state)}
       <div className={style.pageContainer}>
         <div>
           {desktop && <Header />}
