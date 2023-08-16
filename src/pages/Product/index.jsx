@@ -158,12 +158,14 @@ export default function ProductPage({ itemId, data, open, setOpen }) {
   const storageRef = ref(storage, `productsImg/${desktop ? product?.name : data?.name}`);
 
   useEffect(() => {
-    const getProductImage = async () => {
-      await getDownloadURL(storageRef).then((response) => {
-        setProductPic(response);
-      });
-    };
-    getProductImage();
+    if (data?.name || product?.name) {
+      const getProductImage = async () => {
+        await getDownloadURL(storageRef).then((response) => {
+          setProductPic(response);
+        });
+      };
+      getProductImage();
+    }
   }, [product]);
 
   return (
@@ -308,7 +310,6 @@ export default function ProductPage({ itemId, data, open, setOpen }) {
       ) : (
         <>
           <Header />
-          {console.log(product?.name)}
           <div className={styles.content}>
             <Breadcrump />
             <div className={styles.product}>
@@ -329,7 +330,6 @@ export default function ProductPage({ itemId, data, open, setOpen }) {
                 <span className="text-low-emphasis display-small">{product?.description}</span>
 
                 <div className={styles.ratingsContainer}>
-                  {console.log(Math.floor(parseFloat(averageRatingsNumber)))}
                   <div style={{ display: "flex", gap: "8px" }}>
                     <StarSvg fill={Math.floor(parseFloat(averageRatingsNumber)) >= 1 ? "#FF8C4B" : "#B6B6B6"} stroke={Math.floor(parseFloat(averageRatingsNumber)) >= 1 ? "#FF8C4B" : "#B6B6B6"} />
                     <StarSvg fill={Math.floor(parseFloat(averageRatingsNumber)) >= 2 ? "#FF8C4B" : "#B6B6B6"} stroke={Math.floor(parseFloat(averageRatingsNumber)) >= 2 ? "#FF8C4B" : "#B6B6B6"} />
