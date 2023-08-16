@@ -191,8 +191,8 @@ export default function Category() {
   //NAVEGAÇÃO E GET NO ID DA CATEGORIA
   const location = useLocation();
   const [categoryId, setCategoryId] = useState(null);
-  const [categoryName, setCategoryName] = useState(null);
-  const [modalOpen, setModalOpen] = useState(false);
+  const [categoryName, setCategoryName] = useState(location.state?.categoryName);
+  const [modalOpen, setModalOpen] = useState(location.state?.categoryOpen);
   const [loading, setLoading] = useState(false);
 
   const getCategoryId = async () => {
@@ -226,6 +226,7 @@ export default function Category() {
       {phone && !loading && (
         <MobileLayout footerPrefix={sortFilter} icon={"arrow"} iconStroke={"#1B4B66"} iconAngle={90} title={categoryName} open={modalOpen} setOpen={setModalOpen}>
           <ProductGrid filterConfig={{ selectedAvailability, selectedBrand, selectedColor, selectedDiscount, selectedPrice, sort }} productConfig={config} categoryId={categoryId}></ProductGrid>
+          {console.log(location.state?.categoryName)}
           <BottomModal open={sortOpen} setOpen={() => setSortOpen(false)} title={"Sort by"}>
             <form className={styles.radioContainer} onChange={preventDefault}>
               <div>
