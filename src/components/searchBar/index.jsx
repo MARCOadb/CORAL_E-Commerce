@@ -4,7 +4,7 @@ import ArrowSvg from "../../assets/icon/ArrowSvg";
 import useBreakpoint from "../../hooks/useBreakPoint";
 import Modal from "../modal";
 import Product from "../product";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import getAllProducts from "../../services/getAllProducts";
 import MobileLayout from "../../layouts/mobileLayout";
 import setRecentSearch from "../../services/setRecentSearch";
@@ -17,12 +17,13 @@ const SearchBar = ({ open, setOpen, text, icon }) => {
   const { desktop, phone } = useBreakpoint();
 
   const navigate = useNavigate();
-
+  const location = useLocation();
   const searchHandler = (e) => {
     const searchValue = e.target.value;
     if (e.key === "Enter" || e.type === "click") {
       navigate(`/search/${searchValue}`, {
         state: {
+          path: location.state?.path ? location.state.path : "home",
           searchValue,
         },
       });

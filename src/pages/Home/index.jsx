@@ -135,7 +135,7 @@ export default function Home() {
 
           <div className="arrivals-carousel">
             {allProducts?.map((item) => (
-              <Product button largura={desktop ? 286 : 136} altura={desktop ? 286 : 136} data={item.data} label key={item.uid} itemId={item.uid} />
+              <Product largura={desktop ? 286 : 136} altura={desktop ? 286 : 136} data={item.data} label key={item.uid} itemId={item.uid} />
             ))}
           </div>
         </div>
@@ -174,32 +174,25 @@ export default function Home() {
             <div className="collections">
               <h1>Handpicked Collections</h1>
               <div className="collection">
-                <div className="collection-line">
-                  <div className="collection-item">
-                    <img src={perfume} alt="Category Cover" />
-                    <div className="shadow"></div>
-                    <span>Personal Care</span>
-                  </div>
-
-                  <div className="collection-item">
-                    <img src={pinkBag} alt="Category Cover" />
-                    <div className="shadow"></div>
-                    <span>Handbags</span>
-                  </div>
+                <div className="collection-item">
+                  <img src={perfume} alt="Category Cover" />
+                  <div className="shadow"></div>
+                  <span>Personal Care</span>
                 </div>
-
-                <div className="collection-line">
-                  <div className="collection-item">
-                    <img src={watch} alt="Category Cover" />
-                    <div className="shadow"></div>
-                    <span>Wrist Watches</span>
-                  </div>
-
-                  <div className="collection-item">
-                    <img src={glasses} alt="Category Cover" />
-                    <div className="shadow"></div>
-                    <span>Sun Glasses</span>
-                  </div>
+                <div className="collection-item">
+                  <img src={pinkBag} alt="Category Cover" />
+                  <div className="shadow"></div>
+                  <span>Handbags</span>
+                </div>
+                <div className="collection-item">
+                  <img src={watch} alt="Category Cover" />
+                  <div className="shadow"></div>
+                  <span>Wrist Watches</span>
+                </div>
+                <div className="collection-item">
+                  <img src={glasses} alt="Category Cover" />
+                  <div className="shadow"></div>
+                  <span>Sun Glasses</span>
                 </div>
               </div>
             </div>
@@ -219,30 +212,14 @@ export default function Home() {
             </button>
           </div>
 
-          {desktop ? (
-            <div className="brands">
-              <img src={zara} alt="Zara logo" />
-              <img src={dg} alt="D&G logo" />
-              <img src={hm} alt="H&M logo" />
-              <img src={chanel} alt="Chanel logo" />
-              <img src={prada} alt="Prada logo" />
-              <img src={biba} alt="Biba logo" />
-            </div>
-          ) : (
-            <div className="brands">
-              <div className="brand-line">
-                <img src={zara} alt="Zara logo" />
-                <img src={dg} alt="D&G logo" />
-                <img src={hm} alt="H&M logo" />
-              </div>
-
-              <div className="brand-line">
-                <img src={chanel} alt="Chanel logo" />
-                <img src={prada} alt="Prada logo" />
-                <img src={biba} alt="Biba logo" />
-              </div>
-            </div>
-          )}
+          <div className="brands">
+            <img src={zara} alt="Zara logo" />
+            <img src={dg} alt="D&G logo" />
+            <img src={hm} alt="H&M logo" />
+            <img src={chanel} alt="Chanel logo" />
+            <img src={prada} alt="Prada logo" />
+            <img src={biba} alt="Biba logo" />
+          </div>
         </div>
 
         {windowSize <= 600 && (
