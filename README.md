@@ -41,7 +41,7 @@ Curious to see more? If you want to explore this filter system and more, follow 
 * React-Toastify 9.1.3
 * sass 1.63.6
 
-### Find a bug?
+### Found a bug?
 
 ![802f6b55de54cec2eeacc6df2d7cb464](https://github.com/MARCOadb/Desafio-Compass-4/assets/106601114/e2acf184-2fdf-4691-acd1-d756f387a447)
 
