@@ -17,7 +17,7 @@ Features you are about to see:
 
 ## Check out the filter system in action:
 
-<iframe width="560" height="315" src="/src/assets/videos/filter-video.mp4" frameborder="0" allowfullscreen></iframe>
+<iframe width="560" height="315" src="https://www.youtube.com/embed/tUqg0xFmgtc" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
 
 ## How to install this project
 
