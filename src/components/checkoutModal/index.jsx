@@ -1,4 +1,5 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useState } from "react";
+import { useLocation, useNavigate } from "react-router-dom";
 import useBreakpoint from "../../hooks/useBreakPoint";
 
 import close from "../../assets/icon/close.svg";
@@ -9,6 +10,7 @@ import "./style.scss";
 const CheckoutModal = () => {
   const { phone, desktop } = useBreakpoint();
   const [modalOpen, setModalOpen] = useState(true);
+  const navigate = useNavigate();
 
   const closeModal = () => {
     setModalOpen(false);
@@ -37,7 +39,9 @@ const CheckoutModal = () => {
                   <button className="transparent" href="#">
                     View Order
                   </button>
-                  <button className="solid">Continue Shopping</button>
+                  <button className="solid" onClick={() => navigate("/")}>
+                    Continue Shopping
+                  </button>
                 </div>
               </div>
             </div>

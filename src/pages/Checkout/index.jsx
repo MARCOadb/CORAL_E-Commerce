@@ -6,6 +6,7 @@ import { BagContext } from "../../contexts/BagContext";
 //import CheckoutPayment from "../../components/checkoutPayment";
 import Breadcrump from "../../components/breadcrumpDesktop";
 import Dropdown from "../../components/dropdown";
+import CheckoutModal from "../../components/checkoutModal";
 import useBreakpoint from "../../hooks/useBreakPoint";
 import { toast } from "react-toastify";
 import CartProduct from "../../components/cartProduct";
@@ -25,6 +26,8 @@ export default function Checkout() {
   const { userProducts, taxPrice, subTotal, totalPrice } = useContext(BagContext);
   const { user } = useContext(AuthContext);
   const { phone, desktop } = useBreakpoint();
+
+  const [checkModal, setCheckModal] = useState(false);
 
   //CHECKOUT FORM
   const [fullName, setFullName] = useState("");
@@ -75,11 +78,11 @@ export default function Checkout() {
   const handleNavigate = (category) => {
     category
       ? navigate(`/${category}`, {
-        state: {
-          path: location.state.path,
-          category: category,
-        },
-      })
+          state: {
+            path: location.state.path,
+            category: category,
+          },
+        })
       : navigate("/");
   };
 
@@ -185,8 +188,7 @@ export default function Checkout() {
       toast.error("The E-mail is not valid.");
       return;
     }
-    toast.success("Purchase done with success! Please, check your E-mail to track your order.");
-    navigate("/")
+    setCheckModal(true);
   };
 
   const unavailable = () => {
@@ -208,7 +210,9 @@ export default function Checkout() {
                   <Dropdown title="Contact Information" content={contactInfo} />
                   <Dropdown title="Select Payment Method" content={cardArray} />
                   <div className="inferior-link-button">
-                    <a onClick={() => navigate('/bag')} style={{ cursor: 'pointer' }}>Back to Cart</a>
+                    <a onClick={() => navigate("/bag")} style={{ cursor: "pointer" }}>
+                      Back to Cart
+                    </a>
                     <button className={buttonAvailable ? "available" : "unavailable"} onClick={buttonAvailable ? available : unavailable}>
                       Next
                     </button>
@@ -253,12 +257,13 @@ export default function Checkout() {
                 </div>
               </div>
             </div>
+            <div>{checkModal && <CheckoutModal />}</div>
             <Footer />
           </>
         ) : (
           <>
             <div className="topbar">
-              <a onClick={() => navigate('/bag')}>
+              <a onClick={() => navigate("/bag")}>
                 <img src={ChevronRight} />
               </a>
               <h1 className="display-small text-primary">Checkout</h1>
@@ -370,6 +375,7 @@ export default function Checkout() {
               </div>
               <div className="spacer"></div>
             </div>
+            <div>{checkModal && <CheckoutModal />}</div>
           </>
         )}
       </div>
