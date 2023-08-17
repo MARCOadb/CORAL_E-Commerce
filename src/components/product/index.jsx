@@ -44,6 +44,13 @@ const Product = ({ data, itemId, largura, altura, button, label, ratings, discou
   const [productImage, setProductImage] = useState(null);
   const [isWishlisted, setIsWishlisted] = useState(null);
 
+  const [averageRating, setAverageRating] = useState();
+  const [starsFive, setStarsFive] = useState();
+  const [starsFour, setStarsFour] = useState();
+  const [starsThree, setStarsThree] = useState();
+  const [starsTwo, setStarsTwo] = useState();
+  const [starsOne, setStarsOne] = useState();
+
   useEffect(() => {
     if (location.state?.path) setPathCheck(location.state?.path);
   }, []);
@@ -89,6 +96,34 @@ const Product = ({ data, itemId, largura, altura, button, label, ratings, discou
     };
     getImages();
   }, []);
+
+  const [reviewStars, setReviewStars] = useState([])
+
+  useEffect(() => {
+    function getAverageRating() {
+      let reviewStarsList = []
+      data.reviews.forEach((review) => {
+        reviewStarsList.push(review.reviewStars)
+      })
+      setReviewStars(reviewStarsList)
+    }
+    getAverageRating()
+  }, [data])
+
+  useEffect(() => {
+    let sum = 0;
+    if (reviewStars.length < 1) {
+      setAverageRating("0.0");
+    } else {
+      for (let i = 0; i < reviewStars.length; i++) {
+        sum += reviewStars[i];
+      }
+      const media = Math.round((sum / reviewStars.length) * 2) / 2;
+      setAverageRating(media % 1 === 0 ? `${media}.0` : media);
+    }
+  }, [reviewStars, data.review]);
+
+
   return (
     <>
       {phone && productOpen && <ProductPage itemId={itemId} data={data} open={productOpen} setOpen={setProductOpen} />}
@@ -101,20 +136,20 @@ const Product = ({ data, itemId, largura, altura, button, label, ratings, discou
               (label && desktop && (
                 <div className={styles.ratingsContainer}>
                   <div style={{ display: "flex" }}>
-                    <StarSvg fill="#FF8C4B" stroke="#FF8C4B" />
-                    <StarSvg fill="#FF8C4B" stroke="#FF8C4B" />
-                    <StarSvg fill="#FF8C4B" stroke="#FF8C4B" />
-                    <StarSvg fill="#FF8C4B" stroke="#FF8C4B" />
-                    <StarSvg />
+                    <StarSvg fill={`${averageRating >= 1 ? "#FF8C4B" : "#f1f1f1"}`} stroke={`${averageRating >= 1 ? "#FF8C4B" : "#f1f1f1"}`} />
+                    <StarSvg fill={`${averageRating >= 2 ? "#FF8C4B" : "#f1f1f1"}`} stroke={`${averageRating >= 2 ? "#FF8C4B" : "#f1f1f1"}`} />
+                    <StarSvg fill={`${averageRating >= 3 ? "#FF8C4B" : "#f1f1f1"}`} stroke={`${averageRating >= 3 ? "#FF8C4B" : "#f1f1f1"}`} />
+                    <StarSvg fill={`${averageRating >= 4 ? "#FF8C4B" : "#f1f1f1"}`} stroke={`${averageRating >= 4 ? "#FF8C4B" : "#f1f1f1"}`} />
+                    <StarSvg fill={`${averageRating >= 5 ? "#FF8C4B" : "#f1f1f1"}`} stroke={`${averageRating >= 5 ? "#FF8C4B" : "#f1f1f1"}`} />
                   </div>
-                  <span className="text-primary title-medium ">42 Ratings</span>
+                  <span className="text-primary title-medium ">{data.reviews.length} Ratings</span>
                 </div>
               ))}
             <span className={`text-low-emphasis ${desktop ? "label-large" : "label-medium"}`}>{data.description}</span>
             <div className={styles.detailsText}>
-              <span className={`text-high-emphasis ${desktop ? "body-medium" : "label-small "}`}>${data.price}</span>
+              <span className={`text-high-emphasis ${desktop ? "body-medium" : "label-small "}`}>${parseInt(data.price).toFixed(2)}</span>
               {(oldprice || productConfig?.oldprice) && (
-                <span className={`text-low-emphasis strike ${desktop ? "label-large" : "extra-small-label"}`}>${oldprice ? oldprice : productConfig?.oldprice}</span>
+                <span className={`text-low-emphasis strike ${desktop ? "label-large" : "extra-small-label"}`}>${oldprice ? oldprice.toFixed(2) : productConfig?.oldprice.toFixed(2)}</span>
               )}
               {(discount || productConfig?.discount) && (
                 <span className={`${desktop ? "body-medium" : "extra-small-label"}`} style={{ color: "#E21D1D" }}>

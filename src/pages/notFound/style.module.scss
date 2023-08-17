@@ -1,0 +1,18 @@
+.notFoundContainer {
+  display: flex;
+  height: 100vh;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+  padding: 0px 16px;
+  img {
+    display: flex;
+    width: 300px;
+  }
+}
+.txtContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
