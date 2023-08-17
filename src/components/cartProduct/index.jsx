@@ -28,7 +28,7 @@ import { toast } from "react-toastify";
   }
 */
 
-const CartProduct = ({ data, qnt, stepper, price, remove, itemId, showQnt, largura }) => {
+const CartProduct = ({ data, qnt, stepper, price, remove, itemId, showQnt, largura, textBold }) => {
   const [productImage, setProductImage] = useState(null);
   const { desktop, phone } = useBreakpoint();
 
@@ -67,12 +67,14 @@ const CartProduct = ({ data, qnt, stepper, price, remove, itemId, showQnt, largu
   const storageRef = ref(storage, `productsImg/${data.name}`);
 
   useEffect(() => {
-    const getImages = async () => {
-      await getDownloadURL(storageRef).then((response) => {
-        setProductImage(response);
-      });
-    };
-    getImages();
+    if (data) {
+      const getImages = async () => {
+        await getDownloadURL(storageRef).then((response) => {
+          setProductImage(response);
+        });
+      };
+      getImages();
+    }
   }, []);
 
   return (
@@ -94,13 +96,12 @@ const CartProduct = ({ data, qnt, stepper, price, remove, itemId, showQnt, largu
               )}
             </div>
           </div>
-          {price ||
-            (remove && (
-              <div className={styles.priceContainer}>
-                {remove && <CrossSvg stroke={"#626262"} onClick={deleteProduct} />}
-                {price && <span className="label-large text-high-emphasis">${data?.price % 1 === 0 ? `${data?.price}.00` : data?.price}</span>}
-              </div>
-            ))}
+          {(price || remove) && (
+            <div className={styles.priceContainer}>
+              {remove && <CrossSvg stroke={"#626262"} onClick={deleteProduct} />}
+              {price && <span className={` text-high-emphasis `}>${data?.price % 1 === 0 ? `${data?.price}.00` : data?.price}</span>}
+            </div>
+          )}
         </div>
       ) : (
         <div className={styles.bagItem}>
@@ -132,7 +133,7 @@ const CartProduct = ({ data, qnt, stepper, price, remove, itemId, showQnt, largu
                 </label>
               </label>
               <div>
-                <span className="text-high-emphasis title-regular">${data?.price % 1 === 0 ? `${data?.price}.00` : data?.price}</span>
+                <span className={`text-high-emphasis title-regular `}>${data?.price % 1 === 0 ? `${data?.price}.00` : data?.price}</span>
                 <span className="text-low-emphasis extra-small-label strike">${(data?.price * 2) % 1 === 0 ? `${data?.price * 2}.00` : data?.price * 2}</span>
                 <span className="text-vibrant extra-small-label">50% OFF</span>
               </div>

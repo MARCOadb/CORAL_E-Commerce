@@ -31,10 +31,34 @@
   display: flex;
   width: 100%;
   border-bottom: 1px solid #0000001f;
-  padding: 9px 53px;
+  padding: 9px 10px;
   justify-content: space-between;
 }
 .orderContainer {
   display: flex;
+  align-items: flex-start;
+  background: #f1f1f1;
   width: 100%;
+  padding: 24px 19px;
+  border-radius: 8px;
+  gap: 12px;
+  input {
+    margin-top: 3px;
+  }
+}
+.orderBox {
+  display: inline-flex;
+  justify-content: space-between;
+  width: 100%;
+}
+.orders {
+  display: flex;
+  flex-direction: column;
+  gap: 17px;
+}
+
+.orderDetails {
+  display: flex;
+  justify-content: space-between;
+  min-width: 216px;
 }

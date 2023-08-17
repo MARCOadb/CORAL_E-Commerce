@@ -8,7 +8,7 @@
 .detailsContainer {
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
+  gap: 8px;
   min-width: 216px;
 }
 
@@ -57,7 +57,7 @@
   display: flex;
   gap: 11px;
   padding-bottom: 12px;
-  border-bottom: 1px solid #0000001F;
+  border-bottom: 1px solid #0000001f;
 }
 
 .itemDetails {
@@ -131,6 +131,6 @@
 .verticalSeparator {
   width: 1px;
   height: 24px;
-  background-color: #0000001F;
+  background-color: #0000001f;
   margin: 0 8px;
 }

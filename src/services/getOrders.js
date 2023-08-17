@@ -7,7 +7,12 @@ export const getOrders = async (userId) => {
   const querySnapshot = await getDocs(q);
 
   if (!querySnapshot.empty) {
-    const userOrders = querySnapshot.docs.map((value) => value.data());
+    const userOrders = querySnapshot.docs.map((value) => {
+      return {
+        data: value.data(),
+        id: value.id,
+      };
+    });
     return userOrders;
   }
   return null;
