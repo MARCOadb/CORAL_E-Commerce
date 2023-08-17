@@ -34,7 +34,7 @@ Curious to see more? If you want to explore this filter system and more, follow 
 1. Clone this project into your own PC
 2. Make sure you have Node.js installed on your computer
 3. Execute the command `npm i` to install the necessary dependencies for running the project
-4. Once you have installed all the necessary dependencies, run the command npm start to launch the project.
+4. Once you have installed all the necessary dependencies, run the command `npm start` to launch the project.
 5. Have fun exploring the website!
 
 ### Find a bug?
