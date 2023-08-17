@@ -56,3 +56,7 @@ Contact the group so we can improve the project.
 https://www.linkedin.com/in/vin%C3%ADcius-alexandre-lucas/
 <br/>
 https://www.linkedin.com/in/marco-aurélio-batista-900399236/
+<br/>
+https://www.linkedin.com/in/vicente-berwanger-pawlak-a6740422b/
+<br/>
+https://www.linkedin.com/in/lucas-melo-098656288/
