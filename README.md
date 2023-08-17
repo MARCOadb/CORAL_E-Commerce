@@ -15,9 +15,17 @@ Features you are about to see:
 * Checkout page.
 * User's reviews and ratings.
 
-## Check out the filter system in action:
+## Project Dependencies:
 
-<iframe width="560" height="315" src="https://www.youtube.com/embed/tUqg0xFmgtc" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+* Firebase 10.1.0
+* React 18.2.0
+* React-Responsive 9.0.2
+* React-Icons 4.10.1
+* React-Router-Dom 6.14.1
+* React-Scroll 1.8.9
+* React-Slick 0.29.0
+* React-Toastify 9.1.3
+* sass 1.63.6
 
 ## How to install this project
 
@@ -33,9 +41,14 @@ Curious to see more? If you want to explore this filter system and more, follow 
 
 ![802f6b55de54cec2eeacc6df2d7cb464](https://github.com/MARCOadb/Desafio-Compass-4/assets/106601114/e2acf184-2fdf-4691-acd1-d756f387a447)
 
+Contact the group so we can improve the project.
+
 ### Known issues (Work in progress)
+
+/* listar bugs aqui */
 
 ## Know the authors!
 
 https://www.linkedin.com/in/vin%C3%ADcius-alexandre-lucas/
+<br/>
 https://www.linkedin.com/in/marco-aurélio-batista-900399236/
