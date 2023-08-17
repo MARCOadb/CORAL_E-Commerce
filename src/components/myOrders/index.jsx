@@ -112,6 +112,18 @@ const MyOrders = () => {
           </div>
         ) : (
           <div className={styles.orders} style={desktop ? { gap: "40px" } : {}}>
+            <div className={styles.orderReminder}>
+              <span className={"body-medium text-high-emphasis"}>Order #{orderOpen && orderOpen.slice(0, 8)}</span>
+              <div className={styles.txtReminder} style={{ justifyContent: "space-between" }}>
+                <div className={styles.txtReminder} style={{ flexDirection: "column" }}>
+                  <span className="text-low-emphasis label-medium">Placed On</span>
+                  <span className="text-high-emphasis title-medium">{orderInfo && `${orderInfo.data.date.month} ${orderInfo.data.date.day} ${orderInfo.data.date.year} `}</span>
+                </div>
+                <DefaultBtn width={"90px"} height={"32px"}>
+                  Completed
+                </DefaultBtn>
+              </div>
+            </div>
             <div style={{ display: "flex", flexDirection: "column", gap: "20px" }}>
               {orderProds &&
                 orderProds.map((item) => (

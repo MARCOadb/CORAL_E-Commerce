@@ -113,3 +113,16 @@
   margin-left: -16px;
   background-color: #f1f1f1;
 }
+
+.orderReminder {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  background-color: #f1f1f1;
+  border-radius: 8px;
+  padding: 16px;
+  gap: 18px;
+}
+.txtReminder {
+  display: flex;
+}
