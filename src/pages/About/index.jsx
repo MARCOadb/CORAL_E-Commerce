@@ -125,7 +125,7 @@ export default function About() {
         )}
       </div>
 
-      <Footer />
+      <Footer spacer={false} />
     </>
   );
 }
