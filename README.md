@@ -15,6 +15,20 @@ Features you are about to see:
 * Checkout page.
 * User's reviews and ratings.
 
+## Check out the filter system in action:
+
+![filter-demo 00_00_00-00_00_30](https://github.com/MARCOadb/Desafio-Compass-4/assets/106601114/eb434048-ad70-4218-87a7-9314246119c7)
+
+## How to install this project
+
+Curious to see more? If you want to explore this filter system and more, follow the steps below:
+
+1. Clone this project into your own PC
+2. Make sure you have Node.js installed on your computer
+3. Execute the command `npm i` to install the necessary dependencies for running the project
+4. Once you have installed all the necessary dependencies, run the command `npm start` to launch the project.
+5. Have fun exploring the website!
+
 ## Project Dependencies:
 
 * Firebase 10.1.0
@@ -26,16 +40,6 @@ Features you are about to see:
 * React-Slick 0.29.0
 * React-Toastify 9.1.3
 * sass 1.63.6
-
-## How to install this project
-
-Curious to see more? If you want to explore this filter system and more, follow the steps below:
-
-1. Clone this project into your own PC
-2. Make sure you have Node.js installed on your computer
-3. Execute the command `npm i` to install the necessary dependencies for running the project
-4. Once you have installed all the necessary dependencies, run the command `npm start` to launch the project.
-5. Have fun exploring the website!
 
 ### Find a bug?
 
