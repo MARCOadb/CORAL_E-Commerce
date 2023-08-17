@@ -16,7 +16,7 @@ import { BagContext } from "../../contexts/BagContext";
 import { reload } from "firebase/auth";
 import { render } from "@testing-library/react";
 
-export default function Ratings({ setRatingsOpen, product, setAverageRatingsNumber, itemId }) {
+export default function Ratings({ setRatingsOpen, product, setAverageRatingsNumber, itemId, setReviewsNumber }) {
   const { update } = useContext(BagContext);
   const { phone, desktop } = useBreakpoint();
   const [reviewModalOpen, setReviewModalOpen] = useState(false);
@@ -205,6 +205,7 @@ export default function Ratings({ setRatingsOpen, product, setAverageRatingsNumb
 
   useEffect(() => {
     setAverageRatingsNumber(averageRating);
+    setReviewsNumber(reviewsList.length)
   }, [averageRating, reviewsList, loading]);
 
   return (

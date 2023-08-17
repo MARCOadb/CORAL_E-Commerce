@@ -1,5 +1,6 @@
 import { addDoc, collection, getDocs, query, updateDoc, where } from "firebase/firestore";
 import { db } from "./firebaseConnection";
+import { toast } from 'react-toastify'
 
 export const addBagProduct = async (userId, productId) => {
   const bagRef = collection(db, "bag");
@@ -28,4 +29,6 @@ export const addBagProduct = async (userId, productId) => {
       ],
     });
   }
+
+  toast.success('Item Added to Bag')
 };

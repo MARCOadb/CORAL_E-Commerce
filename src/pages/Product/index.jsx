@@ -57,6 +57,7 @@ export default function ProductPage({ itemId, data, open, setOpen }) {
   const dropdownRefHeight = useRef();
 
   const [averageRatingsNumber, setAverageRatingsNumber] = useState(0);
+  const [reviewsNumber, setReviewsNumber] = useState(0)
 
   useEffect(() => {
     setDropdownOpen(true);
@@ -155,17 +156,47 @@ export default function ProductPage({ itemId, data, open, setOpen }) {
     }
   }, [userWishlist]);
 
+  const storageRef = ref(storage, `productsImg/${desktop ? product?.name : data?.name}`);
+
   useEffect(() => {
-    const getProductImage = async (name) => {
-      const storageRef = ref(storage, `productsImg/${name}`);
-      return await getDownloadURL(storageRef);
-    };
-    if (!!product) {
-      getProductImage(product.name).then((response) => {
-        setProductPic(response);
-      });
+    if (data?.name || product?.name) {
+      const getProductImage = async () => {
+        await getDownloadURL(storageRef).then((response) => {
+          setProductPic(response);
+        });
+      };
+      getProductImage();
     }
   }, [product]);
+
+  const [averageRatingsMobile, setAverageRatingsMobile] = useState();
+  const [reviewStars, setReviewStars] = useState([])
+
+  useEffect(() => {
+    function getAverageRating() {
+      let reviewStarsList = []
+      data.reviews.forEach((review) => {
+        reviewStarsList.push(review.reviewStars)
+      })
+      setReviewStars(reviewStarsList)
+    }
+    if (phone) {
+      getAverageRating()
+    }
+  }, [data])
+
+  useEffect(() => {
+    let sum = 0;
+    if (reviewStars.length < 1) {
+      setAverageRatingsMobile("0.0");
+    } else {
+      for (let i = 0; i < reviewStars.length; i++) {
+        sum += reviewStars[i];
+      }
+      const media = Math.round((sum / reviewStars.length) * 2) / 2;
+      setAverageRatingsMobile(media % 1 === 0 ? `${media}.0` : media);
+    }
+  }, [reviewStars, data.review]);
 
   return (
     <>
@@ -174,7 +205,7 @@ export default function ProductPage({ itemId, data, open, setOpen }) {
           icon="arrow"
           iconAngle={90}
           iconStroke="#13101E"
-          footerPrefix={<div style={{ display: "flex", alignItems: "center" }}>{<WishlistSvg fill={isWishlisted && "red"} onClick={addToWishlist} width={44} />}</div>}
+          footerPrefix={<div style={{ display: "flex", alignItems: "center" }}>{<WishlistSvg fill={isWishlisted && "red"} stroke={isWishlisted && "red"} onClick={addToWishlist} width={44} />}</div>}
           buttons={[{ text: "Add to Bag", outlined: false, onClick: addToBag, btnIcon: <BagSvg stroke="#fff" /> }]}
           open={open}
           setOpen={setOpen}
@@ -204,7 +235,7 @@ export default function ProductPage({ itemId, data, open, setOpen }) {
 
                 <div className={styles.ratingsContainer}>
                   <div className={styles.mobRatingsStar}>
-                    <span>{averageRatingsNumber}</span>
+                    <span>{averageRatingsMobile}</span>
                     <StarSvg fill="#FF8C4B" stroke="#FF8C4B" width={20} height={20} />
                   </div>
 
@@ -281,7 +312,7 @@ export default function ProductPage({ itemId, data, open, setOpen }) {
               <ArrowSvg onClick={() => setReviewModalOpen(true)} x={270} />
             </div>
 
-            {reviewModalOpen && <Ratings setRatingsOpen={setReviewModalOpen} itemId={itemId} product={data} setAverageRatingsNumber={setAverageRatingsNumber} />}
+            {reviewModalOpen && <Ratings setRatingsOpen={setReviewModalOpen} itemId={itemId} setReviewsNumber={setReviewsNumber} product={data} setAverageRatingsNumber={setAverageRatingsNumber} />}
 
             <div className={styles.seperator}></div>
 
@@ -329,7 +360,6 @@ export default function ProductPage({ itemId, data, open, setOpen }) {
                 <span className="text-low-emphasis display-small">{product?.description}</span>
 
                 <div className={styles.ratingsContainer}>
-                  {console.log(Math.floor(parseFloat(averageRatingsNumber)))}
                   <div style={{ display: "flex", gap: "8px" }}>
                     <StarSvg fill={Math.floor(parseFloat(averageRatingsNumber)) >= 1 ? "#FF8C4B" : "#B6B6B6"} stroke={Math.floor(parseFloat(averageRatingsNumber)) >= 1 ? "#FF8C4B" : "#B6B6B6"} />
                     <StarSvg fill={Math.floor(parseFloat(averageRatingsNumber)) >= 2 ? "#FF8C4B" : "#B6B6B6"} stroke={Math.floor(parseFloat(averageRatingsNumber)) >= 2 ? "#FF8C4B" : "#B6B6B6"} />
@@ -337,13 +367,13 @@ export default function ProductPage({ itemId, data, open, setOpen }) {
                     <StarSvg fill={Math.floor(parseFloat(averageRatingsNumber)) >= 4 ? "#FF8C4B" : "#B6B6B6"} stroke={Math.floor(parseFloat(averageRatingsNumber)) >= 4 ? "#FF8C4B" : "#B6B6B6"} />
                     <StarSvg fill={Math.floor(parseFloat(averageRatingsNumber)) === 5 ? "#FF8C4B" : "#B6B6B6"} stroke={Math.floor(parseFloat(averageRatingsNumber)) === 5 ? "#FF8C4B" : "#B6B6B6"} />
                   </div>
-                  <span className="text-light title-medium ">({product?.reviews?.length}) Ratings</span>
+                  <span className="text-light title-medium ">({reviewsNumber}) Ratings</span>
                 </div>
 
                 <div className={styles.productPrice}>
                   <h1 className="text-high-emphasis display-large">${product?.price % 1 === 0 ? `${product?.price}.00` : product?.price}</h1>
-                  <h2 className="text-light display-medium strike">${product?.price % 1 === 0 ? `${product?.price * 2}.00` : product?.price * 2}</h2>
-                  <h3 className="text-vibrant display-small">50%OFF</h3>
+                  <h2 className="text-light display-medium strike">${(product?.price * 2) % 1 === 0 ? `${product?.price * 2}.00` : product?.price * 2}</h2>
+                  <h3 className="text-vibrant display-small">50% OFF</h3>
                 </div>
 
                 <span className={styles.seperator}></span>
@@ -433,7 +463,7 @@ export default function ProductPage({ itemId, data, open, setOpen }) {
                 </div>
 
                 <div className={`${styles.tabsContent} ${activeTab === 3 && styles.tabsContentActive}`}>
-                  <Ratings product={product} itemId={location.state.itemId} setAverageRatingsNumber={setAverageRatingsNumber} />
+                  <Ratings product={product} itemId={location.state.itemId} setReviewsNumber={setReviewsNumber} setAverageRatingsNumber={setAverageRatingsNumber} />
                 </div>
               </div>
             </div>
