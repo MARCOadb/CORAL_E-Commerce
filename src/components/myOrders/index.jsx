@@ -4,16 +4,19 @@ import { BagContext } from "../../contexts/BagContext";
 import ArrowSvg from "../../assets/icon/ArrowSvg";
 import CartProduct from "../cartProduct";
 import getProductById from "../../services/getProductById";
+import DefaultBtn from "../defaultBtn";
 
 const MyOrders = () => {
   const { userOrders } = useContext(BagContext);
   const [orderOpen, setOrderOpen] = useState(null);
+  const [orderInfo, setOrderInfo] = useState();
   const [orderProds, setOrderProds] = useState(null);
   const handleOrder = (orderId) => {
     setOrderOpen(orderId);
   };
   useEffect(() => {
     if (orderOpen) {
+      setOrderInfo(userOrders.find((item) => item.id === orderOpen));
       const filtredProducts = userOrders.find((item) => item.id === orderOpen).data.products.map((item) => item);
       const complexProducts = filtredProducts.map(async (item) => {
         const data = await getProductById(item.uid);
@@ -91,17 +94,61 @@ const MyOrders = () => {
             })}
         </div>
       ) : (
-        <div style={{ display: "flex", flexDirection: "column", gap: "20px" }}>
-          {orderProds &&
-            orderProds.map((item) => (
-              <div style={{ display: "flex" }}>
-                <CartProduct textBold data={item.data} price />
-                <div className={styles.orderDetails} style={{ minWidth: "140px", marginLeft: "40px", paddingRight: "10px" }}>
-                  <span>{item.qnt}</span>
-                  <span>${(item.data.price * item.qnt).toFixed(2)}</span>
+        <div className={styles.orders} style={{ gap: "40px" }}>
+          <div style={{ display: "flex", flexDirection: "column", gap: "20px" }}>
+            {orderProds &&
+              orderProds.map((item) => (
+                <div style={{ display: "flex", paddingLeft: "10px" }}>
+                  <CartProduct textBold data={item.data} price />
+                  <div className={styles.orderDetails} style={{ minWidth: "140px", marginLeft: "40px", paddingRight: "10px" }}>
+                    <span>{item.qnt}</span>
+                    <span>${(item.data.price * item.qnt).toFixed(2)}</span>
+                  </div>
                 </div>
+              ))}
+          </div>
+          <div>
+            <div className="display-small" style={{ width: "100%", borderBottom: "1px solid #0000001f", paddingBottom: "6px" }}>
+              Order Information
+            </div>
+          </div>
+          <div className={`${styles.orderBox} body-medium text-high-emphasis`}>
+            <div className={styles.orderInfo} style={{ minWidth: "260px" }}>
+              <span className="text-low-emphasis">Order details</span>
+              <div className={styles.orderDetails} style={{ minWidth: "0px" }}>
+                <span>Sub Total</span>
+                <span>${orderInfo && orderInfo.data.price}</span>
               </div>
-            ))}
+              <div className={styles.orderDetails} style={{ minWidth: "0px" }}>
+                <span>Discount</span>
+                <span>-$0.00</span>
+              </div>
+              <div className={styles.orderDetails} style={{ minWidth: "0px" }}>
+                <span>Delivery Fee</span>
+                <span>-$0.00</span>
+              </div>
+              <div className={styles.orderDetails} style={{ minWidth: "0px", fontWeight: "600" }}>
+                <span>Grand Total</span>
+                <span>${orderInfo && orderInfo.data.price}</span>
+              </div>
+            </div>
+            <div className={styles.orderInfo}>
+              <span className="text-low-emphasis">Order details</span>
+              <span>{orderInfo && orderInfo.data.selectedOption}</span>
+            </div>
+            <div className={styles.orderInfo}>
+              <span className="text-low-emphasis">Order details</span>
+              <span>{orderInfo && orderInfo.data.fullName}</span>
+              <span>{orderInfo && orderInfo.data.adress}</span>
+              <span>{orderInfo && orderInfo.data.pinCode}</span>
+            </div>
+          </div>
+          <div style={{ display: "flex", justifyContent: "flex-end" }}>
+            <div style={{ display: "flex", gap: "24px", justifyContent: "flex-end", width: "50%" }}>
+              <DefaultBtn>Reorder</DefaultBtn>
+              <DefaultBtn outlined>Add Rating</DefaultBtn>
+            </div>
+          </div>
         </div>
       )}
     </div>

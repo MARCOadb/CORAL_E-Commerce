@@ -215,6 +215,7 @@ export default function Checkout() {
       adress,
       pinCode,
       email,
+      selectedOption,
       userId: user.uid,
       price: totalPrice,
       products: orderProds,
