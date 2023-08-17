@@ -1,11 +1,20 @@
+@mixin phone {
+  @media (max-width: 1279px) {
+    @content;
+  }
+}
+
 .compContainer {
   display: flex;
   flex-direction: column;
   width: 100%;
   height: 100%;
   gap: 52px;
+  @include phone {
+    padding: 16px 16px;
+  }
 }
-// fazer a parte mobile com o mixin
+
 .statusContainer {
   display: flex;
   width: 100%;
@@ -15,7 +24,11 @@
   padding: 12px 16px;
   border-radius: 12px;
   align-items: center;
-
+  @include phone {
+    padding: 4px;
+    height: 36px;
+    gap: 13px;
+  }
   input[type="radio"] {
     appearance: none;
   }
@@ -25,6 +38,9 @@
     padding: 12px 18px;
     border-radius: 8px;
     transition: background-color 500ms ease-in-out;
+    @include phone {
+      padding: 6px 16px;
+    }
   }
 }
 .infoContainer {
@@ -45,11 +61,18 @@
   input {
     margin-top: 3px;
   }
+  @include phone {
+    padding: 16px;
+    align-items: center;
+  }
 }
 .orderBox {
   display: flex;
   justify-content: space-between;
   width: 100%;
+  @include phone {
+    flex-direction: column;
+  }
 }
 .orders {
   display: flex;
@@ -66,4 +89,27 @@
   display: flex;
   flex-direction: column;
   gap: 12px;
+  @include phone {
+    padding: 24px 16px;
+    gap: 8px;
+  }
+}
+
+.btnContainer {
+  display: flex;
+  gap: 24px;
+  justify-content: flex-end;
+  width: 50%;
+  @include phone {
+    width: 100%;
+    gap: 0;
+    justify-content: flex-start;
+  }
+}
+
+.separetor {
+  width: 100vw;
+  height: 8px;
+  margin-left: -16px;
+  background-color: #f1f1f1;
 }
