@@ -26,11 +26,11 @@ const ProductGrid = ({ filterConfig, categoryId, productConfig }) => {
   };
 
   const produtosFiltrados = useMemo(() => {
-    if ((allProducts?.length > 0 && categoryId?.id) || location.state.brand) {
+    if ((allProducts?.length > 0 && categoryId?.id) || location.state?.brand) {
       const filtrados = allProducts
         ?.filter(
           (item) =>
-            (!categoryId?.id || item.data.categoryId == categoryId?.id || item.data.brand === location.state.brand) &&
+            (!categoryId?.id || item.data.categoryId == categoryId?.id || item.data.brand === location.state?.brand) &&
             (!filterConfig.selectedColor || item.data.color === filterConfig.selectedColor) &&
             (!filterConfig.selectedBrand || item.data.brand === filterConfig.selectedBrand) &&
             (!filterConfig.selectedPrice || item.data.price <= filterConfig.selectedPrice)
