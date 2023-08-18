@@ -10,7 +10,7 @@ import { AuthContext } from "../../contexts/AuthContext";
 //HOOKS
 import useBreakpoint from "../../hooks/useBreakPoint";
 import { useContext, useEffect, useState } from "react";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 
 //IMAGES & ICONS
 import profile from "../../assets/pics/Login/profile-default.png";
@@ -20,11 +20,14 @@ import LogoutSvg from "../../assets/icon/LogoutSvg";
 //STYLES
 import styles from "./style.module.scss";
 import MyWishlist from "../../components/myWishlist";
-import { BagContext } from "../../contexts/BagContext";
+import MyOrders from "../../components/myOrders";
+import MobileLayout from "../../layouts/mobileLayout";
+import BagSvg from "../../assets/icon/Bagsvg";
 
 export default function Profile() {
+  const navigate = useNavigate();
+
   const location = useLocation();
-  const { update } = useContext(BagContext);
   const { user } = useContext(AuthContext);
   const { phone, desktop } = useBreakpoint();
   const [activeTab, setActiveTab] = useState(location.state?.initialTab ? location.state?.initialTab : 1);
@@ -40,7 +43,7 @@ export default function Profile() {
 
   useEffect(() => {
     if (desktop) handleTab(location.state.initialTab);
-  }, [location.state?.initialTab]);
+  }, [location.state?.initialTab, desktop]);
 
   useEffect(() => {
     switch (activeTab) {
@@ -76,6 +79,26 @@ export default function Profile() {
     <>
       {desktop && <Header />}
       {activeTab === 4 && phone && tabMobileOpen && <MyWishlist open={tabMobileOpen} setOpen={setTabMobileOpen} />}
+      {activeTab === 3 && phone && tabMobileOpen && (
+        <MobileLayout
+          headerSuffix={
+            <BagSvg
+              stroke={"#1B4B66"}
+              onClick={() => {
+                navigate("/bag");
+              }}
+            />
+          }
+          title={"My Orders"}
+          icon={"arrow"}
+          iconStroke={"#1B4B66"}
+          iconAngle={90}
+          open={tabMobileOpen}
+          setOpen={setTabMobileOpen}
+        >
+          <MyOrders />
+        </MobileLayout>
+      )}
       <div className={styles.content}>
         {desktop && (
           <div className={styles.breadcrump}>
@@ -143,7 +166,12 @@ export default function Profile() {
             </div>
           </div>
 
-          {desktop && <div className={styles.component}>{activeTab === 4 && <MyWishlist />}</div>}
+          {desktop && (
+            <div className={styles.component}>
+              {activeTab === 4 && <MyWishlist />}
+              {activeTab === 3 && <MyOrders />}
+            </div>
+          )}
 
           {phone && (
             <div className={styles.logoutButton}>
