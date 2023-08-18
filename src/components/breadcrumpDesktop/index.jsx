@@ -6,18 +6,18 @@ const Breadcrump = () => {
   const navigate = useNavigate();
   const location = useLocation();
 
-  const handleClick = ({ category, path }) => {
-    if (path && category) {
-      navigate(`/${path}/${category}`, {
+  const handleClick = () => {
+    if (location.state.itemName) {
+      navigate(`/${location.state.path}/${location.state.category}`, {
         state: {
-          path,
-          category,
+          path: location.state.path,
+          category: location.state.category,
         },
       });
-    } else if (path) {
-      navigate(`/${path != "home" ? path : ""}`, {
+    } else {
+      navigate(`/${location.state.path != "home" ? location.state.path : ""}`, {
         state: {
-          path,
+          path: location.state.path,
         },
       });
     }
@@ -26,16 +26,13 @@ const Breadcrump = () => {
   return (
     <div className="breadcrumbs">
       <>
-        <span onClick={() => handleClick({ path: location.state?.path })}>{location.state?.path}</span>
+        <span onClick={handleClick}>{location.state?.path}</span>
         <ChevronRightSmallsvg />
-        <span
-          onClick={location.state?.product ? () => handleClick({ path: location.state?.path, category: location.state?.category }) : () => {}}
-          style={location.state?.product ? {} : { color: "#626262" }}
-        >
+        <span onClick={location.state?.itemName ? handleClick : () => {}} style={location.state?.itemName ? {} : { color: "#626262" }}>
           {location.state?.category}
         </span>
-        {location.state?.product && <ChevronRightSmallsvg />}
-        <span style={{ color: "#626262" }}>{location.state?.product}</span>
+        {location.state?.itemName && <ChevronRightSmallsvg />}
+        <span style={{ color: "#626262" }}>{location.state?.itemName}</span>
       </>
     </div>
   );

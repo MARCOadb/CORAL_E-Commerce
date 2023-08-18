@@ -341,7 +341,9 @@ export default function ProductPage({ itemId, data, open, setOpen }) {
         <>
           <Header />
           <div className={styles.content}>
-            <Breadcrump />
+            <div className={styles.breadCrump}>
+              <Breadcrump />
+            </div>
             <div className={styles.product}>
               <div className={styles.productImages}>
                 <img src={productImages[activePic]} alt="Product Image" className={styles.imageBig} />

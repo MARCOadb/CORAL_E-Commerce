@@ -447,8 +447,9 @@ export default function Category() {
       {!phone && !loading ? (
         <div className={styles.content}>
           <img src={hero} alt="Hero Banner" className={styles.heroBanner} />
-
-          <Breadcrump category={"placeholder"} page={"home"} />
+          <div className={styles.categoryName}>
+            <Breadcrump category={"placeholder"} page={"home"} />
+          </div>
 
           <h1 className={`text-primary display-medium ${styles.categoryName}`}>{location.state?.category}</h1>
 
