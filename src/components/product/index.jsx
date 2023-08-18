@@ -45,12 +45,6 @@ const Product = ({ data, itemId, largura, altura, button, label, ratings, discou
   const [isWishlisted, setIsWishlisted] = useState(null);
 
   const [averageRating, setAverageRating] = useState();
-  const [starsFive, setStarsFive] = useState();
-  const [starsFour, setStarsFour] = useState();
-  const [starsThree, setStarsThree] = useState();
-  const [starsTwo, setStarsTwo] = useState();
-  const [starsOne, setStarsOne] = useState();
-
   useEffect(() => {
     if (location.state?.path) setPathCheck(location.state?.path);
   }, []);
@@ -70,7 +64,7 @@ const Product = ({ data, itemId, largura, altura, button, label, ratings, discou
 
   const handleProductClick = () => {
     if (desktop) {
-      getCategoryById(data.categoryId).then((category) =>
+      getCategoryById(data.categoryId).then((category) => {
         navigate(`/${category}/${itemId}`, {
           state: {
             path: pathCheck,
@@ -78,8 +72,8 @@ const Product = ({ data, itemId, largura, altura, button, label, ratings, discou
             itemId,
             productImage,
           },
-        })
-      );
+        });
+      });
     } else {
       update({ products: false });
       setProductOpen(true);
@@ -95,20 +89,20 @@ const Product = ({ data, itemId, largura, altura, button, label, ratings, discou
       });
     };
     getImages();
-  }, []);
+  }, [location.pathname]);
 
-  const [reviewStars, setReviewStars] = useState([])
+  const [reviewStars, setReviewStars] = useState([]);
 
   useEffect(() => {
     function getAverageRating() {
-      let reviewStarsList = []
+      let reviewStarsList = [];
       data.reviews.forEach((review) => {
-        reviewStarsList.push(review.reviewStars)
-      })
-      setReviewStars(reviewStarsList)
+        reviewStarsList.push(review.reviewStars);
+      });
+      setReviewStars(reviewStarsList);
     }
-    getAverageRating()
-  }, [data])
+    getAverageRating();
+  }, [data]);
 
   useEffect(() => {
     let sum = 0;
@@ -122,7 +116,6 @@ const Product = ({ data, itemId, largura, altura, button, label, ratings, discou
       setAverageRating(media % 1 === 0 ? `${media}.0` : media);
     }
   }, [reviewStars, data.review]);
-
 
   return (
     <>

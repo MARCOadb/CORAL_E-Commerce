@@ -57,7 +57,7 @@ export default function ProductPage({ itemId, data, open, setOpen }) {
   const dropdownRefHeight = useRef();
 
   const [averageRatingsNumber, setAverageRatingsNumber] = useState(0);
-  const [reviewsNumber, setReviewsNumber] = useState(0)
+  const [reviewsNumber, setReviewsNumber] = useState(0);
 
   useEffect(() => {
     setDropdownOpen(true);
@@ -110,7 +110,7 @@ export default function ProductPage({ itemId, data, open, setOpen }) {
         .then((data) => setProduct(data))
         .finally(() => setLoading(false));
     }
-  }, []);
+  }, [location.pathname]);
 
   const setQnt = (e) => {
     e.preventDefault();
@@ -170,20 +170,20 @@ export default function ProductPage({ itemId, data, open, setOpen }) {
   }, [product]);
 
   const [averageRatingsMobile, setAverageRatingsMobile] = useState();
-  const [reviewStars, setReviewStars] = useState([])
+  const [reviewStars, setReviewStars] = useState([]);
 
   useEffect(() => {
     function getAverageRating() {
-      let reviewStarsList = []
+      let reviewStarsList = [];
       data.reviews.forEach((review) => {
-        reviewStarsList.push(review.reviewStars)
-      })
-      setReviewStars(reviewStarsList)
+        reviewStarsList.push(review.reviewStars);
+      });
+      setReviewStars(reviewStarsList);
     }
     if (phone) {
-      getAverageRating()
+      getAverageRating();
     }
-  }, [data])
+  }, [data]);
 
   useEffect(() => {
     let sum = 0;
@@ -196,7 +196,7 @@ export default function ProductPage({ itemId, data, open, setOpen }) {
       const media = Math.round((sum / reviewStars.length) * 2) / 2;
       setAverageRatingsMobile(media % 1 === 0 ? `${media}.0` : media);
     }
-  }, [reviewStars, data.review]);
+  }, [reviewStars, data?.review]);
 
   return (
     <>
