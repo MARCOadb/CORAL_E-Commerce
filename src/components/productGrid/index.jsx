@@ -90,7 +90,6 @@ const ProductGrid = ({ filterConfig, categoryId, productConfig }) => {
                   </div>
                 </div>
               </div>
-              {console.log(produtosFiltrados)}
               <div className={gridClass}>
                 <>
                   <>
