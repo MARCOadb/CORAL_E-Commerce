@@ -39,7 +39,7 @@ Curious to see more? If you want to explore this filter system and more, follow 
   npm start
 
 ```
-7. Have fun exploring the website!
+6. Have fun exploring the website!
 
 ## Project Dependencies:
 

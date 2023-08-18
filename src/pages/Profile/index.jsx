@@ -16,12 +16,13 @@ import { useLocation } from "react-router-dom";
 import profile from "../../assets/pics/Login/profile-default.png";
 import ChevronRightSvg from "../../assets/icon/ChevronRightSvg";
 import LogoutSvg from "../../assets/icon/LogoutSvg";
-import deleteSvg from "../../assets/icon/delete-small.svg"
+// import deleteSvg from "../../assets/icon/delete-small.svg"
 
 //STYLES
 import styles from "./style.module.scss";
 import MyWishlist from "../../components/myWishlist";
 import { BagContext } from "../../contexts/BagContext";
+import PersonalInformation from "../../components/personalInformation";
 
 export default function Profile() {
   const location = useLocation();
@@ -33,24 +34,24 @@ export default function Profile() {
   const [tabMobileOpen, setTabMobileOpen] = useState(false);
   const { profilePhoto } = useContext(AuthContext);
   const { logout } = useContext(AuthContext);
-  const [fullName, setFullName] = useState("");
-  const [streetAddress, setStreetAddress] = useState("");
-  const [city, setCity] = useState("");
-  const [DDD, setDDD] = useState("");
-  const [mobNumber, setMobNumber] = useState("");
-  const [state, setState] = useState("");
-  const [pinCode, setPinCode] = useState("");
-  const [email, setEmail] = useState("");
-  const [date, setDate] = useState("");
-  const [password, setPassword] = useState("");
-  const [showPassword, setShowPassword] = useState(false);
-  const [confirmPass, setConfirmPass] = useState("");
-  const [currentPass, SetCurrentPass] = useState("");
+  // const [fullName, setFullName] = useState("");
+  // const [streetAddress, setStreetAddress] = useState("");
+  // const [city, setCity] = useState("");
+  // const [DDD, setDDD] = useState("");
+  // const [mobNumber, setMobNumber] = useState("");
+  // const [state, setState] = useState("");
+  // const [pinCode, setPinCode] = useState("");
+  // const [email, setEmail] = useState("");
+  // const [date, setDate] = useState("");
+  // const [password, setPassword] = useState("");
+  // const [showPassword, setShowPassword] = useState(false);
+  // const [confirmPass, setConfirmPass] = useState("");
+  // const [currentPass, SetCurrentPass] = useState("");
 
-  const deletePhoto = (user) => {
-    deletePhoto(user.profilePhoto, user, true);
-  };
-  
+  // const deletePhoto = (user) => {
+  //   deletePhoto(user.profilePhoto, user, true);
+  // };
+
   // const submitHandler = async (e) => {
   //   e.preventDefault();
   //   const imageFile = e.target.img.files[0];
@@ -75,46 +76,46 @@ export default function Profile() {
   //     }
   //   };
 
-  const handleFullName = (e) => {
-    const capitalizedFullName = e.target.value.replace(/\b\w/g, (c) => c.toUpperCase());
-    setFullName(capitalizedFullName);
-  };
+  // const handleFullName = (e) => {
+  //   const capitalizedFullName = e.target.value.replace(/\b\w/g, (c) => c.toUpperCase());
+  //   setFullName(capitalizedFullName);
+  // };
 
-  const handleStreetAddress = (e) => {
-    setStreetAddress(e.target.value.charAt(0).toUpperCase() + e.target.value.slice(1));
-  };
+  // const handleStreetAddress = (e) => {
+  //   setStreetAddress(e.target.value.charAt(0).toUpperCase() + e.target.value.slice(1));
+  // };
 
-  const handleCity = (e) => {
-    setCity(e.target.value.charAt(0).toUpperCase() + e.target.value.slice(1));
-  };
+  // const handleCity = (e) => {
+  //   setCity(e.target.value.charAt(0).toUpperCase() + e.target.value.slice(1));
+  // };
 
-  const handleDDD = (e) => {
-    setDDD(e.target.value);
-  };
+  // const handleDDD = (e) => {
+  //   setDDD(e.target.value);
+  // };
 
-  const handleMobNumber = (e) => {
-    setMobNumber(e.target.value);
-  };
+  // const handleMobNumber = (e) => {
+  //   setMobNumber(e.target.value);
+  // };
 
-  const handleState = (e) => {
-    setState(e.target.value);
-  };
+  // const handleState = (e) => {
+  //   setState(e.target.value);
+  // };
 
-  const handlePinCode = (e) => {
-    setPinCode(e.target.value);
-  };
+  // const handlePinCode = (e) => {
+  //   setPinCode(e.target.value);
+  // };
 
-  const handleEmail = (e) => {
-    setEmail(e.target.value);
-  };
-  
-  const handleDate = (e) => {
-    setDate(e.target.value);
-  };
+  // const handleEmail = (e) => {
+  //   setEmail(e.target.value);
+  // };
 
-  const handlePassword = (e) => {
-    setPassword(e.target.value);
-  };
+  // const handleDate = (e) => {
+  //   setDate(e.target.value);
+  // };
+
+  // const handlePassword = (e) => {
+  //   setPassword(e.target.value);
+  // };
 
   function handleTab(tab) {
     setTabMobileOpen(true);
@@ -155,13 +156,11 @@ export default function Profile() {
     await logout();
   }
 
-
-
-
   return (
     <>
       {desktop && <Header />}
       {activeTab === 4 && phone && tabMobileOpen && <MyWishlist open={tabMobileOpen} setOpen={setTabMobileOpen} />}
+      {activeTab === 1 && phone && tabMobileOpen && <PersonalInformation open={tabMobileOpen} setOpen={setTabMobileOpen} />}
       <div className={styles.content}>
         {desktop && (
           <div className={styles.breadcrump}>
@@ -227,106 +226,22 @@ export default function Profile() {
               <span>My Saved Cards</span>
               <ChevronRightSvg stroke={activeTab === 7 && desktop ? "#1B4B66" : "#13101E"} />
             </div>
-          </div>       
+          </div>
           <>
 
-          {desktop && <div class={styles.profilepage}>{activeTab === 1 &&
-          <>
-            <h1 style={{ fontsize: "20px", fontweight: "600", lineheight: "26px", color: "#13101E"}}>
-            Personal Information
-            </h1>
-            <form>
-              <div class={styles.photosection}>
-                <img style={{width:"80px", height:"80px", borderRadius:"80px"}}src={user.profilePhoto}></img>
-                <div style={{display:"flex", padding:"36px 16px"}}>
-                <div style={{padding:"3px 16px"}}>
-                <label for="inputphoto" style={{alignItems:"center" }}>
-                  Upload
-                <input type="file" class={styles.profileinput} id="photo" name="photo">
-                </input>
-                </label>
-                </div>
-                <div>
-                      <button className={styles.deletebutton} onClick={() => deletePhoto(user.profilePhoto)} onTouchStart={() => deletePhoto(user.profilePhoto)}><img src={deleteSvg}></img>Delete</button>
-                </div>
-                </div>
-              </div>
-              <div style={{display:"flex", width:"46%", justifyContent:"space-between", padding: "10px 0px"}}>
-              <label for="firstname" className="body-medium-he">First Name</label>
-              <label for="lastname" className="body-medium-he">Last Name</label>
-              </div>
-              <div style={{flexDirection:"row", width:"75%", justifycontent: "space-around"  }}className="input-holder">
-                <input style={{padding:"10px"}} type="text" placeholder={ user.firstName} className="firstname" onChange={setFullName} />
-                <input style={{padding:"10px"}} type="text" placeholder={user.lastName} className="lastname" onChange={setFullName} />
-                </div>
-                <div>
-                <p className="body-medium-he" style={{padding:"10px 0px"}}>Email</p>
-                <div className="input-holder" style={{width: "75%",}}>
-                <input type="email" placeholder={user.email} className="email" onChange={handleEmail} />
-                </div>
-                </div>
-                <div className="phone-input-holder">
-                <p className="body-medium-he" style={{padding:"10px 0px"}}>Mobile Number</p>
-                <div className="phone-input-fields">
-                <input style={{width: "48px"}} type="number" placeholder={user.phoneNumber} className="ddd" value={DDD} maxLength={2} onChange={handleDDD} />
-                <input style={{width:"38%"}}type="number" placeholder={user.phoneNumber} className="number" value={mobNumber} onChange={handleMobNumber} />
-                </div>
-                </div>
-                <div>
-                <p className="body-medium-he" style={{padding:"10px 0px"}}>Date of Birthday</p>
-                <div className="input-holder">
-                <input type="date" placeholder="" className="date" onChange={handleDate} />
-                </div>
-                </div>
-                <div class={styles.passwordsection}>
-                <h1 style={{color: "#13101E", fontsize: "20px", fontstyle: "normal", fontweight: "600", lineheight: "26px", padding:"53px 0px"}}>Change Password</h1>
-                <div className={styles.inputPass}>
-                    {desktop && <label>Current Password</label>}
-                    <input
-                      type={showPassword ? "text" : "password"}
-                      className="body-medium text-primary"
-                      placeholder={`${phone ? "Current Password" : ""}`}
-                      value={currentPass}
-                      onChange={(e) => SetCurrentPass(e.target.value)}
-                    />
-                  </div>
-                <div className={styles.inputPass}>
-                  {desktop && <label>New Password</label>}
-                  <input
-                    type={showPassword ? "text" : "password"}
-                    className="body-medium text-primary"
-                    placeholder={`${phone ? "New Password" : ""}`}
-                    value={password}
-                    onChange={(e) => setPassword(e.target.value)}
-                  />
-                  {!showPassword ? <BsEye size={20} onClick={() => setShowPassword(true)} /> : <BsEyeSlash size={20} onClick={() => setShowPassword(false)} />}
-                </div>
-                <div className={styles.inputPass}>
-                    {desktop && <label>Confirm your Password</label>}
-                    <input
-                      type={showPassword ? "text" : "password"}
-                      className="body-medium text-primary"
-                      placeholder={`${phone ? "Confirm your Password" : ""}`}
-                      value={confirmPass}
-                      onChange={(e) => setConfirmPass(e.target.value)}
-                    />
-                  </div>
-            </div>
-            <button className={styles.submitbutton}>Save Changes</button>
-            </form>
+            {desktop && activeTab === 1 &&
+              <PersonalInformation />
+            }
+
           </>
-          
-          }</div>}
-
-</>
-          {/* {desktop && <div className={styles.component}>{activeTab === 4 && <MyWishlist />}</div>} */}
+          {desktop && activeTab === 4 && <div className={styles.component}><MyWishlist /></div>}
 
           {phone && (
             <div className={styles.logoutButton}>
               <DefaultBtn outlined={true} children={"Logout"} icon={<LogoutSvg />} onClick={handleLogout} />
             </div>
           )}
-          
+
         </div>
       </div>
       {desktop && <Footer />}

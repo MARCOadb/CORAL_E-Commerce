@@ -82,6 +82,7 @@
     flex-shrink: 0;
   }
 }
+
 .txtContainer {
   height: 100%;
   padding: 7px 0;
@@ -99,7 +100,7 @@
 
   @include desktop {
     margin: 0;
-    width: 286px;
+    width: 271px;
     border-radius: 8px;
     background-color: #f1f1f1;
     padding: 0 7px 0 8px;
@@ -172,145 +173,5 @@
     span {
       color: #1b4b66;
     }
-  }
-}
-
-.profilepage {
-  width: 100%;
-  background-color: #fff;
-  border-radius: 8px;
-  padding: 20px;
-  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
-}
-.photosection {
-  display: flex;
-  padding: 24px 0px;
-    input[type="file"] {
-      opacity: 0%;
-      height: 26px;
-      width: 134px;
-      position: relative;
-      top: -21px;
-      left: -39px;
-    }
-    label {
-      padding: 13px 40px;
-      background-color: #1B4B66;
-      color: #FFF;
-      text-align: center;
-      display: block;
-      cursor: pointer;
-      height: 41px;
-      width: 136px;
-      border-radius: 8px;
-      font-family: Inter;
-      font-size: 14px;
-      font-weight: 500;
-
-    }
-    
-
-  
-}
-.profileinput {
-  display: flex;
-  width: 136px;
-  padding: 10px 8px;
-  gap: 8px;
-}
-.profileinput[type="file"] {
-  cursor: pointer;
-}
-.profileinput[type="file"]::file-selector-button {
-  padding: 8px;
-  border: none;
-  background-color: #3498db;
-  color: #fff;
-  border-radius: 4px;
-  cursor: pointer;
-}
-.deletebutton {
-  display: flex;
-  width: 136px;
-  padding: 10px 8px;
-  justify-content: center;
-  align-items: center;
-  gap: 8px;
-  border-radius: 8px;
-  border: 2px solid #B00020;
-  background-color: #fff;
-  color: #B00020;
-  font-family: Inter;
-  font-size: 14px;
-  font-style: normal;
-  font-weight: 500;
-  line-height: 18px;
-}
-.deletebutton:hover {
-  background-color: rgb(122, 122, 122)
-}
-.passwordsection {
-  margin-top: 20px;
-}
-.submitbutton {
-  display: flex;
-  width: 136px;
-  padding: 8px;
-  justify-content: center;
-  align-items: center;
-  gap: 8px;
-  border-radius: 8px;
-  background-color: #1B4B66;
-  color: #fff;
-  position: relative;
-  top: 69px;
-  left: 893px;
-}
-.submitbutton:hover {
-  background-color: #19252c;
-}
-.inputPass{
-    width: 27%;
-    display: flex;
-    flex-direction: column;
-    gap: 4px;
-    position: relative;
-
-    label{
-      padding: 8px 0px;
-      font-family: Inter;
-      font-size: 16px;
-      font-style: normal;
-      font-weight: 500;
-      line-height: 20px;
-
-    }
-
-    input {
-        background-color: #f1f1f1;
-        border-radius: 4px;
-        width: 100%;
-        border: none;
-        outline: none;
-        height: 52px;
-        transition: all 0.3s;
-        padding-left: 10px;
-
-        &:focus {
-            box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.15);
-        }
-    }
-    svg {
-      top: 0;
-      bottom: -15px;
-      margin: auto 0;
-      right: 10px;
-      position: absolute;
-      color: #1B4B66;
-      cursor: pointer;
-
-      @include desktop {
-          top: 25px;
-      }
   }
 }
