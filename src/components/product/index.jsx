@@ -89,7 +89,7 @@ const Product = ({ data, itemId, largura, altura, button, label, ratings, discou
       });
     };
     getImages();
-  }, [location.pathname]);
+  }, []);
 
   const [reviewStars, setReviewStars] = useState([]);
 
