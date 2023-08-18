@@ -35,6 +35,7 @@ const config = {
 };
 
 export default function Category() {
+  const location = useLocation();
   const { phone, desktop } = useBreakpoint();
   const [sortOpen, setSortOpen] = useState(false);
   const [filterOpen, setFilterOpen] = useState(false);
@@ -60,7 +61,7 @@ export default function Category() {
 
   const [openBrand, setOpenBrand] = useState(false);
   const [heightBrand, setHeightBrand] = useState(null);
-  const [selectedBrand, setSelectedBrand] = useState(null);
+  const [selectedBrand, setSelectedBrand] = useState(location.state.brand ? location.state.brand : null);
 
   const [openPrice, setOpenPrice] = useState(false);
   const [heightPrice, setHeightPrice] = useState(null);
@@ -189,7 +190,6 @@ export default function Category() {
   }
 
   //NAVEGAÇÃO E GET NO ID DA CATEGORIA
-  const location = useLocation();
   const [categoryId, setCategoryId] = useState(null);
   const [categoryName, setCategoryName] = useState(location.state?.categoryName);
   const [modalOpen, setModalOpen] = useState(location.state?.categoryOpen);
@@ -226,7 +226,6 @@ export default function Category() {
       {phone && !loading && (
         <MobileLayout footerPrefix={sortFilter} icon={"arrow"} iconStroke={"#1B4B66"} iconAngle={90} title={categoryName} open={modalOpen} setOpen={setModalOpen}>
           <ProductGrid filterConfig={{ selectedAvailability, selectedBrand, selectedColor, selectedDiscount, selectedPrice, sort }} productConfig={config} categoryId={categoryId}></ProductGrid>
-          {console.log(location.state?.categoryName)}
           <BottomModal open={sortOpen} setOpen={() => setSortOpen(false)} title={"Sort by"}>
             <form className={styles.radioContainer} onChange={preventDefault}>
               <div>

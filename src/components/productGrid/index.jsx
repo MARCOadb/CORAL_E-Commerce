@@ -10,8 +10,10 @@ import getAllProducts from "../../services/getAllProducts";
 import Product from "../product";
 import { BagContext } from "../../contexts/BagContext";
 import BottomModal from "../bottomModal";
+import { useLocation } from "react-router-dom";
 
 const ProductGrid = ({ filterConfig, categoryId, productConfig }) => {
+  const location = useLocation();
   const { allProducts } = useContext(BagContext);
   const { phone, desktop } = useBreakpoint();
   const [toShow, setToShow] = useState(9);
@@ -24,11 +26,11 @@ const ProductGrid = ({ filterConfig, categoryId, productConfig }) => {
   };
 
   const produtosFiltrados = useMemo(() => {
-    if (allProducts?.length > 0 && categoryId?.id) {
+    if ((allProducts?.length > 0 && categoryId?.id) || location.state.brand) {
       const filtrados = allProducts
         ?.filter(
           (item) =>
-            (!categoryId.id || item.data.categoryId == categoryId.id) &&
+            (!categoryId?.id || item.data.categoryId == categoryId?.id || item.data.brand === location.state.brand) &&
             (!filterConfig.selectedColor || item.data.color === filterConfig.selectedColor) &&
             (!filterConfig.selectedBrand || item.data.brand === filterConfig.selectedBrand) &&
             (!filterConfig.selectedPrice || item.data.price <= filterConfig.selectedPrice)
@@ -88,6 +90,7 @@ const ProductGrid = ({ filterConfig, categoryId, productConfig }) => {
                   </div>
                 </div>
               </div>
+              {console.log(produtosFiltrados)}
               <div className={gridClass}>
                 <>
                   <>

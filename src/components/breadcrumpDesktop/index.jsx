@@ -6,12 +6,13 @@ const Breadcrump = () => {
   const navigate = useNavigate();
   const location = useLocation();
 
-  const handleClick = () => {
-    if (location.state.itemName) {
+  const handleClick = (category) => {
+    if (category) {
       navigate(`/${location.state.path}/${location.state.category}`, {
         state: {
           path: location.state.path,
-          category: location.state.category,
+          category: location.state?.category,
+          brand: location.state?.brand,
         },
       });
     } else {
@@ -26,10 +27,10 @@ const Breadcrump = () => {
   return (
     <div className="breadcrumbs">
       <>
-        <span onClick={handleClick}>{location.state?.path}</span>
+        <span onClick={() => handleClick(false)}>{location.state?.path}</span>
         <ChevronRightSmallsvg />
-        <span onClick={location.state?.itemName ? handleClick : () => {}} style={location.state?.itemName ? {} : { color: "#626262" }}>
-          {location.state?.category}
+        <span onClick={location.state?.itemName ? () => handleClick(true) : () => {}} style={location.state?.itemName ? {} : { color: "#626262" }}>
+          {location.state?.category ? location.state.category : location.state.brand}
         </span>
         {location.state?.itemName && <ChevronRightSmallsvg />}
         <span style={{ color: "#626262" }}>{location.state?.itemName}</span>
