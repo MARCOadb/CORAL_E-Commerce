@@ -43,6 +43,7 @@ function AuthProvider({ children }) {
           email: value.user.email,
           profilePhoto: docSnap.data().profilePhoto,
           phone: docSnap.data().phoneNumber,
+          birthDate: docSnap.data().birthDate
         };
 
         setUser(data);
@@ -79,8 +80,7 @@ function AuthProvider({ children }) {
           phoneNumber: phoneNumber,
           profilePhoto: profilePhoto,
           email: email,
-          bag: null,
-          wishlist: null,
+          birthDate: ""
         }).then(() => {
           let data = {
             uid: uid,
@@ -89,6 +89,7 @@ function AuthProvider({ children }) {
             email: value.user.email,
             profilePhoto: profilePhoto,
             phoneNumber: phoneNumber,
+            birthDate: ""
           };
           setUser(data);
           storageUser(data);
@@ -130,6 +131,8 @@ function AuthProvider({ children }) {
         logout,
         signUp,
         loadingAuth,
+        storageUser,
+        setUser
       }}
     >
       {children}
