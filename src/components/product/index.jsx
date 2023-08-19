@@ -71,6 +71,7 @@ const Product = ({ data, itemId, largura, altura, button, label, ratings, discou
             category,
             itemId,
             productImage,
+            itemName: data.name,
           },
         });
       });
