@@ -1,0 +1,169 @@
+@import "../../assets/utility.scss";
+
+@mixin phone {
+  @media (max-width: 1279px) {
+    @content;
+  }
+}
+
+.main {
+  display: flex;
+  flex-direction: column;
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  background: rgba(19, 16, 30, 0.5);
+  z-index: 2;
+  @include phone {
+    background: $bright;
+  }
+}
+
+.modal-frame {
+  display: flex;
+  flex-direction: column;
+  width: 480px;
+  height: 480px;
+  padding: 8px;
+  box-sizing: border-box;
+  justify-content: space-between;
+  align-items: center;
+  border-radius: 16px;
+  background: $bright;
+  margin: auto;
+}
+
+.close-button {
+  align-self: flex-start;
+  border: none;
+  outline: none;
+  background: none;
+  width: 24px;
+  height: 24px;
+  img {
+    width: 24px;
+    height: 24px;
+  }
+}
+
+.topbar {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  height: 56px;
+  padding: 16px;
+  gap: 20px;
+  box-sizing: border-box;
+  background-color: $bright;
+  position: fixed;
+  top: 0;
+  max-width: 650px;
+  margin: 0 auto;
+  left: 0;
+  right: 0;
+  img {
+    width: 24px;
+    height: 24px;
+  }
+  button {
+    border: none;
+    outline: none;
+    background: none;
+    width: 24px;
+    height: 24px;
+  }
+}
+
+.double-button-container {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  height: auto;
+  justify-content: space-between;
+  gap: 8px;
+  button {
+    width: 100%;
+    height: 44px;
+    border-radius: 8px;
+
+    text-align: center;
+    font-family: Inter;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: 24px;
+  }
+  .solid {
+    border: none;
+    background: $primary;
+    color: $bright;
+  }
+  .transparent {
+    border: 2px solid $primary;
+    background: none;
+    color: $primary;
+  }
+  @include phone {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: auto;
+    padding: 16px;
+    gap: 12px;
+    background-color: $bright;
+    position: fixed;
+    bottom: 0;
+    button {
+      width: 100%;
+      height: 44px;
+      border-radius: 8px;
+
+      text-align: center;
+      font-family: Inter;
+      font-size: 14px;
+      font-style: normal;
+      font-weight: 600;
+      line-height: 24px;
+    }
+    .solid {
+      border: none;
+      background: $primary;
+      color: $bright;
+    }
+    .transparent {
+      border: 2px solid $primary;
+      background: none;
+      color: $primary;
+    }
+  }
+}
+
+.cheerio {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  text-align: center;
+  max-width: 285px;
+  gap: 12px;
+
+  color: $text-high-emphasis;
+  font-family: Inter;
+  font-size: 28px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 26px;
+  img {
+    width: 240px;
+    height: 240px;
+    align-self: center;
+  }
+  @include phone {
+    margin: 122px auto auto auto;
+    gap: 12px;
+    img {
+      margin-bottom: 36px;
+    }
+  }
+}

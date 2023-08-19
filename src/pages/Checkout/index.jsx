@@ -6,6 +6,7 @@ import { BagContext } from "../../contexts/BagContext";
 //import CheckoutPayment from "../../components/checkoutPayment";
 import Breadcrump from "../../components/breadcrumpDesktop";
 import Dropdown from "../../components/dropdown";
+import CheckoutModal from "../../components/checkoutModal";
 import useBreakpoint from "../../hooks/useBreakPoint";
 import { toast } from "react-toastify";
 import CartProduct from "../../components/cartProduct";
@@ -27,6 +28,8 @@ export default function Checkout() {
   const { userProducts, taxPrice, subTotal, totalPrice, update } = useContext(BagContext);
   const { user } = useContext(AuthContext);
   const { phone, desktop } = useBreakpoint();
+
+  const [checkModal, setCheckModal] = useState(false);
 
   //CHECKOUT FORM
   const [fullName, setFullName] = useState("");
@@ -187,6 +190,7 @@ export default function Checkout() {
       toast.error("The E-mail is not valid.");
       return;
     }
+    setCheckModal(true);
     const date = new Date();
 
     const month = new Intl.DateTimeFormat("en-US", {
@@ -229,7 +233,7 @@ export default function Checkout() {
       });
     });
 
-    navigate("/");
+    // navigate("/");
   };
 
   const unavailable = () => {
@@ -298,6 +302,7 @@ export default function Checkout() {
                 </div>
               </div>
             </div>
+            <div>{checkModal && <CheckoutModal />}</div>
             <Footer />
           </>
         ) : (
@@ -409,6 +414,7 @@ export default function Checkout() {
               </div>
               <div className="spacer"></div>
             </div>
+            <div>{checkModal && <CheckoutModal />}</div>
           </>
         )}
       </div>

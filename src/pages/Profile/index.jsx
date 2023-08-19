@@ -23,6 +23,7 @@ import styles from "./style.module.scss";
 import MyWishlist from "../../components/myWishlist";
 import { BagContext } from "../../contexts/BagContext";
 import PersonalInformation from "../../components/personalInformation";
+import MyOrders from "../../components/myOrders";
 
 export default function Profile() {
   const navigate = useNavigate();
@@ -162,6 +163,7 @@ export default function Profile() {
       {desktop && <Header />}
       {activeTab === 4 && phone && tabMobileOpen && <MyWishlist open={tabMobileOpen} setOpen={setTabMobileOpen} />}
       {activeTab === 1 && phone && tabMobileOpen && <PersonalInformation open={tabMobileOpen} setOpen={setTabMobileOpen} />}
+      {activeTab === 3 && phone && tabMobileOpen && <MyOrders open={tabMobileOpen} setOpen={setTabMobileOpen} />}
       <div className={styles.content}>
         {desktop && (
           <div className={styles.breadcrump}>
@@ -228,21 +230,23 @@ export default function Profile() {
               <ChevronRightSvg stroke={activeTab === 7 && desktop ? "#1B4B66" : "#13101E"} />
             </div>
           </div>
-          <>
-
-            {desktop && activeTab === 1 &&
-              <PersonalInformation />
-            }
-
-          </>
-          {desktop && activeTab === 4 && <div className={styles.component}><MyWishlist /></div>}
+          <>{desktop && activeTab === 1 && <PersonalInformation />}</>
+          {desktop && activeTab === 4 && (
+            <div className={styles.component}>
+              <MyWishlist />
+            </div>
+          )}
+          {desktop && activeTab === 3 && (
+            <div className={styles.component}>
+              <MyOrders />
+            </div>
+          )}
 
           {phone && (
             <div className={styles.logoutButton}>
               <DefaultBtn outlined={true} children={"Logout"} icon={<LogoutSvg />} onClick={handleLogout} />
             </div>
           )}
-
         </div>
       </div>
       {desktop && <Footer />}
