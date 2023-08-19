@@ -4,6 +4,12 @@
     }
 }
 
+@mixin desktop {
+    @media (min-width: 1280px) {
+        @content;
+    }
+}
+
 .profilepage {
     width: 100%;
     max-width: 874px;
@@ -52,6 +58,12 @@
         width: 136px;
         border-radius: 8px;
         line-height: 38px;
+        transition: all 0.3s;
+
+        &:hover {
+            background-color: #173f57;
+            transform: scale(1.04);
+        }
     }
 
     img {
@@ -84,6 +96,7 @@
     display: flex;
     width: 100%;
     gap: 33px;
+    max-width: 605px;
 
     @include phone {
         flex-direction: column;
@@ -165,7 +178,7 @@
     display: flex;
     flex-direction: column;
     gap: 24px;
-    width: 605px;
+    width: 100%;
 
     @include phone {
         width: 100%;
@@ -197,8 +210,14 @@
     gap: 8px;
     border-radius: 8px;
     border: 2px solid #B00020;
-    background-color: #fff;
+    background-color: transparent;
     color: #B00020;
+    transition: all 0.3s;
+
+    &:hover {
+        background-color: #ffe6e6;
+        transform: scale(1.04);
+    }
 }
 
 .passwordsection {
@@ -223,12 +242,21 @@
     border-radius: 8px;
     background-color: #1B4B66;
     color: #fff;
+    border: none;
+    outline: none;
+    height: 36px;
+    transition: all 0.3s;
 
     @include phone {
         width: 100%;
         height: 44px;
         border: none;
         outline: none;
+    }
+
+    &:hover {
+        background-color: #173f57;
+        transform: scale(1.04);
     }
 }
 
@@ -244,8 +272,14 @@
     background-color: #fff;
     max-width: 550px;
     margin: 0 auto;
-}
 
-.submitbutton:hover {
-    background-color: #19252c;
+    @include desktop {
+        position: relative;
+        width: 100%;
+        display: flex;
+        align-items: end;
+        justify-content: end;
+        max-width: 100%;
+        padding: 0;
+    }
 }
