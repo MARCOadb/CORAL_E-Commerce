@@ -94,13 +94,14 @@ const CartProduct = ({ data, qnt, stepper, price, remove, itemId, showQnt, largu
               )}
             </div>
           </div>
-          {price ||
+          {price &&
             (remove && (
               <div className={styles.priceContainer}>
                 {remove && <CrossSvg stroke={"#626262"} onClick={deleteProduct} />}
-                {price && <span className="label-large text-high-emphasis">${data?.price % 1 === 0 ? `${data?.price}.00` : data?.price}</span>}
+                {price && <span className="title-regular text-high-emphasis">${data?.price % 1 === 0 ? `${data?.price}.00` : data?.price}</span>}
               </div>
-            ))}
+            ))
+          }
         </div>
       ) : (
         <div className={styles.bagItem}>

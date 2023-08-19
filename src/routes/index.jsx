@@ -6,7 +6,7 @@ import Categories from "../pages/Categories";
 import Checkout from "../pages/Checkout";
 import Bag from "../pages/Bag";
 import Profile from "../pages/Profile";
-import Test from "../pages/Test";
+//import Test from "../pages/Test";
 import Login from "../pages/Login";
 import useBreakpoint from "../hooks/useBreakPoint";
 import ProductPage from "../pages/Product";

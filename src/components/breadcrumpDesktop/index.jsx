@@ -27,9 +27,9 @@ const Breadcrump = () => {
   return (
     <div className="breadcrumbs">
       <>
-        <span onClick={() => handleClick(false)}>{location.state?.path}</span>
+        <span onClick={() => handleClick(false)} style={{ cursor: 'pointer' }}>{location.state?.path}</span>
         <ChevronRightSmallsvg />
-        <span onClick={location.state?.itemName ? () => handleClick(true) : () => {}} style={location.state?.itemName ? {} : { color: "#626262" }}>
+        <span onClick={location.state?.itemName ? () => handleClick(true) : () => { }} style={location.state?.itemName ? { cursor: 'pointer' } : { color: "#626262", cursor: 'pointer' }}>
           {location.state?.category ? location.state.category : location.state.brand}
         </span>
         {location.state?.itemName && <ChevronRightSmallsvg />}

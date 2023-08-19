@@ -200,7 +200,7 @@ export default function Home() {
                 <div className="collection-item" onClick={() => handleCategory("Eyewear")}>
                   <img src={glasses} alt="Category Cover" />
                   <div className="shadow"></div>
-                  <span>Glasses</span>
+                  <span>Eyewear</span>
                 </div>
               </div>
             </div>
