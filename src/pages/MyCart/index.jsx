@@ -48,7 +48,14 @@ const MyCart = () => {
   return (
     <>
       <Header />
-      <Breadcrump />
+      <div style={{
+        width: '100%',
+        padding: '0 16px',
+        maxWidth: '1280px',
+        margin: '0 auto'
+      }}>
+        <Breadcrump />
+      </div>
       {userProducts.length > 0 ? (
         <>
           <h1 className={styles.mycart}>My Cart</h1>

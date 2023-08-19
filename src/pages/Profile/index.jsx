@@ -10,7 +10,7 @@ import { BsEye, BsEyeSlash } from "react-icons/bs";
 //HOOKS
 import useBreakpoint from "../../hooks/useBreakPoint";
 import { useContext, useEffect, useState } from "react";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 
 //IMAGES & ICONS
 import profile from "../../assets/pics/Login/profile-default.png";
@@ -25,8 +25,9 @@ import { BagContext } from "../../contexts/BagContext";
 import PersonalInformation from "../../components/personalInformation";
 
 export default function Profile() {
+  const navigate = useNavigate();
+
   const location = useLocation();
-  const { update } = useContext(BagContext);
   const { user } = useContext(AuthContext);
   const { phone, desktop } = useBreakpoint();
   const [activeTab, setActiveTab] = useState(location.state?.initialTab ? location.state?.initialTab : 1);
@@ -124,7 +125,7 @@ export default function Profile() {
 
   useEffect(() => {
     if (desktop) handleTab(location.state.initialTab);
-  }, [location.state?.initialTab]);
+  }, [location.state?.initialTab, desktop]);
 
   useEffect(() => {
     switch (activeTab) {

@@ -56,7 +56,7 @@ export default function MyWishlist({ open, setOpen }) {
                   {userWishlist.length} Product(s)
                 </span>
                 <div className="wishlist-mobile">
-                  {!loading && userWishlist?.map((item) => <Product altura={false} largura={false} data={item.data} label key={item.uid} discount itemId={item.uid} button />)}
+                  {!loading && userWishlist?.map((item) => <Product altura={false} largura={false} data={item.data} label key={item.uid} itemId={item.uid} button />)}
                 </div>
               </>
             )}

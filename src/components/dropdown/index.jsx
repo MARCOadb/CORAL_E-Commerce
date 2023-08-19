@@ -4,7 +4,7 @@ import useBreakpoint from "../../hooks/useBreakPoint";
 
 import "./style.scss";
 
-const Dropdown = ({ title, content }) => {
+const Dropdown = ({ content, title }) => {
   const [toggle, setToggle] = useState(false);
   const [height, setHeight] = useState();
   const [firstTimePress, setFirstTimePress] = useState(true);
@@ -47,7 +47,7 @@ const Dropdown = ({ title, content }) => {
           <div>
             <button className="checkout-dropdown-button" onClick={toggleState}>
               <p className="display-small">{title}</p>
-              <ChevronRigthSvg stroke={'#13101E'} rotate={toggle ? 270 : 90} />
+              <ChevronRigthSvg stroke={"#13101E"} rotate={toggle ? 270 : 90} />
             </button>
             <div className="button-separator"></div>
             <div className={toggle ? "checkout-dropdown-toggle animation" : "checkout-dropdown-toggle"} style={{ height: toggle ? `${height}` : "0px" }} ref={refHeight}>
@@ -60,7 +60,7 @@ const Dropdown = ({ title, content }) => {
           <div>
             <button className="checkout-dropdown-button" onClick={toggleStateMobile}>
               <p className="title-medium">{title}</p>
-              <ChevronRigthSvg stroke={'#13101E'} rotate={toggle ? 270 : 90} />
+              <ChevronRigthSvg stroke={"#13101E"} rotate={toggle ? 270 : 90} />
             </button>
             <div className={toggle ? "checkout-dropdown-toggle animation" : "checkout-dropdown-toggle"} style={{ height: toggle ? "906px" : "0px" }} ref={refHeight}>
               {content}

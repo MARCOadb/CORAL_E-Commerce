@@ -20,9 +20,11 @@ import ChevronRight from "../../assets/icon/chevron-right.svg";
 import { AuthContext } from "../../contexts/AuthContext";
 
 import { useLocation, useNavigate } from "react-router-dom";
+import { addOrder } from "../../services/addOrder";
+import { clearBag } from "../../services/clearBag";
 
 export default function Checkout() {
-  const { userProducts, taxPrice, subTotal, totalPrice } = useContext(BagContext);
+  const { userProducts, taxPrice, subTotal, totalPrice, update } = useContext(BagContext);
   const { user } = useContext(AuthContext);
   const { phone, desktop } = useBreakpoint();
 
@@ -75,11 +77,11 @@ export default function Checkout() {
   const handleNavigate = (category) => {
     category
       ? navigate(`/${category}`, {
-        state: {
-          path: location.state.path,
-          category: category,
-        },
-      })
+          state: {
+            path: location.state.path,
+            category: category,
+          },
+        })
       : navigate("/");
   };
 
@@ -185,8 +187,49 @@ export default function Checkout() {
       toast.error("The E-mail is not valid.");
       return;
     }
-    toast.success("Purchase done with success! Please, check your E-mail to track your order.");
-    navigate("/")
+    const date = new Date();
+
+    const month = new Intl.DateTimeFormat("en-US", {
+      month: "long",
+    }).format(date);
+    const day = date.getDate();
+    const year = date.getUTCFullYear();
+    const orderDate = {
+      day,
+      year,
+      month,
+    };
+    const phoneNumber = DDD + mobNumber;
+    const adress = `${streetAddress} ${city} ${state}`;
+    const orderProds = userProducts.map((item) => {
+      const product = {
+        uid: item.uid,
+        qnt: item.qnt,
+      };
+      return product;
+    });
+
+    const order = {
+      fullName,
+      phoneNumber,
+      adress,
+      pinCode,
+      email,
+      selectedOption,
+      userId: user.uid,
+      price: totalPrice,
+      products: orderProds,
+      date: orderDate,
+    };
+    addOrder(order).then(() => {
+      toast.success("Purchase done with success! Please, check your E-mail to track your order.");
+      clearBag(user.uid).then(() => {
+        toast.success("Your bag was cleard");
+        update({ products: false });
+      });
+    });
+
+    navigate("/");
   };
 
   const unavailable = () => {
@@ -208,7 +251,9 @@ export default function Checkout() {
                   <Dropdown title="Contact Information" content={contactInfo} />
                   <Dropdown title="Select Payment Method" content={cardArray} />
                   <div className="inferior-link-button">
-                    <a onClick={() => navigate('/bag')} style={{ cursor: 'pointer' }}>Back to Cart</a>
+                    <a onClick={() => navigate("/bag")} style={{ cursor: "pointer" }}>
+                      Back to Cart
+                    </a>
                     <button className={buttonAvailable ? "available" : "unavailable"} onClick={buttonAvailable ? available : unavailable}>
                       Next
                     </button>
@@ -258,7 +303,7 @@ export default function Checkout() {
         ) : (
           <>
             <div className="topbar">
-              <a onClick={() => navigate('/bag')}>
+              <a onClick={() => navigate("/bag")}>
                 <img src={ChevronRight} />
               </a>
               <h1 className="display-small text-primary">Checkout</h1>
@@ -278,12 +323,6 @@ export default function Checkout() {
                       userProducts.map((product) => (
                         <div key={product.uid} className="mapped-item">
                           <CartProduct showQnt data={product.data} largura={476} qnt={product.qnt} key={product.uid} itemId={product.uid} />
-                          {/* <img />
-                          <div className="mapped-data">
-                            <p className="body-medium-he">{product.data.name}</p>
-                            <p className="body-regular text-low-emphasis">{product.data.description}</p>
-                            <p className="body-regular text-low-emphasis">Qty - {product.qnt}</p>
-                          </div> */}
                         </div>
                       ))}
                   </div>

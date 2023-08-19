@@ -61,6 +61,8 @@ Contact the group so we can improve the project.
 
 ### Known issues (Work in progress)
 
+* The buttons in the myOrders page dont work cuz we currelty dont have a way to really process the order
+
 /* listar bugs aqui */
 
 ## Know the authors!
