@@ -190,9 +190,7 @@ export default function Checkout() {
       toast.error("The E-mail is not valid.");
       return;
     }
-<<<<<<< HEAD
     setCheckModal(true);
-=======
     const date = new Date();
 
     const month = new Intl.DateTimeFormat("en-US", {
@@ -235,8 +233,7 @@ export default function Checkout() {
       });
     });
 
-    navigate("/");
->>>>>>> 5a1d9892c2fd73b2d3c13f0621697ba84869d09b
+    // navigate("/");
   };
 
   const unavailable = () => {

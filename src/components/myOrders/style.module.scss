@@ -12,6 +12,9 @@
   gap: 52px;
   @include phone {
     padding: 16px 16px;
+    position: relative;
+    left: 0;
+    top: 0;
   }
 }
 
