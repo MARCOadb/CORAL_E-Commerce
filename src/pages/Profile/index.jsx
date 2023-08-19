@@ -24,6 +24,8 @@ import MyWishlist from "../../components/myWishlist";
 import { BagContext } from "../../contexts/BagContext";
 import PersonalInformation from "../../components/personalInformation";
 import MyOrders from "../../components/myOrders";
+import MobileLayout from "../../layouts/mobileLayout";
+import BagSvg from "../../assets/icon/Bagsvg";
 
 export default function Profile() {
   const navigate = useNavigate();
@@ -163,29 +165,47 @@ export default function Profile() {
       {desktop && <Header />}
       {activeTab === 4 && phone && tabMobileOpen && <MyWishlist open={tabMobileOpen} setOpen={setTabMobileOpen} />}
       {activeTab === 1 && phone && tabMobileOpen && <PersonalInformation open={tabMobileOpen} setOpen={setTabMobileOpen} />}
-      {activeTab === 3 && phone && tabMobileOpen && <MyOrders open={tabMobileOpen} setOpen={setTabMobileOpen} />}
+      {activeTab === 3 && phone && tabMobileOpen && (
+        <MobileLayout
+          headerSuffix={
+            <BagSvg
+              stroke={"#1B4B66"}
+              onClick={() => {
+                navigate("/bag");
+              }}
+            />
+          }
+          title={"My Orders"}
+          icon={"arrow"}
+          iconStroke={"#1B4B66"}
+          iconAngle={90}
+          open={tabMobileOpen}
+          setOpen={setTabMobileOpen}
+        >
+          <MyOrders />
+        </MobileLayout>
+      )}
       <div className={styles.content}>
         {desktop && (
           <div className={styles.breadcrump}>
             <Breadcrump page={"home"} category={"User Profile"} />
           </div>
         )}
-        {(!tabMobileOpen || desktop) && (
-          <div className={styles.title}>
-            <div>
-              <h1 className={`text-primary ${desktop ? "display-medium" : "display-small"}`}>{phone ? "Profile" : tabTitle}</h1>
-              {desktop && (
-                <button onClick={handleLogout}>
-                  <LogoutSvg />
-                  <span className="text-primary">Logout</span>
-                </button>
-              )}
-            </div>
+
+        <div className={styles.title}>
+          <div>
+            <h1 className={`text-primary ${desktop ? "display-medium" : "display-small"}`}>{phone ? "Profile" : tabTitle}</h1>
+            {desktop && (
+              <button onClick={handleLogout}>
+                <LogoutSvg />
+                <span className="text-primary">Logout</span>
+              </button>
+            )}
           </div>
-        )}
+        </div>
 
         <div className={`${desktop && styles.boxContainer}`}>
-          {phone && !tabMobileOpen && (
+          {phone && (
             <div className={styles.userDetails}>
               <div style={{ display: "flex", gap: "14px", overflow: "auto" }}>
                 <img src={user?.profilePhoto === null ? profile : user?.profilePhoto} alt="User Profile" />
@@ -200,39 +220,38 @@ export default function Profile() {
               </div>
             </div>
           )}
-          {(!tabMobileOpen || desktop) && (
-            <div className={`${styles.menu} body-medium text-dark`}>
-              {desktop && <div className={styles.movingBar} style={{ top: `${(activeTab - 1) * 72}px` }} />}
-              <div onClick={() => handleTab(1)} className={`${styles.item} ${activeTab === 1 && styles.active}`} id="1">
-                <span>Personal Information</span>
-                <ChevronRightSvg stroke={activeTab === 1 && desktop ? "#1B4B66" : "#13101E"} />
-              </div>
-              <div onClick={() => handleTab(2)} className={`${styles.item} ${activeTab === 2 && styles.active}`} id="2">
-                <span>Refer and Earn</span>
-                <ChevronRightSvg stroke={activeTab === 2 && desktop ? "#1B4B66" : "#13101E"} />
-              </div>
-              <div onClick={() => handleTab(3)} className={`${styles.item} ${activeTab === 3 && styles.active}`} id="3">
-                <span>My Orders</span>
-                <ChevronRightSvg stroke={activeTab === 3 && desktop ? "#1B4B66" : "#13101E"} />
-              </div>
-              <div onClick={() => handleTab(4)} className={`${styles.item} ${activeTab === 4 && styles.active}`} id="4">
-                <span>My Wishlist</span>
-                <ChevronRightSvg stroke={activeTab === 4 && desktop ? "#1B4B66" : "#13101E"} />
-              </div>
-              <div onClick={() => handleTab(5)} className={`${styles.item} ${activeTab === 5 && styles.active}`} id="5">
-                <span>My Reviews</span>
-                <ChevronRightSvg stroke={activeTab === 5 && desktop ? "#1B4B66" : "#13101E"} />
-              </div>
-              <div onClick={() => handleTab(6)} className={`${styles.item} ${activeTab === 6 && styles.active}`} id="6">
-                <span>My Address Book</span>
-                <ChevronRightSvg stroke={activeTab === 6 && desktop ? "#1B4B66" : "#13101E"} />
-              </div>
-              <div onClick={() => handleTab(7)} className={`${styles.item} ${activeTab === 7 && styles.active}`} id="7">
-                <span>My Saved Cards</span>
-                <ChevronRightSvg stroke={activeTab === 7 && desktop ? "#1B4B66" : "#13101E"} />
-              </div>
+
+          <div className={`${styles.menu} body-medium text-dark`}>
+            {desktop && <div className={styles.movingBar} style={{ top: `${(activeTab - 1) * 72}px` }} />}
+            <div onClick={() => handleTab(1)} className={`${styles.item} ${activeTab === 1 && styles.active}`} id="1">
+              <span>Personal Information</span>
+              <ChevronRightSvg stroke={activeTab === 1 && desktop ? "#1B4B66" : "#13101E"} />
             </div>
-          )}
+            <div onClick={() => handleTab(2)} className={`${styles.item} ${activeTab === 2 && styles.active}`} id="2">
+              <span>Refer and Earn</span>
+              <ChevronRightSvg stroke={activeTab === 2 && desktop ? "#1B4B66" : "#13101E"} />
+            </div>
+            <div onClick={() => handleTab(3)} className={`${styles.item} ${activeTab === 3 && styles.active}`} id="3">
+              <span>My Orders</span>
+              <ChevronRightSvg stroke={activeTab === 3 && desktop ? "#1B4B66" : "#13101E"} />
+            </div>
+            <div onClick={() => handleTab(4)} className={`${styles.item} ${activeTab === 4 && styles.active}`} id="4">
+              <span>My Wishlist</span>
+              <ChevronRightSvg stroke={activeTab === 4 && desktop ? "#1B4B66" : "#13101E"} />
+            </div>
+            <div onClick={() => handleTab(5)} className={`${styles.item} ${activeTab === 5 && styles.active}`} id="5">
+              <span>My Reviews</span>
+              <ChevronRightSvg stroke={activeTab === 5 && desktop ? "#1B4B66" : "#13101E"} />
+            </div>
+            <div onClick={() => handleTab(6)} className={`${styles.item} ${activeTab === 6 && styles.active}`} id="6">
+              <span>My Address Book</span>
+              <ChevronRightSvg stroke={activeTab === 6 && desktop ? "#1B4B66" : "#13101E"} />
+            </div>
+            <div onClick={() => handleTab(7)} className={`${styles.item} ${activeTab === 7 && styles.active}`} id="7">
+              <span>My Saved Cards</span>
+              <ChevronRightSvg stroke={activeTab === 7 && desktop ? "#1B4B66" : "#13101E"} />
+            </div>
+          </div>
 
           <>{desktop && activeTab === 1 && <PersonalInformation />}</>
           {desktop && activeTab === 4 && (
@@ -246,7 +265,7 @@ export default function Profile() {
             </div>
           )}
 
-          {phone && !tabMobileOpen && (
+          {phone && (
             <div className={styles.logoutButton}>
               <DefaultBtn outlined={true} children={"Logout"} icon={<LogoutSvg />} onClick={handleLogout} />
             </div>
@@ -254,7 +273,7 @@ export default function Profile() {
         </div>
       </div>
       {desktop && <Footer />}
-      {phone && !tabMobileOpen && <NavBarMobile />}
+      {phone && <NavBarMobile />}
     </>
   );
 }
