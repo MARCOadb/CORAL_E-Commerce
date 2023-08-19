@@ -17,7 +17,7 @@ Features you are about to see:
 
 ## Check out the filter system in action:
 
-<iframe width="560" height="315" src="/src/assets/videos/filter-video.mp4" frameborder="0" allowfullscreen></iframe>
+![filter-demo 00_00_00-00_00_30](https://github.com/MARCOadb/Desafio-Compass-4/assets/106601114/eb434048-ad70-4218-87a7-9314246119c7)
 
 ## How to install this project
 
@@ -25,17 +25,52 @@ Curious to see more? If you want to explore this filter system and more, follow 
 
 1. Clone this project into your own PC
 2. Make sure you have Node.js installed on your computer
-3. Execute the command `npm i` to install the necessary dependencies for running the project
-4. Once you have installed all the necessary dependencies, run the command npm start to launch the project.
-5. Have fun exploring the website!
+3. To install library dependencies, execute the following:
+  ```shell
 
-### Find a bug?
+  #install dependencies
+  npm i
+
+```
+5. Once you have installed all the necessary dependencies, run the command bellow to launch the project:
+  ```shell
+
+  #run the project
+  npm start
+
+```
+6. Have fun exploring the website!
+
+## Project Dependencies:
+
+* Firebase 10.1.0
+* React 18.2.0
+* React-Responsive 9.0.2
+* React-Icons 4.10.1
+* React-Router-Dom 6.14.1
+* React-Scroll 1.8.9
+* React-Slick 0.29.0
+* React-Toastify 9.1.3
+* sass 1.63.6
+
+### Found a bug?
 
 ![802f6b55de54cec2eeacc6df2d7cb464](https://github.com/MARCOadb/Desafio-Compass-4/assets/106601114/e2acf184-2fdf-4691-acd1-d756f387a447)
 
+Contact the group so we can improve the project.
+
 ### Known issues (Work in progress)
+
+* The buttons in the myOrders page dont work cuz we currelty dont have a way to really process the order
+
+/* listar bugs aqui */
 
 ## Know the authors!
 
 https://www.linkedin.com/in/vin%C3%ADcius-alexandre-lucas/
+<br/>
 https://www.linkedin.com/in/marco-aurélio-batista-900399236/
+<br/>
+https://www.linkedin.com/in/vicente-berwanger-pawlak-a6740422b/
+<br/>
+https://www.linkedin.com/in/lucas-melo-098656288/

@@ -14,6 +14,7 @@ import { storage } from "../../services/firebaseConnection";
 import useBreakpoint from "../../hooks/useBreakPoint";
 import ChevronRightSmallsvg from "../../assets/icon/ChevronRightSmallsvg";
 import { toast } from "react-toastify";
+import DefaultBtn from "../defaultBtn";
 
 /*PROPS
   {
@@ -25,10 +26,14 @@ import { toast } from "react-toastify";
     discount?:Boolean;
     oldprice?:Boolean;
     sort?:Boolean;
+    select?:Boolean,
+    noBtn?:Boolean,
+    bagBtn?:Boolean,
+    noTxt?:Boolean
   }
 */
 
-const CartProduct = ({ data, qnt, stepper, price, remove, itemId, showQnt, largura }) => {
+const CartProduct = ({ data, qnt, stepper, price, remove, itemId, showQnt, largura, imgDimetion, select, noBtn, bagBtn, noTxt }) => {
   const [productImage, setProductImage] = useState(null);
   const { desktop, phone } = useBreakpoint();
 
@@ -67,12 +72,14 @@ const CartProduct = ({ data, qnt, stepper, price, remove, itemId, showQnt, largu
   const storageRef = ref(storage, `productsImg/${data.name}`);
 
   useEffect(() => {
-    const getImages = async () => {
-      await getDownloadURL(storageRef).then((response) => {
-        setProductImage(response);
-      });
-    };
-    getImages();
+    if (data) {
+      const getImages = async () => {
+        await getDownloadURL(storageRef).then((response) => {
+          setProductImage(response);
+        });
+      };
+      getImages();
+    }
   }, []);
 
   return (
@@ -94,18 +101,17 @@ const CartProduct = ({ data, qnt, stepper, price, remove, itemId, showQnt, largu
               )}
             </div>
           </div>
-          {price ||
-            (remove && (
-              <div className={styles.priceContainer}>
-                {remove && <CrossSvg stroke={"#626262"} onClick={deleteProduct} />}
-                {price && <span className="label-large text-high-emphasis">${data?.price % 1 === 0 ? `${data?.price}.00` : data?.price}</span>}
-              </div>
-            ))}
+          {(price || remove) && (
+            <div className={styles.priceContainer}>
+              {remove && <CrossSvg stroke={"#626262"} onClick={deleteProduct} />}
+              {price && <span className={` text-high-emphasis title-regular `}>${data?.price % 1 === 0 ? `${data?.price}.00` : data?.price}</span>}
+            </div>
+          )}
         </div>
       ) : (
         <div className={styles.bagItem}>
-          <div className={styles.itemContent}>
-            <img src={productImage} />
+          <div className={styles.itemContent} style={bagBtn ? { border: "none" } : {}}>
+            <img style={imgDimetion ? { height: imgDimetion, width: imgDimetion, borderRadius: "8px" } : { borderRadius: "8px" }} src={productImage} />
             <div className={styles.itemDetails}>
               <span className="text-high-emphasis label-small" style={{ marginBottom: "2px" }}>
                 {data.name}
@@ -113,39 +119,56 @@ const CartProduct = ({ data, qnt, stepper, price, remove, itemId, showQnt, largu
               <span className="text-low-emphasis label-medium" style={{ marginBottom: "7px" }}>
                 {data.description}
               </span>
-              <label className={styles.qty}>
-                <span className="text-low-emphasis link">Qty:</span>
-                <select onChange={setProduct} value={qnt}>
-                  <option value="1">1</option>
-                  <option value="2">2</option>
-                  <option value="3">3</option>
-                  <option value="4">4</option>
-                  <option value="5">5</option>
-                  <option value="6">6</option>
-                  <option value="7">7</option>
-                  <option value="8">8</option>
-                  <option value="9">9</option>
-                </select>
-                <label>
-                  <ChevronRightSmallsvg stroke={"#13101E"} rotate={90} />
+              {select && (
+                <label className={styles.qty}>
+                  <span className="text-low-emphasis link">Qty:</span>
+                  <select onChange={setProduct} value={qnt}>
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                    <option value="5">5</option>
+                    <option value="6">6</option>
+                    <option value="7">7</option>
+                    <option value="8">8</option>
+                    <option value="9">9</option>
+                    <option value="10">10</option>
+                  </select>
+                  <label>
+                    <ChevronRightSmallsvg stroke={"#13101E"} rotate={90} />
+                  </label>
                 </label>
-              </label>
+              )}
+              {showQnt && <span className="label-medium text-low-emphasis">Qty- {qnt}</span>}
+
               <div>
-                <span className="text-high-emphasis title-regular">${data?.price % 1 === 0 ? `${data?.price}.00` : data?.price}</span>
-                <span className="text-low-emphasis extra-small-label strike">${(data?.price * 2) % 1 === 0 ? `${data?.price * 2}.00` : data?.price * 2}</span>
-                <span className="text-vibrant extra-small-label">50% OFF</span>
+                <span className={`text-high-emphasis title-regular `}>${data?.price % 1 === 0 ? `${data?.price}.00` : data?.price}</span>
+                {!noTxt && (
+                  <>
+                    <span className="text-low-emphasis extra-small-label strike">${(data?.price * 2) % 1 === 0 ? `${data?.price * 2}.00` : data?.price * 2}</span>
+                    <span className="text-vibrant extra-small-label">50% OFF</span>
+                  </>
+                )}
               </div>
+
+              {bagBtn && (
+                <DefaultBtn height="36px" width="151px" outlined onClick={addProduct}>
+                  Add to Bag
+                </DefaultBtn>
+              )}
             </div>
           </div>
-          <div className={styles.itemButtons}>
-            <button className="text-primary title-regular" onClick={wishlistProduct}>
-              Move to Wishlist
-            </button>
-            <div className={styles.verticalSeparator}> </div>
-            <button className="text-primary title-regular" onClick={deleteProduct}>
-              Remove
-            </button>
-          </div>
+          {!noBtn && (
+            <div className={styles.itemButtons}>
+              <button className="text-primary title-regular" onClick={wishlistProduct}>
+                Move to Wishlist
+              </button>
+              <div className={styles.verticalSeparator}> </div>
+              <button className="text-primary title-regular" onClick={deleteProduct}>
+                Remove
+              </button>
+            </div>
+          )}
         </div>
       )}
     </>

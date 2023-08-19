@@ -5,7 +5,7 @@ import useBreakpoint from "../../hooks/useBreakPoint";
 import { useState } from "react";
 import Dropdown from "../dropdown";
 
-const Footer = () => {
+const Footer = ({ spacer }) => {
   const { phone, desktop } = useBreakpoint();
   const [footer, setFooter] = useState(false);
 
@@ -52,7 +52,6 @@ const Footer = () => {
           </div>
         </div>
       </div>
-      <div className="dropdown-spacer"></div>
     </>
   );
 
@@ -134,7 +133,7 @@ const Footer = () => {
       ) : (
         <>
           <Dropdown title="More about CORA'L" content={mobileContent} />
-          <div className="dropdown-spacer"></div>
+          {spacer && <div className="dropdown-spacer"></div>}
         </>
       )}
     </div>

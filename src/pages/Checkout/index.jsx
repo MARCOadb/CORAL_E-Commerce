@@ -21,9 +21,11 @@ import ChevronRight from "../../assets/icon/chevron-right.svg";
 import { AuthContext } from "../../contexts/AuthContext";
 
 import { useLocation, useNavigate } from "react-router-dom";
+import { addOrder } from "../../services/addOrder";
+import { clearBag } from "../../services/clearBag";
 
 export default function Checkout() {
-  const { userProducts, taxPrice, subTotal, totalPrice } = useContext(BagContext);
+  const { userProducts, taxPrice, subTotal, totalPrice, update } = useContext(BagContext);
   const { user } = useContext(AuthContext);
   const { phone, desktop } = useBreakpoint();
 
@@ -188,7 +190,53 @@ export default function Checkout() {
       toast.error("The E-mail is not valid.");
       return;
     }
+<<<<<<< HEAD
     setCheckModal(true);
+=======
+    const date = new Date();
+
+    const month = new Intl.DateTimeFormat("en-US", {
+      month: "long",
+    }).format(date);
+    const day = date.getDate();
+    const year = date.getUTCFullYear();
+    const orderDate = {
+      day,
+      year,
+      month,
+    };
+    const phoneNumber = DDD + mobNumber;
+    const adress = `${streetAddress} ${city} ${state}`;
+    const orderProds = userProducts.map((item) => {
+      const product = {
+        uid: item.uid,
+        qnt: item.qnt,
+      };
+      return product;
+    });
+
+    const order = {
+      fullName,
+      phoneNumber,
+      adress,
+      pinCode,
+      email,
+      selectedOption,
+      userId: user.uid,
+      price: totalPrice,
+      products: orderProds,
+      date: orderDate,
+    };
+    addOrder(order).then(() => {
+      toast.success("Purchase done with success! Please, check your E-mail to track your order.");
+      clearBag(user.uid).then(() => {
+        toast.success("Your bag was cleard");
+        update({ products: false });
+      });
+    });
+
+    navigate("/");
+>>>>>>> 5a1d9892c2fd73b2d3c13f0621697ba84869d09b
   };
 
   const unavailable = () => {
@@ -283,12 +331,6 @@ export default function Checkout() {
                       userProducts.map((product) => (
                         <div key={product.uid} className="mapped-item">
                           <CartProduct showQnt data={product.data} largura={476} qnt={product.qnt} key={product.uid} itemId={product.uid} />
-                          {/* <img />
-                          <div className="mapped-data">
-                            <p className="body-medium-he">{product.data.name}</p>
-                            <p className="body-regular text-low-emphasis">{product.data.description}</p>
-                            <p className="body-regular text-low-emphasis">Qty - {product.qnt}</p>
-                          </div> */}
                         </div>
                       ))}
                   </div>
