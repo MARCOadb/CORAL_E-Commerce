@@ -35,6 +35,10 @@
     align-items: center;
     gap: 8px;
   }
+
+  img {
+    object-fit: cover;
+  }
 }
 
 .imgOutline {
@@ -64,6 +68,7 @@
   line-height: 16px;
   color: #171520;
 }
+
 .contact {
   font-weight: 500;
   line-height: 18px;
@@ -72,6 +77,7 @@
   flex-grow: 1;
   gap: 10px;
 }
+
 .subTitle {
   display: flex;
   margin: 12px 0px 4px 8px;

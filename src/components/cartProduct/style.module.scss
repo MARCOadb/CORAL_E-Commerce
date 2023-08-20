@@ -4,10 +4,11 @@
   gap: 16px;
   justify-content: space-between;
 }
+
 .detailsContainer {
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
+  gap: 8px;
   min-width: 216px;
 }
 
@@ -18,6 +19,7 @@
   align-items: flex-end;
   min-width: 54px;
 }
+
 .stepperContainer {
   display: flex;
   align-items: center;
@@ -25,6 +27,7 @@
   height: 30px;
   border-radius: 4px;
   border: 1px solid var(--primary, #1b4b66);
+
   input[type="number"] {
     width: 25px;
     height: auto;
@@ -32,4 +35,101 @@
     outline: none;
     text-align: center;
   }
+}
+
+.bagItem {
+  width: 100%;
+  border-radius: 8px;
+  background-color: #fff;
+  padding: 8px 8px 0 8px;
+  max-width: 600px;
+  margin: 0 auto;
+
+  img {
+    width: 96px;
+    height: 96px;
+  }
+}
+
+.itemContent {
+  width: 100%;
+  height: auto;
+  display: flex;
+  gap: 11px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid #0000001f;
+}
+
+.itemDetails {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  div {
+    display: flex;
+    gap: 6px;
+    align-items: center;
+  }
+
+  .qty {
+    width: 64px;
+    height: 28px;
+    background-color: #f4f4f4;
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    position: relative;
+
+    span {
+      position: absolute;
+      margin: 0 5px;
+      left: 0;
+    }
+
+    label {
+      position: absolute;
+      right: 3px;
+      display: flex;
+      justify-content: center;
+    }
+
+    select {
+      width: 64px;
+      height: 28px;
+      position: absolute;
+      right: 0;
+      background-color: transparent;
+      border-radius: 4px;
+      border: none;
+      outline: none;
+      appearance: none;
+      font-size: 12px;
+      font-weight: 700;
+      line-height: 18px;
+      padding-left: 34px;
+      z-index: 4;
+    }
+  }
+}
+
+.itemButtons {
+  width: 100%;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+
+  button {
+    width: 136px;
+    height: 100%;
+    border: none;
+    outline: none;
+    background-color: transparent;
+  }
+}
+
+.verticalSeparator {
+  width: 1px;
+  height: 24px;
+  background-color: #0000001f;
+  margin: 0 8px;
 }

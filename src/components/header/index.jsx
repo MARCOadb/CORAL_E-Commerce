@@ -149,7 +149,7 @@ const Header = ({ path }) => {
               <BagSvg
                 onClick={() => {
                   setOpen(true);
-                  update();
+                  update({ products: false });
                 }}
                 stroke={"#1B4B66"}
                 height={44}
@@ -164,7 +164,7 @@ const Header = ({ path }) => {
               <div onClick={() => setOpen(true)}>
                 <img src={menuIcon} alt="menuIcon" />
               </div>
-              <span>Home</span>
+              <span onClick={() => navigate('/')}>Home</span>
             </div>
             <div className="navContainer">
               <img src={addIcon} alt="addIcon" />

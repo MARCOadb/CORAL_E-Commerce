@@ -4,6 +4,7 @@ import useBreakpoint from "../../hooks/useBreakPoint";
 import { useContext, useEffect, useRef, useState } from "react";
 import { ref, getDownloadURL } from "firebase/storage";
 import { storage } from "../../services/firebaseConnection";
+import Ratings from "../../components/Ratings";
 
 import productPhoto from "../../assets/pics/Product/product-image.png"; //
 import pic2 from "../../assets/pics/Home/bolsa-remus.png"; //
@@ -24,6 +25,7 @@ import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import ChevronRightSvg from "../../assets/icon/ChevronRightSvg";
+import { toast } from "react-toastify";
 
 import styles from "./style.module.scss";
 import MobileLayout from "../../layouts/mobileLayout";
@@ -42,6 +44,7 @@ export default function ProductPage({ itemId, data, open, setOpen }) {
   const { allProducts, update, userWishlist } = useContext(BagContext);
   const { user } = useContext(AuthContext);
   const { phone, desktop } = useBreakpoint();
+  const [reviewModalOpen, setReviewModalOpen] = useState(false);
 
   const [activePic, setActivePic] = useState(0);
   const [activeTab, setActiveTab] = useState(1);
@@ -52,6 +55,9 @@ export default function ProductPage({ itemId, data, open, setOpen }) {
   const [dropdownHeight, setDropdownHeight] = useState();
 
   const dropdownRefHeight = useRef();
+
+  const [averageRatingsNumber, setAverageRatingsNumber] = useState(0);
+  const [reviewsNumber, setReviewsNumber] = useState(0);
 
   useEffect(() => {
     setDropdownOpen(true);
@@ -91,8 +97,6 @@ export default function ProductPage({ itemId, data, open, setOpen }) {
     setDropdownOpen(!dropdownOpen);
   }
 
-  //pra simular os produtos//
-
   const [loading, setLoading] = useState(false);
   const [product, setProduct] = useState(null);
   const [stepperQnt, setStepperQnt] = useState(1);
@@ -106,7 +110,7 @@ export default function ProductPage({ itemId, data, open, setOpen }) {
         .then((data) => setProduct(data))
         .finally(() => setLoading(false));
     }
-  }, []);
+  }, [location.pathname]);
 
   const setQnt = (e) => {
     e.preventDefault();
@@ -152,17 +156,47 @@ export default function ProductPage({ itemId, data, open, setOpen }) {
     }
   }, [userWishlist]);
 
+  const storageRef = ref(storage, `productsImg/${desktop ? product?.name : data?.name}`);
+
   useEffect(() => {
-    const getProductImage = async (name) => {
-      const storageRef = ref(storage, `productsImg/${name}`);
-      return await getDownloadURL(storageRef);
-    };
-    if (!!product) {
-      getProductImage(product.name).then((response) => {
-        setProductPic(response);
-      });
+    if (data?.name || product?.name) {
+      const getProductImage = async () => {
+        await getDownloadURL(storageRef).then((response) => {
+          setProductPic(response);
+        });
+      };
+      getProductImage();
     }
   }, [product]);
+
+  const [averageRatingsMobile, setAverageRatingsMobile] = useState();
+  const [reviewStars, setReviewStars] = useState([]);
+
+  useEffect(() => {
+    function getAverageRating() {
+      let reviewStarsList = [];
+      data.reviews.forEach((review) => {
+        reviewStarsList.push(review.reviewStars);
+      });
+      setReviewStars(reviewStarsList);
+    }
+    if (phone) {
+      getAverageRating();
+    }
+  }, [data]);
+
+  useEffect(() => {
+    let sum = 0;
+    if (reviewStars.length < 1) {
+      setAverageRatingsMobile("0.0");
+    } else {
+      for (let i = 0; i < reviewStars.length; i++) {
+        sum += reviewStars[i];
+      }
+      const media = Math.round((sum / reviewStars.length) * 2) / 2;
+      setAverageRatingsMobile(media % 1 === 0 ? `${media}.0` : media);
+    }
+  }, [reviewStars, data?.review]);
 
   return (
     <>
@@ -171,7 +205,7 @@ export default function ProductPage({ itemId, data, open, setOpen }) {
           icon="arrow"
           iconAngle={90}
           iconStroke="#13101E"
-          footerPrefix={<div style={{ display: "flex", alignItems: "center" }}>{<WishlistSvg fill={isWishlisted && "red"} onClick={addToWishlist} width={44} />}</div>}
+          footerPrefix={<div style={{ display: "flex", alignItems: "center" }}>{<WishlistSvg fill={isWishlisted && "red"} stroke={isWishlisted && "red"} onClick={addToWishlist} width={44} />}</div>}
           buttons={[{ text: "Add to Bag", outlined: false, onClick: addToBag, btnIcon: <BagSvg stroke="#fff" /> }]}
           open={open}
           setOpen={setOpen}
@@ -189,25 +223,25 @@ export default function ProductPage({ itemId, data, open, setOpen }) {
               </div>
               <div className={styles.productContent}>
                 <h1 className="text-high-emphasis body-medium" style={{ marginBottom: "4px" }}>
-                  Coach
+                  {data?.name}
                 </h1>
-                <span className="text-low-emphasis title-medium">Leather Coach Bag with adjustable starps.</span>
+                <span className="text-low-emphasis title-medium">{data?.description}</span>
 
                 <div className={styles.productPrice}>
-                  <h1 className="text-high-emphasis display-small">${data.price}</h1>
-                  <h2 className="text-light title-medium strike">${data.oldPrice}</h2>
-                  <h3 className="text-vibrant title-medium">{data.discount}%OFF</h3>
+                  <h1 className="text-high-emphasis display-small">${data?.price % 1 === 0 ? `${data?.price}.00` : data?.price}</h1>
+                  <h2 className="text-light title-medium strike">${data?.price % 1 === 0 ? `${data?.price * 2}.00` : data?.price}</h2>
+                  <h3 className="text-vibrant title-medium">50%OFF</h3>
                 </div>
 
                 <div className={styles.ratingsContainer}>
                   <div className={styles.mobRatingsStar}>
-                    <span>4.5</span>
+                    <span>{averageRatingsMobile}</span>
                     <StarSvg fill="#FF8C4B" stroke="#FF8C4B" width={20} height={20} />
                   </div>
 
                   <div className={styles.mobRatingsAmount}>
                     <span className="text-high-emphasis title-regular">Average Rating</span>
-                    <span className="text-low-emphasis title-medium">43 Ratings & {data.reviews.length} Reviews</span>
+                    <span className="text-low-emphasis title-medium">{data.reviews.length} Reviews</span>
                   </div>
                 </div>
 
@@ -267,10 +301,7 @@ export default function ProductPage({ itemId, data, open, setOpen }) {
                 <ArrowSvg onClick={toggleDropdownState} x={dropdownOpen && 180} />
               </div>
               <div className={`${styles.dropdownContent} ${dropdownOpen && styles.dropdownOpen}`} ref={dropdownRefHeight} style={{ height: dropdownOpen ? `${dropdownHeight}` : "0px" }}>
-                <p className="text-low-emphasis title-medium">
-                  Experience comfortable and easy travelling like never before with this coach bag. It features a zip closure, removable straps and multiple organization compartments to keep your
-                  valuables safe. Crafted from premium material, it is durable and lasts long.
-                </p>
+                <p className="text-low-emphasis title-medium">{data?.description}</p>
               </div>
             </div>
 
@@ -278,8 +309,10 @@ export default function ProductPage({ itemId, data, open, setOpen }) {
 
             <div className={styles.ratingsTitle}>
               <h1 className="type-high-emphasis title-regular">Ratings and Reviews</h1>
-              <ArrowSvg onClick={() => alert("abrir pagina de reviews")} x={270} />
+              <ArrowSvg onClick={() => setReviewModalOpen(true)} x={270} />
             </div>
+
+            {reviewModalOpen && <Ratings setRatingsOpen={setReviewModalOpen} itemId={itemId} setReviewsNumber={setReviewsNumber} product={data} setAverageRatingsNumber={setAverageRatingsNumber} />}
 
             <div className={styles.seperator}></div>
 
@@ -308,7 +341,9 @@ export default function ProductPage({ itemId, data, open, setOpen }) {
         <>
           <Header />
           <div className={styles.content}>
-            <Breadcrump />
+            <div className={styles.breadCrump}>
+              <Breadcrump />
+            </div>
             <div className={styles.product}>
               <div className={styles.productImages}>
                 <img src={productImages[activePic]} alt="Product Image" className={styles.imageBig} />
@@ -328,19 +363,19 @@ export default function ProductPage({ itemId, data, open, setOpen }) {
 
                 <div className={styles.ratingsContainer}>
                   <div style={{ display: "flex", gap: "8px" }}>
-                    <StarSvg fill="#FF8C4B" stroke="#FF8C4B" />
-                    <StarSvg fill="#FF8C4B" stroke="#FF8C4B" />
-                    <StarSvg fill="#FF8C4B" stroke="#FF8C4B" />
-                    <StarSvg fill="#FF8C4B" stroke="#FF8C4B" />
-                    <StarSvg fill="#B6B6B6" stroke="#B6B6B6" />
+                    <StarSvg fill={Math.floor(parseFloat(averageRatingsNumber)) >= 1 ? "#FF8C4B" : "#B6B6B6"} stroke={Math.floor(parseFloat(averageRatingsNumber)) >= 1 ? "#FF8C4B" : "#B6B6B6"} />
+                    <StarSvg fill={Math.floor(parseFloat(averageRatingsNumber)) >= 2 ? "#FF8C4B" : "#B6B6B6"} stroke={Math.floor(parseFloat(averageRatingsNumber)) >= 2 ? "#FF8C4B" : "#B6B6B6"} />
+                    <StarSvg fill={Math.floor(parseFloat(averageRatingsNumber)) >= 3 ? "#FF8C4B" : "#B6B6B6"} stroke={Math.floor(parseFloat(averageRatingsNumber)) >= 3 ? "#FF8C4B" : "#B6B6B6"} />
+                    <StarSvg fill={Math.floor(parseFloat(averageRatingsNumber)) >= 4 ? "#FF8C4B" : "#B6B6B6"} stroke={Math.floor(parseFloat(averageRatingsNumber)) >= 4 ? "#FF8C4B" : "#B6B6B6"} />
+                    <StarSvg fill={Math.floor(parseFloat(averageRatingsNumber)) === 5 ? "#FF8C4B" : "#B6B6B6"} stroke={Math.floor(parseFloat(averageRatingsNumber)) === 5 ? "#FF8C4B" : "#B6B6B6"} />
                   </div>
-                  <span className="text-light title-medium ">({product?.reviews?.length}) Ratings</span>
+                  <span className="text-light title-medium ">({reviewsNumber}) Ratings</span>
                 </div>
 
                 <div className={styles.productPrice}>
-                  <h1 className="text-high-emphasis display-large">{product?.price}$</h1>
-                  <h2 className="text-light display-medium strike">{product?.oldPrice}$</h2>
-                  <h3 className="text-vibrant display-small">{product?.discount}</h3>
+                  <h1 className="text-high-emphasis display-large">${product?.price % 1 === 0 ? `${product?.price}.00` : product?.price}</h1>
+                  <h2 className="text-light display-medium strike">${(product?.price * 2) % 1 === 0 ? `${product?.price * 2}.00` : product?.price * 2}</h2>
+                  <h3 className="text-vibrant display-small">50% OFF</h3>
                 </div>
 
                 <span className={styles.seperator}></span>
@@ -430,7 +465,7 @@ export default function ProductPage({ itemId, data, open, setOpen }) {
                 </div>
 
                 <div className={`${styles.tabsContent} ${activeTab === 3 && styles.tabsContentActive}`}>
-                  <p className="text-low-emphasis body-medium">Reviews</p>
+                  <Ratings product={product} itemId={location.state.itemId} setReviewsNumber={setReviewsNumber} setAverageRatingsNumber={setAverageRatingsNumber} />
                 </div>
               </div>
             </div>

@@ -3,6 +3,7 @@ import { getBag } from "../services/getBag";
 import getAllProducts from "../services/getAllProducts";
 import { AuthContext } from "./AuthContext";
 import { getWishlist } from "../services/getWishlist";
+import { getOrders } from "../services/getOrders";
 
 export const BagContext = createContext();
 
@@ -10,6 +11,7 @@ export const BagProvider = ({ children }) => {
   const { user } = useContext(AuthContext);
   const [userProducts, setUserProducts] = useState(null);
   const [userWishlist, setUserWishlist] = useState(null);
+  const [userOrders, setUserOrders] = useState(null);
   const [allProducts, setAllProducts] = useState(null);
   const [subTotal, setSubTotal] = useState(null);
   const [taxPrice, setTaxPrice] = useState(null);
@@ -44,6 +46,9 @@ export const BagProvider = ({ children }) => {
             const wishlistFiltrada = data.filter((item) => !!userWish?.find((wishItem) => item.uid === wishItem));
             setUserWishlist(wishlistFiltrada);
           });
+          getOrders(user.uid).then((userOrders) => {
+            setUserOrders(userOrders);
+          });
           if (products) setAllProducts(data);
         })
         .finally(() => setLoading(false));
@@ -54,5 +59,5 @@ export const BagProvider = ({ children }) => {
       update({ products: true });
     }
   }, [user]);
-  return <BagContext.Provider value={{ allProducts, userWishlist, userProducts, taxPrice, subTotal, totalPrice, loading, update }}>{children}</BagContext.Provider>;
+  return <BagContext.Provider value={{ allProducts, userOrders, userWishlist, userProducts, taxPrice, subTotal, totalPrice, loading, update }}>{children}</BagContext.Provider>;
 };

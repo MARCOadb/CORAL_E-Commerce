@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useEffect, useMemo, useState } from "react";
 import useBreakpoint from "../../hooks/useBreakPoint";
 
 import "./style.scss";
@@ -9,14 +9,38 @@ import ListIcon from "../../assets/icon/format-list.svg";
 import getAllProducts from "../../services/getAllProducts";
 import Product from "../product";
 import { BagContext } from "../../contexts/BagContext";
+import BottomModal from "../bottomModal";
+import { useLocation } from "react-router-dom";
 
-const ProductGrid = ({ categoryId, productConfig }) => {
-  const { phone, desktop } = useBreakpoint();
+const ProductGrid = ({ filterConfig, categoryId, productConfig }) => {
+  const location = useLocation();
   const { allProducts } = useContext(BagContext);
-  const [toShow, setToShow] = useState("9");
+  const { phone, desktop } = useBreakpoint();
+  const [toShow, setToShow] = useState(9);
   const handleToShow = (e) => {
     setToShow(e.target.value);
   };
+  const [sort, setSort] = useState(null);
+  const handleSelect = (e) => {
+    setSort(e.target.value);
+  };
+
+  const produtosFiltrados = useMemo(() => {
+    if ((allProducts?.length > 0 && categoryId?.id) || location.state?.brand) {
+      const filtrados = allProducts
+        ?.filter(
+          (item) =>
+            (!categoryId?.id || item.data.categoryId == categoryId?.id || item.data.brand === location.state?.brand) &&
+            (!filterConfig.selectedColor || item.data.color === filterConfig.selectedColor) &&
+            (!filterConfig.selectedBrand || item.data.brand === filterConfig.selectedBrand) &&
+            (!filterConfig.selectedPrice || item.data.price <= filterConfig.selectedPrice)
+        )
+        .filter((item, index) => !desktop || index < toShow);
+      if ((sort || filterConfig.sort) === "Lowest price") filtrados.sort((a, b) => a.data.price - b.data.price);
+      else if ((sort || filterConfig.sort) === "Highest price") filtrados.sort((a, b) => b.data.price - a.data.price);
+      return filtrados;
+    } else return console.log("Allproducts ta vazio");
+  }, [filterConfig, allProducts, toShow, sort]);
 
   const [currentFormat, setCurrentFormat] = useState(GridIcon);
   const [gridClass, setGridClass] = useState("grid");
@@ -46,9 +70,8 @@ const ProductGrid = ({ categoryId, productConfig }) => {
                     <img src={currentFormat} />
                   </button>
                   <p className="body-medium-he">
-                    Showing {productsAmount} of {productsAmount} items
+                    Showing {produtosFiltrados?.length} of {toShow} items
                   </p>
-                  {/* PRODUCTS.LENGTH IRA MOSTRAR TODOS OS PRODUTOS, NAO SOMENTE OS DA CATEGORIA */}
                 </div>
                 <div className="sorting-options">
                   <div className="to-show">
@@ -57,7 +80,7 @@ const ProductGrid = ({ categoryId, productConfig }) => {
                   </div>
                   <div className="sort-by">
                     <p className="body-medium-he">Sort by</p>
-                    <select id="sort-by-options" className="body-medium-he">
+                    <select id="sort-by-options" className="body-medium-he" onChange={handleSelect}>
                       <option value="Position">Position</option>
                       <option value="Best reviews">Best reviews</option>
                       <option value="Most sold">Most sold</option>
@@ -70,24 +93,21 @@ const ProductGrid = ({ categoryId, productConfig }) => {
               <div className={gridClass}>
                 <>
                   <>
-                    {allProducts?.map((item) => {
-                      if (item.data?.categoryId && categoryId?.id && item.data?.categoryId === categoryId.id.toString())
-                        return (
-                          <Product
-                            largura={286}
-                            altura={286}
-                            ratings
-                            discount={50}
-                            oldprice={item.data?.price * 2}
-                            label
-                            data={item.data}
-                            key={item.uid}
-                            itemId={item.uid}
-                            sort={gridClass === "list" && true}
-                            button={gridClass === "list" && true}
-                          />
-                        );
-                    })}
+                    {produtosFiltrados?.map((item, index) => (
+                      <Product
+                        largura={286}
+                        altura={286}
+                        ratings
+                        discount={50}
+                        oldprice={item.data?.price * 2}
+                        label
+                        data={item.data}
+                        key={item.uid}
+                        itemId={item.uid}
+                        sort={gridClass === "list" && true}
+                        button={gridClass === "list" && true}
+                      />
+                    ))}
                   </>
                 </>
               </div>
@@ -95,29 +115,29 @@ const ProductGrid = ({ categoryId, productConfig }) => {
           </>
         ) : (
           <>
+            <BottomModal></BottomModal>
             <div className="container-grid-mobile">
               <p className="title-regular text-low-emphasis">
-                {productsAmount}
+                {produtosFiltrados?.length}
                 {" Product(s)"}
               </p>
               <div className="grid-mobile">
                 <>
-                  {allProducts?.map((item) => {
-                    if (item.data?.categoryId && categoryId?.id && item.data?.categoryId === categoryId.id.toString())
-                      return (
-                        <Product
-                          altura={156}
-                          largura={150}
-                          data={item.data}
-                          discount={50}
-                          oldprice={item.data?.price * 2}
-                          key={item.uid}
-                          itemId={item.uid}
-                          productConfig={productConfig}
-                          button
-                          sort={gridClass === "list" && true}
-                        />
-                      );
+                  {produtosFiltrados?.map((item) => {
+                    return (
+                      <Product
+                        largura={false}
+                        altura={false}
+                        data={item.data}
+                        discount={50}
+                        oldprice={item.data?.price * 2}
+                        key={item.uid}
+                        itemId={item.uid}
+                        productConfig={productConfig}
+                        button
+                        sort={gridClass === "list" && true}
+                      />
+                    );
                   })}
                 </>
               </div>

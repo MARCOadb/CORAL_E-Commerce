@@ -42,12 +42,14 @@ import "./style.scss";
 import Product from "../../components/product";
 import getAllProducts from "../../services/getAllProducts";
 import { BagContext } from "../../contexts/BagContext";
+import { useLocation, useNavigate } from "react-router-dom";
 
 export default function Home() {
   const { phone, desktop } = useBreakpoint();
   const [windowSize, setWindowSize] = useState(window.innerWidth);
   const { allProducts } = useContext(BagContext);
-
+  const navigate = useNavigate();
+  const location = useLocation();
   useEffect(() => {
     const handleResize = () => {
       setWindowSize(window.innerWidth);
@@ -60,6 +62,38 @@ export default function Home() {
     };
   }, []);
 
+  const handleCategory = (category) => {
+    if (desktop) {
+      navigate(`/${location.state?.path ? location.state?.path : "home"}/${category}`, {
+        state: {
+          path: location.state?.path ? location.state?.path : "home",
+          category,
+        },
+      });
+    } else {
+      navigate(`/categories`, {
+        state: {
+          category,
+        },
+      });
+    }
+  };
+  const handleBrands = (brand) => {
+    if (desktop) {
+      navigate(`/${location.state?.path ? location.state?.path : "home"}/${brand}`, {
+        state: {
+          path: location.state?.path ? location.state?.path : "home",
+          brand,
+        },
+      });
+    } else {
+      navigate(`/categories`, {
+        state: {
+          brand,
+        },
+      });
+    }
+  };
   return (
     <>
       <Header path={"home"} />
@@ -79,46 +113,46 @@ export default function Home() {
           <div className="categories-container">
             <h1>Top Categories</h1>
             <div className="categories">
-              <div className="category">
+              <div className="category" onClick={() => handleCategory("Skincare")}>
                 <div>
                   <img src={skincare} />
                 </div>
                 <span>Skincare</span>
               </div>
 
-              <div className="category">
+              <div className="category" onClick={() => handleCategory("Jewllery")}>
                 <div>
                   <img src={jewllery} />
                 </div>
                 <span>Jewllery</span>
               </div>
 
-              <div className="category">
+              <div className="category" onClick={() => handleCategory("Handbags")}>
                 <div>
                   <img src={handbags} />
                 </div>
                 <span>Handbags</span>
               </div>
 
-              <div className="category">
+              <div className="category" onClick={() => handleCategory("Watches")}>
                 <div>
                   <img src={watchIcon} />
                 </div>
                 <span>Watches</span>
               </div>
 
-              <div className="category">
+              <div className="category" onClick={() => handleCategory("Eyewear")}>
                 <div>
                   <img src={skincare} />
                 </div>
                 <span>Eyewear</span>
               </div>
 
-              <div className="category">
+              <div className="category" onClick={() => handleCategory("Jewellery")}>
                 <div>
                   <img src={jewllery} />
                 </div>
-                <span>Jewllery</span>
+                <span>Jewellery</span>
               </div>
             </div>
           </div>
@@ -135,7 +169,7 @@ export default function Home() {
 
           <div className="arrivals-carousel">
             {allProducts?.map((item) => (
-              <Product button largura={desktop ? 286 : 136} altura={desktop ? 286 : 136} data={item.data} label key={item.uid} itemId={item.uid} />
+              <Product largura={desktop ? 286 : 136} altura={desktop ? 286 : 136} data={item.data} label key={item.uid} itemId={item.uid} />
             ))}
           </div>
         </div>
@@ -145,28 +179,28 @@ export default function Home() {
             <div className="collections">
               <h1>Handpicked Collections</h1>
               <div className="collection">
-                <div className="collection-item">
+                <div className="collection-item" onClick={() => handleCategory("Skincare")}>
                   <img src={perfume} alt="Category Cover" />
                   <div className="shadow"></div>
                   <span>Personal Care</span>
                 </div>
 
-                <div className="collection-item">
+                <div className="collection-item" onClick={() => handleCategory("Handbags")}>
                   <img src={pinkBag} alt="Category Cover" />
                   <div className="shadow"></div>
                   <span>Handbags</span>
                 </div>
 
-                <div className="collection-item">
+                <div className="collection-item" onClick={() => handleCategory("Watches")}>
                   <img src={watch} alt="Category Cover" />
                   <div className="shadow"></div>
-                  <span>Wrist Watches</span>
+                  <span>Watches</span>
                 </div>
 
-                <div className="collection-item">
+                <div className="collection-item" onClick={() => handleCategory("Eyewear")}>
                   <img src={glasses} alt="Category Cover" />
                   <div className="shadow"></div>
-                  <span>Sun Glasses</span>
+                  <span>Eyewear</span>
                 </div>
               </div>
             </div>
@@ -174,32 +208,25 @@ export default function Home() {
             <div className="collections">
               <h1>Handpicked Collections</h1>
               <div className="collection">
-                <div className="collection-line">
-                  <div className="collection-item">
-                    <img src={perfume} alt="Category Cover" />
-                    <div className="shadow"></div>
-                    <span>Personal Care</span>
-                  </div>
-
-                  <div className="collection-item">
-                    <img src={pinkBag} alt="Category Cover" />
-                    <div className="shadow"></div>
-                    <span>Handbags</span>
-                  </div>
+                <div className="collection-item" onClick={() => handleCategory("Skincare")}>
+                  <img src={perfume} alt="Category Cover" />
+                  <div className="shadow"></div>
+                  <span>Personal Care</span>
                 </div>
-
-                <div className="collection-line">
-                  <div className="collection-item">
-                    <img src={watch} alt="Category Cover" />
-                    <div className="shadow"></div>
-                    <span>Wrist Watches</span>
-                  </div>
-
-                  <div className="collection-item">
-                    <img src={glasses} alt="Category Cover" />
-                    <div className="shadow"></div>
-                    <span>Sun Glasses</span>
-                  </div>
+                <div className="collection-item" onClick={() => handleCategory("Handbags")}>
+                  <img src={pinkBag} alt="Category Cover" />
+                  <div className="shadow"></div>
+                  <span>Handbags</span>
+                </div>
+                <div className="collection-item" onClick={() => handleCategory("Watches")}>
+                  <img src={watch} alt="Category Cover" />
+                  <div className="shadow"></div>
+                  <span>Wrist Watches</span>
+                </div>
+                <div className="collection-item" onClick={() => handleCategory("Eyewear")}>
+                  <img src={glasses} alt="Category Cover" />
+                  <div className="shadow"></div>
+                  <span>Sun Glasses</span>
                 </div>
               </div>
             </div>
@@ -219,30 +246,14 @@ export default function Home() {
             </button>
           </div>
 
-          {desktop ? (
-            <div className="brands">
-              <img src={zara} alt="Zara logo" />
-              <img src={dg} alt="D&G logo" />
-              <img src={hm} alt="H&M logo" />
-              <img src={chanel} alt="Chanel logo" />
-              <img src={prada} alt="Prada logo" />
-              <img src={biba} alt="Biba logo" />
-            </div>
-          ) : (
-            <div className="brands">
-              <div className="brand-line">
-                <img src={zara} alt="Zara logo" />
-                <img src={dg} alt="D&G logo" />
-                <img src={hm} alt="H&M logo" />
-              </div>
-
-              <div className="brand-line">
-                <img src={chanel} alt="Chanel logo" />
-                <img src={prada} alt="Prada logo" />
-                <img src={biba} alt="Biba logo" />
-              </div>
-            </div>
-          )}
+          <div className="brands">
+            <img onClick={() => handleBrands("Zara")} src={zara} alt="Zara logo" />
+            <img onClick={() => handleBrands("D&G")} src={dg} alt="D&G logo" />
+            <img onClick={() => handleBrands("H&M")} src={hm} alt="H&M logo" />
+            <img onClick={() => handleBrands("Chanel")} src={chanel} alt="Chanel logo" />
+            <img onClick={() => handleBrands("Prada")} src={prada} alt="Prada logo" />
+            <img onClick={() => handleBrands("Biba")} src={biba} alt="Biba logo" />
+          </div>
         </div>
 
         {windowSize <= 600 && (
@@ -269,7 +280,7 @@ export default function Home() {
           </div>
         )}
       </div>
-      <Footer />
+      <Footer spacer={true} />
       {phone && <NavBarMobile />}
     </>
   );
