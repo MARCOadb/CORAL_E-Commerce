@@ -77,7 +77,7 @@ const MyCart = () => {
                       <CartProduct price showQnt data={item.data} largura={476} qnt={item.qnt} key={item.uid} itemId={item.uid} />
                       <div className={styles.itemsmap}>
                         <span className="label-large text-high-emphasis">{item.qnt}</span>
-                        <span className="label-large text-high-emphasis">${item.data?.price % 1 === 0 ? `${item.data?.price}.00` : item.data?.price}</span>
+                        <span className="label-large text-high-emphasis">${item.data?.price * item.qnt % 1 === 0 ? `${item.data?.price * item.qnt}.00` : item.data?.price * item.qnt}</span>
                       </div>
                     </div>
                     <div className={styles.txtcontainer}>

@@ -2,12 +2,35 @@ import "./style.scss";
 import location from "../../assets/icon/location.svg";
 import logos from "../../assets/icon/logos.svg";
 import useBreakpoint from "../../hooks/useBreakPoint";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Dropdown from "../dropdown";
+import { useNavigate, useLocation } from "react-router-dom";
 
 const Footer = ({ spacer }) => {
   const { phone, desktop } = useBreakpoint();
   const [footer, setFooter] = useState(false);
+  const [pathCheck, setPathCheck] = useState("home")
+
+  const navigate = useNavigate()
+  const locationUse = useLocation();
+
+  const handleCategoryClick = (category) => {
+    if (desktop) {
+      navigate(`/home/${category}`, {
+        state: {
+          path: pathCheck,
+          category: category,
+        },
+      });
+    } else {
+      navigate('/categories', {
+        state: {
+          categoryOpen: true,
+          categoryName: category
+        },
+      });
+    }
+  };
 
   const mobileContent = (
     <>
@@ -17,29 +40,29 @@ const Footer = ({ spacer }) => {
         <div class="listcontainer">
           <div class="lista">
             <span>Shop by Category</span>
-            <a href="#">Skincare</a>
-            <a href="#">Personal Care</a>
-            <a href="#">Handbags</a>
-            <a href="#">Apparels</a>
-            <a href="#">Watches</a>
-            <a href="#">Eye Wear</a>
-            <a href="#">Jewellery</a>
+            <p onClick={() => handleCategoryClick("Skincare")}>Skincare</p>
+            <p onClick={() => handleCategoryClick("Fragrances")}>Fragrances</p>
+            <p onClick={() => handleCategoryClick("Handbags")}>Handbags</p>
+            <p onClick={() => handleCategoryClick("Apparels")}>Fragrances</p>
+            <p onClick={() => handleCategoryClick("Watches")}>Watches</p>
+            <p onClick={() => handleCategoryClick("Eyewear")}>Eye Wear</p>
+            <p onClick={() => handleCategoryClick("Jewellery")}>Jewellery</p>
           </div>
           <div class="lista">
             <span>About</span>
-            <a href="#">Contact Us</a>
-            <a href="#">About Us</a>
-            <a href="#">Careers</a>
-            <a href="#">Press</a>
+            <p>Contact Us</p>
+            <p onClick={() => navigate('/about')}>About Us</p>
+            <p>Careers</p>
+            <p>Press</p>
           </div>
           <div class="lista">
             <span>Policy</span>
-            <a href="#">Return Policy</a>
-            <a href="#">Terms of Use</a>
-            <a href="#">Sitemap</a>
-            <a href="#">Security</a>
-            <a href="#">Privacy</a>
-            <a href="#">EPR Compliance</a>
+            <p>Return Policy</p>
+            <p>Terms of Use</p>
+            <p>Sitemap</p>
+            <p>Security</p>
+            <p>Privacy</p>
+            <p>EPR Compliance</p>
           </div>
           <div className="linha"></div>
           <div class="box">
@@ -65,31 +88,31 @@ const Footer = ({ spacer }) => {
                 <div className="listcontainer">
                   <div className="lista">
                     <span>Shop by Category</span>
-                    <a href="#">Skincare</a>
-                    <a href="#">Personal Care</a>
-                    <a href="#">Handbags</a>
-                    <a href="#">Apparels</a>
-                    <a href="#">Watches</a>
-                    <a href="#">Eye Wear</a>
-                    <a href="#">Jewellery</a>
+                    <p onClick={() => handleCategoryClick("Skincare")}>Skincare</p>
+                    <p onClick={() => handleCategoryClick("Fragrances")}>Fragrances</p>
+                    <p onClick={() => handleCategoryClick("Handbags")}>Handbags</p>
+                    <p onClick={() => handleCategoryClick("Apparels")}>Apparels</p>
+                    <p onClick={() => handleCategoryClick("Watches")}>Watches</p>
+                    <p onClick={() => handleCategoryClick("Eyewear")}>Eye Wear</p>
+                    <p onClick={() => handleCategoryClick("Jewellery")}>Jewellery</p>
                   </div>
                   {desktop ? (
                     <>
                       <div className="lista">
                         <span>About</span>
-                        <a href="#">Contact Us</a>
-                        <a href="#">About Us</a>
-                        <a href="#">Careers</a>
-                        <a href="#">Press</a>
+                        <p>Contact Us</p>
+                        <p onClick={() => navigate('/about')}>About Us</p>
+                        <p>Careers</p>
+                        <p>Press</p>
                       </div>
                       <div className="lista">
                         <span>Policy</span>
-                        <a href="#">Return Policy</a>
-                        <a href="#">Terms of Use</a>
-                        <a href="#">Sitemap</a>
-                        <a href="#">Security</a>
-                        <a href="#">Privacy</a>
-                        <a href="#">EPR Compliance</a>
+                        <p>Return Policy</p>
+                        <p>Terms of Use</p>
+                        <p>Sitemap</p>
+                        <p>Security</p>
+                        <p>Privacy</p>
+                        <p>EPR Compliance</p>
                       </div>
                     </>
                   ) : (
@@ -97,21 +120,21 @@ const Footer = ({ spacer }) => {
                       <div className="lista">
                         <span>Policy</span>
                         <span>
-                          <a href="#">Return Policy |</a>
-                          <a href="#"> Terms of Use |</a>
-                          <a href="#"> Sitemap |</a>
-                          <a href="#"> Security |</a>
-                          <a href="#"> Privacy |</a>
-                          <a href="#"> EPR Compliance</a>
+                          <p>Return Policy |</p>
+                          <p> Terms of Use |</p>
+                          <p> Sitemap |</p>
+                          <p> Security |</p>
+                          <p> Privacy |</p>
+                          <p> EPR Compliance</p>
                         </span>
                       </div>
                       <div className="lista">
                         <span>About</span>
                         <span>
-                          <a href="#">Contact Us |</a>
-                          <a href="#"> About Us |</a>
-                          <a href="#"> Careers |</a>
-                          <a href="#"> Press</a>
+                          <p>Contact Us |</p>
+                          <p onClick={() => navigate('/about')}> About Us |</p>
+                          <p> Careers |</p>
+                          <p> Press</p>
                         </span>
                       </div>
                       <div className="linha"></div>
