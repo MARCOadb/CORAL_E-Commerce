@@ -82,6 +82,7 @@
     flex-shrink: 0;
   }
 }
+
 .txtContainer {
   height: 100%;
   padding: 7px 0;
@@ -99,7 +100,7 @@
 
   @include desktop {
     margin: 0;
-    width: 286px;
+    width: 271px;
     border-radius: 8px;
     background-color: #f1f1f1;
     padding: 0 7px 0 8px;

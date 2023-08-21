@@ -26,6 +26,7 @@ const MyOrders = () => {
         return {
           data,
           qnt: item.qnt,
+          id: item.uid,
         };
       });
       Promise.all(complexProducts)
@@ -130,7 +131,7 @@ const MyOrders = () => {
               {orderProds &&
                 orderProds.map((item) => (
                   <div style={desktop ? { display: "flex", paddingLeft: "10px" } : { display: "flex" }}>
-                    <CartProduct imgDimetion={"120px"} noTxt={phone} showQnt={phone} bagBtn={phone} qnt={phone && item.qnt} noBtn={phone} textBold data={item.data} price />
+                    <CartProduct imgDimetion={"120px"} noTxt={phone} showQnt={phone} bagBtn={phone} qnt={phone && item.qnt} noBtn={phone} textBold itemId={item.id} data={item.data} price />
                     {desktop && (
                       <div className={styles.orderDetails} style={{ minWidth: "140px", marginLeft: "40px", paddingRight: "10px" }}>
                         <span>{item.qnt}</span>

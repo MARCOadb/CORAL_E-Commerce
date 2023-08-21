@@ -1,0 +1,285 @@
+@mixin phone {
+    @media (max-width: 1279px) {
+        @content;
+    }
+}
+
+@mixin desktop {
+    @media (min-width: 1280px) {
+        @content;
+    }
+}
+
+.profilepage {
+    width: 100%;
+    max-width: 874px;
+    height: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 37px;
+}
+
+.separator {
+    width: 100%;
+    height: 1px;
+    background: #0000001F;
+    margin: 8px 0 0 0;
+}
+
+.photosection {
+    display: flex;
+    height: 80px;
+    align-items: end;
+
+    div {
+        margin-left: 16px;
+        display: flex;
+        align-items: center;
+        height: 44px;
+        gap: 16px;
+    }
+
+    input[type="file"] {
+        opacity: 0%;
+        height: 26px;
+        width: 134px;
+        position: relative;
+        top: -21px;
+        left: -39px;
+    }
+
+    label {
+        background-color: #1B4B66;
+        color: #FFF;
+        text-align: center;
+        display: block;
+        cursor: pointer;
+        height: 38px;
+        width: 136px;
+        border-radius: 8px;
+        line-height: 38px;
+        transition: all 0.3s;
+
+        &:hover {
+            background-color: #173f57;
+            transform: scale(1.04);
+        }
+    }
+
+    img {
+        width: 80px;
+        height: 80px;
+        border-radius: 50%;
+        object-fit: cover;
+    }
+
+    @include phone {
+        height: auto;
+        width: 100%;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        margin-top: 16px;
+
+        img {
+            width: 150px;
+            height: 150px;
+        }
+
+        div {
+            margin-top: 16px;
+        }
+    }
+}
+
+.nameContainer {
+    display: flex;
+    width: 100%;
+    gap: 33px;
+    max-width: 605px;
+
+    @include phone {
+        flex-direction: column;
+        gap: 8px;
+    }
+}
+
+.inputContainer {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    gap: 8px;
+    position: relative;
+
+    input {
+        width: 100%;
+        height: 56px;
+        background-color: #f1f1f1;
+        border: none;
+        outline: none;
+        border-radius: 4px;
+        padding-left: 16px;
+        transition: all 0.3s;
+
+        &:focus {
+            box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.15);
+        }
+    }
+
+    svg {
+        top: 47px;
+        right: 12px;
+        position: absolute;
+        color: #1B4B66;
+        cursor: pointer;
+    }
+}
+
+.dateContainer {
+    width: 304px;
+    position: relative;
+
+    svg {
+        pointer-events: none;
+        top: 15px;
+    }
+
+    input[type="date"]::-webkit-calendar-picker-indicator {
+        height: 56px;
+        width: 56px;
+        opacity: 0;
+        cursor: pointer;
+    }
+
+    @include phone {
+        width: 100%;
+    }
+}
+
+.formFields {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+
+    @include phone {
+        padding: 0 16px;
+        gap: 8px;
+    }
+}
+
+.profileinput {
+    display: flex;
+    width: 136px;
+    padding: 10px 8px;
+    gap: 8px;
+}
+
+.form {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    width: 100%;
+
+    @include phone {
+        width: 100%;
+        max-width: 550px;
+        margin: 0 auto;
+    }
+}
+
+.profileinput[type="file"] {
+    cursor: pointer;
+}
+
+.profileinput[type="file"]::file-selector-button {
+    padding: 8px;
+    border: none;
+    background-color: #3498db;
+    color: #fff;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.deletebutton {
+    display: flex;
+    width: 136px;
+    height: 44px;
+    padding: 10px 8px;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
+    border-radius: 8px;
+    border: 2px solid #B00020;
+    background-color: transparent;
+    color: #B00020;
+    transition: all 0.3s;
+
+    &:hover {
+        background-color: #ffe6e6;
+        transform: scale(1.04);
+    }
+}
+
+.passwordsection {
+    margin-top: 48px;
+
+    @include phone {
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+        margin-top: 24px;
+        margin-bottom: 82px;
+    }
+}
+
+.submitbutton {
+    display: flex;
+    width: 136px;
+    padding: 8px;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
+    border-radius: 8px;
+    background-color: #1B4B66;
+    color: #fff;
+    border: none;
+    outline: none;
+    height: 36px;
+    transition: all 0.3s;
+
+    @include phone {
+        width: 100%;
+        height: 44px;
+        border: none;
+        outline: none;
+    }
+
+    &:hover {
+        background-color: #173f57;
+        transform: scale(1.04);
+    }
+}
+
+.buttonContainer {
+    width: 100%;
+    height: 66px;
+    padding: 0 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: fixed;
+    bottom: 0;
+    background-color: #fff;
+    max-width: 550px;
+    margin: 0 auto;
+
+    @include desktop {
+        position: relative;
+        width: 100%;
+        display: flex;
+        align-items: end;
+        justify-content: end;
+        max-width: 100%;
+        padding: 0;
+    }
+}
