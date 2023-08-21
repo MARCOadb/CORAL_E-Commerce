@@ -69,10 +69,10 @@ Contact the group so we can improve the project.
 
 ## Know the authors!
 
-[Vinícius Alexandre Lucas](https://www.linkedin.com/in/vin%C3%ADcius-alexandre-lucas/){:target="_blank"}
+[Vinícius Alexandre Lucas](https://www.linkedin.com/in/vin%C3%ADcius-alexandre-lucas/)
 <br/>
-[Marco Aurélio Batista](https://www.linkedin.com/in/marco-aurélio-batista-900399236/){:target="_blank"}
+[Marco Aurélio Batista](https://www.linkedin.com/in/marco-aurélio-batista-900399236/)
 <br/>
-[Vicente Bewwanger Pawlak](https://www.linkedin.com/in/vicente-berwanger-pawlak-a6740422b/){:target="_blank"}
+[Vicente Bewwanger Pawlak](https://www.linkedin.com/in/vicente-berwanger-pawlak-a6740422b/)
 <br/>
-[Lucas Melo](https://www.linkedin.com/in/lucas-melo-098656288/){:target="_blank"}
+[Lucas Melo](https://www.linkedin.com/in/lucas-melo-098656288/)
