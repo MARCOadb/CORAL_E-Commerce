@@ -59,6 +59,8 @@ export default function ProductPage({ itemId, data, open, setOpen }) {
   const [averageRatingsNumber, setAverageRatingsNumber] = useState(0);
   const [reviewsNumber, setReviewsNumber] = useState(0);
 
+  const [categoryProducts, setCategoryProducts] = useState()
+
   useEffect(() => {
     setDropdownOpen(true);
   }, []);
@@ -136,6 +138,7 @@ export default function ProductPage({ itemId, data, open, setOpen }) {
           .finally(() => setLoading(false));
       }
       update({ products: false });
+      toast.success('Item Added to Bag')
     } else alert("Voce precisa estar logado para fazer isso");
   };
   const addToWishlist = () => {
@@ -197,6 +200,11 @@ export default function ProductPage({ itemId, data, open, setOpen }) {
       setAverageRatingsMobile(media % 1 === 0 ? `${media}.0` : media);
     }
   }, [reviewStars, data?.review]);
+
+  useEffect(() => {
+    const result = allProducts?.filter((prod) => prod?.data?.categoryId === product?.categoryId)
+    setCategoryProducts(result)
+  }, [allProducts, product])
 
   return (
     <>
@@ -459,7 +467,7 @@ export default function ProductPage({ itemId, data, open, setOpen }) {
                 <div className={`${styles.tabsContent} ${activeTab === 2 && styles.tabsContentActive}`}>
                   <div className={styles.otherProducts}>
                     <div className={styles.productsContainer}>
-                      {!loading && allProducts?.map((item) => <Product largura={286} altura={286} data={item.data} label key={item.uid} itemId={item.uid} ratings={false} />)}
+                      {!loading && categoryProducts?.map((item) => <Product largura={286} altura={286} data={item.data} label key={item.uid} itemId={item.uid} ratings={false} />)}
                     </div>
                   </div>
                 </div>

@@ -1,8 +1,8 @@
 # CORA'L E-Commerce Project
 
-## A functional E-commerce project EXAMPLE
+## A functional E-commerce example project
 
-This project is an E-commerce example that was built during the 7 final weeks of the PB intership at Compass UOL. The project is responsive to different screen resolutions and features a complete and concrete database.
+This project is an E-commerce example that was built during the 7 final weeks of the Scholarship Program at Compass UOL. The project is responsive to different screen resolutions and features a complete and concrete database.
 
 Features you are about to see:
 
@@ -61,16 +61,18 @@ Contact the group so we can improve the project.
 
 ### Known issues (Work in progress)
 
-* The buttons in the myOrders page dont work cuz we currelty dont have a way to really process the order
-
-/* listar bugs aqui */
+* The tabs on the 'My Orders' page are non-functional, as our e-commerce website project, being purely conceptual, does not entail the actual processing and delivery of orders.
+* Refer and Earn Component Missing
+* My Reviews Component Missing
+* My Address Book Component Missing
+* My Saved Cards Missing
 
 ## Know the authors!
 
-https://www.linkedin.com/in/vin%C3%ADcius-alexandre-lucas/
+[Vinícius Alexandre Lucas](https://www.linkedin.com/in/vin%C3%ADcius-alexandre-lucas/)
 <br/>
-https://www.linkedin.com/in/marco-aurélio-batista-900399236/
+[Marco Aurélio Batista](https://www.linkedin.com/in/marco-aurélio-batista-900399236/)
 <br/>
-https://www.linkedin.com/in/vicente-berwanger-pawlak-a6740422b/
+[Vicente Bewwanger Pawlak](https://www.linkedin.com/in/vicente-berwanger-pawlak-a6740422b/)
 <br/>
-https://www.linkedin.com/in/lucas-melo-098656288/
+[Lucas Melo](https://www.linkedin.com/in/lucas-melo-098656288/)

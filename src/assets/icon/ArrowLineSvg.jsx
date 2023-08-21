@@ -8,6 +8,7 @@ const ArrowLineSvg = ({ stroke, width, height, rotate, onClick, viewBox }) => {
       fill="none"
       transform={`rotate(${rotate})`}
       xmlns="http://www.w3.org/2000/svg"
+      style={{ cursor: 'pointer' }}
     >
       <path d="M5.5 12.5H19.5M19.5 12.5L15 8M19.5 12.5L15 17" stroke={stroke ? stroke : "white"} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
     </svg>
