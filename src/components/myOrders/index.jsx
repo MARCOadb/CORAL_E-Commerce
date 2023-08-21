@@ -14,6 +14,8 @@ const MyOrders = () => {
   const [orderOpen, setOrderOpen] = useState(null);
   const [orderInfo, setOrderInfo] = useState();
   const [orderProds, setOrderProds] = useState(null);
+  const [deliveryFee, setDeliveryFee] = useState(0)
+
   const handleOrder = (orderId) => {
     setOrderOpen(orderId);
   };
@@ -39,34 +41,42 @@ const MyOrders = () => {
     }
   }, [userOrders, orderOpen]);
 
+  useEffect(() => {
+    let prodQnt = 0
+    orderProds?.map((prod) => {
+      prodQnt += prod.qnt
+    });
+    setDeliveryFee(prodQnt)
+  }, [orderProds])
+
   return (
     <>
       <div className={styles.compContainer}>
         {(desktop || !orderOpen) && (
           <form className={`${styles.statusContainer} ${phone && "label-medium "}`}>
             <div>
-              <input type="radio" id={!orderOpen ? "completed" : "itemsOrdered"} name="status" />
-              <label htmlFor={!orderOpen ? "completed" : "itemsOrdered"}>{!orderOpen ? "Completed" : "Items Ordered"}</label>
+              <input type="radio" id={!orderOpen ? "completed" : "itemsOrdered"} name="status" checked />
+              <label className="text-low-emphasis body-medium" htmlFor={!orderOpen ? "completed" : "itemsOrdered"}>{!orderOpen ? "Completed" : "Items Ordered"}</label>
             </div>
             <div>
-              <input type="radio" id={!orderOpen ? "processing" : "invoices"} name="status" />
-              <label htmlFor={!orderOpen ? "processing" : "invoices"}>{!orderOpen ? "Processing" : "Invoices"}</label>
+              <input type="radio" id={!orderOpen ? "processing" : "invoices"} name="status" disabled />
+              <label className="text-low-emphasis body-medium" htmlFor={!orderOpen ? "processing" : "invoices"}>{!orderOpen ? "Processing" : "Invoices"}</label>
             </div>
             <div>
-              <input type="radio" id={!orderOpen ? "cancelled" : "shipment"} name="status" />
-              <label htmlFor={!orderOpen ? "cancelled" : "shipment"}>{!orderOpen ? "Cancelled" : "Order Shipment"}</label>
+              <input type="radio" id={!orderOpen ? "cancelled" : "shipment"} name="status" disabled />
+              <label className="text-low-emphasis body-medium" htmlFor={!orderOpen ? "cancelled" : "shipment"}>{!orderOpen ? "Cancelled" : "Order Shipment"}</label>
             </div>
           </form>
         )}
 
         {desktop && (
           <div className={styles.infoContainer}>
-            <span style={!orderOpen ? { marginLeft: "28px" } : {}}>{!orderOpen ? "Order ID" : "Product Name"}</span>
+            <span style={!orderOpen ? { marginLeft: "28px" } : {}} className="text-low-emphasis body-medium">{!orderOpen ? "Order ID" : "Product Name"}</span>
             {!orderOpen ? (
               <>
-                <span>Date</span>
-                <span>Price</span>
-                <span style={!orderOpen ? { marginRight: "28px" } : {}}>Status</span>
+                <span className="text-low-emphasis body-medium">Date</span>
+                <span className="text-low-emphasis body-medium">Price</span>
+                <span style={!orderOpen ? { marginRight: "28px" } : {}} className="text-low-emphasis body-medium">Status</span>
               </>
             ) : (
               <div className={styles.orderDetails}>
@@ -131,7 +141,7 @@ const MyOrders = () => {
               {orderProds &&
                 orderProds.map((item) => (
                   <div style={desktop ? { display: "flex", paddingLeft: "10px" } : { display: "flex" }}>
-                    <CartProduct imgDimetion={"120px"} noTxt={phone} showQnt={phone} bagBtn={phone} qnt={phone && item.qnt} noBtn={phone} textBold itemId={item.id} data={item.data} price />
+                    <CartProduct imgDimetion={"120px"} noTxt={phone} showQnt={phone} bagBtn={phone} qnt={item.qnt} noBtn={phone} textBold itemId={item.id} data={item.data} price={true} />
                     {desktop && (
                       <div className={styles.orderDetails} style={{ minWidth: "140px", marginLeft: "40px", paddingRight: "10px" }}>
                         <span>{item.qnt}</span>
@@ -162,11 +172,11 @@ const MyOrders = () => {
                 </div>
                 <div className={styles.orderDetails} style={{ minWidth: "0px" }}>
                   <span>Delivery Fee</span>
-                  <span>-$0.00</span>
+                  <span>${deliveryFee}.00</span>
                 </div>
                 <div className={styles.orderDetails} style={{ minWidth: "0px", fontWeight: "600" }}>
                   <span>Grand Total</span>
-                  <span>${orderInfo && orderInfo.data.price}</span>
+                  <span>${orderInfo && orderInfo.data.price + deliveryFee}</span>
                 </div>
               </div>
               {phone && <div className={styles.separetor} />}
