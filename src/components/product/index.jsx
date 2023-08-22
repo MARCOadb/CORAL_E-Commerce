@@ -16,6 +16,7 @@ import getCategoryById from "../../services/getCategoryById";
 import ProductPage from "../../pages/Product";
 import { ref, getDownloadURL } from "firebase/storage";
 import { storage } from "../../services/firebaseConnection";
+import { toast } from "react-toastify";
 
 const btnIcon = <BagSvg stroke="#1B4B66" />;
 
@@ -53,13 +54,13 @@ const Product = ({ data, itemId, largura, altura, button, label, ratings, discou
     if (!!user) {
       setWishlistProduct(user?.uid, itemId).then((data) => setIsWishlisted(data));
       update({ products: false });
-    }
+    } else toast.error("You must be authenticated to do this");
   };
   const handleBtnOnClick = () => {
     if (!!user) {
       addBagProduct(user?.uid, itemId);
       update({ products: false });
-    }
+    } else toast.error("You must be authenticated to do this");
   };
 
   const handleProductClick = () => {
