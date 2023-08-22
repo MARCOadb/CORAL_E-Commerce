@@ -9,6 +9,6 @@ const getCategoryByName = async (name) => {
     return {
       id: querySnapshot.docs[0].data().id,
     };
-  } else return console.log("Não existe essa categoria");
+  } else return null;
 };
 export default getCategoryByName;

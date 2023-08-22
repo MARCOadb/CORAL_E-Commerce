@@ -39,7 +39,7 @@ const ProductGrid = ({ filterConfig, categoryId, productConfig }) => {
       if ((sort || filterConfig.sort) === "Lowest price") filtrados.sort((a, b) => a.data.price - b.data.price);
       else if ((sort || filterConfig.sort) === "Highest price") filtrados.sort((a, b) => b.data.price - a.data.price);
       return filtrados;
-    } else return console.log("Allproducts ta vazio");
+    } else return null;
   }, [filterConfig, allProducts, toShow, sort]);
 
   const [currentFormat, setCurrentFormat] = useState(GridIcon);

@@ -59,7 +59,7 @@ export default function ProductPage({ itemId, data, open, setOpen }) {
   const [averageRatingsNumber, setAverageRatingsNumber] = useState(0);
   const [reviewsNumber, setReviewsNumber] = useState(0);
 
-  const [categoryProducts, setCategoryProducts] = useState()
+  const [categoryProducts, setCategoryProducts] = useState();
 
   useEffect(() => {
     setDropdownOpen(true);
@@ -98,7 +98,7 @@ export default function ProductPage({ itemId, data, open, setOpen }) {
   function toggleDropdownState() {
     setDropdownOpen(!dropdownOpen);
   }
-
+  const [isWishlisted, setIsWishlisted] = useState(null);
   const [loading, setLoading] = useState(false);
   const [product, setProduct] = useState(null);
   const [stepperQnt, setStepperQnt] = useState(1);
@@ -138,7 +138,7 @@ export default function ProductPage({ itemId, data, open, setOpen }) {
           .finally(() => setLoading(false));
       }
       update({ products: false });
-      toast.success('Item Added to Bag')
+      toast.success("Item Added to Bag");
     } else toast.error("You must be authenticated to do this");
   };
   const addToWishlist = () => {
@@ -152,10 +152,9 @@ export default function ProductPage({ itemId, data, open, setOpen }) {
 
   const productImages = [productPic];
 
-  const [isWishlisted, setIsWishlisted] = useState(null);
   useEffect(() => {
     if (!!userWishlist) {
-      setIsWishlisted(userWishlist.find((item) => item.uid === itemId));
+      setIsWishlisted(userWishlist.find((item) => item.uid === location.state.itemId));
     }
   }, [userWishlist]);
 
@@ -203,15 +202,15 @@ export default function ProductPage({ itemId, data, open, setOpen }) {
 
   useEffect(() => {
     if (desktop) {
-      const result = allProducts?.filter((prod) => prod?.data?.categoryId === product?.categoryId)
-      setCategoryProducts(result)
-      setLoading(false)
+      const result = allProducts?.filter((prod) => prod?.data?.categoryId === product?.categoryId);
+      setCategoryProducts(result);
+      setLoading(false);
     } else {
-      const result = allProducts?.filter((prod) => prod?.data?.categoryId === data?.categoryId)
-      setCategoryProducts(result)
-      setLoading(false)
+      const result = allProducts?.filter((prod) => prod?.data?.categoryId === data?.categoryId);
+      setCategoryProducts(result);
+      setLoading(false);
     }
-  }, [allProducts, product, data, loading])
+  }, [allProducts, product, data, loading]);
 
   return (
     <>
@@ -443,7 +442,7 @@ export default function ProductPage({ itemId, data, open, setOpen }) {
                   <DefaultBtn onClick={addToBag} icon={<BagSvg stroke={"#fff"} />} width={"328px"} height={"44px"}>
                     Add to bag
                   </DefaultBtn>
-                  <DefaultBtn onClick={addToWishlist} icon={<WishlistSvg fill={isWishlisted && "red"} />} outlined width={"240px"} height={"44px"}>
+                  <DefaultBtn onClick={addToWishlist} icon={<WishlistSvg fill={isWishlisted && "red"} stroke={isWishlisted && "red"} />} outlined width={"240px"} height={"44px"}>
                     Add to wishlist
                   </DefaultBtn>
                 </div>
