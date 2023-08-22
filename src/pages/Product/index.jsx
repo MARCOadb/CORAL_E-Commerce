@@ -139,7 +139,7 @@ export default function ProductPage({ itemId, data, open, setOpen }) {
       }
       update({ products: false });
       toast.success('Item Added to Bag')
-    } else alert("Voce precisa estar logado para fazer isso");
+    } else toast.error("You must be authenticated to do this");
   };
   const addToWishlist = () => {
     if (!!user) {
@@ -147,7 +147,7 @@ export default function ProductPage({ itemId, data, open, setOpen }) {
       if (isWishlisted === true) setIsWishlisted(false);
       else setIsWishlisted(true);
       update({ products: false });
-    } else alert("Voce precisa estar logado para fazer isso");
+    } else toast.error("You must be authenticated to do this");
   };
 
   const productImages = [productPic];
@@ -202,9 +202,16 @@ export default function ProductPage({ itemId, data, open, setOpen }) {
   }, [reviewStars, data?.review]);
 
   useEffect(() => {
-    const result = allProducts?.filter((prod) => prod?.data?.categoryId === product?.categoryId)
-    setCategoryProducts(result)
-  }, [allProducts, product])
+    if (desktop) {
+      const result = allProducts?.filter((prod) => prod?.data?.categoryId === product?.categoryId)
+      setCategoryProducts(result)
+      setLoading(false)
+    } else {
+      const result = allProducts?.filter((prod) => prod?.data?.categoryId === data?.categoryId)
+      setCategoryProducts(result)
+      setLoading(false)
+    }
+  }, [allProducts, product, data, loading])
 
   return (
     <>
@@ -340,7 +347,7 @@ export default function ProductPage({ itemId, data, open, setOpen }) {
             <div className={styles.otherProducts}>
               <h1 className="type-high-emphasis title-regular">You Might Also Like</h1>
               <div className={styles.productsContainer}>
-                {!loading && allProducts?.map((item) => <Product largura={136} altura={136} data={item.data} label key={item.uid} itemId={item.uid} discount={true} />)}
+                {!loading && categoryProducts?.map((item) => <Product largura={136} altura={136} data={item.data} label key={item.uid} itemId={item.uid} />)}
               </div>
             </div>
           </div>
