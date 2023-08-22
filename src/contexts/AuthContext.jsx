@@ -105,6 +105,9 @@ function AuthProvider({ children }) {
           case "auth/invalid-email":
             toast.error("Invalid e-mail");
             break;
+          default:
+            console.log(error);
+            break;
         }
         setLoadingAuth(false);
       });

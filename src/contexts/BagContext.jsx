@@ -52,11 +52,7 @@ export const BagProvider = ({ children }) => {
           if (products) setAllProducts(data);
         })
         .finally(() => setLoading(false));
-    } else {
-      setUserWishlist([]);
-      setUserProducts([]);
-      setUserOrders([]);
-    }
+    } else getAllProducts().then((data) => setAllProducts(data));
   };
   useEffect(() => {
     if (!!user) {
