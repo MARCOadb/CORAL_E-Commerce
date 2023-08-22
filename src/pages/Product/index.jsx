@@ -134,15 +134,15 @@ export default function ProductPage({ itemId, data, open, setOpen }) {
         setLoading(true);
         addBagProduct(user.uid, itemId)
           .then(() => update({ products: false }))
-          .finally(() => setLoading(false));
+          .finally(() => {
+            setLoading(false);
+          });
       }
-      update({ products: false });
-      toast.success("Item Added to Bag");
     } else toast.error("You must be authenticated to do this");
   };
   const addToWishlist = () => {
     if (!!user) {
-      setWishlistProduct(user.uid, itemId ? itemId : location.state.itemId).finally(() => setLoading(false));
+      setWishlistProduct(user.uid, itemId ? itemId : location.state?.itemId).finally(() => setLoading(false));
       if (isWishlisted === true) setIsWishlisted(false);
       else setIsWishlisted(true);
       update({ products: false });
@@ -153,7 +153,7 @@ export default function ProductPage({ itemId, data, open, setOpen }) {
 
   useEffect(() => {
     if (!!userWishlist) {
-      setIsWishlisted(userWishlist.find((item) => item.uid === location.state?.itemId));
+      setIsWishlisted(userWishlist.find((item) => item.uid === (itemId ? itemId : location.state.itemId)));
     }
   }, [userWishlist]);
 
