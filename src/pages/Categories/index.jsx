@@ -191,7 +191,7 @@ export default function Category() {
 
   //NAVEGAÇÃO E GET NO ID DA CATEGORIA
   const [categoryId, setCategoryId] = useState(null);
-  const [categoryName, setCategoryName] = useState(location.state?.categoryName);
+  const [categoryName, setCategoryName] = useState(location.state?.categoryName ? location.state?.categoryName : location.state?.brand);
   const [modalOpen, setModalOpen] = useState(location.state?.categoryOpen);
   const [loading, setLoading] = useState(false);
 
@@ -224,9 +224,9 @@ export default function Category() {
   useEffect(() => {
     if (location.state?.category || location.state?.brand) {
       setModalOpen(true);
-      setCategoryName(location.state?.category ? location.state?.category : location.state.brand);
+      setCategoryName(location.state?.category ? location.state?.category : location.state?.brand);
     }
-  }, []);
+  }, [location.state]);
   return (
     <>
       {phone && !loading && (
@@ -460,7 +460,7 @@ export default function Category() {
             <Breadcrump category={"placeholder"} page={"home"} />
           </div>
 
-          <h1 className={`text-primary display-medium ${styles.categoryName}`}>{location.state?.category}</h1>
+          <h1 className={`text-primary display-medium ${styles.categoryName}`}>{categoryName}</h1>
 
           <div className={styles.categoriesContainer}>
             <div className={`text-dark ${styles.sideMenu}`}>
