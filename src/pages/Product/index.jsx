@@ -34,8 +34,7 @@ import ArrowPointerSvg from "../../assets/icon/ArrowPointerSvg";
 
 import Product from "../../components/product";
 import getProductById from "../../services/getProductById";
-import { useAsyncError, useLocation } from "react-router-dom";
-import getAllProducts from "../../services/getAllProducts";
+import { useLocation } from "react-router-dom";
 import Breadcrump from "../../components/breadcrumpDesktop";
 import { AuthContext } from "../../contexts/AuthContext";
 import { setWishlistProduct } from "../../services/setWishlistProduct";
@@ -154,7 +153,7 @@ export default function ProductPage({ itemId, data, open, setOpen }) {
 
   useEffect(() => {
     if (!!userWishlist) {
-      setIsWishlisted(userWishlist.find((item) => item.uid === location.state.itemId));
+      setIsWishlisted(userWishlist.find((item) => item.uid === location.state?.itemId));
     }
   }, [userWishlist]);
 
@@ -346,7 +345,7 @@ export default function ProductPage({ itemId, data, open, setOpen }) {
             <div className={styles.otherProducts}>
               <h1 className="type-high-emphasis title-regular">You Might Also Like</h1>
               <div className={styles.productsContainer}>
-                {!loading && categoryProducts?.map((item) => <Product largura={136} altura={136} data={item.data} label key={item.uid} itemId={item.uid} />)}
+                {!loading && categoryProducts?.map((item) => item.uid != itemId && <Product largura={136} altura={136} data={item.data} label key={item.uid} itemId={item.uid} />)}
               </div>
             </div>
           </div>
@@ -473,7 +472,10 @@ export default function ProductPage({ itemId, data, open, setOpen }) {
                 <div className={`${styles.tabsContent} ${activeTab === 2 && styles.tabsContentActive}`}>
                   <div className={styles.otherProducts}>
                     <div className={styles.productsContainer}>
-                      {!loading && categoryProducts?.map((item) => <Product largura={286} altura={286} data={item.data} label key={item.uid} itemId={item.uid} ratings={false} />)}
+                      {!loading &&
+                        categoryProducts?.map(
+                          (item) => item.uid != location.state?.itemId && <Product largura={286} altura={286} data={item.data} label key={item.uid} itemId={item.uid} ratings={false} />
+                        )}
                     </div>
                   </div>
                 </div>

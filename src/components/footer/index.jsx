@@ -9,9 +9,9 @@ import { useNavigate, useLocation } from "react-router-dom";
 const Footer = ({ spacer }) => {
   const { phone, desktop } = useBreakpoint();
   const [footer, setFooter] = useState(false);
-  const [pathCheck, setPathCheck] = useState("home")
+  const [pathCheck, setPathCheck] = useState("home");
 
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   const locationUse = useLocation();
 
   const handleCategoryClick = (category) => {
@@ -23,10 +23,10 @@ const Footer = ({ spacer }) => {
         },
       });
     } else {
-      navigate('/categories', {
+      navigate("/categories", {
         state: {
           categoryOpen: true,
-          categoryName: category
+          categoryName: category,
         },
       });
     }
@@ -37,8 +37,8 @@ const Footer = ({ spacer }) => {
       <div
         style={{ boxSizing: "border-box", width: "100%", height: "auto", maxWidth: "1280px", padding: "30px 15px", margin: "0 auto", display: "flex", flexDirection: "column", background: "#1B4B66" }}
       >
-        <div class="listcontainer">
-          <div class="lista">
+        <div className="listcontainer">
+          <div className="lista">
             <span>Shop by Category</span>
             <p onClick={() => handleCategoryClick("Skincare")}>Skincare</p>
             <p onClick={() => handleCategoryClick("Fragrances")}>Fragrances</p>
@@ -48,14 +48,14 @@ const Footer = ({ spacer }) => {
             <p onClick={() => handleCategoryClick("Eyewear")}>Eye Wear</p>
             <p onClick={() => handleCategoryClick("Jewellery")}>Jewellery</p>
           </div>
-          <div class="lista">
+          <div className="lista">
             <span>About</span>
             <p>Contact Us</p>
-            <p onClick={() => navigate('/about')}>About Us</p>
+            <p onClick={() => navigate("/about")}>About Us</p>
             <p>Careers</p>
             <p>Press</p>
           </div>
-          <div class="lista">
+          <div className="lista">
             <span>Policy</span>
             <p>Return Policy</p>
             <p>Terms of Use</p>
@@ -65,11 +65,11 @@ const Footer = ({ spacer }) => {
             <p>EPR Compliance</p>
           </div>
           <div className="linha"></div>
-          <div class="box">
+          <div className="box">
             <img className="logos" src={logos} alt="logos" />
-            <div class="location">
+            <div className="location">
               <img src={location} alt="location" />
-              <p class="us">United States</p>
+              <p className="us">United States</p>
             </div>
             <span>© 2021 | Cora Leviene All Rights Reserved</span>
           </div>
@@ -101,7 +101,7 @@ const Footer = ({ spacer }) => {
                       <div className="lista">
                         <span>About</span>
                         <p>Contact Us</p>
-                        <p onClick={() => navigate('/about')}>About Us</p>
+                        <p onClick={() => navigate("/about")}>About Us</p>
                         <p>Careers</p>
                         <p>Press</p>
                       </div>
@@ -132,7 +132,7 @@ const Footer = ({ spacer }) => {
                         <span>About</span>
                         <span>
                           <p>Contact Us |</p>
-                          <p onClick={() => navigate('/about')}> About Us |</p>
+                          <p onClick={() => navigate("/about")}> About Us |</p>
                           <p> Careers |</p>
                           <p> Press</p>
                         </span>

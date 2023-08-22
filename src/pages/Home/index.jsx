@@ -120,11 +120,11 @@ export default function Home() {
                 <span>Skincare</span>
               </div>
 
-              <div className="category" onClick={() => handleCategory("Jewllery")}>
+              <div className="category" onClick={() => handleCategory("Jewellery")}>
                 <div>
                   <img src={jewllery} />
                 </div>
-                <span>Jewllery</span>
+                <span>Jewellery</span>
               </div>
 
               <div className="category" onClick={() => handleCategory("Handbags")}>
