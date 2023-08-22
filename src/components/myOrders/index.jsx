@@ -14,7 +14,7 @@ const MyOrders = () => {
   const [orderOpen, setOrderOpen] = useState(null);
   const [orderInfo, setOrderInfo] = useState();
   const [orderProds, setOrderProds] = useState(null);
-  const [deliveryFee, setDeliveryFee] = useState(0)
+  const [deliveryFee, setDeliveryFee] = useState(0);
 
   const handleOrder = (orderId) => {
     setOrderOpen(orderId);
@@ -42,12 +42,12 @@ const MyOrders = () => {
   }, [userOrders, orderOpen]);
 
   useEffect(() => {
-    let prodQnt = 0
+    let prodQnt = 0;
     orderProds?.map((prod) => {
-      prodQnt += prod.qnt
+      prodQnt += prod.qnt;
     });
-    setDeliveryFee(prodQnt)
-  }, [orderProds])
+    setDeliveryFee(prodQnt);
+  }, [orderProds]);
 
   return (
     <>
@@ -55,28 +55,38 @@ const MyOrders = () => {
         {(desktop || !orderOpen) && (
           <form className={`${styles.statusContainer} ${phone && "label-medium "}`}>
             <div>
-              <input type="radio" id={!orderOpen ? "completed" : "itemsOrdered"} name="status" checked />
-              <label className="text-low-emphasis body-medium" htmlFor={!orderOpen ? "completed" : "itemsOrdered"}>{!orderOpen ? "Completed" : "Items Ordered"}</label>
+              <input type="radio" id={!orderOpen ? "completed" : "itemsOrdered"} name="status" defaultChecked />
+              <label className="text-low-emphasis body-medium" htmlFor={!orderOpen ? "completed" : "itemsOrdered"}>
+                {!orderOpen ? "Completed" : "Items Ordered"}
+              </label>
             </div>
             <div>
-              <input type="radio" id={!orderOpen ? "processing" : "invoices"} name="status" disabled />
-              <label className="text-low-emphasis body-medium" htmlFor={!orderOpen ? "processing" : "invoices"}>{!orderOpen ? "Processing" : "Invoices"}</label>
+              <input type="radio" id={!orderOpen ? "processing" : "invoices"} name="status" />
+              <label className="text-low-emphasis body-medium" htmlFor={!orderOpen ? "processing" : "invoices"}>
+                {!orderOpen ? "Processing" : "Invoices"}
+              </label>
             </div>
             <div>
-              <input type="radio" id={!orderOpen ? "cancelled" : "shipment"} name="status" disabled />
-              <label className="text-low-emphasis body-medium" htmlFor={!orderOpen ? "cancelled" : "shipment"}>{!orderOpen ? "Cancelled" : "Order Shipment"}</label>
+              <input type="radio" id={!orderOpen ? "cancelled" : "shipment"} name="status" />
+              <label className="text-low-emphasis body-medium" htmlFor={!orderOpen ? "cancelled" : "shipment"}>
+                {!orderOpen ? "Cancelled" : "Order Shipment"}
+              </label>
             </div>
           </form>
         )}
 
         {desktop && (
           <div className={styles.infoContainer}>
-            <span style={!orderOpen ? { marginLeft: "28px" } : {}} className="text-low-emphasis body-medium">{!orderOpen ? "Order ID" : "Product Name"}</span>
+            <span style={!orderOpen ? { marginLeft: "28px" } : {}} className="text-low-emphasis body-medium">
+              {!orderOpen ? "Order ID" : "Product Name"}
+            </span>
             {!orderOpen ? (
               <>
                 <span className="text-low-emphasis body-medium">Date</span>
                 <span className="text-low-emphasis body-medium">Price</span>
-                <span style={!orderOpen ? { marginRight: "28px" } : {}} className="text-low-emphasis body-medium">Status</span>
+                <span style={!orderOpen ? { marginRight: "28px" } : {}} className="text-low-emphasis body-medium">
+                  Status
+                </span>
               </>
             ) : (
               <div className={styles.orderDetails}>

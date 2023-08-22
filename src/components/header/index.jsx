@@ -38,6 +38,12 @@ const Header = ({ path }) => {
     }
   }, []);
 
+  const handleBagClick = () => {
+    if (signed) {
+      setOpen(true);
+      update({ products: false });
+    } else setLoginModalOpen(true);
+  };
   const handleCategoryClick = (category, tabIndex) => {
     if (category === "profile") {
       if (signed) {
@@ -146,14 +152,7 @@ const Header = ({ path }) => {
                 }}
                 navMovile={false}
               />
-              <BagSvg
-                onClick={() => {
-                  setOpen(true);
-                  update({ products: false });
-                }}
-                stroke={"#1B4B66"}
-                height={44}
-              />
+              <BagSvg onClick={handleBagClick} stroke={"#1B4B66"} height={44} />
             </div>
           </>
         ) : (
@@ -164,7 +163,7 @@ const Header = ({ path }) => {
               <div onClick={() => setOpen(true)}>
                 <img src={menuIcon} alt="menuIcon" />
               </div>
-              <span onClick={() => navigate('/')}>Home</span>
+              <span onClick={() => navigate("/")}>Home</span>
             </div>
             <div className="navContainer">
               <img src={addIcon} alt="addIcon" />

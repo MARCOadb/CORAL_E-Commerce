@@ -164,6 +164,7 @@ const Product = ({ data, itemId, largura, altura, button, label, ratings, discou
               )}
             </div>
           )}
+
           {(label || productConfig?.label) && !sort && (
             <div className={desktop ? `${styles.svgContainer}` : `${styles.mobileSvg} `}>
               {userWishlist && userWishlist.find((item) => item.uid === itemId) ? (
