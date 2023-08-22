@@ -51,7 +51,7 @@ const CartProduct = ({ data, qnt, stepper, price, remove, itemId, showQnt, largu
   };
 
   const removeProduct = () => {
-    deleteBagProduct(user.uid, itemId);
+    deleteBagProduct(user.uid, itemId, false);
     update({ products: false });
   };
 
@@ -64,7 +64,7 @@ const CartProduct = ({ data, qnt, stepper, price, remove, itemId, showQnt, largu
     e.preventDefault();
     if (e.key === "Enter" || e.target.type === "select-one") {
       if (e.target.value > 0) setProductQnt(user.uid, itemId, parseInt(e.target.value));
-      else deleteBagProduct(itemId, true);
+      else deleteBagProduct(user.uid, itemId, true);
       update({ products: false });
     }
   };
