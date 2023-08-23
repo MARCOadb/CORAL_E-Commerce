@@ -41,7 +41,7 @@ function AuthProvider({ children }) {
           lastName: docSnap.data().lastName,
           email: value.user.email,
           profilePhoto: docSnap.data().profilePhoto,
-          phone: docSnap.data().phoneNumber,
+          phoneNumber: docSnap.data().phoneNumber,
           birthDate: docSnap.data().birthDate,
         };
 
