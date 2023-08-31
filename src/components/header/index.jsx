@@ -131,7 +131,7 @@ const Header = ({ path }) => {
                 <div className="loginModal">
                   <span className="text-high-emphasis">You are not authenticated!</span>
                   <span className="text-high-emphasis">Please log in to continue</span>
-                  <a href="/login">Log In</a>
+                  <span onClick={() => navigate("/CORAL_E-Commerce/login")}>Log In</span>
                 </div>
               </>
             )}
