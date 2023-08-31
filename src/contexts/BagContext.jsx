@@ -52,12 +52,12 @@ export const BagProvider = ({ children }) => {
           if (products) setAllProducts(data);
         })
         .finally(() => setLoading(false));
-    } else return "Invalid user";
+    } else getAllProducts().then((data) => setAllProducts(data));
   };
   useEffect(() => {
     if (!!user) {
       update({ products: true });
-    }
+    } else update({ products: false });
   }, [user]);
   return <BagContext.Provider value={{ allProducts, userOrders, userWishlist, userProducts, taxPrice, subTotal, totalPrice, loading, update }}>{children}</BagContext.Provider>;
 };

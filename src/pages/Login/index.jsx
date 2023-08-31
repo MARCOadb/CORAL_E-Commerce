@@ -64,7 +64,6 @@ export default function Login() {
 
   async function handleSubmit(e) {
     e.preventDefault();
-
     if (formType === "register") {
       if (firstName !== "" && lastName !== "" && phoneNumber && email !== "" && password !== "" && confirmPass !== "") {
         if (validPhone(phoneNumber)) {

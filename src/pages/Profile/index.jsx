@@ -31,12 +31,12 @@ export default function Profile() {
   const navigate = useNavigate();
 
   const location = useLocation();
+  const { update } = useContext(BagContext);
   const { user } = useContext(AuthContext);
   const { phone, desktop } = useBreakpoint();
   const [activeTab, setActiveTab] = useState(location.state?.initialTab ? location.state?.initialTab : 1);
   const [tabTitle, setTabTitle] = useState("");
   const [tabMobileOpen, setTabMobileOpen] = useState(false);
-  const { profilePhoto } = useContext(AuthContext);
   const { logout } = useContext(AuthContext);
 
   function handleTab(tab) {
@@ -124,13 +124,13 @@ export default function Profile() {
 
         <div className={`${desktop && styles.boxContainer}`}>
           {phone && (
-            <div className={styles.userDetails}>
+            <div className={styles.userDetails} onClick={() => handleTab(1)}>
               <div style={{ display: "flex", gap: "14px", overflow: "auto" }}>
                 <img src={user?.profilePhoto === null ? profile : user?.profilePhoto} alt="User Profile" />
                 <div className={styles.txtContainer}>
                   <h2 className="text-high-emphasis display-small">{user?.firstName}</h2>
                   <span className="text-faded title-medium">{user?.email}</span>
-                  <span className="text-faded title-medium">{user?.phone}</span>
+                  <span className="text-faded title-medium">{user?.phoneNumber}</span>
                 </div>
               </div>
               <div style={{ flexShrink: "0" }}>

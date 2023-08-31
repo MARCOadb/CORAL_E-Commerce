@@ -205,7 +205,7 @@ export default function Ratings({ setRatingsOpen, product, setAverageRatingsNumb
 
   useEffect(() => {
     setAverageRatingsNumber(averageRating);
-    setReviewsNumber(reviewsList.length)
+    setReviewsNumber(reviewsList.length);
   }, [averageRating, reviewsList, loading]);
 
   return (

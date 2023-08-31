@@ -69,8 +69,8 @@ const Search = () => {
                 <span style={desktop ? { paddingLeft: "20px" } : { paddingLeft: "0" }}>Mostrando {!loading && products && products.length} resultados</span>
                 <div className={style.productItems}>
                   {!loading &&
-                    products?.map((item) => (
-                      <div style={desktop ? { width: "286px" } : { width: "152px" }}>
+                    products?.map((item, index) => (
+                      <div key={index} style={desktop ? { width: "286px" } : { width: "152px" }}>
                         <Product largura={desktop ? 286 : 152} altura={desktop ? 286 : 152} discount data={item.data} key={item.uid} itemId={item.uid} button label />
                       </div>
                     ))}

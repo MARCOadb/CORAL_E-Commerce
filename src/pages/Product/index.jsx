@@ -34,8 +34,7 @@ import ArrowPointerSvg from "../../assets/icon/ArrowPointerSvg";
 
 import Product from "../../components/product";
 import getProductById from "../../services/getProductById";
-import { useAsyncError, useLocation } from "react-router-dom";
-import getAllProducts from "../../services/getAllProducts";
+import { useLocation } from "react-router-dom";
 import Breadcrump from "../../components/breadcrumpDesktop";
 import { AuthContext } from "../../contexts/AuthContext";
 import { setWishlistProduct } from "../../services/setWishlistProduct";
@@ -59,7 +58,7 @@ export default function ProductPage({ itemId, data, open, setOpen }) {
   const [averageRatingsNumber, setAverageRatingsNumber] = useState(0);
   const [reviewsNumber, setReviewsNumber] = useState(0);
 
-  const [categoryProducts, setCategoryProducts] = useState()
+  const [categoryProducts, setCategoryProducts] = useState();
 
   useEffect(() => {
     setDropdownOpen(true);
@@ -98,7 +97,7 @@ export default function ProductPage({ itemId, data, open, setOpen }) {
   function toggleDropdownState() {
     setDropdownOpen(!dropdownOpen);
   }
-
+  const [isWishlisted, setIsWishlisted] = useState(null);
   const [loading, setLoading] = useState(false);
   const [product, setProduct] = useState(null);
   const [stepperQnt, setStepperQnt] = useState(1);
@@ -135,15 +134,15 @@ export default function ProductPage({ itemId, data, open, setOpen }) {
         setLoading(true);
         addBagProduct(user.uid, itemId)
           .then(() => update({ products: false }))
-          .finally(() => setLoading(false));
+          .finally(() => {
+            setLoading(false);
+          });
       }
-      update({ products: false });
-      toast.success('Item Added to Bag')
     } else toast.error("You must be authenticated to do this");
   };
   const addToWishlist = () => {
     if (!!user) {
-      setWishlistProduct(user.uid, itemId ? itemId : location.state.itemId).finally(() => setLoading(false));
+      setWishlistProduct(user.uid, itemId ? itemId : location.state?.itemId).finally(() => setLoading(false));
       if (isWishlisted === true) setIsWishlisted(false);
       else setIsWishlisted(true);
       update({ products: false });
@@ -152,10 +151,9 @@ export default function ProductPage({ itemId, data, open, setOpen }) {
 
   const productImages = [productPic];
 
-  const [isWishlisted, setIsWishlisted] = useState(null);
   useEffect(() => {
     if (!!userWishlist) {
-      setIsWishlisted(userWishlist.find((item) => item.uid === itemId));
+      setIsWishlisted(userWishlist.find((item) => item.uid === (itemId ? itemId : location.state.itemId)));
     }
   }, [userWishlist]);
 
@@ -203,15 +201,15 @@ export default function ProductPage({ itemId, data, open, setOpen }) {
 
   useEffect(() => {
     if (desktop) {
-      const result = allProducts?.filter((prod) => prod?.data?.categoryId === product?.categoryId)
-      setCategoryProducts(result)
-      setLoading(false)
+      const result = allProducts?.filter((prod) => prod?.data?.categoryId === product?.categoryId);
+      setCategoryProducts(result);
+      setLoading(false);
     } else {
-      const result = allProducts?.filter((prod) => prod?.data?.categoryId === data?.categoryId)
-      setCategoryProducts(result)
-      setLoading(false)
+      const result = allProducts?.filter((prod) => prod?.data?.categoryId === data?.categoryId);
+      setCategoryProducts(result);
+      setLoading(false);
     }
-  }, [allProducts, product, data, loading])
+  }, [allProducts, product, data, loading]);
 
   return (
     <>
@@ -347,7 +345,7 @@ export default function ProductPage({ itemId, data, open, setOpen }) {
             <div className={styles.otherProducts}>
               <h1 className="type-high-emphasis title-regular">You Might Also Like</h1>
               <div className={styles.productsContainer}>
-                {!loading && categoryProducts?.map((item) => <Product largura={136} altura={136} data={item.data} label key={item.uid} itemId={item.uid} />)}
+                {!loading && categoryProducts?.map((item) => item.uid != itemId && <Product largura={136} altura={136} data={item.data} label key={item.uid} itemId={item.uid} />)}
               </div>
             </div>
           </div>
@@ -443,7 +441,7 @@ export default function ProductPage({ itemId, data, open, setOpen }) {
                   <DefaultBtn onClick={addToBag} icon={<BagSvg stroke={"#fff"} />} width={"328px"} height={"44px"}>
                     Add to bag
                   </DefaultBtn>
-                  <DefaultBtn onClick={addToWishlist} icon={<WishlistSvg fill={isWishlisted && "red"} />} outlined width={"240px"} height={"44px"}>
+                  <DefaultBtn onClick={addToWishlist} icon={<WishlistSvg fill={isWishlisted && "red"} stroke={isWishlisted && "red"} />} outlined width={"240px"} height={"44px"}>
                     Add to wishlist
                   </DefaultBtn>
                 </div>
@@ -474,7 +472,10 @@ export default function ProductPage({ itemId, data, open, setOpen }) {
                 <div className={`${styles.tabsContent} ${activeTab === 2 && styles.tabsContentActive}`}>
                   <div className={styles.otherProducts}>
                     <div className={styles.productsContainer}>
-                      {!loading && categoryProducts?.map((item) => <Product largura={286} altura={286} data={item.data} label key={item.uid} itemId={item.uid} ratings={false} />)}
+                      {!loading &&
+                        categoryProducts?.map(
+                          (item) => item.uid != location.state?.itemId && <Product largura={286} altura={286} data={item.data} label key={item.uid} itemId={item.uid} ratings={false} />
+                        )}
                     </div>
                   </div>
                 </div>

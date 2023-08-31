@@ -7,7 +7,6 @@ export const getBag = async (userId) => {
   const querySnapshot = await getDocs(q);
 
   if (querySnapshot.empty) {
-    console.log(querySnapshot.docs);
     await addDoc(bagRef, {
       userId,
       products: [],
