@@ -47,7 +47,7 @@ const Header = ({ path }) => {
   const handleCategoryClick = (category, tabIndex) => {
     if (category === "profile") {
       if (signed) {
-        navigate(`/${pathCheck}/${category}`, {
+        navigate(`/CORAL_E-Commerce/${pathCheck}/${category}`, {
           state: {
             path: pathCheck,
             category: category,
