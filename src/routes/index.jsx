@@ -47,7 +47,7 @@ export default function RoutesApp() {
           />
         </>
       )}
-      <Route path="/" element={<Home />} />
+      <Route path="/CORAL_E-Commerce/" element={<Home />} />
       <Route path="/about" element={<About />} />
       <Route path="/test" element={<ProductRegister />} />
       <Route path="/login" element={<Login />} />
@@ -59,7 +59,7 @@ export default function RoutesApp() {
           </Private>
         }
       />
-      <Route path="/" element={<Home />} />
+      <Route path="/CORAL_E-Commerce/" element={<Home />} />
       <Route path="/about" element={<About />} />
       <Route path="/checkout" element={<Checkout />} />
       <Route path="/product" element={<ProductPage />} />
