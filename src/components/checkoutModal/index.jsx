@@ -52,7 +52,7 @@ const CheckoutModal = () => {
                   >
                     View Order
                   </button>
-                  <button className="solid" onClick={() => navigate("/")}>
+                  <button className="solid" onClick={() => navigate("/CORAL_E-Commerce/")}>
                     Continue Shopping
                   </button>
                 </div>

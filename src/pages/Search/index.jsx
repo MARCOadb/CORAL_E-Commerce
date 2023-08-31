@@ -84,7 +84,7 @@ const Search = () => {
                   {phone && (
                     <div className="headerLayout">
                       <div className="containerLayout" style={{ display: "flex", alignItems: "center" }}>
-                        <ArrowSvg stroke={"#13101E"} x={90} onClick={() => navigate("/")} />
+                        <ArrowSvg stroke={"#13101E"} x={90} onClick={() => navigate("/CORAL_E-Commerce/")} />
                         <span>Search results</span>
                       </div>
                     </div>
@@ -101,7 +101,7 @@ const Search = () => {
                       We coudn’t find what you’re looking for. Try something else.
                     </span>
                   </div>
-                  <div className={style.btnContainer}>{phone && <DefaultBtn onClick={() => navigate("/")}>Back to home</DefaultBtn>}</div>
+                  <div className={style.btnContainer}>{phone && <DefaultBtn onClick={() => navigate("/CORAL_E-Commerce/")}>Back to home</DefaultBtn>}</div>
                 </div>
               )}
             </>

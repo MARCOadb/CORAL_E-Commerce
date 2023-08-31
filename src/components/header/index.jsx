@@ -78,7 +78,7 @@ const Header = ({ path }) => {
             <img
               src={coralLogo}
               onClick={() => {
-                navigate("/", { state: { path: "home" } });
+                navigate("/CORAL_E-Commerce/", { state: { path: "home" } });
               }}
               style={{ cursor: "pointer" }}
             />
@@ -163,7 +163,7 @@ const Header = ({ path }) => {
               <div onClick={() => setOpen(true)}>
                 <img src={menuIcon} alt="menuIcon" />
               </div>
-              <span onClick={() => navigate("/")}>Home</span>
+              <span onClick={() => navigate("/CORAL_E-Commerce/")}>Home</span>
             </div>
             <div className="navContainer">
               <img src={addIcon} alt="addIcon" />

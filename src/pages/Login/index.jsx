@@ -149,7 +149,7 @@ export default function Login() {
         </>
       ) : (
         <div className={styles.content}>
-          <button onClick={() => navigate("/")} className={styles.backBtn}>
+          <button onClick={() => navigate("/CORAL_E-Commerce/")} className={styles.backBtn}>
             <HomeSvg width={30} height={30} stroke={`${phone ? "#1B4B66" : "#fff"}`} />
           </button>
           <div className={styles.container}>

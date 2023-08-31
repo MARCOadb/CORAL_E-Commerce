@@ -18,7 +18,7 @@ export default function MyWishlist({ open, setOpen }) {
   const navigate = useNavigate();
 
   const [loading, setLoading] = useState(false);
-  const botoes = [{ text: "Start Shopping", outline: false, onClick: () => navigate("/") }];
+  const botoes = [{ text: "Start Shopping", outline: false, onClick: () => navigate("/CORAL_E-Commerce/") }];
   const [emptyWishlist, setEmptyWishlist] = useState(false);
 
   useEffect(() => {

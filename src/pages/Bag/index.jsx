@@ -24,7 +24,7 @@ export default function Bag() {
           <div className={styles.content}>
             <div className={styles.topbarContainer}>
               <div className={styles.topbar}>
-                <CrossSvg stroke={"#13101E"} onClick={() => navigate("/")} />
+                <CrossSvg stroke={"#13101E"} onClick={() => navigate("/CORAL_E-Commerce/")} />
                 <h1 className="text-primary display-small">My Bag</h1>
               </div>
             </div>
@@ -102,7 +102,7 @@ export default function Bag() {
                   </div>
 
                   <div className={styles.continue}>
-                    <button className="title-regular" onClick={() => navigate("/")}>
+                    <button className="title-regular" onClick={() => navigate("/CORAL_E-Commerce/")}>
                       Continue Shopping
                     </button>
                   </div>

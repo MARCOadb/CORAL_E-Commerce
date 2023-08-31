@@ -20,7 +20,7 @@ const NotFound = () => {
             <span className={phone ? 'body-medium' : 'display-medium'}>That’s all we know.</span>
           </div>
           <div style={{ display: "flex", justifyContent: "center", marginTop: '50px' }}>
-            <DefaultBtn width={"70%"} onClick={() => navigate("/")}>
+            <DefaultBtn width={"70%"} onClick={() => navigate("/CORAL_E-Commerce/")}>
               <span className={phone ? 'body-medium' : 'display-medium'}>Go back to Home</span>
             </DefaultBtn>
           </div>

@@ -80,12 +80,12 @@ export default function Checkout() {
   const handleNavigate = (category) => {
     category
       ? navigate(`/${category}`, {
-          state: {
-            path: location.state.path,
-            category: category,
-          },
-        })
-      : navigate("/");
+        state: {
+          path: location.state.path,
+          category: category,
+        },
+      })
+      : navigate("/CORAL_E-Commerce/");
   };
 
   const addNewAdressContent = (
@@ -233,7 +233,7 @@ export default function Checkout() {
       });
     });
 
-    // navigate("/");
+    // navigate("/CORAL_E-Commerce/");
   };
 
   const unavailable = () => {

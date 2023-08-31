@@ -42,7 +42,7 @@ const MyCart = () => {
           category: category,
         },
       })
-      : navigate("/");
+      : navigate("/CORAL_E-Commerce/");
   };
 
   return (

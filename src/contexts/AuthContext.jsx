@@ -49,7 +49,7 @@ function AuthProvider({ children }) {
         storageUser(data);
         setLoadingAuth(false);
         toast.success("Welcome back!");
-        navigate("/");
+        navigate("/CORAL_E-Commerce/");
       })
       .catch((error) => {
         console.log(error);
@@ -94,7 +94,7 @@ function AuthProvider({ children }) {
           storageUser(data);
           setLoadingAuth(false);
           toast.success("User registrated!");
-          navigate("/");
+          navigate("/CORAL_E-Commerce/");
         });
       })
       .catch((error) => {
