@@ -48,9 +48,9 @@ export default function RoutesApp() {
         </>
       )}
       <Route path="/CORAL_E-Commerce/" element={<Home />} />
-      <Route path="/about" element={<About />} />
+      <Route path="/CORAL_E-Commerce/about" element={<About />} />
       <Route path="/test" element={<ProductRegister />} />
-      <Route path="/login" element={<Login />} />
+      <Route path="/CORAL_E-Commerce/login" element={<Login />} />
       <Route
         path="/bag"
         element={
@@ -60,12 +60,12 @@ export default function RoutesApp() {
         }
       />
       <Route path="/CORAL_E-Commerce/" element={<Home />} />
-      <Route path="/about" element={<About />} />
-      <Route path="/checkout" element={<Checkout />} />
-      <Route path="/product" element={<ProductPage />} />
-      <Route path="/test" element={<ProductRegister />} />
-      <Route path="/login" element={<Login />} />
-      <Route path="/search/:searchValue" element={<Search />} />
+      <Route path="/CORAL_E-Commerce/about" element={<About />} />
+      <Route path="/CORAL_E-Commerce/checkout" element={<Checkout />} />
+      <Route path="/CORAL_E-Commerce/product" element={<ProductPage />} />
+      <Route path="/CORAL_E-Commerce/test" element={<ProductRegister />} />
+      <Route path="/CORAL_E-Commerce/login" element={<Login />} />
+      <Route path="/CORAL_E-Commerce/search/:searchValue" element={<Search />} />
       {/* <Route path={'/ratings'} element={<Ratings />} />    vai ser: category/id_do_produto/ratings   */}
       <Route path="*" element={<NotFound />} />
     </Routes>
