@@ -220,8 +220,17 @@ export default function Ratings({ setRatingsOpen, product, setAverageRatingsNumb
                 icon={"arrow"}
                 iconAngle={90}
                 iconStroke={"#13101E"}
-                buttons={[{ text: "Write a Review", btnIcon: <PlusSvg plus stroke={"#fff"} />, onClick: () => handleReviewModalOpen(true) }]}
+                buttons={[{ text: "Write a Review", btnIcon: <PlusSvg plus stroke={"#fff"} />, onClick: signed ? () => handleReviewModalOpen(true) : setLoginModalOpen(true) }]}
               >
+                {loginModalOpen && (
+                  <>
+                    <div className="loginModal">
+                      <span className="text-high-emphasis">You are not authenticated!</span>
+                      <span className="text-high-emphasis">Please log in to continue</span>
+                      <p onClick={() => navigate("/CORAL_E-Commerce/login")}>Log In</p>
+                    </div>
+                  </>
+                )}
                 <div className={styles.noTasks}>
                   <div>
                     <h1 className="text-high-emphasis display-small">There are no reviews for this product yet!</h1>
@@ -291,7 +300,7 @@ export default function Ratings({ setRatingsOpen, product, setAverageRatingsNumb
               icon={"arrow"}
               iconAngle={90}
               iconStroke={"#13101E"}
-              buttons={[{ text: "Write a Review", btnIcon: <PlusSvg plus stroke={"#fff"} />, onClick: () => handleReviewModalOpen(true) }]}
+              buttons={[{ text: "Write a Review", btnIcon: <PlusSvg plus stroke={"#fff"} />, onClick: signed ? () => handleReviewModalOpen(true) : setLoginModalOpen(true) }]}
             >
               <div className={styles.content}>
                 <div className={styles.productRating}>
@@ -458,12 +467,21 @@ export default function Ratings({ setRatingsOpen, product, setAverageRatingsNumb
               <div className={styles.noTasks}>
                 <h1 className="display-medium-he">There are no reviews for this product yet!</h1>
                 <div className={styles.reviewBtn}>
-                  <DefaultBtn icon={<PlusSvg plus stroke={"#fff"} />} onClick={() => handleReviewModalOpen(true)}>
+                  <DefaultBtn icon={<PlusSvg plus stroke={"#fff"} />} onClick={signed ? () => handleReviewModalOpen(true) : setLoginModalOpen(true)}>
                     Write a Review
                   </DefaultBtn>
                 </div>
               </div>
               <Modal open={reviewModalOpen} setOpen={setReviewModalOpen}></Modal>
+              {loginModalOpen && (
+                <>
+                  <div className="loginModal">
+                    <span className="text-high-emphasis">You are not authenticated!</span>
+                    <span className="text-high-emphasis">Please log in to continue</span>
+                    <p onClick={() => navigate("/CORAL_E-Commerce/login")}>Log In</p>
+                  </div>
+                </>
+              )}
               {reviewModalOpen && (
                 <div className={styles.modal}>
                   <div className={styles.reviewContent}>
@@ -567,7 +585,7 @@ export default function Ratings({ setRatingsOpen, product, setAverageRatingsNumb
                         </div>
                         {desktop && (
                           <div className={styles.reviewBtn}>
-                            <DefaultBtn icon={<PlusSvg plus stroke={"#fff"} />} onClick={() => handleReviewModalOpen(true)}>
+                            <DefaultBtn icon={<PlusSvg plus stroke={"#fff"} />} onClick={signed ? () => handleReviewModalOpen(true) : setLoginModalOpen(true)}>
                               Write a Review
                             </DefaultBtn>
                           </div>

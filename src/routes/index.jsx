@@ -22,7 +22,7 @@ export default function RoutesApp() {
       {desktop ? (
         <>
           <Route
-            path={`/home/profile`}
+            path={`/CORAL_E-Commerce/home/profile`}
             element={
               <Private>
                 <Profile />
@@ -60,7 +60,7 @@ export default function RoutesApp() {
         }
       />
       <Route path="/CORAL_E-Commerce/" element={<Home />} />
-      <Route path="/CORAL_E-Commerce/about" element={<About />} />
+      <Route path="/about" element={<About />} />
       <Route path="/CORAL_E-Commerce/checkout" element={<Checkout />} />
       <Route path="/CORAL_E-Commerce/product" element={<ProductPage />} />
       <Route path="/CORAL_E-Commerce/test" element={<ProductRegister />} />
