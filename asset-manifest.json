@@ -1,7 +1,7 @@
 {
   "files": {
-    "main.css": "/CORAL_E-Commerce/static/css/main.b97c4379.css",
-    "main.js": "/CORAL_E-Commerce/static/js/main.b03ad873.js",
+    "main.css": "/CORAL_E-Commerce/static/css/main.9acbfa26.css",
+    "main.js": "/CORAL_E-Commerce/static/js/main.9859e20f.js",
     "static/media/banner-about-full.png": "/CORAL_E-Commerce/static/media/banner-about-full.cce17c1a500b4a6e5252.png",
     "static/media/banner-about.png": "/CORAL_E-Commerce/static/media/banner-about.e3f694f2732087de2dee.png",
     "static/media/hero.png": "/CORAL_E-Commerce/static/media/hero.eb7885721cf175da1e7b.png",
@@ -57,11 +57,11 @@
     "static/media/arrow.svg": "/CORAL_E-Commerce/static/media/arrow.22bc4fb8e1d0d6429891460265882122.svg",
     "static/media/chevron-bottom.svg": "/CORAL_E-Commerce/static/media/chevron-bottom.9de37d447e5651614d031eb8df3486ed.svg",
     "static/media/chevron-right.svg": "/CORAL_E-Commerce/static/media/chevron-right.f55893342981b61aa08886cf771485c4.svg",
-    "main.b97c4379.css.map": "/CORAL_E-Commerce/static/css/main.b97c4379.css.map",
-    "main.b03ad873.js.map": "/CORAL_E-Commerce/static/js/main.b03ad873.js.map"
+    "main.9acbfa26.css.map": "/CORAL_E-Commerce/static/css/main.9acbfa26.css.map",
+    "main.9859e20f.js.map": "/CORAL_E-Commerce/static/js/main.9859e20f.js.map"
   },
   "entrypoints": [
-    "static/css/main.b97c4379.css",
-    "static/js/main.b03ad873.js"
+    "static/css/main.9acbfa26.css",
+    "static/js/main.9859e20f.js"
   ]
 }
