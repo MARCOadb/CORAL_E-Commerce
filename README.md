@@ -22,6 +22,8 @@ Features you are about to see:
 ## How to install this project
 
 Curious to see more? If you want to explore this filter system and more, follow the steps below:
+Or see the project running on github pages at
+https://marcoadb.github.io/CORAL_E-Commerce/
 
 1. Clone this project into your own PC
 2. Make sure you have Node.js installed on your computer
